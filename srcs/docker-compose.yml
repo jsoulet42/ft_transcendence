@@ -1,0 +1,21 @@
+version: "3.8"
+
+networks:
+  ft_trans:
+    name: ft_transcendence
+    driver: bridge
+
+services:
+  transDB:
+    image: postgres:16
+    ports:
+      - 5434:5432
+    env_file:
+      - ./.env
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    networks:
+      - ft_trans
+    restart: unless-stopped
