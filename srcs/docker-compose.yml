@@ -19,3 +19,33 @@ services:
     networks:
       - ft_trans
     restart: unless-stopped
+
+  front:
+    build: front
+    container_name: front
+    restart: always
+    ports:
+      - 3000:3000
+    networks:
+      - ft_trans
+    depends_on:
+      - back
+    volumes:
+      - ./front:/app
+      - /app/node_modules
+  
+  back:
+    build: back
+    container_name: back
+    restart: always
+    ports:
+      - 3333:3333
+    networks:
+      - ft_trans
+    depends_on:
+      - transDB
+    links:
+      - transDB
+    volumes:
+      - ./back:/app
+      - /app/node_modules

@@ -19,4 +19,7 @@ clean:
 	cd ./srcs/ && docker-compose stop 
 	cd ./srcs/ && docker-compose down -v
 
+fclean: clean
+	docker system prune --all
+
 .PHONY: up data db wp down
