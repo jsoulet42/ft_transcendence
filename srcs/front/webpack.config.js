@@ -451,13 +451,13 @@ module.exports = (env, argv) => ({
     open: true,
 
     // http://bit.ly/2WFzCkq
-    port: DEV_SERVER_PORT,
+    port: 3000,
 
     /*
       http://bit.ly/2WIXOSV, http://bit.ly/2WDMWpv
       Nobody wants to see 0.0.0.0 in the browser. This get's rid of that.
     */
-    public: `http://localhost:${DEV_SERVER_PORT}`,
+    public: `http://localhost:3000`,
 
     /*
       http://bit.ly/2XlEOXN
