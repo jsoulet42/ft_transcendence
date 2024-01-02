@@ -1,2 +1,0 @@
-CREATE ROLE postgres WITH LOGIN PASSWORD 'root';
-ALTER ROLE postgres SUPERUSER;
