@@ -1,0 +1,171 @@
+version: '3.8'
+
+# Change adress from volumes : choose your hostname if you use WSL
+# Change groot by your hostname
+
+services:
+  db:
+    build:
+      context: ./requirements/db
+      args:
+        MYSQL_DATABASE: ${MYSQL_DATABASE:-default_db}
+        MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-default_root_password}
+        MYSQL_USER: ${MYSQL_USER:-default_user}
+        MYSQL_PASSWORD: ${MYSQL_PASSWORD:-default_password}
+    container_name: postgres
+    networks:
+      - backend
+    volumes:
+      - /home/groot/data/postgres:/var/lib/postgresql/data
+      # - /home/$(USER)/data/postgres:/var/lib/postgresql/data
+    restart: always
+
+  caddy:
+    build: ./requirements/caddy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      - frontend
+    depends_on:
+      - website
+
+  website:
+    build:
+      context: ./requirements/website
+    env_file:
+      - .env
+    volumes:
+      - /home/groot/data/frontend/website:/usr/src/app
+    container_name: website
+    networks:
+      - frontend
+    restart: always
+
+  backend:
+    build:
+      context: ./requirements/backend
+    env_file:
+      - .env
+    volumes:
+      - /home/groot/data/backend/api:/usr/src/app
+    container_name: backend
+    depends_on:
+      - db
+    networks:
+      - backend
+    restart: always
+
+  elastic:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.16.2
+    volumes:
+      - /home/groot/data/devops/elasticsearch:/usr/share/elasticsearch/data
+      # - /home/$(USER)/data/devops/elasticsearch:/usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"
+    container_name: elastic
+    environment:
+      - discovery.type=single-node
+    networks:
+      - elk_network
+
+  logs:
+    image: docker.elastic.co/logstash/logstash:7.16.2
+    volumes:
+      - /home/groot/data/devops/logstash:/usr/share/logstash/data
+      # - /home/$(USER)/data/devops/logstash:/usr/share/logstash/data
+    ports:
+      - "5000:5000"
+    container_name: logstash
+    depends_on:
+      - elastic
+    networks:
+      - backend
+      - elk_network
+
+  kib:
+    image: docker.elastic.co/kibana/kibana:7.16.2
+    volumes:
+      - /home/groot/data/devops/kibana:/usr/share/kibana/data
+      # - /home/$(USER)/data/devops/kibana:/usr/share/kibana/data
+    ports:
+      - "5601:5601"
+    container_name: kib
+    depends_on:
+      - elastic
+    networks:
+      - elk_network
+
+  prom:
+    image: prom/prometheus:v2.30.3
+    volumes:
+      - /home/groot/data/devops/prometheus:/prometheus  
+      # - /home/$(USER)/data/devops/devops/prometheus:/prometheus
+    ports:
+      - "9090:9090"
+    container_name: prom
+    networks:
+      - backend
+
+  graf:
+    image: grafana/grafana:8.3.3
+    volumes:
+      - /home/groot/data/devops/grafana:/var/lib/grafana
+      # - /home/$(USER)/data/devops/grafana:/var/lib/grafana
+    container_name: graf
+    ports:
+      - "3000:3000"
+    networks:
+      - backend
+
+  # game:
+  #   build:
+  #     context: ./requirements/
+  #   env_file:
+  #     - .env
+  #   container_name: 
+  #   depends_on:
+  #     - 
+  #   networks:
+  #     - backend
+  #   volumes:
+  #     - 
+  #   restart: always
+
+  # ia:
+  #   build:
+  #     context: ./requirements/
+  #   env_file:
+  #     - .env
+  #   container_name: 
+  #   depends_on:
+  #     - backend
+  #   networks:
+  #     - 
+  #   volumes:
+  #     - 
+  #   restart: always
+
+volumes:
+  caddy_data:
+  caddy_config:
+  backend_data:
+
+  # permission folder
+  elasticsearch_data:
+  kibana_data:
+  logstash_data:
+  prometheus_data:
+  grafana_data:
+
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge
+  elk_network:
+    driver: bridge
+
