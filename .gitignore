@@ -1,3 +1,34 @@
-*.txt
-*.vscode
-*.o
+# Django
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+db.sqlite3
+media/
+
+# Secret key
+*.secret_key
+
+# Environnement virtualenv
+venv/
+.env
+
+# Fichiers de configuration
+*.pyc
+*.pyo
+
+# Dossiers de configuration
+node_modules/
+__pycache__/
+.mypy_cache/
+.vscode/
+.idea/
+
+# Fichiers temporaires
+*.swp
+*~
+*.log
+
+# Fichiers de sauvegarde
+backup*/
+
