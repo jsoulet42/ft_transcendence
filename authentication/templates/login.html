@@ -1,0 +1,22 @@
+{% extends "home.html" %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block content %}
+<div id="login-container">
+    <h2>Login</h2>
+    <form action="/login/" method="post">
+        {% csrf_token %}
+        <label for="login">Username:</label>
+        <input type="text" id="login" name="login" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+
+        <button type="submit">Login</button>
+    </form>
+</div>
+{% endblock %}
+
