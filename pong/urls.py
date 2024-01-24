@@ -18,9 +18,6 @@ from django.contrib import admin
 from django.urls import path, include	# Added include() function
 from .views import pong
 
-
-#
-
 urlpatterns = [
 	path('', pong, name='pong'),
 ]

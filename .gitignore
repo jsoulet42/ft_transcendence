@@ -11,7 +11,8 @@ media/
 
 # Environnement virtualenv
 venv/
-.env
+.env*
+
 
 # Fichiers de configuration
 *.pyc

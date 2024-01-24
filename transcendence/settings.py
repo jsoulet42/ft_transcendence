@@ -83,12 +83,12 @@ WSGI_APPLICATION = 'transcendence.wsgi.application'
 
 DATABASES = {
 	'default': {
-		'ENGINE': 'django.db.backends.postgresql',
-		'NAME': 'defaultdb',
-		'USER': 'doadmin',
-		'PASSWORD': 'AVNS_AySX986DWTqp5p2EwHe',
-		'HOST': 'database-dream-team-do-user-15625906-0.c.db.ondigitalocean.com',
-		'PORT': '25060',
+		'ENGINE': os.getenv('DB_ENGINE'),
+		'NAME': os.getenv('DB_NAME'),
+		'USER': os.getenv('DB_USER'),
+		'PASSWORD': os.getenv('DB_PASSWORD'),
+		'HOST': os.getenv('DB_HOST'),
+		'PORT': os.getenv('DB_PORT'),
 	}
 }
 
