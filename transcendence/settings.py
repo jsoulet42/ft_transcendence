@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-)-5j7)%3gkcq3z!@q&0mmbnoh_c@b4ma@eraf4*nvbxb3j)o55
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Transcendence apps
+    'transcendence',
 	'home',
 	'backend',
 	'pong',
@@ -93,6 +96,15 @@ DATABASES = {
 }
 
 
+# Cache
+# https://docs.djangoproject.com/fr/4.2/topics/cache/
+# CACHES = {
+#    "default": {
+#        "BACKEND": "django.core.cache.backends.memcached.PyMemcacheCache",
+#        "LOCATION": "127.0.0.1:8001",
+#    }
+# }
+
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
@@ -137,3 +149,12 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# 42 API oauth
+EXTERNAL_API_URL = 'https://api.intra.42.fr/oauth'
+EXTERNAL_API_URL_AUTH = EXTERNAL_API_URL + '/authorize'
+EXTERNAL_API_CLIENT_ID = os.getenv('EXTERNAL_API_CLIENT_ID')
+EXTERNAL_API_CLIENT_SECRET = os.getenv('EXTERNAL_API_CLIENT_SECRET')
+EXTERNAL_API_REDIRECT_URI = 'http://localhost:8000/login/authenticate'
+EXTERNAL_API_TOKEN_URL = EXTERNAL_API_URL + 'token'
+EXTERNAL_API_USER_URL = 'hhtps://api.intra.42.fr/v2/me'

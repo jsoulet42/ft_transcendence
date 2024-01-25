@@ -1,4 +1,6 @@
 django
 psycopg2
 django-widget-tweaks==1.4.8
-
+requests
+djangorestframework
+social-auth-app-django

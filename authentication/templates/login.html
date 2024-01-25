@@ -6,16 +6,32 @@
 
 {% block content %}
 <div id="login-container">
-    <h2>Login</h2>
-    <form action="/login/" method="post">
+    <h2 align="center">Login</h2>
+
+    <form action="/login/" method="post" id="login_form">
         {% csrf_token %}
-        <label for="login">Username:</label>
-        <input type="text" id="login" name="login" required>
+        <table align="center" valign="center">
+        <tr>
+            <td align="center" valign="center">
+                <input type="text" id="login" name="login" placeholder="login" required>
+            </td>
+        </tr>
+        <tr>
+            <td align="center" valign="center">
+                <input type="password" id="password" name="password" placeholder="password" required>
+            </td>
+        </tr>
+        <tr>
+            <td align="center" valign="center">
+                <button name="login" type="submit" id="login_button" style="width: 100%">Login</button>
+            </td>
+        </tr>
+        </table>
+    </form>
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-
-        <button type="submit">Login</button>
+    <form action="/login/" method="get" id="42_login_form" align="center" style="padding-top: 50px">
+        {% csrf_token %}
+        <button name="42_login" type="submit" id="42_login_button" align="center">Login with 42</button>
     </form>
 </div>
 {% endblock %}
