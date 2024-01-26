@@ -9,8 +9,8 @@
     <form action="/login/" method="get" align="center" valign="center">
         {% csrf_token %}
 		<div class="d-md-block py-2 mx-auto">
-			<button class="btn btn-primary" type="button" name="42auth">Login with 42</button>
-			<button class="btn btn-primary" type="button" name="guest">Continue as guest</button>
+			<button class="btn btn-primary" type="submit" id="42auth_button" name="42auth">Login with 42</button>
+			<button class="btn btn-primary" type="submit" id="guest_submit" name="guest">Continue as guest</button>
 		</div>
 		<!--
         <table align="center">
