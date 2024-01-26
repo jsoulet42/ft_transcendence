@@ -137,3 +137,15 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# 42 API settings
+EXTERNAL_API_URL = 'https://api.intra.42.fr/oauth/authorize'
+EXTERNAL_API_CLIENT_ID = os.getenv('EXTERNAL_API_CLIENT_ID')
+EXTERNAL_API_CLIENT_SECRET = os.getenv('EXTERNAL_API_CLIENT_SECRET')
+EXTERNAL_API_REDIRECT_URI = 'http://localhost:8000/login/authenticate'
+EXTERNAL_API_TOKEN_URL = 'https://api.intra.42.fr/oauth/token'
+EXTERNAL_API_USER_URL = 'https://api.intra.42.fr/v2/me'
+EXTERNAL_API_USER_IMAGE_URL = 'https://cdn.intra.42.fr/users/'	# + user_id + '.jpg'
+EXTERNAL_API_USER_IMAGE_URL_DEFAULT = 'https://cdn.intra.42.fr/users/default.png'
+EXTERNAL_API_USER_IMAGE_URL_SMALL = 'https://cdn.intra.42.fr/users/small_'	# + user_id + '.jpg'
+

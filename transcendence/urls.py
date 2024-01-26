@@ -28,4 +28,5 @@ urlpatterns = [
 	path('hub/', include('hub.urls')),
 	path('profiles/', include('profiles.urls')),
 	path('tournaments_stats/', include('tournaments_stats.urls')),
+	path('authentication/', include('authentication.urls')),
 ]

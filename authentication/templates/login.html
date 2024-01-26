@@ -6,16 +6,19 @@
 
 {% block content %}
 <div id="login-container">
-    <h2>Login</h2>
-    <form action="/login/" method="post">
+    <form action="/login/" method="get" align="center" valign="center">
         {% csrf_token %}
-        <label for="login">Username:</label>
-        <input type="text" id="login" name="login" required>
-
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-
-        <button type="submit">Login</button>
+		<div class="d-md-block py-2 mx-auto">
+			<button class="btn btn-primary" type="button" name="42auth">Login with 42</button>
+			<button class="btn btn-primary" type="button" name="guest">Continue as guest</button>
+		</div>
+		<!--
+        <table align="center">
+			<tr>
+				<td><button name="42auth" type="submit" id="42auth_button" style="width: 100%">login with 42</button></td>
+				<td><button name="guest" type="submit" id="guest_submit" style="width: 100%">continue as guest</button></td>
+			</tr>
+		</table>-->
     </form>
 </div>
 {% endblock %}
