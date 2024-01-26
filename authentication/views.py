@@ -13,7 +13,7 @@ from hub.urls import hub
 
 def login(request):
     if request.method == 'GET':
-        if '42_login' in request.GET != None:
+        if '42auth' in request.GET != None:
             Request_cache.state = get_random_string(length=32)
             api_uri = '{0}?{1}&{2}&{3}&{4}&{5}'.format(
                 settings.EXTERNAL_API_AUTH_URL,
