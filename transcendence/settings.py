@@ -21,12 +21,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['.localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1', '.localhost']
 
 
 # Application definition
@@ -38,9 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    # Transcendence apps
-    'transcendence',
 	'home',
 	'backend',
 	'pong',
@@ -48,6 +45,7 @@ INSTALLED_APPS = [
 	'profiles',
 	'authentication',
 	'tournaments_stats',
+    'django_htmx',
 ]
 
 MIDDLEWARE = [
@@ -58,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_htmx.middleware.HtmxMiddleware',
 ]
 
 ROOT_URLCONF = 'transcendence.urls'
@@ -65,7 +64,11 @@ ROOT_URLCONF = 'transcendence.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'home/templates'),
+            os.path.join(BASE_DIR, 'hub/templates'),
+            os.path.join(BASE_DIR, 'transcendence/templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -95,15 +98,6 @@ DATABASES = {
 	}
 }
 
-
-# Cache
-# https://docs.djangoproject.com/fr/4.2/topics/cache/
-# CACHES = {
-#    "default": {
-#        "BACKEND": "django.core.cache.backends.memcached.PyMemcacheCache",
-#        "LOCATION": "127.0.0.1:8001",
-#    }
-# }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -142,22 +136,25 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'transcendence/static/transcendence')
+    os.path.join(BASE_DIR, 'transcendence/static/transcendence'),
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# 42 API oauth
+# 42 API settings
 EXTERNAL_API_URL = 'https://api.intra.42.fr/oauth'
 EXTERNAL_API_AUTH_URL = os.path.join(EXTERNAL_API_URL, 'authorize')
 EXTERNAL_API_TOKEN_URL = os.path.join(EXTERNAL_API_URL, 'token')
 EXTERNAL_API_CLIENT_ID = os.getenv('EXTERNAL_API_CLIENT_ID')
 EXTERNAL_API_CLIENT_SECRET = os.getenv('EXTERNAL_API_CLIENT_SECRET')
 EXTERNAL_API_REDIRECT_URI = 'http://localhost:8000/login/authenticate'
-EXTERNAL_API_USER_URL = 'hhtps://api.intra.42.fr/v2/me'
+EXTERNAL_API_USER_URL = 'https://api.intra.42.fr/v2/me'
+EXTERNAL_API_USER_IMAGE_URL = 'https://cdn.intra.42.fr/users/'	# + user_id + '.jpg'
+EXTERNAL_API_USER_IMAGE_URL_DEFAULT = 'https://cdn.intra.42.fr/users/default.png'
+EXTERNAL_API_USER_IMAGE_URL_SMALL = 'https://cdn.intra.42.fr/users/small_'	# + user_id + '.jpg'
+

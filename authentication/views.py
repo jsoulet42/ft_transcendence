@@ -1,32 +1,31 @@
 import requests
 
-from django.http import HttpResponse
-
 from django.shortcuts import render, redirect
-from transcendence import settings
 from django.utils.http import urlencode
 from django.utils.crypto import get_random_string
 from django.core.exceptions import PermissionDenied
 
-from .models import Request_cache
+from transcendence import settings
 from hub.urls import hub
+from .models import RequestCache
+
 
 def login(request):
-    if request.method == 'GET':
-        if '42auth' in request.GET != None:
-            Request_cache.state = get_random_string(length=32)
-            api_uri = '{0}?{1}&{2}&{3}&{4}&{5}'.format(
-                settings.EXTERNAL_API_AUTH_URL,
-                urlencode({'client_id': settings.EXTERNAL_API_CLIENT_ID}),
-                urlencode({'redirect_uri': settings.EXTERNAL_API_REDIRECT_URI}),
-                urlencode({'response_type': 'code'}),
-                urlencode({'scope': 'public'}),
-                urlencode({'state': Request_cache.state}),
-            )
-            #requests.post(api_uri)
-            return redirect(api_uri)
-    return render(request, 'login.html')
+	if request.method == 'GET':
+		if '42auth' in request.GET != '':
+			RequestCache.state = get_random_string(length=32)
+			url = '{0}?{1}&{2}&{3}&{4}&{5}'.format(
+				settings.EXTERNAL_API_AUTH_URL,
+				urlencode({'client_id': settings.EXTERNAL_API_CLIENT_ID}),
+				urlencode({'redirect_uri': settings.EXTERNAL_API_REDIRECT_URI}),
+				urlencode({'response_type': 'code'}),
+				urlencode({'scope': 'public'}),
+				urlencode({'state': RequestCache.state}),
+			)
+			return redirect(url)
+	return render(request, 'login.html')
 
+#~recuperation des donnees du formulaire de login
 def authenticate(request):
     code = request.GET.get('code', None)
     state = request.GET.get('state', None)
@@ -34,7 +33,7 @@ def authenticate(request):
     
     if code == None or error != None:
         return redirect('login')
-    if state == None or state != Request_cache.state:
+    if state == None or state != RequestCache.state:
         raise PermissionDenied
 
     api_uri = settings.EXTERNAL_API_TOKEN_URL
@@ -44,10 +43,10 @@ def authenticate(request):
         'client_secret': settings.EXTERNAL_API_CLIENT_SECRET,
         'code': code,
         'redirect_uri': settings.EXTERNAL_API_REDIRECT_URI,
-        'state': Request_cache.state,
+        'state': RequestCache.state,
     }
     response = requests.post(api_uri, data = payload)
-    Request_cache.state = None
+    RequestCache.state = None
     
     if response.status_code // 100 != 2:
         return HttpResponse(status = 404)

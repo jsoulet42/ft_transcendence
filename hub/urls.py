@@ -18,6 +18,9 @@ from django.contrib import admin
 from django.urls import path, include	# Added include() function
 from .views import hub
 
+
+#
+
 urlpatterns = [
-    path('', hub, name='hub'),
+	path('', hub, name='hub'),
 ]

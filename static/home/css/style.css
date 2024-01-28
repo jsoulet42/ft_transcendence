@@ -12,6 +12,10 @@ body
 	font-family: sans-serif;
 	background-color: black;
 	color : wheat;
+    background-image: url("../images/test.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .home-title

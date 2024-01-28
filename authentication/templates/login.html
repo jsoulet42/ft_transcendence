@@ -6,11 +6,20 @@
 
 {% block content %}
 <div id="login-container">
-    <form action="/login/" method="GET" align="center" valign="center">
+    <form action="/login/" method="get">
         {% csrf_token %}
-		<button name="42auth" class="btn btn-primary my-2" type="submit">Login with 42</button>
-		<button name="guest" class="btn btn-primary my-2" type="submit">Continue as guest</button>
+        <div class="d-flex flex-column align-items-center justify-content-center">
+            <button class="btn btn-primary form-button" type="submit" id="42auth_button" name="42auth">Login with 42</button>
+            <button class="btn btn-primary form-button" type="submit" id="guest_submit" name="guest">Continue as guest</button>
+        </div>
     </form>
 </div>
+		<!--
+        <table align="center">
+			<tr>
+				<td><button name="42auth" type="submit" id="42auth_button" style="width: 100%">login with 42</button></td>
+				<td><button name="guest" type="submit" id="guest_submit" style="width: 100%">continue as guest</button></td>
+			</tr>
+		</table>-->
 {% endblock %}
 
