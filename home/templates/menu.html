@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<body>
+    <ul id="menu" >
+        <li class="button-image play-button">
+            <a href="/pong/" hx-get="/pong/" hx-target="#main-container" class="btn btn-primary" id="play"> PLAY
+            </a>
+        </li>
+        <li class="button-image play-button">
+            <a href="/tournaments_stats/" hx-get="/tournaments_stats/" hx-target="#main-container" class="btn btn-primary" id="tournament_stats"> TOURNAMENT
+            </a>
+        </li>
+        <li class="button-image play-button">
+            <a href="/profiles/" hx-get="/profiles/" hx-target="#main-container" class="btn btn-primary" id="profile"> PROFIL
+            </a>
+        </li>
+    </ul>
+            <!--
+            <table align="center">
+                <tr>
+                    <td><button name="42auth" type="submit" id="42auth_button" style="width: 100%">login with 42</button></td>
+                    <td><button name="guest" type="submit" id="guest_submit" style="width: 100%">continue as guest</button></td>
+                </tr>
+            </table>-->
+</body>

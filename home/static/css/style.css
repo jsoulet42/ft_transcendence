@@ -1,0 +1,30 @@
+*
+{
+	margin: 0;
+	padding: 0;
+}
+body
+{
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	align-items: center;
+	font-family: sans-serif;
+	background-color: black;
+	color : wheat;
+    background-image: url("../images/test.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.home-title
+{
+	font-size: 10rem;
+}
+
+.btn-primary
+{
+	width: 48rem;
+	font-size: 1.5rem;
+}
