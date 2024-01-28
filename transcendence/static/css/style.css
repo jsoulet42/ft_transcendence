@@ -99,5 +99,6 @@ html, body{
     position: fixed; /* Position relative pour des ajustements supplémentaires si nécessaire */
     top: 100px; /* Ajustez la position verticale selon vos besoins */
     left: 80px;
+    pointer-events: none;
 }
 
