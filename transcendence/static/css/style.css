@@ -90,20 +90,14 @@ html, body{
     cursor: pointer;
 }
 
-/*.img-bordure {*/
-/*    width: 100%; !* La largeur de l'image sera de 100% de la largeur du conteneur parent *!*/
-/*    max-width: 1450px; !* La largeur maximale de l'image sera de 1450px, ajustez selon vos besoins *!*/
-/*    max-height: 555px;*/
-/*    display: block; !* Assurez-vous que l'image est affichée comme un bloc pour gérer les marges automatiques *!*/
-/*    margin: auto; !* Centrez l'image horizontalement dans le conteneur parent *!*/
-/*    position: relative; !* Position relative pour des ajustements supplémentaires si nécessaire *!*/
-/*    top: 100px; !* Ajustez la position verticale selon vos besoins *!*/
-/*}*/
-
 .img-bordure {
-    position: fixed;
-    top: 108px; /* Ajustez la position verticale selon vos besoins */
-    left: 80px; /* Ajustez la position horizontale selon vos besoins */
-    width: 1450px;
-    height: 555px;
+    width: 100%; /* La largeur de l'image sera de 100% de la largeur du conteneur parent */
+    max-width: 1450px; /* La largeur maximale de l'image sera de 1450px, ajustez selon vos besoins */
+    max-height: 555px;
+    display: block; /* Assurez-vous que l'image est affichée comme un bloc pour gérer les marges automatiques */
+    margin: auto; /* Centrez l'image horizontalement dans le conteneur parent */
+    position: fixed; /* Position relative pour des ajustements supplémentaires si nécessaire */
+    top: 100px; /* Ajustez la position verticale selon vos besoins */
+    left: 80px;
 }
+
