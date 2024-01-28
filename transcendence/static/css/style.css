@@ -5,15 +5,17 @@
 }
 body
 {
-	display: flex;
-	flex-direction: column;
-	flex-wrap: nowrap;
-	align-items: center;
-	font-family: sans-serif;
-	background-color: black;
-	color : wheat;
+	margin: 0;
+	padding: 0;
+    background-image: url("../images/backg_pong.jpeg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100vw 100vh;
 }
 
+html, body{
+	height: 100%;
+}
 .home-title
 {
 	font-size: 10rem;
@@ -21,6 +23,87 @@ body
 
 .btn-primary
 {
-	width: 48rem;
+	width: 15rem;
 	font-size: 1.5rem;
+}
+
+#login-container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Si vous souhaitez ajouter un espacement entre les boutons */
+.form-button {
+    margin-bottom: 20px; /* Ajustez l'espacement vertical selon vos besoins */
+}
+
+/* ... Autres styles ... */
+#menu {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    position: fixed;
+    bottom: 10px;
+    margin-bottom: -1px;
+    width: 100%;
+    background-color: #8d23ce; /* Ajoutez une couleur de fond pour le menu si nécessaire */
+    padding: 10px 0; /* Ajoutez un espace autour des boutons si nécessaire */
+}
+
+.button-image.play-button {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.button-image.play-button a {
+    display: block;
+    width: 220px;
+    height: 50px;
+    background: url("../images/bouton1.png") center/cover;
+    text-align: center;
+}
+
+#home-button {
+    position: fixed;
+    top: 10px; /* Ajustez la position verticale selon vos besoins */
+    left: 10px; /* Ajustez la position horizontale selon vos besoins */
+    width: 360px; /* Ajustez la largeur selon vos besoins */
+    height: 73px; /* Ajustez la hauteur selon vos besoins */
+    background-color: rgba(0, 0, 0, 0.0); /* Couleur de fond transparente */
+    cursor: pointer;
+}
+
+#connection-button {
+    position: fixed;
+    top: 15px; /* Ajustez la position verticale selon vos besoins */
+    left: 1000px; /* Ajustez la position horizontale selon vos besoins */
+    width: 180px; /* Ajustez la largeur selon vos besoins */
+    height: 50px; /* Ajustez la hauteur selon vos besoins */
+    background-color: rgb(9, 100, 239); /* Couleur de fond transparente */
+    cursor: pointer;
+}
+
+/*.img-bordure {*/
+/*    width: 100%; !* La largeur de l'image sera de 100% de la largeur du conteneur parent *!*/
+/*    max-width: 1450px; !* La largeur maximale de l'image sera de 1450px, ajustez selon vos besoins *!*/
+/*    max-height: 555px;*/
+/*    display: block; !* Assurez-vous que l'image est affichée comme un bloc pour gérer les marges automatiques *!*/
+/*    margin: auto; !* Centrez l'image horizontalement dans le conteneur parent *!*/
+/*    position: relative; !* Position relative pour des ajustements supplémentaires si nécessaire *!*/
+/*    top: 100px; !* Ajustez la position verticale selon vos besoins *!*/
+/*}*/
+
+.img-bordure {
+    position: fixed;
+    top: 108px; /* Ajustez la position verticale selon vos besoins */
+    left: 80px; /* Ajustez la position horizontale selon vos besoins */
+    width: 1450px;
+    height: 555px;
 }
