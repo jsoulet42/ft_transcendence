@@ -23,6 +23,7 @@ def login(request):
                 urlencode({'scope': 'public'}),
                 urlencode({'state': Request_cache.state}),
             )
+            #requests.post(api_uri)
             return redirect(api_uri)
     return render(request, 'login.html')
 
@@ -49,6 +50,6 @@ def authenticate(request):
     Request_cache.state = None
     
     if response.status_code // 100 != 2:
-        return HttpResponse(status=500)
+        return HttpResponse(status = 404)
     print(response.json().get('access_token'))
     return redirect('hub')
