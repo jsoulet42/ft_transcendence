@@ -1,19 +1,22 @@
 {% extends "home.html" %}
-
+{% load static %}
 {% block title %}
     Login
 {% endblock %}
 
 {% block content %}
-<div id="login-container">
-    <form action="/login/" method="get">
-        {% csrf_token %}
-        <div class="d-flex flex-column align-items-center justify-content-center">
-            <button class="btn btn-primary form-button" type="submit" id="42auth_button" name="42auth">Login with 42</button>
-            <button class="btn btn-primary form-button" type="submit" id="guest_submit" name="guest">Continue as guest</button>
+    <!DOCTYPE html>
+    <body>
+        <div class="div-bordure">
+            <img class="img-profil" src="{% static 'images/imgloging.png' %}" alt="img-login">
+            <div id="login-container">
+                <form action="/login/" method="get">
+                    {% csrf_token %}
+                        <button class="btn btn-primary form-button" style="margin: 0 30px;border: 3px solid #072949;border-radius: 15px;" type="submit" id="42auth_button" name="42auth">Login with 42</button>
+                        <button class="btn btn-primary form-button" style="margin: 0 30px;border: 3px solid #072949;border-radius: 15px;" type="submit" id="guest_submit" name="guest">Continue as guest</button>
+                </form>
+            </div>
         </div>
-    </form>
-</div>
 		<!--
         <table align="center">
 			<tr>
@@ -21,5 +24,6 @@
 				<td><button name="guest" type="submit" id="guest_submit" style="width: 100%">continue as guest</button></td>
 			</tr>
 		</table>-->
+    </body>
 {% endblock %}
 
