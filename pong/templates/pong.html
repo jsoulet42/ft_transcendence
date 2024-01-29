@@ -1,22 +1,28 @@
 {% extends "home.html" %}
-
+{% load static %}
 {% block title %}
     pong
 {% endblock %}
 
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nous sommes sur la page pong</title>
-</head>
+    <!DOCTYPE html>
 <body>
-
-    <h1>Nous sommes sur la page pong</h1>
-
+    <div class="div-bordure">
+        <img class="img-profil" src="{% static 'images/playbackground.png' %}" alt="img-playbackg">
+    </div>
+    <ul id="menu-play">
+        <li>
+            <a href="/pong/" hx-get="/pong/" hx-target="#main-container" class="btn btn-primary" id="play"> 1 VS 1
+            </a>
+        </li>
+        <li>
+            <a href="/tournaments_stats/" hx-get="/tournaments_stats/" hx-target="#main-container" class="btn btn-primary" id="tournament_stats"> 1 VS BOT
+            </a>
+        </li>
+        <li>
+            <a href="/profiles/" hx-get="/profiles/" hx-target="#main-container" class="btn btn-primary" id="profile"> TOURNAMENT
+            </a>
+        </li>
+    </ul>
 </body>
-</html>
 {% endblock %}
-```

@@ -10,13 +10,18 @@
 	<link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <a id="home-button" href="{% url 'home' %}" hx-get="{% url 'home' %}" hx-target="#main-container"></a>
-    <a id="connection-button" class="btn btn-primary form-button" href="{% url 'login' %}" hx-get="{% url 'login' %}" hx-target="#main-container"> Connection </a>
-    <nav id="menu-hub">
-        {% include 'menu.html' %}
-        {% include 'bordure.html' %}
+    <nav>
+        <a id="home-button" href="{% url 'home' %}" hx-get="{% url 'home' %}" hx-target="#main-container"></a>
+        <a id="connection-button" class="btn btn-primary form-button" href="{% url 'login' %}" hx-get="{% url 'login' %}" hx-target="#main-container"> Connection </a>
+        <div>
+            {% include 'menu.html' %}
+            {% include 'bordure.html' %}
+        </div>
     </nav>
     <main id="main-container">
+        {% if show_howtoplay %}
+            {% include 'howtoplay.html' %}
+        {% endif %}
         {% block content %}{% endblock %}
     </main>
     <script src="{% static 'js/htmx.min.js' %}" defer></script>

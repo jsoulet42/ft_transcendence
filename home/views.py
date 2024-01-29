@@ -2,4 +2,5 @@ from django.shortcuts import render
 
 # Create your views here.
 def home(request):
-	return render(request, 'home.html')
+	show_howtoplay = True
+	return render(request, 'home.html', {'show_howtoplay': show_howtoplay})
