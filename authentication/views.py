@@ -4,6 +4,8 @@ from django.utils.http import urlencode
 from hub.urls import hub
 from django.utils.crypto import get_random_string
 from .models import Caches
+from django.core.exceptions import PermissionDenied
+import requests
 
 
 def login(request):
@@ -23,10 +25,24 @@ def login(request):
 
 #~recuperation des donnees du formulaire de login
 def authenticate(request):
-	if not request.GET.get('code') or not request.GET.get('state'):
+	code = request.GET.get('code', None)
+	state = request.GET.get('state', None)
+	error = request.GET.get('error', None)
+
+	if code == None or error != None:
 		return redirect('login')
-	code = request.GET.get('code')
-	state2 = request.GET.get('state')
-	if state2 != Caches.state:
-		return redirect('pong')
+	if state == None or state != Caches.state:
+		raise PermissionDenied
+	payload={
+		'grant_type': 'authorization_code',
+		'client_id': settings.EXTERNAL_API_CLIENT_ID,
+		'client_secret': settings.EXTERNAL_API_CLIENT_SECRET,
+		'code': code,
+		'redirect_uri': settings.EXTERNAL_API_REDIRECT_URI,
+		'state': state,
+	}
+	response = requests.post(settings.EXTERNAL_API_TOKEN_URL, data = payload)
+	if response.status_code // 100 != 2:
+		return HttpResponse(status = 500)
+	print(response.json().get('access_token'))
 	return redirect('hub')
