@@ -36,7 +36,6 @@ def authenticate(request):
     if state == None or state != RequestCache.state:
         raise PermissionDenied
 
-    api_uri = settings.EXTERNAL_API_TOKEN_URL
     payload = {
         'grant_type': 'authorization_code',
         'client_id': settings.EXTERNAL_API_CLIENT_ID,
@@ -45,10 +44,14 @@ def authenticate(request):
         'redirect_uri': settings.EXTERNAL_API_REDIRECT_URI,
         'state': RequestCache.state,
     }
-    response = requests.post(api_uri, data = payload)
+    response = requests.post(settings.EXTERNAL_API_TOKEN_URL, data = payload)
     RequestCache.state = None
     
     if response.status_code // 100 != 2:
-        return HttpResponse(status = 404)
-    print(response.json().get('access_token'))
+        return HttpResponse(status = 500)
+    store_token_user(request, response.json().get('access_token'))
     return redirect('hub')
+
+def store_token_user(request, access_token):
+    
+    print(access_token)
