@@ -1,0 +1,248 @@
+*
+{
+	margin: 0;
+	padding: 0;
+}
+
+body
+{
+	margin: 0;
+	padding: 0;
+	position: relative;
+	height: 100%;
+	width: 100%;
+    background-image: url("../images/backg_pong.jpeg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100vw 100vh;
+}
+
+html, body{
+	height: 100%;
+	width: 100%;
+}
+
+.home-title
+{
+	font-size: 10rem;
+}
+
+.btn-primary
+{
+	width: 15rem;
+	font-size: 1.5rem;
+}
+
+/* Si vous souhaitez ajouter un espacement entre les boutons */
+.form-button {
+    margin-bottom: 20px; /* Ajustez l'espacement vertical selon vos besoins */
+}
+
+#menu-play {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    position: fixed;
+    left: 22rem;
+    top: 20rem;
+    padding: 0; /* Ajoutez un espace autour des boutons si nécessaire */
+}
+
+#menu-play li {
+    margin: 0; /* Réinitialisez la marge entre les éléments de la liste à zéro */
+    padding: 50px; /* Ajustez la valeur de la marge intérieure selon vos besoins */
+    display: flex;
+    flex-direction: column;
+}
+
+#menu-play a {
+    height: 5rem;
+    border: 3px solid #072949;
+    padding: 10px;
+    border-radius: 15px;
+	background-color: rgba(0, 0, 0, 0.3);
+}
+
+.button-image.play-button {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.button-image.play-button a {
+    display: block;
+    width: 220px;
+    height: 50px;
+    text-align: center;
+    border: 3px solid #072949;
+    border-radius: 15px;
+    padding: 10px;
+}
+
+#home-button {
+    position: fixed;
+    top: 10px; /* Ajustez la position verticale selon vos besoins */
+    left: 10px; /* Ajustez la position horizontale selon vos besoins */
+    width: 360px; /* Ajustez la largeur selon vos besoins */
+    height: 73px; /* Ajustez la hauteur selon vos besoins */
+	background-color: transparent;
+    cursor: pointer;
+}
+
+#connection-button {
+    position: fixed;
+    top: 15px; /* Ajustez la position verticale selon vos besoins */
+    left: 1000px; /* Ajustez la position horizontale selon vos besoins */
+    width: 180px; /* Ajustez la largeur selon vos besoins */
+    height: 50px; /* Ajustez la hauteur selon vos besoins */
+    background-color: rgba(0, 0, 0, 0.3);
+	border: 3px solid #072949;
+    cursor: pointer;
+}
+
+#main-container
+{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 100%;
+}
+
+#div-tele
+{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	height: 60vh;
+	width: 80vw;
+	background-image: url(/static/home/images/borderr.png);
+	background-size: 100% 100%;
+}
+
+.tv-content
+{
+	position: absolute;
+	top: 50.8%;
+	left: 50.1%;
+	transform: translate(-50%, -50%);
+	width: 96.6%;
+	height: 87.7%;
+	background-size: cover;
+	background-position: center;
+	/*height: 100vh;*/
+    /*display: flex;*/
+    /*position: fixed;*/
+    /*align-items: center;*/
+    /*justify-content: center;*/
+    /* z-index: 5; */
+    /*margin: 0 30px;*/
+}
+
+/*
+.div-bordure {
+    width: 1450px;
+    height: 555px;
+    top: 100px;
+    left: 80px;
+    position: fixed;
+    overflow: hidden;
+    display: flex; *//* Ajoutez display: flex pour activer le modèle de boîte flex */
+	/*margin: auto;
+    align-items: center;
+    justify-content: center;
+}*/
+
+.howtoplay {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 98%;
+	text-align: center;
+    /* align-items: center; Centre le contenu verticalement */
+    /* justify-content: center; Centre le contenu horizontalement */
+    /* Aucun besoin de position: absolute; */
+    /*align-items: center; (pas nécessaire ici, car cela s'applique aux enfants de .howtoplay) */
+    /*justify-content: center; (pas nécessaire ici, car cela s'applique aux enfants de .howtoplay) */
+}
+
+/* Vous pouvez également ajouter du style supplémentaire pour les éléments à l'intérieur de .howtoplay si nécessaire */
+/* .howtoplay h1, .howtoplay h3, .howtoplay p {
+    text-align: center; /* Centre le texte horizontalement */
+    /* margin: 10px 0; Ajoute une marge pour l'espace entre les éléments */
+/* } */
+
+.img-bordure {
+    width: 100%;
+    height: 100%;
+    display: block; /* Assurez-vous que l'image est affichée comme un bloc pour gérer les marges automatiques */
+    margin: auto; /* Centrez l'image horizontalement dans le conteneur parent */
+    border: 4px solid #072949;
+    border-radius: 10px;
+}
+
+.img-profil {
+    position: absolute;
+	object-fit: cover;
+    width: 96.7%;
+    height: 86.5%;
+    top: 2.7rem;
+    left: 1.6rem;
+    margin: auto;
+    opacity: 0.7;
+}
+
+.buttonPong {
+	position: relative;
+	display: inline-block;
+	padding: 10px 20px;
+	font-size: 16px;
+	text-align: center;
+	text-decoration: none;
+	color: #fff;
+	background-color: #333;
+	border: none;
+	overflow: hidden;
+  }
+
+  .buttonPong:before,
+  .buttonPong:after {
+	content: '';
+	position: absolute;
+	width: calc(100% + 10px);
+	height: calc(100% + 10px);
+	top: -5px;
+	left: -5px;
+	pointer-events: none;
+	z-index: -1;
+  }
+
+  .buttonPong:before {
+	background: linear-gradient(45deg, #ff00ff, #00ffff, #ff00ff, #00ffff);
+	opacity: 0;
+	transition: opacity 0.3s ease-in-out;
+  }
+
+  .buttonPong:after {
+	background: linear-gradient(135deg, #00ffff, #ff00ff, #00ffff, #ff00ff);
+	opacity: 0;
+	transition: opacity 0.3s ease-in-out;
+  }
+
+  .buttonPong:hover:before,
+  .buttonPong:hover:after {
+	opacity: 1;
+  }
+
+  .buttonStyle {
+	background-color: rgba(0, 0, 0, 0.3);
+	border: 3px solid #072949;
+	border-radius: 15px;
+  }
+
+

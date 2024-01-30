@@ -1,14 +1,8 @@
 {% extends "home.html" %}
-{% load static %}
-{% block title %}
-    pong
-{% endblock %}
 
 {% block content %}
-<!DOCTYPE html>
-<!--<body>-->
 <div id="tv-pong-content" class="text-center tv-content">
-    <ul id="menu">
+    <ul id="bottom-nav">
         <a href="{% url 'pong' %}" hx-get="{% url 'pong' %}" hx-target="body" class="btn btn-primary buttonPong" id="play">
 			1 VS 1
         </a>
@@ -21,4 +15,3 @@
     </ul>
 </div>
 {% endblock %}
-<!--</body>-->
