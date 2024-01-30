@@ -4,3 +4,21 @@
 {
 	background-image: url(/static/pong/images/playbackground.png);
 }
+
+#nav-pong {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    position: fixed;
+    left: 22rem;
+    top: 20rem;
+    padding: 0; /* Ajoutez un espace autour des boutons si nécessaire */
+}
+
+#nav-pong a {
+    height: 5rem;
+    border: 3px solid #072949;
+    padding: 10px;
+    border-radius: 15px;
+	background-color: rgba(0, 0, 0, 0.3);
+}
