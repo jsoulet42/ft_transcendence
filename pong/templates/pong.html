@@ -1,22 +1,24 @@
 {% extends "home.html" %}
-
+{% load static %}
 {% block title %}
     pong
 {% endblock %}
 
 {% block content %}
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nous sommes sur la page pong</title>
-</head>
-<body>
-
-    <h1>Nous sommes sur la page pong</h1>
-
-</body>
-</html>
+<!--<body>-->
+<div id="tv-pong-content" class="text-center tv-content">
+    <ul id="menu">
+        <a href="{% url 'pong' %}" hx-get="{% url 'pong' %}" hx-target="body" class="btn btn-primary buttonPong" id="play">
+			1 VS 1
+        </a>
+        <a href="{% url 'tournaments_stats' %}" hx-get="{% url 'tournaments_stats' %}" hx-target="body" class="btn btn-primary buttonPong" id="tournament_stats">
+			1 VS BOT
+        </a>
+        <a href="{% url 'profiles' %}" hx-get="{% url 'profiles' %}" hx-target="body" class="btn btn-primary buttonPong" id="profile">
+			TOURNAMENT
+        </a>
+    </ul>
+</div>
 {% endblock %}
-```
+<!--</body>-->

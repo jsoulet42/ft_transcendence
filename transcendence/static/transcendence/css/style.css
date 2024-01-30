@@ -3,10 +3,14 @@
 	margin: 0;
 	padding: 0;
 }
+
 body
 {
 	margin: 0;
 	padding: 0;
+	position: relative;
+	height: 100%;
+	width: 100%;
     background-image: url("../images/backg_pong.jpeg");
     background-position: center;
     background-repeat: no-repeat;
@@ -15,7 +19,9 @@ body
 
 html, body{
 	height: 100%;
+	width: 100%;
 }
+
 .home-title
 {
 	font-size: 10rem;
@@ -25,13 +31,6 @@ html, body{
 {
 	width: 15rem;
 	font-size: 1.5rem;
-}
-
-#login-container {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 /* Si vous souhaitez ajouter un espacement entre les boutons */
@@ -49,8 +48,41 @@ html, body{
     bottom: 10px;
     margin-bottom: -1px;
     width: 100%;
-    background-color: #8d23ce; /* Ajoutez une couleur de fond pour le menu si nécessaire */
+    background: linear-gradient(to bottom, #f63192, #6c4fef);
+    /*background-color: #6c14fa; !* Ajoutez une couleur de fond pour le menu si nécessaire *!*/
     padding: 10px 0; /* Ajoutez un espace autour des boutons si nécessaire */
+    border: 3px solid #072949;
+    border-radius: 15px;
+}
+
+#menu a {
+	border: 3px solid #072949;
+	background-color: rgba(0, 0, 0, 0.3);
+}
+
+#menu-play {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    position: fixed;
+    left: 22rem;
+    top: 20rem;
+    padding: 0; /* Ajoutez un espace autour des boutons si nécessaire */
+}
+
+#menu-play li {
+    margin: 0; /* Réinitialisez la marge entre les éléments de la liste à zéro */
+    padding: 50px; /* Ajustez la valeur de la marge intérieure selon vos besoins */
+    display: flex;
+    flex-direction: column;
+}
+
+#menu-play a {
+    height: 5rem;
+    border: 3px solid #072949;
+    padding: 10px;
+    border-radius: 15px;
+	background-color: rgba(0, 0, 0, 0.3);
 }
 
 .button-image.play-button {
@@ -66,8 +98,10 @@ html, body{
     display: block;
     width: 220px;
     height: 50px;
-    background: url("../images/bouton1.png") center/cover;
     text-align: center;
+    border: 3px solid #072949;
+    border-radius: 15px;
+    padding: 10px;
 }
 
 #home-button {
@@ -76,7 +110,7 @@ html, body{
     left: 10px; /* Ajustez la position horizontale selon vos besoins */
     width: 360px; /* Ajustez la largeur selon vos besoins */
     height: 73px; /* Ajustez la hauteur selon vos besoins */
-    background-color: rgba(0, 0, 0, 0.0); /* Couleur de fond transparente */
+	background-color: transparent;
     cursor: pointer;
 }
 
@@ -86,19 +120,171 @@ html, body{
     left: 1000px; /* Ajustez la position horizontale selon vos besoins */
     width: 180px; /* Ajustez la largeur selon vos besoins */
     height: 50px; /* Ajustez la hauteur selon vos besoins */
-    background-color: rgb(9, 100, 239); /* Couleur de fond transparente */
+    background-color: rgba(0, 0, 0, 0.3);
+	border: 3px solid #072949;
     cursor: pointer;
 }
 
+#main-container
+{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 100%;
+}
+
+#div-tele
+{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	height: 60vh;
+	width: 80vw;
+	background-image: url(/static/home/images/borderr.png);
+	background-size: 100% 100%;
+}
+
+.tv-content
+{
+	position: absolute;
+	top: 50.8%;
+	left: 50.1%;
+	transform: translate(-50%, -50%);
+	width: 96.6%;
+	height: 87.7%;
+	background-size: cover;
+	background-position: center;
+	/*height: 100vh;*/
+    /*display: flex;*/
+    /*position: fixed;*/
+    /*align-items: center;*/
+    /*justify-content: center;*/
+    /* z-index: 5; */
+    /*margin: 0 30px;*/
+}
+
+#tv-login-content
+{
+	background-image: url(/static/authentication/images/imgloging.png);
+}
+
+#tv-pong-content
+{
+	background-image: url(/static/pong/images/playbackground.png);
+}
+
+#tv-content-tourn-stats
+{
+    background-image: url(/static/tournament_stats/images/podium.png);
+}
+
+#tv-content-profile
+{
+	background-image: url(/static/profils/images/profil.png);
+}
+
+/*
+.div-bordure {
+    width: 1450px;
+    height: 555px;
+    top: 100px;
+    left: 80px;
+    position: fixed;
+    overflow: hidden;
+    display: flex; *//* Ajoutez display: flex pour activer le modèle de boîte flex */
+	/*margin: auto;
+    align-items: center;
+    justify-content: center;
+}*/
+
+.howtoplay {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 98%;
+	text-align: center;
+    /* align-items: center; Centre le contenu verticalement */
+    /* justify-content: center; Centre le contenu horizontalement */
+    /* Aucun besoin de position: absolute; */
+    /*align-items: center; (pas nécessaire ici, car cela s'applique aux enfants de .howtoplay) */
+    /*justify-content: center; (pas nécessaire ici, car cela s'applique aux enfants de .howtoplay) */
+}
+
+/* Vous pouvez également ajouter du style supplémentaire pour les éléments à l'intérieur de .howtoplay si nécessaire */
+/* .howtoplay h1, .howtoplay h3, .howtoplay p {
+    text-align: center; /* Centre le texte horizontalement */
+    /* margin: 10px 0; Ajoute une marge pour l'espace entre les éléments */
+/* } */
+
 .img-bordure {
-    width: 100%; /* La largeur de l'image sera de 100% de la largeur du conteneur parent */
-    max-width: 1450px; /* La largeur maximale de l'image sera de 1450px, ajustez selon vos besoins */
-    max-height: 555px;
+    width: 100%;
+    height: 100%;
     display: block; /* Assurez-vous que l'image est affichée comme un bloc pour gérer les marges automatiques */
     margin: auto; /* Centrez l'image horizontalement dans le conteneur parent */
-    position: fixed; /* Position relative pour des ajustements supplémentaires si nécessaire */
-    top: 100px; /* Ajustez la position verticale selon vos besoins */
-    left: 80px;
-    pointer-events: none;
+    border: 4px solid #072949;
+    border-radius: 10px;
 }
+
+.img-profil {
+    position: absolute;
+	object-fit: cover;
+    width: 96.7%;
+    height: 86.5%;
+    top: 2.7rem;
+    left: 1.6rem;
+    margin: auto;
+    opacity: 0.7;
+}
+
+.buttonPong {
+	position: relative;
+	display: inline-block;
+	padding: 10px 20px;
+	font-size: 16px;
+	text-align: center;
+	text-decoration: none;
+	color: #fff;
+	background-color: #333;
+	border: none;
+	overflow: hidden;
+  }
+
+  .buttonPong:before,
+  .buttonPong:after {
+	content: '';
+	position: absolute;
+	width: calc(100% + 10px);
+	height: calc(100% + 10px);
+	top: -5px;
+	left: -5px;
+	pointer-events: none;
+	z-index: -1;
+  }
+
+  .buttonPong:before {
+	background: linear-gradient(45deg, #ff00ff, #00ffff, #ff00ff, #00ffff);
+	opacity: 0;
+	transition: opacity 0.3s ease-in-out;
+  }
+
+  .buttonPong:after {
+	background: linear-gradient(135deg, #00ffff, #ff00ff, #00ffff, #ff00ff);
+	opacity: 0;
+	transition: opacity 0.3s ease-in-out;
+  }
+
+  .buttonPong:hover:before,
+  .buttonPong:hover:after {
+	opacity: 1;
+  }
+
+  .buttonStyle {
+	background-color: rgba(0, 0, 0, 0.3);
+	border: 3px solid #072949;
+	border-radius: 15px;
+  }
+
 

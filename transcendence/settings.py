@@ -64,11 +64,9 @@ ROOT_URLCONF = 'transcendence.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            os.path.join(BASE_DIR, 'home/templates'),
-            os.path.join(BASE_DIR, 'hub/templates'),
-            os.path.join(BASE_DIR, 'transcendence/templates'),
-        ],
+        'DIRS': [os.path.join(BASE_DIR, 'home/templates'),
+                os.path.join(BASE_DIR, 'hub/templates'),
+                 ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -147,12 +145,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # 42 API settings
-EXTERNAL_API_URL = 'https://api.intra.42.fr/oauth'
-EXTERNAL_API_AUTH_URL = os.path.join(EXTERNAL_API_URL, 'authorize')
-EXTERNAL_API_TOKEN_URL = os.path.join(EXTERNAL_API_URL, 'token')
+EXTERNAL_API_URL = 'https://api.intra.42.fr/oauth/authorize'
 EXTERNAL_API_CLIENT_ID = os.getenv('EXTERNAL_API_CLIENT_ID')
 EXTERNAL_API_CLIENT_SECRET = os.getenv('EXTERNAL_API_CLIENT_SECRET')
 EXTERNAL_API_REDIRECT_URI = 'http://localhost:8000/login/authenticate'
+EXTERNAL_API_TOKEN_URL = 'https://api.intra.42.fr/oauth/token'
 EXTERNAL_API_USER_URL = 'https://api.intra.42.fr/v2/me'
 EXTERNAL_API_USER_IMAGE_URL = 'https://cdn.intra.42.fr/users/'	# + user_id + '.jpg'
 EXTERNAL_API_USER_IMAGE_URL_DEFAULT = 'https://cdn.intra.42.fr/users/default.png'

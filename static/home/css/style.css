@@ -18,6 +18,11 @@ body
     background-size: cover;
 }
 
+#bottom-nav
+{
+	min-height: 10vh;
+}
+
 .home-title
 {
 	font-size: 10rem;
