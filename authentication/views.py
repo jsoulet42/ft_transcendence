@@ -45,4 +45,4 @@ def authenticate(request):
 	if response.status_code // 100 != 2:
 		return HttpResponse(status = 500)
 	print(response.json().get('access_token'))
-	return redirect('hub')
+	return redirect('home')

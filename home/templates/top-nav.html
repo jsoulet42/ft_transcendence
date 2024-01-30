@@ -1,0 +1,6 @@
+<nav id="top-nav">
+	<a id="home-button" href="{% url 'home' %}" hx-get="{% url 'home' %}" hx-target="body"></a>
+	<a id="connection-button" class="btn btn-primary form-button buttonPong" href="{% url 'login' %}" hx-get="{% url 'login' %}" hx-target="body">
+		Login
+	</a>
+</nav>
