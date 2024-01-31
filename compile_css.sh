@@ -19,15 +19,30 @@ output_css_file_path="${static_dir}/transcendence/css/style.css"
 
 # ********************************************************************************************** #
 
-# Reminder message because I know that I will forget this step at least once
-echo -en "${ansi_blue}[NOTE]${ansi_nc} Remember to collect the static files using "
-echo -e "'${ansi_yellow}python manage.py collectstatic${ansi_nc}' before running this script !\n"
+build_path_dependencies()
+{
+    local path="$1"
+    local output_file_path="$2"
+
+    # Split the path variable into an array
+    IFS=':' read -ra path_array <<< "${path}"
+
+    # Append the output file to each file  directory in the path and echo the result
+    for path in "${path_array[@]}"; do
+        find ${path} -name '*.scss' | sed "s|$|:${output_file_path}|g"
+    done
+}
+
+
+# ********************************************************************************************** #
 
 # If the first script argument is equal to 1, compile the output css file with the --watch option.
 # This will update the output css file at each modification of one of the imported scss files
 # inside the scss file at '${scss_file_path}'.
 if [ $# -gt 0 ] && [ "$1" == "1" ]; then
-    sass --watch "${scss_file_path}:${output_css_file_path}"
+    dependencies="`build_path_dependencies ${SASS_PATH} ${output_css_file_path}`"
+    sass --watch "${scss_file_path}:${output_css_file_path}" ${dependencies}
+
     if [ $? -eq 0 ]; then
         echo -e "Compiled ${ansi_yellow}${output_css_file_path}${ansi_nc} with the --watch option."
         echo -e "Don't forget to run '${ansi_yellow}python manage.py collectstatic${ansi_nc}' now."
