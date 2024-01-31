@@ -26,7 +26,7 @@ urlpatterns = [
 	path('login/', include('authentication.urls')),
 	path('pong/', include('pong.urls')),
 	path('hub/', include('hub.urls')),
-	path('profiles/', include('profiles.urls')),
+	path('profile/', include('profile.urls')),
 	path('tournaments_stats/', include('tournaments_stats.urls')),
 	path('authentication/', include('authentication.urls')),
 ]

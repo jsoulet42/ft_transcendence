@@ -4,25 +4,24 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transcendence</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Transcendence</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 	<link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 
+<!--<body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>-->
 <body>
-    <script src="{% static 'js/htmx.min.js' %}" defer></script>
+	<script src="{% static 'js/htmx.min.js' %}" defer></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 	{% include 'top-nav.html' %}
-    <main id="main-container">
-		<div id="div-tele">
-			{% if show_howtoplay %}
-        		{% include 'howtoplay.html' %}
-        	{% endif %}
-			{% block content %}{% endblock %}
-		</div>
-    </main>
+	<div id="tv-container">
+		{% if show_howtoplay %}
+			{% include 'howtoplay.html' %}
+		{% endif %}
+		{% block content %}{% endblock %}
+	</div>
 	{% include 'bottom-nav.html' %}
 </body>
 

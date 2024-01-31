@@ -42,7 +42,7 @@ INSTALLED_APPS = [
 	'backend',
 	'pong',
 	'hub',
-	'profiles',
+	'profile',
 	'authentication',
 	'tournaments_stats',
     'django_htmx',

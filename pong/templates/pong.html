@@ -1,17 +1,5 @@
 {% extends "home.html" %}
 
 {% block content %}
-<div id="tv-content-pong" class="text-center tv-content">
-    <nav id="nav-pong">
-        <a href="{% url 'pong' %}" hx-get="{% url 'pong' %}" hx-target="body" class="btn btn-primary buttonPong" id="play">
-			1 VS 1
-        </a>
-        <a href="{% url 'tournaments_stats' %}" hx-get="{% url 'tournaments_stats' %}" hx-target="body" class="btn btn-primary buttonPong" id="tournament_stats">
-			1 VS BOT
-        </a>
-        <a href="{% url 'profiles' %}" hx-get="{% url 'profiles' %}" hx-target="body" class="btn btn-primary buttonPong" id="profile">
-			TOURNAMENT
-        </a>
-    </nav>
-</div>
+	{% include "pong_block.html" %}
 {% endblock %}

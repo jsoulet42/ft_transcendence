@@ -18,9 +18,6 @@ from django.contrib import admin
 from django.urls import path, include	# Added include() function
 from .views import tournaments_stats
 
-
-#
-
 urlpatterns = [
 	path('', tournaments_stats, name='tournaments_stats'),
 ]

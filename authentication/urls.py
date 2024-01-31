@@ -23,5 +23,4 @@ from .views import authenticate, login
 urlpatterns = [
 	path('', login, name='login'),
 	path('authenticate/', authenticate, name='authenticate'),
-
 ]

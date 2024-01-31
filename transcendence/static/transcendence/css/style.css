@@ -134,15 +134,7 @@ html, body {
   cursor: pointer;
 }
 
-#main-container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-}
-
-#div-tele {
+#tv-container {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -193,21 +185,9 @@ html, body {
   background-image: url(/static/pong/images/playbackground.png);
 }
 
-#nav-pong {
-  list-style: none;
-  display: flex;
-  justify-content: space-around;
-  position: fixed;
-  left: 22rem;
-  top: 20rem;
-  padding: 0; /* Ajoutez un espace autour des boutons si nécessaire */
-}
-
 #nav-pong a {
-  height: 5rem;
-  border: 3px solid #072949;
-  padding: 10px;
-  border-radius: 15px;
+  border: 0.5vmin solid #072949;
+  border-radius: 0.5vmax;
   background-color: rgba(0, 0, 0, 0.3);
 }
 
@@ -216,7 +196,7 @@ html, body {
 }
 
 #tv-content-profile {
-  background-image: url(/static/profiles/images/profil.png);
+  background-image: url(/static/profile/images/profile.png);
 }
 
 /*# sourceMappingURL=style.css.map */

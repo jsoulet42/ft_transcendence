@@ -9,8 +9,10 @@ from transcendence import settings
 from hub.urls import hub
 from .models import RequestCache
 
-
 def login(request):
+	if request.META.get('HTTP_HX_REQUEST'):
+		return render(request, 'login_block.html')
+
 	if request.method == 'GET':
 		if '42auth' in request.GET != '':
 			RequestCache.state = get_random_string(length=32)
