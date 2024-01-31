@@ -4,23 +4,6 @@
   padding: 0;
 }
 
-body {
-  margin: 0;
-  padding: 0;
-  position: relative;
-  height: 100%;
-  width: 100%;
-  background-image: url("../images/backg_pong.jpeg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 100vw 100vh;
-}
-
-html, body {
-  height: 100%;
-  width: 100%;
-}
-
 .btn-primary {
   width: 15rem;
   font-size: 1.5rem;
@@ -61,24 +44,6 @@ html, body {
   background-position: center;
 }
 
-/*
-.div-bordure {
-    width: 1450px;
-    height: 555px;
-    top: 100px;
-    left: 80px;
-    position: fixed;
-    overflow: hidden;
-    display: flex; */ /* Ajoutez display: flex pour activer le modèle de boîte flex */
-/*margin: auto;
-    align-items: center;
-    justify-content: center;
-}*/
-/* Vous pouvez également ajouter du style supplémentaire pour les éléments à l'intérieur de .howtoplay si nécessaire */
-/* .howtoplay h1, .howtoplay h3, .howtoplay p {
-    text-align: center; /* Centre le texte horizontalement */
-/* margin: 10px 0; Ajoute une marge pour l'espace entre les éléments */
-/* } */
 .buttonPong {
   position: relative;
   display: inline-block;
@@ -129,6 +94,23 @@ html, body {
 
 #tv-login-content {
   background-image: url(/static/authentication/images/imgloging.png);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  background-image: url("../images/backg_pong.jpeg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100vw 100vh;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
 }
 
 #home-button {
@@ -207,7 +189,7 @@ html, body {
   /*justify-content: center; (pas nécessaire ici, car cela s'applique aux enfants de .howtoplay) */
 }
 
-#tv-pong-content {
+#tv-content-pong {
   background-image: url(/static/pong/images/playbackground.png);
 }
 
@@ -230,11 +212,11 @@ html, body {
 }
 
 #tv-content-tourn-stats {
-  background-image: url(/static/tournament_stats/images/podium.png);
+  background-image: url(/static/tournaments_stats/images/podium.png);
 }
 
 #tv-content-profile {
-  background-image: url(/static/profils/images/profil.png);
+  background-image: url(/static/profiles/images/profil.png);
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -3,23 +3,6 @@
 	padding: 0;
 }
 
-body {
-	margin: 0;
-	padding: 0;
-	position: relative;
-	height: 100%;
-	width: 100%;
-    background-image: url("../images/backg_pong.jpeg");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 100vw 100vh;
-}
-
-html, body {
-	height: 100%;
-	width: 100%;
-}
-
 .btn-primary {
 	width: 15rem;
 	font-size: 1.5rem;
@@ -59,26 +42,6 @@ html, body {
 	background-size: cover;
 	background-position: center;
 }
-
-/*
-.div-bordure {
-    width: 1450px;
-    height: 555px;
-    top: 100px;
-    left: 80px;
-    position: fixed;
-    overflow: hidden;
-    display: flex; *//* Ajoutez display: flex pour activer le modèle de boîte flex */
-	/*margin: auto;
-    align-items: center;
-    justify-content: center;
-}*/
-
-/* Vous pouvez également ajouter du style supplémentaire pour les éléments à l'intérieur de .howtoplay si nécessaire */
-/* .howtoplay h1, .howtoplay h3, .howtoplay p {
-    text-align: center; /* Centre le texte horizontalement */
-    /* margin: 10px 0; Ajoute une marge pour l'espace entre les éléments */
-/* } */
 
 .buttonPong {
 	position: relative;
@@ -122,10 +85,10 @@ html, body {
 	opacity: 1;
   }
 
-  .buttonStyle {
+.buttonStyle {
 	background-color: rgba(0, 0, 0, 0.3);
 	border: 3px solid #072949;
 	border-radius: 15px;
-  }
+}
 
 

@@ -1,5 +1,22 @@
 // style_home.scss
 
+body {
+	margin: 0;
+	padding: 0;
+	position: relative;
+	height: 100%;
+	width: 100%;
+    background-image: url("../images/backg_pong.jpeg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100vw 100vh;
+}
+
+html, body {
+	height: 100%;
+	width: 100%;
+}
+
 #home-button {
     position: fixed;
     top: 10px; /* Ajustez la position verticale selon vos besoins */

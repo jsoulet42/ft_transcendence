@@ -7,15 +7,15 @@
 
 # ********************************************************************************************** #
 
+# Files variables
+static_dir="$PROJECT_ROOT/transcendence/static/transcendence"
+scss_file_path="${static_dir}/scss/main.scss"
+output_css_file_path="${static_dir}/css/style.css"
+
 # Color output variables
 ansi_nc="\e[0m"
 ansi_blue="\e[34m"
 ansi_yellow="\e[33m"
-
-# Files variables
-static_dir="transcendence/static"
-scss_file_path="${static_dir}/scss/main.scss"
-output_css_file_path="${static_dir}/transcendence/css/style.css"
 
 # ********************************************************************************************** #
 
@@ -48,7 +48,7 @@ if [ $# -gt 0 ] && [ "$1" == "1" ]; then
     echo -e "${ansi_yellow}${dependencies}${ansi_nc}" | sed "s/:/ ---> /g"
 
     sass --watch "${scss_file_path}:${output_css_file_path}" ${dependencies}
-    
+
     exit $?
 fi
 
@@ -57,7 +57,11 @@ fi
 # The script will need to be run again if one of the imported scss files inside the scss file at
 # '${scss_file_path}' is modified.
 sass "${scss_file_path}" "${output_css_file_path}"
-if [ $? -eq 0 ]; then
-    echo -en "Compiled ${ansi_yellow}${output_css_file_path}${ansi_nc} "
-    echo -e "from ${ansi_yellow}${scss_file_path}${ansi_nc}."
+
+exit_code=$?
+if [ ${exit_code} -ne 0 ]; then
+    exit ${exit_code}
 fi
+
+echo -en "Compiled ${ansi_yellow}${output_css_file_path}${ansi_nc} "
+echo -e "from ${ansi_yellow}${scss_file_path}${ansi_nc}."
