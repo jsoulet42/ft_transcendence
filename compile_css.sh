@@ -19,34 +19,36 @@ output_css_file_path="${static_dir}/transcendence/css/style.css"
 
 # ********************************************************************************************** #
 
+# Function to echo the files found inside the directories stored in the ':' separated path
+# variable given as first argument with a ':' character and a string given as second parameter
+# appended after each file name.
 build_path_dependencies()
 {
     local path="$1"
     local output_file_path="$2"
+    local path_array=()
 
     # Split the path variable into an array
     IFS=':' read -ra path_array <<< "${path}"
 
-    # Append the output file to each file  directory in the path and echo the result
+    # Append the output file to each file inside each directory in the path and echo the result
     for path in "${path_array[@]}"; do
         find ${path} -name '*.scss' | sed "s|$|:${output_file_path}|g"
     done
 }
 
-
 # ********************************************************************************************** #
 
 # If the first script argument is equal to 1, compile the output css file with the --watch option.
-# This will update the output css file at each modification of one of the imported scss files
-# inside the scss file at '${scss_file_path}'.
+# This will update the output css file at each modification of one of the files found inside the
+# directories from the SASS_PATH environment variable.
 if [ $# -gt 0 ] && [ "$1" == "1" ]; then
     dependencies="`build_path_dependencies ${SASS_PATH} ${output_css_file_path}`"
-    sass --watch "${scss_file_path}:${output_css_file_path}" ${dependencies}
+    echo "Files watched over :"
+    echo -e "${ansi_yellow}${dependencies}${ansi_nc}" | sed "s/:/ ---> /g"
 
-    if [ $? -eq 0 ]; then
-        echo -e "Compiled ${ansi_yellow}${output_css_file_path}${ansi_nc} with the --watch option."
-        echo -e "Don't forget to run '${ansi_yellow}python manage.py collectstatic${ansi_nc}' now."
-    fi
+    sass --watch "${scss_file_path}:${output_css_file_path}" ${dependencies}
+    
     exit $?
 fi
 
@@ -56,6 +58,6 @@ fi
 # '${scss_file_path}' is modified.
 sass "${scss_file_path}" "${output_css_file_path}"
 if [ $? -eq 0 ]; then
-    echo -e "Compiled ${ansi_yellow}${output_css_file_path}${ansi_nc}."
-    echo -e "Don't forget to run '${ansi_yellow}python manage.py collectstatic${ansi_nc}' now."
+    echo -en "Compiled ${ansi_yellow}${output_css_file_path}${ansi_nc} "
+    echo -e "from ${ansi_yellow}${scss_file_path}${ansi_nc}."
 fi
