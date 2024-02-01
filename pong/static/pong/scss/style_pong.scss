@@ -1,0 +1,12 @@
+// style_pong.scss
+
+#tv-content-pong
+{
+	background-image: url(/static/pong/images/playbackground.png);
+}
+
+#nav-pong a {
+    border: 0.5vmin solid #072949;
+    border-radius: 0.5vmax;
+	background-color: rgba(0, 0, 0, 0.3);
+}

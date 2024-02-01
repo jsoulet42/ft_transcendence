@@ -1,0 +1,11 @@
+<nav id="nav-home-bottom" class="align-self-center">
+	<a id="play" class="btn btn-primary buttonPong w-25" href="{% url 'pong' %}" hx-get="{% url 'pong' %}" hx-target="#tv-container" hx-push-url="true">
+		PLAY
+	</a>
+	<a id="tournaments_stats" class="btn btn-primary buttonPong w-25" href="{% url 'tournaments_stats' %}" hx-get="{% url 'tournaments_stats' %}" hx-target="#tv-container" hx-push-url="true">
+		TOURNAMENTS STATS
+	</a>
+	<a id="profile" class="btn btn-primary buttonPong w-25" href="{% url 'profile' %}" hx-get="{% url 'profile' %}" hx-target="#tv-container" hx-push-url="true">
+		PROFILE
+	</a>
+</nav>
