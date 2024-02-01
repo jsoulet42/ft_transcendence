@@ -1,6 +1,6 @@
 <div id="tv-login-content" class="text-center tv-content">
 	{% csrf_token %}
-	<button id="42auth_button" hx-get={% url 'authenticate' %} hx-target="#myModal" class="btn-primary buttonStyle buttonPong w-50 mx-5 mb-2" name="42auth">
+	<button id="42auth_button" class="btn-primary buttonStyle buttonPong w-50 mx-5 mb-2" name="42auth" hx-get={% url 'authenticate' %} hx-target="#myModal">
 		<span style="font-size: 2rem;">Login with 42</span>
 	</button>
 	<button id="guest_submit" class="btn-primary buttonStyle buttonPong w-50 mx-5 mb-2" type="submit" name="guest">
