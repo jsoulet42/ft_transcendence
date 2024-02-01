@@ -1,5 +1,0 @@
-django
-psycopg2
-django-widget-tweaks==1.4.8
-django-htmx
-requests
