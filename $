@@ -1,1 +1,0 @@
-run_command:4: no such file or directory: python /home/jsoulet/dev/transcendence/ft_transcendence/project_setup/../manage.py collectstatic --noinput
