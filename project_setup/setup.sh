@@ -1,5 +1,9 @@
 #!/bin/bash
 
+ansi_nc="\e[0m"
+ansi_green="\e[6;32m"
+ansi_red="\e[6;31m"
+
 prev_dir="$(pwd)"
 
 cd "$(dirname $0)"
@@ -9,56 +13,33 @@ cd "${prev_dir}"
 
 export PROJECT_ROOT="$(dirname ${script_dir})"
 
-ansi_nc="\e[0m"
-ansi_red_fg="\e[31m"
-ansi_green_fg="\e[32m"
-ansi_yellow_fg="\e[33m"
-
-script_name="${ansi_yellow_fg}> SETUP >${ansi_nc}"
-
-ok_text="[${ansi_green_fg}\e[6mOK${ansi_nc}]"
-error_text="[${ansi_red_fg}ERR${ansi_nc}]"
-
 source "${script_dir}/venv/bin/activate"
-echo "${script_name} Python virtual environment ${ok_text}"
-
-pip install --quiet -r "${script_dir}/requirements.txt"
-exit_code=$?
-echo -n "${script_name} Pip requirements installation "
-if [ ${exit_code} -eq 0 ]; then
-    echo "${ok_text}"
-else
-    echo "${error_text}"
-    return ${exit_code}
-fi
+echo -e "environement python [${ansi_green}activate${ansi_nc}] !"
 
 source "${script_dir}/.env_setup.sh" 1
-echo "${script_name} Environment variables ${ok_text}"
+echo -e "your project's environement variables are [${ansi_green}exported${ansi_nc}] !"
 
-bash "${script_dir}/compile_css.sh" 1>/dev/null
-exit_code=$?
-echo -n "${script_name} CSS compilation "
-if [ ${exit_code} -eq 0 ]; then
-    echo "${ok_text}"
-else
-    echo "${error_text}"
-    return ${exit_code}
-fi
+run_command "bash ${script_dir}/compile_css.sh" "CSS compilation"
 
-python "${script_dir}/../manage.py" collectstatic --noinput
-exit_code=$?
-echo -n "${script_name} Static collecting "
-if [ ${exit_code} -eq 0 ]; then
-    echo "${ok_text}"
-else
-    echo "${error_text}"
-    return ${exit_code}
-fi
+run_command "pip install --quiet -r ${script_dir}/requirements.txt" "Pip requirements"
+
+run_command "python ${script_dir}/../manage.py collectstatic --noinput" "Static files collection"
 
 python "${script_dir}/../manage.py" runserver
 
-try_command()
-{
-    local command="$1"
-    local command_msg="$2"
+run_command() {
+	local command="$1"
+	local command_msg="$2"
+
+	eval "${command} 1>/dev/null"
+	local exit_code=$?
+
+	printf "%-100s " "${command_msg} :"
+
+	if [ ${exit_code} -ne 0 ]; then
+		echo -e "[${ansi_red}Failed${ansi_nc}] !"
+		return ${exit_code}
+	else
+		echo -e "[${ansi_green}OK${ansi_nc}] !"
+	fi
 }
