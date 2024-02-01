@@ -34,7 +34,7 @@ run_command() {
 	eval "${command} 1>/dev/null"
 	local exit_code=$?
 
-	printf "%-100s " "${command_msg} :"
+	printf "%-30s " "${command_msg} :"
 
 	if [ ${exit_code} -ne 0 ]; then
 		echo -e "[${ansi_red}Failed${ansi_nc}] !"
