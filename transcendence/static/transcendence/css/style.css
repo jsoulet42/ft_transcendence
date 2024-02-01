@@ -122,6 +122,12 @@
   background-image: url(/static/pong/images/playbackground.png);
 }
 
+canvas {
+  display: block;
+  margin: auto;
+  background: linear-gradient(180deg, rgba(131, 96, 195, 0.6666666667), rgba(46, 191, 145, 0.6666666667));
+}
+
 #tv-content-profile {
   background-image: url(/static/profiles/images/profil.png);
 }

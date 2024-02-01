@@ -3,3 +3,8 @@
 	background-image: url(/static/pong/images/playbackground.png);
 }
 
+canvas {
+	display: block;
+	margin: auto;
+	background: linear-gradient(180deg, #8360c3AA, #2ebf91AA);
+}

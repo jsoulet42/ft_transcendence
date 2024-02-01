@@ -22,20 +22,23 @@ echo -e "your project's environement variables are [${ansi_green}exported${ansi_
 bash "${script_dir}/compile_css.sh" 1>/dev/null
 echo -e "[${ansi_green}compiled${ansi_nc}] your scss files!"
 
-pip install --quiet -r "${script_dir}/requirements.txt"
-if [ $? -eq 0 ]; then
-	echo -e "requirements [${ansi_green}OK${ansi_nc}] !"
-else
-	echo -e "requirements [${ansi_red}Failed${ansi_nc}] !"
-	return 1
-fi
+run_command() {
+	local command="$@"
 
-python "${script_dir}/../manage.py" collectstatic --noinput
-if [ $? -eq 0 ]; then
-	echo -e "collectstatic [${ansi_green}OK${ansi_nc}] !"
-else
-	echo -e "collectstatic [${ansi_red}failed${ansi_nc}] !"
-	return 1
-fi
+	$@ 1>/dev/null
+
+	if [ $? -ne 0 ]; then
+		echo -e "[${ansi_red}Failed${ansi_nc}] !"
+		return 1
+	else
+		echo -e "[${ansi_green}OK${ansi_nc}] !"
+	fi
+
+}
+
+
+run_command pip install --quiet -r ${script_dir}/requirements.txt
+run_command python ${script_dir}/../manage.py collectstatic --noinput
+
 
 python "${script_dir}/../manage.py" runserver
