@@ -8,4 +8,4 @@ def pong(request):
 def game(request):
 	if request.META.get('HTTP_HX_REQUEST'):
 		return render(request, 'game_block.html', {'hx_push_url': '/game'})
-	return render(request, 'pong/game.html')
+	return render(request, 'game.html')
