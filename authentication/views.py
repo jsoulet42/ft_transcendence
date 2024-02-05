@@ -32,7 +32,7 @@ def authenticate(request):
     code = request.GET.get('code', None)
     state = request.GET.get('state', None)
     error = request.GET.get('error', None)
-    
+
     if code == None or error != None:
         return redirect('login')
     if state == None or state != RequestCache.state:
@@ -48,12 +48,12 @@ def authenticate(request):
     }
     response = requests.post(settings.EXTERNAL_API_TOKEN_URL, data = payload)
     RequestCache.state = None
-    
+
     if response.status_code // 100 != 2:
         return HttpResponse(status = 500)
     store_token_user(request, response.json().get('access_token'))
     return redirect('hub')
 
 def store_token_user(request, access_token):
-    
+
     print(access_token)
