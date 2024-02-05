@@ -16,8 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include	# Added include() function
-from .views import pong
+from . import views
+
+app_name = 'pong'
 
 urlpatterns = [
-	path('', pong, name='pong'),
+	path('', views.pong, name='pong'),
+	path('game/', views.game, name='game'),
 ]

@@ -16,9 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include	# Added include() function
-from .views import authenticate, login
-
-#
+from .views import login, authenticate
 
 urlpatterns = [
 	path('', login, name='login'),
