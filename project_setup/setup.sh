@@ -19,14 +19,6 @@ echo -e "environement python [${ansi_green}activate${ansi_nc}] !"
 source "${script_dir}/.env_setup.sh" 1
 echo -e "your project's environement variables are [${ansi_green}exported${ansi_nc}] !"
 
-run_command "bash ${script_dir}/compile_css.sh" "CSS compilation"
-
-run_command "pip install --quiet -r ${script_dir}/requirements.txt" "Pip requirements"
-
-run_command "python ${script_dir}/../manage.py collectstatic --noinput" "Static files collection"
-
-python "${script_dir}/../manage.py" runserver
-
 run_command() {
 	local command="$1"
 	local command_msg="$2"
@@ -43,3 +35,11 @@ run_command() {
 		echo -e "[${ansi_green}OK${ansi_nc}] !"
 	fi
 }
+
+run_command"bash ${script_dir}/compile_css.sh" "CSS compilation"
+
+run_command"pip install --quiet -r ${script_dir}/requirements.txt" "Pip requirements"
+
+run_command"python ${script_dir}/../manage.py collectstatic --noinput" "Static files collection"
+
+python "${script_dir}/../manage.py" runserver

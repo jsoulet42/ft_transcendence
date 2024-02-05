@@ -16,8 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include	# Added include() function
-from .views import pong
+from .views import pong, pong_1v1
 
 urlpatterns = [
 	path('', pong, name='pong'),
+	path('1v1', pong_1v1, name='pong/1v1'),
 ]

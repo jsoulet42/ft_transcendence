@@ -1,6 +1,6 @@
 <div id="tv-content-pong" class="text-center tv-content">
 	<nav id="nav-pong" class="btn-group" role="group" aria-label="Pong buttons navigation">
-		<a class="btn btn-primary buttonStyle buttonPong" href="{% url 'pong' %}" hx-get="{% url 'pong' %}" hx-target="body">
+		<a id="pong1v1" class="btn btn-primary buttonStyle buttonPong" href="{% url 'pong/1v1' %}" hx-get="{% url 'pong/1v1' %}" hx-target="#tv-container" hx-push-url="true">
 			1 VS 1
 		</a>
 		<a class="btn btn-primary buttonStyle buttonPong" href="{% url 'tournaments_stats' %}" hx-get="{% url 'tournaments_stats' %}" hx-target="body">
