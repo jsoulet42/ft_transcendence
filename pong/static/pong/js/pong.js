@@ -3,16 +3,16 @@ var ctx = canvas.getContext('2d');
 document.addEventListener("keydown", keyDownHandler, false); // écouteur d'événement
 document.addEventListener("keyup", keyUpHandler, false); // écouteur d'événement
 
-canvas.width = window.innerWidth * 0.2;
-canvas.height = window.innerHeight * 0.2;
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight * 0.8;
 
 let ball = {
 	x: canvas.width / 2,
 	y: canvas.height / 2,
-	speedX: 10,
+	speedX: canvas.width / 100,
 	speedY: 0,
 	Bradius: canvas.height / 50,
-	speedBaseX: 20, // Vitesse de déplacement horizontal de la balle
+	speedBaseX: canvas.width / 100, // Vitesse de déplacement horizontal de la balle
 	speedBaseY: 0, // Vitesse de déplacement vertical de la balle
 	Bcolor: 'blue'
 };
@@ -22,16 +22,24 @@ let IA = {
 	move: false
 }
 var angle = 5;
-var paddleLeftHeight = canvas.width / 15;
-var paddleLeftWidth = canvas.height / 50;
-var paddleRightHeight = canvas.width / 15;
-var paddleRightWidth = canvas.height / 50;
-var paddleLeftY = (canvas.height - paddleLeftHeight) / 3; // start in the middle of the canvas
-var paddleRightY = (canvas.height - paddleRightHeight) / 2; // start in the middle of the canvas
-var upLeft = false;
-var downLeft = false;
-var upRight = false;
-var downRight = false;
+
+let paddle = {
+	leftHeight: canvas.width / 15,
+	leftWidth: canvas.height / 50,
+	rightHeight: canvas.width / 15,
+	rightWidth: canvas.height / 50,
+	leftY: (canvas.height - canvas.width / 15) / 2, // start in the middle of the canvas
+	rightY: (canvas.height - canvas.width / 15) / 2, // start in the middle of the canvas
+	speed: canvas.height / 100	// Vitesse de déplacement des raquettes
+}
+
+let inputs = {
+	upLeft: false,
+	downLeft: false,
+	upRight: false,
+	downRight: false
+}
+var updateInterval;
 var posBord = 10;
 var leftScore = 0;
 var rightScore = 0;
@@ -39,22 +47,27 @@ var marge = 10;
 var debug1 = 0;
 var debug2 = 0;
 
-let paddleSpeed = 10; // Vitesse de déplacement des raquettes
 
 var pause = false;
 var putBackBallBool = false;
-startUpdatingAI();
 
+// function drawScore() {
+// 	ctx.font = "1vw Arial";
+// 	ctx.fillStyle = 'white';
+// 	ctx.fillText("Score: " + leftScore, 15, 25);
+// 	ctx.fillText("Score: " + rightScore, canvas.width - 100, 25);
+// }
 function drawScore() {
-	ctx.font = "1em Arial";
+	ctx.font = "2vw Arial";
 	ctx.fillStyle = 'white';
-	ctx.fillText("Score: " + leftScore, 15, 25);
-	ctx.fillText("Score: " + rightScore, canvas.width - 100, 25);
+	let textWidth = ctx.measureText("Score: " + leftScore).width;
+	ctx.fillText("Score: " + leftScore, canvas.width * 0.025, canvas.height * 0.06);
+	textWidth = ctx.measureText("Score: " + rightScore).width;
+	ctx.fillText("Score: " + rightScore, canvas.width - textWidth - canvas.width * 0.025, canvas.height * 0.06);
 }
 
 async function putBackBall(directionX) {
 	putBackBallBool = true;
-	stopUpdatingAI();
 	// Stop the ball for 1 second
 	ball.speedX = 0;
 	ball.speedY = 0;
@@ -64,7 +77,6 @@ async function putBackBall(directionX) {
 			changeColor();
 		await delay(10); // Wait for 0.1 seconds
 	}
-	startUpdatingAI();
 	await delay(1000); // Wait for 1 second
 
 	putBackBallBool = false;
@@ -79,6 +91,7 @@ async function putBackBall(directionX) {
 		await delay(100);
 	ball.speedX = ball.speedBaseX * directionX;
 	ball.speedY = (Math.random() * 2 - 1) * ball.speedBaseY;
+	startUpdatingAI();
 }
 
 function delay(ms) {
@@ -90,12 +103,12 @@ function drawDebug() {
 	var posDebugY = 10;
 	var ecart = 20;
 	ctx.font = "1em Arial";
-	ctx.fillStyle = "#0095DD";
+	ctx.fillStyle = "red";
 	ctx.fillText("destYRT: " + IA.destYRT.toFixed(2), posDebugY, canvas.height - 5 * ecart + posDebugX);
 	ctx.fillText("destYL " + IA.destYL.toFixed(2), posDebugY, canvas.height - 4 * ecart + posDebugX);
 	//ctx.fillText("Pos Ball X / Y: " + ball.x.toFixed(2) + " / " + ball.y.toFixed(2), posDebugY, canvas.height - 3 * ecart + posDebugX);
-	//ctx.fillText("Right Paddle Y: " + paddleRightY.toFixed(2), posDebugY, canvas.height - 2 * ecart + posDebugX);
-	//ctx.fillText("Left Paddle Y: " + paddleLeftY.toFixed(2), posDebugY, canvas.height - 1 * ecart + posDebugX);
+	//ctx.fillText("Right Paddle Y: " + paddle.rightY.toFixed(2), posDebugY, canvas.height - 2 * ecart + posDebugX);
+	//ctx.fillText("Left Paddle Y: " + paddle.leftY.toFixed(2), posDebugY, canvas.height - 1 * ecart + posDebugX);
 }
 
 function changeColor() {
@@ -111,12 +124,12 @@ function collisionDetection() {
 		return;
 	if (ball.x + ball.Bradius > canvas.width - posBord) // Si la balle touche le bord droit du canvas
 	{
-		if (ball.y - paddleRightY < - marge || (ball.y - ball.Bradius) - (paddleRightY + paddleRightHeight) > marge) {
+		if (ball.y - paddle.rightY < - marge || (ball.y - ball.Bradius) - (paddle.rightY + paddle.rightHeight) > marge) {
 			leftScore++;
 			putBackBall(-1);
 		}
 		else {
-			var centrePaddle = paddleRightY + paddleRightHeight / 2;	/// centre de la raquette
+			var centrePaddle = paddle.rightY + paddle.rightHeight / 2;	/// centre de la raquette
 			if (ball.y < centrePaddle)
 				ball.speedY = -1 * (centrePaddle - ball.y) / angle;
 			else
@@ -124,12 +137,12 @@ function collisionDetection() {
 		}
 	}
 	else {
-		if ((ball.y + ball.Bradius) - paddleLeftY < - marge || (ball.y - ball.Bradius) - (paddleLeftY + paddleLeftHeight) > marge) {
+		if ((ball.y + ball.Bradius) - paddle.leftY < - marge || (ball.y - ball.Bradius) - (paddle.leftY + paddle.leftHeight) > marge) {
 			rightScore++;
 			putBackBall(1);
 		}
 		else {
-			var centrePaddle = paddleLeftY + paddleLeftHeight / 2;	/// centre de la raquette
+			var centrePaddle = paddle.leftY + paddle.leftHeight / 2;	/// centre de la raquette
 			if (ball.y < centrePaddle)
 				ball.speedY = -1 * (centrePaddle - ball.y) / angle;
 			else
@@ -186,7 +199,7 @@ function drawVerticalBar() // Dessinez une barre verticale au centre du canvas
 
 	// Appliquez les styles de ligne et dessinez la ligne
 	ctx.strokeStyle = 'black'; // Couleur de la ligne
-	ctx.lineWidth = 5; // Épaisseur de la ligne
+	ctx.lineWidth = canvas.height / 150; // Épaisseur de la ligne
 	ctx.stroke(); // Dessinez la ligne
 
 	// Terminez le chemin
@@ -198,7 +211,7 @@ function drawLine(ax, ay, bx, by) {
 	ctx.moveTo(ax, ay);
 	ctx.lineTo(bx, by);
 	ctx.strokeStyle = 'black'; // Couleur de la ligne
-	ctx.lineWidth = 5; // Épaisseur de la ligne
+	ctx.lineWidth = canvas.height / 150; // Épaisseur de la ligne
 	ctx.stroke(); // Dessinez la ligne
 	ctx.closePath();
 }
@@ -207,16 +220,16 @@ function keyDownHandler(e)// Fonction de gestion des événements
 {
 	if (!pause) {
 		if (e.key == "z" || e.key == "Z") {
-			upLeft = true;
+			inputs.upLeft = true;
 		}
 		else if (e.key == "s" || e.key == "S") {
-			downLeft = true;
+			inputs.downLeft = true;
 		}
 		else if (e.key == "ArrowUp") {
-			upRight = true;
+			inputs.upRight = true;
 		}
 		else if (e.key == "ArrowDown") {
-			downRight = true;
+			inputs.downRight = true;
 		}
 		else if (e.key == "a") {
 			if (ball.speedX >= 0)
@@ -244,44 +257,44 @@ function pauseGame() {
 	if (pause) {
 		ball.speedX = directionX;
 		ball.speedY = directionY;
-		startUpdatingAI();
+
 		pause = false;
+		startUpdatingAI();
 	}
 	else {
-		stopUpdatingAI();
 		directionX = ball.speedX;
 		directionY = ball.speedY;
 		ball.speedX = 0;
 		ball.speedY = 0;
 		// pause = false;
-		// upLeft = false;
-		// downLeft = false;
-		// upRight = false;
-		// downRight = false;
+		// inputs.upLeft = false;
+		// inputs.downLeft = false;
+		// inputs.upRight = false;
+		// inputs.downRight = false;
 		pause = true;
 	}
 }
 
 function keyUpHandler(e) {
 	if (e.key == "z" || e.key == "Z") {
-		upLeft = false;
+		inputs.upLeft = false;
 	}
 	else if (e.key == "s" || e.key == "S") {
-		downLeft = false;
+		inputs.downLeft = false;
 	}
 	else if (e.key == "ArrowUp") {
-		upRight = false;
+		inputs.upRight = false;
 	}
 	else if (e.key == "ArrowDown") {
-		downRight = false;
+		inputs.downRight = false;
 	}
 }
 
 function drawPaddle()// Fonctioner qui dessine les raquettes
 {
 	ctx.beginPath();
-	ctx.rect(5, paddleLeftY, paddleLeftWidth, paddleLeftHeight);
-	ctx.rect(canvas.width - paddleRightWidth - 5, paddleRightY, paddleRightWidth, paddleRightHeight);
+	ctx.rect(5, paddle.leftY, paddle.leftWidth, paddle.leftHeight);
+	ctx.rect(canvas.width - paddle.rightWidth - 5, paddle.rightY, paddle.rightWidth, paddle.rightHeight);
 	var grd = ctx.createLinearGradient(0, 0, 0, canvas.height);
 	grd.addColorStop(0, "blue");
 	grd.addColorStop(1, "red");
@@ -291,31 +304,56 @@ function drawPaddle()// Fonctioner qui dessine les raquettes
 	ctx.closePath();
 }
 
+// function drawRoundedRect(ctx, x, y, width, height, radius) {
+// 	ctx.beginPath();
+// 	ctx.moveTo(x + radius, y);
+// 	ctx.lineTo(x + width - radius, y);
+// 	ctx.arcTo(x + width, y, x + width, y + radius, radius);
+// 	ctx.lineTo(x + width, y + height - radius);
+// 	ctx.arcTo(x + width, y + height, x + width - radius, y + height, radius);
+// 	ctx.lineTo(x + radius, y + height);
+// 	ctx.arcTo(x, y + height, x, y + height - radius, radius);
+// 	ctx.lineTo(x, y + radius);
+// 	ctx.arcTo(x, y, x + radius, y, radius);
+// }
+
+// function drawPaddle() {
+// 	drawRoundedRect(ctx, 5, paddle.leftY, paddle.leftWidth, paddle.leftHeight, 10);
+// 	drawRoundedRect(ctx, canvas.width - paddle.rightWidth - 5, paddle.rightY, paddle.rightWidth, paddle.rightHeight, 10);
+// 	var grd = ctx.createLinearGradient(0, 0, 0, canvas.height);
+// 	grd.addColorStop(0, "blue");
+// 	grd.addColorStop(1, "red");
+
+// 	ctx.fillStyle = grd;
+// 	ctx.fill();
+// 	ctx.closePath();
+// }
+
 function lisenInput() {
 	if (pause || putBackBallBool)
 		return;
-	if (upLeft) {
-		paddleLeftY -= paddleSpeed;
-		if (paddleLeftY < 0) {
-			paddleLeftY = 0;
+	if (inputs.upLeft) {
+		paddle.leftY -= paddle.speed;
+		if (paddle.leftY < 0) {
+			paddle.leftY = 0;
 		}
 	}
-	else if (downLeft) {
-		paddleLeftY += paddleSpeed;
-		if (paddleLeftY + paddleLeftHeight > canvas.height) {
-			paddleLeftY = canvas.height - paddleLeftHeight;
+	else if (inputs.downLeft) {
+		paddle.leftY += paddle.speed;
+		if (paddle.leftY + paddle.leftHeight > canvas.height) {
+			paddle.leftY = canvas.height - paddle.leftHeight;
 		}
 	}
-	if (upRight) {
-		paddleRightY -= paddleSpeed;
-		if (paddleRightY < 0) {
-			paddleRightY = 0;
+	if (inputs.upRight) {
+		paddle.rightY -= paddle.speed;
+		if (paddle.rightY < 0) {
+			paddle.rightY = 0;
 		}
 	}
-	else if (downRight) {
-		paddleRightY += paddleSpeed;
-		if (paddleRightY + paddleRightHeight > canvas.height) {
-			paddleRightY = canvas.height - paddleRightHeight;
+	else if (inputs.downRight) {
+		paddle.rightY += paddle.speed;
+		if (paddle.rightY + paddle.rightHeight > canvas.height) {
+			paddle.rightY = canvas.height - paddle.rightHeight;
 		}
 	}
 }
@@ -362,8 +400,6 @@ function IATrajectory(ox, oy, speedX, speedY, stop) {
 	drawLine(ox, oy, dx, dy);
 }
 
-var updateInterval;
-
 function startUpdatingAI() {
 	updateInterval = setInterval(IAUpdate, 1000);
 }
@@ -372,32 +408,39 @@ function stopUpdatingAI() {
 	clearInterval(updateInterval);
 }
 
-function IAUpdate() {
+function IAUpdate()
+{
+	console.log('IAUpdate est appelée');
 	IA.destYL = IA.destYRT;
+
 }
 
 function IAMove() {
 	if (putBackBallBool || pause || ball.speedX == 0)
 		return;
-	var centrePaddle = paddleRightY + paddleRightHeight / 2;	/// centre de la raquette
+	var centrePaddle = paddle.rightY + paddle.rightHeight / 2;	/// centre de la raquette
 	var ecart = IA.destYL - centrePaddle;
-	var aiPaddleSpeed = paddleSpeed * 1;  // AI moves twice as fast
+	var aiPaddleSpeed = paddle.speed * 1;  // AI moves twice as fast
 
-	if (ecart > 0) {
-		paddleRightY += aiPaddleSpeed;
-		if (paddleRightY + paddleRightHeight > canvas.height) {
-			paddleRightY = canvas.height - paddleRightHeight;
+	if (ecart > - paddle.rightWidth / 2) {
+		paddle.rightY += aiPaddleSpeed;
+		if (paddle.rightY + paddle.rightHeight > canvas.height) {
+			paddle.rightY = canvas.height - paddle.rightHeight;
 		}
-	} else if (ecart < 0) {
+	} else if (ecart < -paddle.rightWidth / 2) {
 		var moveAmount = Math.min(-ecart, aiPaddleSpeed);
-		paddleRightY -= moveAmount;
-		if (paddleRightY < 0) {
-			paddleRightY = 0;
+		paddle.rightY -= moveAmount;
+		if (paddle.rightY < 0) {
+			paddle.rightY = 0;
 		}
 	}
 }
 
-startUpdatingAI();
+function IAManager() {
+	if (putBackBallBool || pause || ball.speedX == 0)
+		stopUpdatingAI();
+}
+
 //#endregion
 
 function draw() {
@@ -412,3 +455,7 @@ function draw() {
 	IAMove();
 }
 setInterval(draw, 10);
+
+IATrajectory(ball.x, ball.y, ball.speedX, ball.speedY, 0);
+IAUpdate();
+startUpdatingAI();
