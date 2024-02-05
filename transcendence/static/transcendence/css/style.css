@@ -14,7 +14,7 @@
   margin-bottom: 20px; /* Ajustez l'espacement vertical selon vos besoins */
 }
 
-.button-image.play-button {
+.button-image.play-button a {
   margin: 0;
   padding: 0;
   display: flex;
@@ -23,23 +23,22 @@
   position: relative;
 }
 
-.button-image.play-button a {
+.button-image.play-button {
   display: block;
   width: 220px;
   height: 50px;
   text-align: center;
-  border: 3px solid #072949;
   border-radius: 15px;
   padding: 10px;
 }
 
 .tv-content {
   position: absolute;
-  top: 50.8%;
+  top: 40.8%;
   left: 50.1%;
   transform: translate(-50%, -50%);
-  width: 96.6%;
-  height: 87.7%;
+  max-width: 96.6%;
+  max-height: 87.7%;
   background-size: cover;
   background-position: center;
 }
@@ -52,48 +51,20 @@
   text-align: center;
   text-decoration: none;
   color: #fff;
-  background-color: #333;
-  border: none;
-  overflow: hidden;
-}
-
-.buttonPong:before,
-.buttonPong:after {
-  content: "";
-  position: absolute;
-  width: calc(100% + 10px);
-  height: calc(100% + 10px);
-  top: -5px;
-  left: -5px;
-  pointer-events: none;
-  z-index: -1;
-}
-
-.buttonPong:before {
-  background: linear-gradient(45deg, #ff00ff, #00ffff, #ff00ff, #00ffff);
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
-}
-
-.buttonPong:after {
-  background: linear-gradient(135deg, #00ffff, #ff00ff, #00ffff, #ff00ff);
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
-}
-
-.buttonPong:hover:before,
-.buttonPong:hover:after {
-  opacity: 1;
-}
-
-.buttonStyle {
   background-color: rgba(0, 0, 0, 0.3);
   border: 3px solid #072949;
   border-radius: 15px;
+  overflow: hidden;
+  transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+.buttonPong:hover {
+  background: linear-gradient(45deg, #ff00ff, #00ffff, #ff00ff, #00ffff);
+  border-color: #072949; /* Couleur de la bordure lorsque survolé */
 }
 
 #tv-login-content {
-  background-image: url(/static/authentication/images/imgloging.png);
+  background-color: rgba(0, 0, 0, 0);
 }
 
 body {
@@ -102,7 +73,7 @@ body {
   position: relative;
   height: 100%;
   width: 100%;
-  background-image: url("../images/backg_pong.jpeg");
+  background-image: url("/static/home/images/background.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100vw 100vh;
@@ -130,7 +101,6 @@ html, body {
   width: 180px; /* Ajustez la largeur selon vos besoins */
   height: 50px; /* Ajustez la hauteur selon vos besoins */
   background-color: rgba(0, 0, 0, 0.3);
-  border: 3px solid #072949;
   cursor: pointer;
 }
 
@@ -141,8 +111,9 @@ html, body {
   transform: translate(-50%, -50%);
   height: 60vh;
   width: 80vw;
-  background-image: url(/static/home/images/borderr.png);
+  background-color: rgba(0, 0, 0, 0.4);
   background-size: 100% 100%;
+  border-radius: 5vmin;
 }
 
 /* ... Autres styles ... */
@@ -158,13 +129,11 @@ html, body {
   background: linear-gradient(to bottom, #f63192, #6c4fef);
   /*background-color: #6c14fa; !* Ajoutez une couleur de fond pour le menu si nécessaire *!*/
   padding: 10px 0; /* Ajoutez un espace autour des boutons si nécessaire */
-  border: 3px solid #072949;
   border-radius: 20px;
 }
 
 #nav-home-bottom a {
-  border: 3px solid #072949;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: transparent;
 }
 
 .howtoplay {
@@ -189,6 +158,12 @@ html, body {
   border: 0.5vmin solid #072949;
   border-radius: 0.5vmax;
   background-color: rgba(0, 0, 0, 0.3);
+}
+
+canvas {
+  display: block;
+  margin: auto;
+  background: linear-gradient(180deg, rgba(131, 96, 195, 0.6666666667), rgba(46, 191, 145, 0.6666666667));
 }
 
 #tv-content-tourn-stats {
