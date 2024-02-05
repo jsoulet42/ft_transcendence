@@ -3,8 +3,8 @@ var ctx = canvas.getContext('2d');
 document.addEventListener("keydown", keyDownHandler, false); // écouteur d'événement
 document.addEventListener("keyup", keyUpHandler, false); // écouteur d'événement
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight * 0.7;
+canvas.width = window.innerWidth * 0.2;
+canvas.height = window.innerHeight * 0.2;
 
 let ball = {
 	x: canvas.width / 2,

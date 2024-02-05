@@ -36,10 +36,8 @@ run_command() {
 	fi
 }
 
-run_command"bash ${script_dir}/compile_css.sh" "CSS compilation"
-
-run_command"pip install --quiet -r ${script_dir}/requirements.txt" "Pip requirements"
-
-run_command"python ${script_dir}/../manage.py collectstatic --noinput" "Static files collection"
+run_command "bash ${script_dir}/compile_css.sh" "CSS compilation"
+run_command "pip install --quiet -r ${script_dir}/requirements.txt" "Pip requirements"
+run_command "python ${script_dir}/../manage.py collectstatic --noinput" "Static files collection"
 
 python "${script_dir}/../manage.py" runserver

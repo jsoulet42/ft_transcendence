@@ -16,9 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include	# Added include() function
-from .views import pong, pong_1v1
+from . import views
+
+app_name = 'pong'
 
 urlpatterns = [
-	path('', pong, name='pong'),
-	path('1v1', pong_1v1, name='pong/1v1'),
+	path('', views.pong, name='pong'),
+	path('game/', views.game, name='game'),
 ]
