@@ -23,7 +23,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 	path('login/', include('authentication.urls')),
 	path('pong/', include('pong.urls')),
-	path('game/', include('pong.urls')),
 	path('hub/', include('hub.urls')),
 	path('profile/', include('profile.urls')),
 	path('tournaments_stats/', include('tournaments_stats.urls')),

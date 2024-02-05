@@ -28,7 +28,7 @@ let paddle = {
 	leftWidth: canvas.height / 50,
 	rightHeight: canvas.width / 15,
 	rightWidth: canvas.height / 50,
-	leftY: (canvas.height - canvas.width / 15) / 3, // start in the middle of the canvas
+	leftY: (canvas.height - canvas.width / 15) / 2, // start in the middle of the canvas
 	rightY: (canvas.height - canvas.width / 15) / 2, // start in the middle of the canvas
 	speed: canvas.height / 100	// Vitesse de déplacement des raquettes
 }
@@ -61,9 +61,9 @@ function drawScore() {
 	ctx.font = "2vw Arial";
 	ctx.fillStyle = 'white';
 	let textWidth = ctx.measureText("Score: " + leftScore).width;
-	ctx.fillText("Score: " + leftScore, canvas.width * 0.01, canvas.height * 0.05);
+	ctx.fillText("Score: " + leftScore, canvas.width * 0.025, canvas.height * 0.06);
 	textWidth = ctx.measureText("Score: " + rightScore).width;
-	ctx.fillText("Score: " + rightScore, canvas.width - textWidth - canvas.width * 0.01, canvas.height * 0.05);
+	ctx.fillText("Score: " + rightScore, canvas.width - textWidth - canvas.width * 0.025, canvas.height * 0.06);
 }
 
 async function putBackBall(directionX) {
@@ -199,7 +199,7 @@ function drawVerticalBar() // Dessinez une barre verticale au centre du canvas
 
 	// Appliquez les styles de ligne et dessinez la ligne
 	ctx.strokeStyle = 'black'; // Couleur de la ligne
-	ctx.lineWidth = 5; // Épaisseur de la ligne
+	ctx.lineWidth = canvas.height / 150; // Épaisseur de la ligne
 	ctx.stroke(); // Dessinez la ligne
 
 	// Terminez le chemin
@@ -211,7 +211,7 @@ function drawLine(ax, ay, bx, by) {
 	ctx.moveTo(ax, ay);
 	ctx.lineTo(bx, by);
 	ctx.strokeStyle = 'black'; // Couleur de la ligne
-	ctx.lineWidth = 5; // Épaisseur de la ligne
+	ctx.lineWidth = canvas.height / 150; // Épaisseur de la ligne
 	ctx.stroke(); // Dessinez la ligne
 	ctx.closePath();
 }
@@ -303,6 +303,31 @@ function drawPaddle()// Fonctioner qui dessine les raquettes
 	ctx.fill();
 	ctx.closePath();
 }
+
+// function drawRoundedRect(ctx, x, y, width, height, radius) {
+// 	ctx.beginPath();
+// 	ctx.moveTo(x + radius, y);
+// 	ctx.lineTo(x + width - radius, y);
+// 	ctx.arcTo(x + width, y, x + width, y + radius, radius);
+// 	ctx.lineTo(x + width, y + height - radius);
+// 	ctx.arcTo(x + width, y + height, x + width - radius, y + height, radius);
+// 	ctx.lineTo(x + radius, y + height);
+// 	ctx.arcTo(x, y + height, x, y + height - radius, radius);
+// 	ctx.lineTo(x, y + radius);
+// 	ctx.arcTo(x, y, x + radius, y, radius);
+// }
+
+// function drawPaddle() {
+// 	drawRoundedRect(ctx, 5, paddle.leftY, paddle.leftWidth, paddle.leftHeight, 10);
+// 	drawRoundedRect(ctx, canvas.width - paddle.rightWidth - 5, paddle.rightY, paddle.rightWidth, paddle.rightHeight, 10);
+// 	var grd = ctx.createLinearGradient(0, 0, 0, canvas.height);
+// 	grd.addColorStop(0, "blue");
+// 	grd.addColorStop(1, "red");
+
+// 	ctx.fillStyle = grd;
+// 	ctx.fill();
+// 	ctx.closePath();
+// }
 
 function lisenInput() {
 	if (pause || putBackBallBool)
@@ -397,12 +422,12 @@ function IAMove() {
 	var ecart = IA.destYL - centrePaddle;
 	var aiPaddleSpeed = paddle.speed * 1;  // AI moves twice as fast
 
-	if (ecart > 0) {
+	if (ecart > - paddle.rightWidth / 2) {
 		paddle.rightY += aiPaddleSpeed;
 		if (paddle.rightY + paddle.rightHeight > canvas.height) {
 			paddle.rightY = canvas.height - paddle.rightHeight;
 		}
-	} else if (ecart < 0) {
+	} else if (ecart < -paddle.rightWidth / 2) {
 		var moveAmount = Math.min(-ecart, aiPaddleSpeed);
 		paddle.rightY -= moveAmount;
 		if (paddle.rightY < 0) {
