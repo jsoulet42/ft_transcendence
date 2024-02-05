@@ -12,7 +12,18 @@
 }
 
 canvas {
-	display: block;
-	margin: auto;
-	background: linear-gradient(180deg, #8360c3AA, #2ebf91AA);
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	height: 60vh;
+	width: 80vw;
+	// background-color: rgba(0, 0, 0, 0.4);
+	background-size: 100% 100%;
+	border-radius: 5vmin;
+	// display: block;
+	// margin: auto;
+	//background-color: rgb(0, 0, 0);
+
+	background: linear-gradient(180deg, #8360c3, #2ebf91);
 }
