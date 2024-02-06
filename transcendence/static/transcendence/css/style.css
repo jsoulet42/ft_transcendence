@@ -109,7 +109,7 @@ html, body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  height: 70vh;
+  height: 100vh;
   width: 100vw;
   background-color: transparent;
   background-size: 100% 100%;
@@ -150,11 +150,7 @@ html, body {
   /*justify-content: center; (pas nécessaire ici, car cela s'applique aux enfants de .howtoplay) */
 }
 
-#tv-content-pong {
-  background-image: url(/static/pong/images/playbackground.png);
-}
-
-#nav-pong a {
+nav-pong a {
   border: 0.5vmin solid #072949;
   border-radius: 0.5vmax;
   background-color: rgba(0, 0, 0, 0.3);
@@ -170,6 +166,17 @@ canvas {
   background-size: 100% 100%;
   border-radius: 5vmin;
   background: linear-gradient(180deg, #8360c3, #2ebf91);
+}
+
+#menu-pong {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40vw;
+  display: flex;
+  text-align: center;
+  text-decoration: none;
 }
 
 #tv-content-tourn-stats {
