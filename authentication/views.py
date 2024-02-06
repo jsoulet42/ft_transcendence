@@ -51,7 +51,7 @@ def authenticate(request):
 
     if response.status_code // 100 != 2:
         return HttpResponse(status = 500)
-    store_token_user(request, response.json().get('access_token'))
+    #store_token_user(request, response.json().get('access_token'))
     return redirect('hub')
 
 def store_token_user(request, access_token):

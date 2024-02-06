@@ -58,7 +58,7 @@
   transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
 }
 
-.buttonPong:hover {
+.buttonPong:hover, .buttonPong:focus {
   background: linear-gradient(45deg, #ff00ff, #00ffff, #ff00ff, #00ffff);
   border-color: #072949; /* Couleur de la bordure lorsque survolé */
 }
@@ -109,9 +109,9 @@ html, body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  height: 60vh;
-  width: 80vw;
-  background-color: rgba(0, 0, 0, 0.4);
+  height: 70vh;
+  width: 100vw;
+  background-color: transparent;
   background-size: 100% 100%;
   border-radius: 5vmin;
 }

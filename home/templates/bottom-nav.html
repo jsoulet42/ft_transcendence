@@ -1,5 +1,5 @@
 <nav id="nav-home-bottom" class="align-self-center">
-	<a id="play" class="btn buttonPong w-25" href="{% url 'home:pong' %}" hx-post="{% url 'home:pong' %}" hx-target="#tv-container" hx-push-url="/pong" hx-headers="{ 'X-CSRFToken': '{{ csrf_token }}' }">
+	<a id="play" class="btn buttonPong w-25" href="{% url 'pong' %}" hx-post="{% url 'pong' %}" hx-target="#tv-container" hx-push-url="/pong" hx-headers="{ 'X-CSRFToken': '{{ csrf_token }}' }">
 		PLAY
 	</a>
 	<a id="tournaments_stats" class="btn buttonPong w-25" href="{% url 'tournaments_stats' %}" hx-get="{% url 'tournaments_stats' %}" hx-target="#tv-container" hx-push-url="true">

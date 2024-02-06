@@ -1,10 +1,7 @@
 <!-- Votre template pong_block.html -->
-{% if hx_push_url %}
-    <script hx-push-url="{{ hx_push_url }}"></script>
-{% endif %}
 <div id="tv-content-pong" class="text-center tv-content">
 	<nav id="nav-pong" class="btn-group" role="group" aria-label="Pong buttons navigation">
-		<a class="btn btn-primary buttonStyle buttonPong" href="{% url 'pong:game' %}" hx-post="{% url 'pong:game' %}" hx-target="#tv-container" hx-push-url="pong/game" hx-headers="{ 'X-CSRFToken': '{{ csrf_token }}' }">
+		<a class="btn btn-primary buttonStyle buttonPong" href="{% url 'game' %}" hx-post="{% url 'game' %}" hx-target="#tv-container" hx-push-url="pong/game" hx-headers="{ 'X-CSRFToken': '{{ csrf_token }}' }">
 			1 VS 1
 		</a>
 		<a class="btn btn-primary buttonStyle buttonPong" href="{% url 'tournaments_stats' %}" hx-get="{% url 'tournaments_stats' %}" hx-target="body">
