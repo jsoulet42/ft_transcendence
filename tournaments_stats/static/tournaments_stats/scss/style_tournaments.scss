@@ -1,9 +1,13 @@
 // style_tournaments.scss
 
+#tv-content-tourn-stats {
+	height: 100%;
+}
+
   #title-tournaments{
 	position: relative;
 	text-align: center;
-	font-size: 7rem;
+	font-size: 6rem;
 	-webkit-text-stroke: 3px black;
 	text-shadow: 5px 5px purple;
 	animation: shine 3s infinite;
@@ -19,10 +23,12 @@
   .center{
 	  position: relative;
 	  padding: 1px;
-	  width: 100%;
-	  height: 100%;
+	  left: 10%;
+	  width: 80%;
+	  height: 60%;
 	  border-radius: 25px;
 	  border: 10px solid rgba(190, 23, 215, 0.9);
+	  background-color: black;
 	  transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
   }
   
@@ -33,7 +39,6 @@
 	  width: 100%;
 	  height: 100%;
 	  background: linear-gradient(to left, black 50%, rgba(190, 23, 215, 0.9) 50%);
-	  background-color: transparent;
 	  background-size: 200% 100%;
 	  animation: loading 2s forwards, fadeout 6s forwards;
 	  overflow: hidden;
@@ -44,7 +49,7 @@
   .custom-table {
 	  table-layout: auto;
 	  overflow: hidden;
-	  background-color: transparent;
+	  height: 100%;
   }
   
   .custom-table th,
@@ -90,8 +95,6 @@
 	transform: scale(1.05);
 	border-color: rgb(250, 135, 236);
 	box-shadow: 0 0 60px rgb(246, 24, 246);
-	background-color: rgba(0, 0, 0, 0.5);
-	transition: background-color 1s ease;
   }
   
   @keyframes shine {
