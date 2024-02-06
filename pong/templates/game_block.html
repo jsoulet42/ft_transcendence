@@ -1,8 +1,5 @@
 {% load static %}
 
-{% if hx_push_url %}
-    <script hx-push-url="{{ hx_push_url }}"></script>
-{% endif %}
 <div class="game">
 	<canvas id="pongCanvas" style="width: 80vw"></canvas>
 	<script src="{% static 'pong/js/pong.js' %}" defer></script>

@@ -1,51 +1,7 @@
 {% extends "home.html" %}
 
 {% block content %}
-{% load static %}
-	<div id="title-div">
-		<h1 id="title-tournaments">Tournament Stats</h1>
-	</div>
-	<div id="tv-container">
-		<div class="center hover-bigger">
+	<div id="tv-content-tourn-stats" class="tv-content">
 		{% include "tournaments_stats_block.html" %}
-		<div id="tournaments-stats-page">
-				<div class="loadingtry">
-				</div>
-				<div class="custom-table">
-					<table class="table">
-						<thead>
-							<tr>
-								<th scope="col"> Position </th>
-								<th scope="col"> Name </th>
-								<th scope="col"> Score </th>
-								<th scope="col"> Win </th>
-								<th scope="col"> Lost </th>
-							</tr>
-						</thead>
-						<thead>
-							<tr>
-								<td>{{ string_array.0 }}</td>
-								<td>{{ string_array.1 }}</td>
-								<td>{{ string_array.2 }}</td>
-								<td>{{ string_array.3 }}</td>
-								<td>{{ string_array.4 }}</td>
-							</tr>
-						</thead>
-					</table>
-				</div>
-			</div>
-		</div>
 	</div>
-		<div class="buttom-left">
-			<div class="btn-group dropup">
-				<button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-					Tournament Won
-				</button>
-				<ul class="dropdown-menu dropstart slide-down-animation">
-					<li><a class="dropdown-item">Tournament 1</a></li>
-					<li><a class="dropdown-item">Tournament 2</a></li>
-					<li><a class="dropdown-item">Tournament 3</a></li>
-				</ul>
-			</div>
-		</div>
 {% endblock %}

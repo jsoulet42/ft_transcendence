@@ -1,11 +1,7 @@
 // style_tournaments.scss
 
-#tv-content-tourn-stats
-{
-    background-image: url(/static/tournaments_stats/images/podium.png);
-}
-
   #title-tournaments{
+	position: relative;
 	text-align: center;
 	font-size: 7rem;
 	-webkit-text-stroke: 3px black;
@@ -94,7 +90,8 @@
 	transform: scale(1.05);
 	border-color: rgb(250, 135, 236);
 	box-shadow: 0 0 60px rgb(246, 24, 246);
-	background-color: rgba(0, 0, 0, 0.8);
+	background-color: rgba(0, 0, 0, 0.5);
+	transition: background-color 1s ease;
   }
   
   @keyframes shine {
