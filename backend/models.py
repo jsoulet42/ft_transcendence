@@ -21,20 +21,20 @@ class UsersList(models.Model):
 class Tournament(models.Model):
 	CHOICE_OPTION1 = 4
 	CHOICE_OPTION2 = 8
-	
+
 	COUNT_CHOICES = (
 		(CHOICE_OPTION1, 4),
 		(CHOICE_OPTION2, 8),
 	)
-	
+
 	DEFAULT_NAME = 'Unknown'
 
 	name = models.CharField(max_length = 50)
 	date = models.DateField(auto_now = False, auto_now_add = True)
 	host = models.ForeignKey("User", null = False, on_delete = models.CASCADE)
-	
+
 	players_count = models.PositiveSmallIntegerField(default = 8, choices = COUNT_CHOICES)
-	
+
 	leaderboard = JSONField(default = list)
 
 	def add_leaderboard_user(self, new_user_name, position=0):

@@ -116,6 +116,18 @@ html, body {
   border-radius: 5vmin;
 }
 
+#tv-pong {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 40vh;
+  width: 40vw;
+  background-color: rgb(255, 0, 0);
+  background-size: 100% 100%;
+  border-radius: 5vmin;
+}
+
 /* ... Autres styles ... */
 #nav-home-bottom {
   list-style: none;
@@ -161,8 +173,8 @@ canvas {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  height: 60vh;
-  width: 80vw;
+  height: 70vh;
+  width: 70vw;
   background-size: 100% 100%;
   border-radius: 5vmin;
   background: linear-gradient(180deg, #8360c3, #2ebf91);
