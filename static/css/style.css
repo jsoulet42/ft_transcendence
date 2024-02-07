@@ -332,13 +332,9 @@ canvas {
   box-shadow: 0 0 40vh rgb(246, 24, 246);
 }
 
-.hover-aura {
-  border-color: rgb(7, 186, 226);
-  transition: box-shadow 0.5s; /* Transition pour l'ombre portée */
-}
-
 .hover-aura:hover {
-  box-shadow: 0 0 60vh rgb(7, 186, 226); /* Ombre portée agrandie lorsque la souris est dessus */
+  border-color: rgb(7, 186, 226);
+  box-shadow: 0 0 50vh rgb(7, 186, 226);
 }
 
 @keyframes shine {
