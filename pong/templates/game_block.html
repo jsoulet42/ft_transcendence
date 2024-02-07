@@ -1,16 +1,50 @@
 {% load static %}
 
 {% if hx_push_url %}
-    <script hx-push-url="{{ hx_push_url }}"></script>
+<script hx-push-url="{{ hx_push_url }}"></script>
 {% endif %}
 <div class="game">
 	<!-- <canvas id="pongCanvas" style="width: 80vw"></canvas> -->
-	<button id="startButton">Start Game</button>
+	<!-- <button id="startButton">Start Game</button>
 	<br>
 	<button id="StartIA">Partie contre l'IA ia ia ia</button>
 	<br>
-	<button id="drawTrajectory">Draw Trajectory</button>
+	<button id="drawTrajectory">Draw Trajectory</button> -->
+	<br>
+	<p id="ajax"></p>
+	<br>
 	<canvas id="pongCanvas"></canvas>
+
+	<form method="POST">
+		{% csrf_token %}
+		<label>Opération</label>
+		<input type="text" id="player1"> + <input type="text" id="player2">
+		<input id="ajax-call" type="submit" value="Calculer">
+	</form>
+
+
+	<script>
+		document.querySelector("#ajax-call").addEventListener("click", event => {
+			event.preventDefault();
+			let formData = new FormData();
+			formData.append('p1', document.querySelector("#player1").value);
+			formData.append('p2', document.querySelector("#player2").value);
+			let csrfTokenValue = document.querySelector('[name=csrfmiddlewaretoken]').value;
+			const request = new Request('{% url "pongDjango" %}',{
+					method: 'POST',
+					body: formData,
+					headers: { 'X-CSRFToken': csrfTokenValue }
+				});
+			fetch(request)
+				.then(response => response.json())
+				.then(result => {
+					const resultElement = document.querySelector("#ajax");
+					resultElement.innerHTML = result["operation_result"];
+				})
+		})
+
+
+	</script>
 	<script type="module" src="{% static 'pong/js/pongManager.js' %}" defer></script>
 	<script type="module" src="{% static 'pong/js/pong.js' %}" defer></script>
 </div>

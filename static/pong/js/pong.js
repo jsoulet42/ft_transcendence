@@ -21,7 +21,7 @@ let ball = {
 	speedY: 0,
 	Bradius: canvas.height / 50,
 	speedBaseX: canvas.width / 100, // Vitesse de déplacement horizontal de la balle
-	speedBaseY: canvas.height / 100, // Vitesse de déplacement vertical de la balle
+	speedBaseY: canvas.height / 100 * 0, // Vitesse de déplacement vertical de la balle
 	Bcolor: 'blue'
 }
 
@@ -303,7 +303,7 @@ function IAUpdate() {
 			let currentTime = Date.now();
 			let elapsedTime = currentTime - lastTime;
 			lastTime = currentTime; // mise à jour de lastTime pour le prochain appel
-			console.log(elapsedTime);
+			//  !!!!!!!!!!  console.log(elapsedTime); // Affiche le temps écoulé depuis le dernier appel
 }
 
 function IAMove() {
