@@ -13,7 +13,7 @@
 	animation: shine 3s infinite;
 	transition: color 0.3s ease;
   }
-  
+
   #title-div {
 	margin-left: auto;
 	margin-right: auto;
@@ -31,7 +31,7 @@
 	  background-color: black;
 	  transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
   }
-  
+
   .loadingtry {
 	  position: absolute;
 	  top: 0;
@@ -45,14 +45,14 @@
 	  opacity: 1;
 	  border-radius: 15px;
   }
-  
+
   .custom-table {
 	  table-layout: auto;
 	  overflow: hidden;
 	  height: 100%;
 	  background-color: transparent;
   }
-  
+
   .custom-table th,
   .custom-table td {
 	opacity: 0;
@@ -70,13 +70,13 @@
 		max-height: 200px;
 	  }
 	}
-	
+
 	.slide-down-animation {
 	  animation: slideDown 0.3s ease-out;
 	  overflow: hidden;
 	  transition: max-height 0.3s ease-out;
 	}
-  
+
   .buttom-left{
 	  position: absolute;
 	  bottom: 14%;
@@ -93,11 +93,18 @@
 	box-shadow: 0 0 40vh rgb(246, 24, 246);
   }
 
-.hover-aura:hover {
-	border-color: rgb(205, 7, 226);
-	box-shadow: 0 0 70vh rgb(246, 24, 246);
+  .hover-aura {
+	border-color: rgb(7, 186, 226);
+	transition: box-shadow 0.5s; /* Transition pour l'ombre portée */
   }
-  
+
+  .hover-aura:hover {
+	box-shadow: 0 0 60vh rgb(7, 186, 226); /* Ombre portée agrandie lorsque la souris est dessus */
+  }
+
+
+
+
   @keyframes shine {
 	  0% {
 		  color: blueviolet;
@@ -112,19 +119,19 @@
 		  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
 	  }
   }
-  
+
   #title-tournaments:hover {
 	  color: gold;
 	  text-shadow: none;
 	  animation: none;
   }
-  
+
   @keyframes neon-glow {
 	  to {
 		  text-shadow: 0 0 10px rgb(255, 255, 255), 0 0 20px rgb(218, 69, 164), 0 0 30px rgba(255, 59, 173, 0.8), 0 0 40px rgba(178, 69, 224, 0.8), 0 0 120px rgba(255, 0, 187, 0.6);
 	  }
   }
-  
+
   @keyframes loading {
 	0% {
 	  background-position: 100% 0%;
@@ -133,16 +140,15 @@
 	  background-position: 0% 100%;
 	}
   }
-  
+
   @keyframes fadeout {
 	  to {
 	  opacity: 0;
 	  }
   }
-  
+
   @keyframes fadein {
 	to {
 	  opacity: 1;
 	}
   }
-  
