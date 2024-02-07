@@ -286,15 +286,24 @@ function IATrajectory(ox, oy, speedX, speedY, stop) {
 
 function startUpdatingAI() {
 	if (IA.activate)
+	{
+
 		updateInterval = setInterval(IAUpdate, 1000);
+	}
 }
 
 function stopUpdatingAI() {
 	clearInterval(updateInterval);
 }
 
+let lastTime = Date.now();
 function IAUpdate() {
 	IA.destYL = IA.destYRT + Math.random() * paddle.leftHeight - paddle.leftHeight / 2;
+			// mise à jour de la variable qui stocke le temps au dernier appel de la fonction
+			let currentTime = Date.now();
+			let elapsedTime = currentTime - lastTime;
+			lastTime = currentTime; // mise à jour de lastTime pour le prochain appel
+			console.log(elapsedTime);
 }
 
 function IAMove() {

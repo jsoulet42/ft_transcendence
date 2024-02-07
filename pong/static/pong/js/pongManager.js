@@ -23,4 +23,3 @@ drawTrajectory.addEventListener('click', function() {
 	drawTrajectoryActivateBool = !drawTrajectoryActivateBool;
 	drawTrajectoryActivate(drawTrajectoryActivateBool);
 });
-
