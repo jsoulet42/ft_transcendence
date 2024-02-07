@@ -17,22 +17,65 @@ html, body {
 	width: 100%;
 }
 
-#home-button {
-    position: fixed;
-    top: 10px; /* Ajustez la position verticale selon vos besoins */
-    left: 10px; /* Ajustez la position horizontale selon vos besoins */
-    width: 360px; /* Ajustez la largeur selon vos besoins */
-    height: 73px; /* Ajustez la hauteur selon vos besoins */
-	background-color: transparent;
-    cursor: pointer;
+.pong_title {
+	color: white;
+	top: 0%;
+	left: 1vw;
+	padding-left: 1vmin;
+	font-size: 9vmin;
+	width: 100%;
+  }
+
+.P {
+	border : 5px, solid black;
 }
 
+.O{
+	border : 5px, solid black;
+}
+
+.N {
+	border : 5px, solid black;
+}
+
+.pong_title .G {
+	border : 5px, black;
+}
+
+#ball {
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	background-color: rgb(34, 195, 178);
+	position: absolute;
+	box-shadow: inset 5px 2px 3px rgb(255, 255, 255), 7px 15px 2px rgba(0, 0, 0, 0.632);
+	animation: moveX 3s linear 0s infinite alternate, moveY 3.4s linear 0s infinite alternate;
+  }
+
+  #ball1 {
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	background-color: rgb(34, 195, 178);
+	position: absolute;
+	box-shadow: inset 5px 2px 3px rgb(255, 255, 255), 7px 15px 2px rgba(0, 0, 0, 0.632);
+	animation: moveY 3s linear 0s infinite alternate, moveX 3.4s linear 0s infinite alternate;
+  }
+  
+  @keyframes moveX {
+	from { left: 0; } to { left: 250px; }
+  }
+
+  @keyframes moveY {
+	from { top: 0; } to { top: 69px; }
+  }
+  
 #connection-button {
     position: fixed;
-    top: 15px; /* Ajustez la position verticale selon vos besoins */
-    left: 1000px; /* Ajustez la position horizontale selon vos besoins */
-    width: 180px; /* Ajustez la largeur selon vos besoins */
-    height: 50px; /* Ajustez la hauteur selon vos besoins */
+    top: 15px;
+    left: 1000px;
+    width: 180px;
+    height: 50px;
     background-color: rgba(0, 0, 0, 0.3);
     cursor: pointer;
 }
@@ -49,19 +92,6 @@ html, body {
 	border-radius: 5vmin;
 }
 
-#tv-pong {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	height: 40vh;
-	width: 40vw;
-	background-color: rgb(255, 0, 0);
-	background-size: 100% 100%;
-	border-radius: 5vmin;
-}
-
-/* ... Autres styles ... */
 #nav-home-bottom {
     list-style: none;
     display: flex;
@@ -77,7 +107,7 @@ html, body {
     border-radius: 20px 20px 0 0;
 }
 
-#nav-home-bottom a {
+#nav-home-bottom {
 	background-color: transparent;
 }
 
