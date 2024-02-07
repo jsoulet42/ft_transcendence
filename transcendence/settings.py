@@ -46,11 +46,9 @@ INSTALLED_APPS = [
 	'authentication',
 	'tournaments_stats',
     'django_htmx',
-	'corsheaders',
 ]
 
 MIDDLEWARE = [
-	'corsheaders.middleware.CorsMiddleware', # Notez que CorsMiddleware doit être placé au-dessus de tous les autres middleware qui génèrent des réponses, comme CommonMiddleware
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',

@@ -3,7 +3,7 @@
 	<a class="btn buttonPong mx-5" href="{% url 'game' %}" hx-post="{% url 'game' %}" hx-target="#tv-container" hx-push-url="pong/game" hx-headers="{ 'X-CSRFToken': '{{ csrf_token }}' }">
 		1 VS 1
 	</a>
-	<a class="btn buttonPong mx-5" href="{% url 'tournaments_stats' %}" hx-get="{% url 'tournaments_stats' %}" hx-target="body">
+	<a id="StartIA" class="btn buttonPong mx-5" href="{% url 'tournaments_stats' %}" hx-get="{% url 'tournaments_stats' %}" hx-target="body">
 		1 VS BOT
 	</a>
 	<a class="btn buttonPong mx-5" href="{% url 'profile' %}" hx-get="{% url 'profile' %}" hx-target="body">
