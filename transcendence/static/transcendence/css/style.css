@@ -84,29 +84,11 @@ html, body {
 }
 
 .pong_title {
+  position: relative;
   color: white;
-  top: 0%;
-  left: 1vw;
   padding-left: 1vmin;
   font-size: 9vmin;
   width: 100%;
-}
-
-.P {
-  position: fixed;
-  border: 5px, solid black;
-}
-
-.O {
-  position: fixed;
-  border: 5px, solid black;
-}
-
-.N {
-  border: 5px, solid black;
-}
-
-.pong_title .G {
   border: 5px, black;
 }
 
@@ -178,12 +160,8 @@ html, body {
   margin-bottom: -1px;
   width: 100%;
   background: linear-gradient(to bottom, #f63192, #6c4fef);
-  /*background-color: #6c14fa; !* Ajoutez une couleur de fond pour le menu si nécessaire *!*/
-  padding: 10px; /* Ajoutez un espace autour des boutons si nécessaire */
+  padding: 10px;
   border-radius: 20px 20px 0 0;
-}
-
-#nav-home-bottom {
   background-color: transparent;
 }
 
@@ -329,7 +307,12 @@ canvas {
 .hover-bigger:hover {
   transform: scale(1.05);
   border-color: rgb(250, 135, 236);
-  box-shadow: 0 0 70px rgb(246, 24, 246);
+  box-shadow: 0 0 40vh rgb(246, 24, 246);
+}
+
+.hover-aura:hover {
+  border-color: rgb(7, 186, 226);
+  box-shadow: 0 0 50vh rgb(7, 186, 226);
 }
 
 @keyframes shine {
