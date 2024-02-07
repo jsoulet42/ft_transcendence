@@ -95,21 +95,17 @@ cursor: pointer;
 }
 
 #nav-home-bottom {
-list-style: none;
-display: flex;
-justify-content: space-around;
-align-items: flex-end;
-position: fixed;
-bottom: 0px;
-margin-bottom: -1px;
-width: 100%;
-background: linear-gradient(to bottom, #f63192, #6c4fef);
-/*background-color: #6c14fa; !* Ajoutez une couleur de fond pour le menu si nécessaire *!*/
-padding: 10px; /* Ajoutez un espace autour des boutons si nécessaire */
-border-radius: 20px 20px 0 0;
-}
-
-#nav-home-bottom {
+	list-style: none;
+	display: flex;
+	justify-content: space-around;
+	align-items: flex-end;
+	position: fixed;
+	bottom: 0px;
+	margin-bottom: -1px;
+	width: 100%;
+	background: linear-gradient(to bottom, #f63192, #6c4fef);
+	padding: 10px;
+	border-radius: 20px 20px 0 0;
 	background-color: transparent;
 }
 
@@ -120,9 +116,4 @@ border-radius: 20px 20px 0 0;
 	transform: translate(-50%, -50%);
 	width: 98%;
 	text-align: center;
-/* align-items: center; Centre le contenu verticalement */
-/* justify-content: center; Centre le contenu horizontalement */
-/* Aucun besoin de position: absolute; */
-/*align-items: center; (pas nécessaire ici, car cela s'applique aux enfants de .howtoplay) */
-/*justify-content: center; (pas nécessaire ici, car cela s'applique aux enfants de .howtoplay) */
 }

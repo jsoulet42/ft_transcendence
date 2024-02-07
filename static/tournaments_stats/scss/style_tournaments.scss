@@ -93,17 +93,10 @@
 	box-shadow: 0 0 40vh rgb(246, 24, 246);
   }
 
-  .hover-aura {
+.hover-aura:hover {
 	border-color: rgb(7, 186, 226);
-	transition: box-shadow 0.5s; /* Transition pour l'ombre portée */
+	box-shadow: 0 0 50vh rgb(7, 186, 226);
   }
-
-  .hover-aura:hover {
-	box-shadow: 0 0 60vh rgb(7, 186, 226); /* Ombre portée agrandie lorsque la souris est dessus */
-  }
-
-
-
 
   @keyframes shine {
 	  0% {
