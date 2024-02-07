@@ -18,9 +18,6 @@ from django.contrib import admin
 from django.urls import path, include	# Added include() function
 from . import views
 
-app_name = 'home'
-
 urlpatterns = [
 	path('', views.home, name='home'),
-	path('pong/', views.pong, name='pong'),
 ]
