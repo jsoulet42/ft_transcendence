@@ -1,4 +1,14 @@
 <nav id="top-nav">
+	<div id="home-button">
+		<span class="pong_title P">P</span>
+		<span class="pong_title O">O</span>
+		<span class="pong_title N">N</span>
+		<span class="pong_title G">G</span>
+		<div id="ball">
+		</div>
+		<div id="ball1">
+		</div>
+	</div>
     <!--<a id="home-button" href="{% url 'home' %}" hx-get="{% url 'home' %}" hx-target="body"></a>-->
     <a class="btn buttonPong" id="connection-button" href="{% url 'login' %}" hx-get="{% url 'login' %}" hx-target="#tv-container" hx-push-url="true">
         Logout a modifier

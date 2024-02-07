@@ -6,10 +6,10 @@ body {
 	position: relative;
 	height: 100%;
 	width: 100%;
-    background-image: url("/static/home/images/background.png");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 100vw 100vh;
+background-image: url("/static/home/images/background.png");
+background-position: center;
+background-repeat: no-repeat;
+background-size: 100vw 100vh;
 }
 
 html, body {
@@ -18,31 +18,31 @@ html, body {
 }
 
 .pong_title {
+	position: relative;
 	color: white;
-	top: 0%;
-	left: 1vw;
 	padding-left: 1vmin;
 	font-size: 9vmin;
 	width: 100%;
-  }
-
-.P {
-	position: fixed;
-	border : 5px, solid black;
-}
-
-.O{
-	position: fixed;
-	border : 5px, solid black;
-}
-
-.N {
-	border : 5px, solid black;
-}
-
-.pong_title .G {
 	border : 5px, black;
 }
+
+// .P {
+// 	position: fixed;
+// 	border : 5px, solid black;
+// }
+
+// .O{
+// 	position: fixed;
+// 	border : 5px, solid black;
+// }
+
+// .N {
+// 	border : 5px, solid black;
+// }
+
+// .pong_title .G {
+// 	border : 5px, black;
+// }
 
 #ball {
 	width: 20px;
@@ -52,9 +52,9 @@ html, body {
 	position: absolute;
 	box-shadow: inset 5px 2px 3px rgb(255, 255, 255), 7px 15px 2px rgba(0, 0, 0, 0.632);
 	animation: moveX 3s linear 0s infinite alternate, moveY 3.4s linear 0s infinite alternate;
-  }
+}
 
-  #ball1 {
+#ball1 {
 	width: 20px;
 	height: 20px;
 	border-radius: 50%;
@@ -62,24 +62,24 @@ html, body {
 	position: absolute;
 	box-shadow: inset 5px 2px 3px rgb(255, 255, 255), 7px 15px 2px rgba(0, 0, 0, 0.632);
 	animation: moveY 3s linear 0s infinite alternate, moveX 3.4s linear 0s infinite alternate;
-  }
-  
-  @keyframes moveX {
-	from { left: 0; } to { left: 250px; }
-  }
+}
 
-  @keyframes moveY {
+@keyframes moveX {
+	from { left: 0; } to { left: 250px; }
+}
+
+@keyframes moveY {
 	from { top: 0; } to { top: 69px; }
-  }
-  
+}
+
 #connection-button {
-    position: fixed;
-    top: 15px;
-    left: 1000px;
-    width: 180px;
-    height: 50px;
-    background-color: rgba(0, 0, 0, 0.3);
-    cursor: pointer;
+position: fixed;
+top: 15px;
+left: 1000px;
+width: 180px;
+height: 50px;
+background-color: rgba(0, 0, 0, 0.3);
+cursor: pointer;
 }
 
 #tv-container {
@@ -95,18 +95,18 @@ html, body {
 }
 
 #nav-home-bottom {
-    list-style: none;
-    display: flex;
-    justify-content: space-around;
-    align-items: flex-end;
-    position: fixed;
-    bottom: 0px;
-    margin-bottom: -1px;
-    width: 100%;
-    background: linear-gradient(to bottom, #f63192, #6c4fef);
-    /*background-color: #6c14fa; !* Ajoutez une couleur de fond pour le menu si nécessaire *!*/
-    padding: 10px; /* Ajoutez un espace autour des boutons si nécessaire */
-    border-radius: 20px 20px 0 0;
+list-style: none;
+display: flex;
+justify-content: space-around;
+align-items: flex-end;
+position: fixed;
+bottom: 0px;
+margin-bottom: -1px;
+width: 100%;
+background: linear-gradient(to bottom, #f63192, #6c4fef);
+/*background-color: #6c14fa; !* Ajoutez une couleur de fond pour le menu si nécessaire *!*/
+padding: 10px; /* Ajoutez un espace autour des boutons si nécessaire */
+border-radius: 20px 20px 0 0;
 }
 
 #nav-home-bottom {
@@ -120,9 +120,9 @@ html, body {
 	transform: translate(-50%, -50%);
 	width: 98%;
 	text-align: center;
-    /* align-items: center; Centre le contenu verticalement */
-    /* justify-content: center; Centre le contenu horizontalement */
-    /* Aucun besoin de position: absolute; */
-    /*align-items: center; (pas nécessaire ici, car cela s'applique aux enfants de .howtoplay) */
-    /*justify-content: center; (pas nécessaire ici, car cela s'applique aux enfants de .howtoplay) */
+/* align-items: center; Centre le contenu verticalement */
+/* justify-content: center; Centre le contenu horizontalement */
+/* Aucun besoin de position: absolute; */
+/*align-items: center; (pas nécessaire ici, car cela s'applique aux enfants de .howtoplay) */
+/*justify-content: center; (pas nécessaire ici, car cela s'applique aux enfants de .howtoplay) */
 }
