@@ -24,6 +24,3 @@ drawTrajectory.addEventListener('click', function() {
 	drawTrajectoryActivate(drawTrajectoryActivateBool);
 });
 
-fetch('/api/user/1/name/')
-	.then(response => response.json())
-	.then(data => console.log(data.name));
