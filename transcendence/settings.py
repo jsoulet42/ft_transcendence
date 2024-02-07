@@ -46,9 +46,11 @@ INSTALLED_APPS = [
 	'authentication',
 	'tournaments_stats',
     'django_htmx',
+	'corsheaders',
 ]
 
 MIDDLEWARE = [
+	'corsheaders.middleware.CorsMiddleware', # Notez que CorsMiddleware doit être placé au-dessus de tous les autres middleware qui génèrent des réponses, comme CommonMiddleware
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -156,3 +158,4 @@ EXTERNAL_API_USER_IMAGE_URL = 'https://cdn.intra.42.fr/users/'	# + user_id + '.j
 EXTERNAL_API_USER_IMAGE_URL_DEFAULT = 'https://cdn.intra.42.fr/users/default.png'
 EXTERNAL_API_USER_IMAGE_URL_SMALL = 'https://cdn.intra.42.fr/users/small_'	# + user_id + '.jpg'
 
+CORS_ORIGIN_ALLOW_ALL = True
