@@ -294,7 +294,12 @@ body {
 .hover-bigger:hover {
   transform: scale(1.05);
   border-color: rgb(250, 135, 236);
-  box-shadow: 0 0 70px rgb(246, 24, 246);
+  box-shadow: 0 0 40vh rgb(246, 24, 246);
+}
+
+.hover-aura:hover {
+  border-color: rgb(205, 7, 226);
+  box-shadow: 0 0 70vh rgb(246, 24, 246);
 }
 
 @keyframes shine {
