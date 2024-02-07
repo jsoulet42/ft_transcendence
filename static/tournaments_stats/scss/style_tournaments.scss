@@ -13,7 +13,7 @@
 	animation: shine 3s infinite;
 	transition: color 0.3s ease;
   }
-  
+
   #title-div {
 	margin-left: auto;
 	margin-right: auto;
@@ -25,13 +25,13 @@
 	  padding: 1px;
 	  left: 10%;
 	  width: 80%;
-	  height: 60%;
+	  height: 70%;
 	  border-radius: 25px;
 	  border: 10px solid rgba(190, 23, 215, 0.9);
 	  background-color: black;
 	  transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
   }
-  
+
   .loadingtry {
 	  position: absolute;
 	  top: 0;
@@ -45,13 +45,13 @@
 	  opacity: 1;
 	  border-radius: 15px;
   }
-  
+
   .custom-table {
 	  table-layout: auto;
 	  overflow: hidden;
 	  height: 100%;
   }
-  
+
   .custom-table th,
   .custom-table td {
 	opacity: 0;
@@ -60,12 +60,12 @@
 	  color: violet;
 	  background-color: transparent;
   }
-  
+
   body {
 	  background-color: black;
 	  color: wheat;
 	  }
-  
+
   @keyframes slideDown {
 	  from {
 		max-height: 0;
@@ -74,21 +74,22 @@
 		max-height: 200px;
 	  }
 	}
-	
+
 	.slide-down-animation {
 	  animation: slideDown 0.3s ease-out;
 	  overflow: hidden;
 	  transition: max-height 0.3s ease-out;
 	}
-  
+
   .buttom-left{
-	  position: absolute;
-	  bottom: 14%;
-	  left: 10%;
-	  background-color: blueviolet;
-	  border-radius: 5px;
-	  font-size: 16px;
-	  color: white;
+	position: absolute;
+	//bottom: 14%;
+	margin-top: 2vh;
+	left: 10%;
+	background-color: blueviolet;
+	border-radius: 5px;
+	font-size: 16px;
+	color: white;
   }
 
 .hover-bigger:hover {
@@ -96,7 +97,7 @@
 	border-color: rgb(250, 135, 236);
 	box-shadow: 0 0 60px rgb(246, 24, 246);
   }
-  
+
   @keyframes shine {
 	  0% {
 		  color: blueviolet;
@@ -111,19 +112,19 @@
 		  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
 	  }
   }
-  
+
   #title-tournaments:hover {
 	  color: gold;
 	  text-shadow: none;
 	  animation: none;
   }
-  
+
   @keyframes neon-glow {
 	  to {
 		  text-shadow: 0 0 10px rgb(255, 255, 255), 0 0 20px rgb(218, 69, 164), 0 0 30px rgba(255, 59, 173, 0.8), 0 0 40px rgba(178, 69, 224, 0.8), 0 0 120px rgba(255, 0, 187, 0.6);
 	  }
   }
-  
+
   @keyframes loading {
 	0% {
 	  background-position: 100% 0%;
@@ -132,16 +133,15 @@
 	  background-position: 0% 100%;
 	}
   }
-  
+
   @keyframes fadeout {
 	  to {
 	  opacity: 0;
 	  }
   }
-  
+
   @keyframes fadein {
 	to {
 	  opacity: 1;
 	}
   }
-  

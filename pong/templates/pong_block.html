@@ -1,14 +1,12 @@
 <!-- Votre template pong_block.html -->
-<div id="tv-content-pong" class="text-center tv-content">
-	<nav id="nav-pong" class="btn-group" role="group" aria-label="Pong buttons navigation">
-		<a class="btn btn-primary buttonStyle buttonPong" href="{% url 'game' %}" hx-post="{% url 'game' %}" hx-target="#tv-container" hx-push-url="pong/game" hx-headers="{ 'X-CSRFToken': '{{ csrf_token }}' }">
-			1 VS 1
-		</a>
-		<a class="btn btn-primary buttonStyle buttonPong" href="{% url 'tournaments_stats' %}" hx-get="{% url 'tournaments_stats' %}" hx-target="body">
-			1 VS BOT
-		</a>
-		<a class="btn btn-primary buttonStyle buttonPong" href="{% url 'profile' %}" hx-get="{% url 'profile' %}" hx-target="body">
-			TOURNAMENT
-		</a>
-	</nav>
+<div id="menu-pong" class="align-self-center">
+	<a class="btn buttonPong mx-5" href="{% url 'game' %}" hx-post="{% url 'game' %}" hx-target="#tv-container" hx-push-url="pong/game" hx-headers="{ 'X-CSRFToken': '{{ csrf_token }}' }">
+		1 VS 1
+	</a>
+	<a class="btn buttonPong mx-5" href="{% url 'tournaments_stats' %}" hx-get="{% url 'tournaments_stats' %}" hx-target="body">
+		1 VS BOT
+	</a>
+	<a class="btn buttonPong mx-5" href="{% url 'profile' %}" hx-get="{% url 'profile' %}" hx-target="body">
+		TOURNAMENT
+	</a>
 </div>
