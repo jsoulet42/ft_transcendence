@@ -84,30 +84,13 @@ html, body {
 }
 
 .pong_title {
+  position: relative;
   color: white;
   top: 0%;
   left: 1vw;
   padding-left: 1vmin;
   font-size: 9vmin;
   width: 100%;
-}
-
-.P {
-  position: fixed;
-  border: 5px, solid black;
-}
-
-.O {
-  position: fixed;
-  border: 5px, solid black;
-}
-
-.N {
-  border: 5px, solid black;
-}
-
-.pong_title .G {
-  border: 5px, black;
 }
 
 #ball {
