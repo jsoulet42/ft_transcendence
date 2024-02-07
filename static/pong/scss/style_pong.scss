@@ -11,8 +11,8 @@ canvas {
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	height: 60vh;
-	width: 80vw;
+	height: 70vh;
+	width: 70vw;
 	// background-color: rgba(0, 0, 0, 0.4);
 	background-size: 100% 100%;
 	border-radius: 5vmin;
@@ -23,13 +23,25 @@ canvas {
 	background: linear-gradient(180deg, #8360c3, #2ebf91);
 }
 
-#menu-pong {
+.buttonInPlay {
+    width: 20vw;
+    height: 30vh;
+    border-radius: 15px;
+}
+
+.center-text {
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	width: 40vw;
-	display: flex;
-    text-align: center;
-    text-decoration: none;
+	font-size: 3vmin;
 }
+
+#navGameMode {
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+

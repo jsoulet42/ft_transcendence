@@ -50,6 +50,7 @@
 	  table-layout: auto;
 	  overflow: hidden;
 	  height: 100%;
+	  background-color: transparent;
   }
   
   .custom-table th,
@@ -89,7 +90,7 @@
 .hover-bigger:hover {
 	transform: scale(1.05);
 	border-color: rgb(250, 135, 236);
-	box-shadow: 0 0 60px rgb(246, 24, 246);
+	box-shadow: 0 0 70px rgb(246, 24, 246);
   }
   
   @keyframes shine {

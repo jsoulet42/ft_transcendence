@@ -55,7 +55,6 @@
   border: 3px solid #072949;
   border-radius: 15px;
   overflow: hidden;
-  transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
 }
 
 .buttonPong:hover, .buttonPong:focus {
@@ -167,6 +166,22 @@ html, body {
   border-radius: 5vmin;
 }
 
+<<<<<<< HEAD
+=======
+#tv-pong {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 40vh;
+  width: 40vw;
+  background-color: rgb(255, 0, 0);
+  background-size: 100% 100%;
+  border-radius: 5vmin;
+}
+
+/* ... Autres styles ... */
+>>>>>>> 1f8e872f8ff7dd03eed309616240faa0fb195e50
 #nav-home-bottom {
   list-style: none;
   display: flex;
@@ -211,22 +226,32 @@ canvas {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  height: 60vh;
-  width: 80vw;
+  height: 70vh;
+  width: 70vw;
   background-size: 100% 100%;
   border-radius: 5vmin;
   background: linear-gradient(180deg, #8360c3, #2ebf91);
 }
 
-#menu-pong {
+.buttonInPlay {
+  width: 20vw;
+  height: 30vh;
+  border-radius: 15px;
+}
+
+.center-text {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 40vw;
-  display: flex;
-  text-align: center;
-  text-decoration: none;
+  font-size: 3vmin;
+}
+
+#navGameMode {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 #tv-content-tourn-stats {
@@ -279,6 +304,7 @@ canvas {
   table-layout: auto;
   overflow: hidden;
   height: 100%;
+  background-color: transparent;
 }
 
 .custom-table th,
@@ -317,7 +343,7 @@ canvas {
 .hover-bigger:hover {
   transform: scale(1.05);
   border-color: rgb(250, 135, 236);
-  box-shadow: 0 0 60px rgb(246, 24, 246);
+  box-shadow: 0 0 70px rgb(246, 24, 246);
 }
 
 @keyframes shine {

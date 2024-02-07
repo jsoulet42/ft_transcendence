@@ -156,3 +156,4 @@ EXTERNAL_API_USER_IMAGE_URL = 'https://cdn.intra.42.fr/users/'	# + user_id + '.j
 EXTERNAL_API_USER_IMAGE_URL_DEFAULT = 'https://cdn.intra.42.fr/users/default.png'
 EXTERNAL_API_USER_IMAGE_URL_SMALL = 'https://cdn.intra.42.fr/users/small_'	# + user_id + '.jpg'
 
+CORS_ORIGIN_ALLOW_ALL = True
