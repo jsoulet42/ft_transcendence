@@ -1,0 +1,21 @@
+    <h1>Authentication Response</h1>
+    <p>Code: {{ code }}</p>
+    <p>State: {{ state }}</p>
+    <p>Error: {{ error }}</p>
+
+    <!-- Affichez les résultats de la requête API -->
+    <p>API Response: {{ api_response }}</p>
+
+    <!-- Vous pouvez personnaliser le contenu du modal ici -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            {{ modal_content }}
+        </div>
+    </div>
+    <script>
+        setTimeout(function() {
+            window.location.href = "{% url 'pong' %}";
+        }, 3000);  // Rediriger après 3 secondes (ajustez selon vos besoins)
+    </script>
+
+

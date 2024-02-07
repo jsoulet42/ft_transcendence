@@ -14,7 +14,7 @@
   margin-bottom: 20px; /* Ajustez l'espacement vertical selon vos besoins */
 }
 
-.button-image.play-button {
+.button-image.play-button a {
   margin: 0;
   padding: 0;
   display: flex;
@@ -23,23 +23,22 @@
   position: relative;
 }
 
-.button-image.play-button a {
+.button-image.play-button {
   display: block;
   width: 220px;
   height: 50px;
   text-align: center;
-  border: 3px solid #072949;
   border-radius: 15px;
   padding: 10px;
 }
 
 .tv-content {
   position: absolute;
-  top: 50.8%;
+  top: 40.8%;
   left: 50.1%;
   transform: translate(-50%, -50%);
-  width: 96.6%;
-  height: 87.7%;
+  max-width: 96.6%;
+  max-height: 87.7%;
   background-size: cover;
   background-position: center;
 }
@@ -52,48 +51,19 @@
   text-align: center;
   text-decoration: none;
   color: #fff;
-  background-color: #333;
-  border: none;
-  overflow: hidden;
-}
-
-.buttonPong:before,
-.buttonPong:after {
-  content: "";
-  position: absolute;
-  width: calc(100% + 10px);
-  height: calc(100% + 10px);
-  top: -5px;
-  left: -5px;
-  pointer-events: none;
-  z-index: -1;
-}
-
-.buttonPong:before {
-  background: linear-gradient(45deg, #ff00ff, #00ffff, #ff00ff, #00ffff);
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
-}
-
-.buttonPong:after {
-  background: linear-gradient(135deg, #00ffff, #ff00ff, #00ffff, #ff00ff);
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
-}
-
-.buttonPong:hover:before,
-.buttonPong:hover:after {
-  opacity: 1;
-}
-
-.buttonStyle {
   background-color: rgba(0, 0, 0, 0.3);
   border: 3px solid #072949;
   border-radius: 15px;
+  overflow: hidden;
+}
+
+.buttonPong:hover, .buttonPong:focus {
+  background: linear-gradient(45deg, #ff00ff, #00ffff, #ff00ff, #00ffff);
+  border-color: #072949; /* Couleur de la bordure lorsque survolé */
 }
 
 #tv-login-content {
-  background-image: url(/static/authentication/images/imgloging.png);
+  background-color: rgba(0, 0, 0, 0);
 }
 
 body {
@@ -102,7 +72,7 @@ body {
   position: relative;
   height: 100%;
   width: 100%;
-  background-image: url("../images/backg_pong.jpeg");
+  background-image: url("/static/home/images/background.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100vw 100vh;
@@ -130,7 +100,6 @@ html, body {
   width: 180px; /* Ajustez la largeur selon vos besoins */
   height: 50px; /* Ajustez la hauteur selon vos besoins */
   background-color: rgba(0, 0, 0, 0.3);
-  border: 3px solid #072949;
   cursor: pointer;
 }
 
@@ -139,10 +108,23 @@ html, body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  height: 60vh;
-  width: 80vw;
-  background-image: url(/static/home/images/borderr.png);
+  height: 85vh;
+  width: 100vw;
+  background-color: transparent;
   background-size: 100% 100%;
+  border-radius: 5vmin;
+}
+
+#tv-pong {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 40vh;
+  width: 40vw;
+  background-color: rgb(255, 0, 0);
+  background-size: 100% 100%;
+  border-radius: 5vmin;
 }
 
 /* ... Autres styles ... */
@@ -152,19 +134,17 @@ html, body {
   justify-content: space-around;
   align-items: flex-end;
   position: fixed;
-  bottom: 10px;
+  bottom: 0px;
   margin-bottom: -1px;
   width: 100%;
   background: linear-gradient(to bottom, #f63192, #6c4fef);
   /*background-color: #6c14fa; !* Ajoutez une couleur de fond pour le menu si nécessaire *!*/
-  padding: 10px 0; /* Ajoutez un espace autour des boutons si nécessaire */
-  border: 3px solid #072949;
-  border-radius: 20px;
+  padding: 10px; /* Ajoutez un espace autour des boutons si nécessaire */
+  border-radius: 20px 20px 0 0;
 }
 
 #nav-home-bottom a {
-  border: 3px solid #072949;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: transparent;
 }
 
 .howtoplay {
@@ -181,20 +161,185 @@ html, body {
   /*justify-content: center; (pas nécessaire ici, car cela s'applique aux enfants de .howtoplay) */
 }
 
-#tv-content-pong {
-  background-image: url(/static/pong/images/playbackground.png);
-}
-
-#nav-pong a {
+nav-pong a {
   border: 0.5vmin solid #072949;
   border-radius: 0.5vmax;
   background-color: rgba(0, 0, 0, 0.3);
 }
 
-#tv-content-tourn-stats {
-  background-image: url(/static/tournaments_stats/images/podium.png);
+canvas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 70vh;
+  width: 70vw;
+  background-size: 100% 100%;
+  border-radius: 5vmin;
+  background: linear-gradient(180deg, #8360c3, #2ebf91);
 }
 
+.buttonInPlay {
+  width: 20vw;
+  height: 30vh;
+  border-radius: 15px;
+}
+
+.center-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3vmin;
+}
+
+#navGameMode {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#tv-content-tourn-stats {
+  height: 100%;
+}
+
+#title-tournaments {
+  position: relative;
+  text-align: center;
+  font-size: 6rem;
+  -webkit-text-stroke: 3px black;
+  text-shadow: 5px 5px purple;
+  animation: shine 3s infinite;
+  transition: color 0.3s ease;
+}
+
+#title-div {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 80%;
+}
+
+.center {
+  position: relative;
+  padding: 1px;
+  left: 10%;
+  width: 80%;
+  height: 70%;
+  border-radius: 25px;
+  border: 10px solid rgba(190, 23, 215, 0.9);
+  background-color: black;
+  transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.loadingtry {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to left, black 50%, rgba(190, 23, 215, 0.9) 50%);
+  background-size: 200% 100%;
+  animation: loading 2s forwards, fadeout 6s forwards;
+  overflow: hidden;
+  opacity: 1;
+  border-radius: 15px;
+}
+
+.custom-table {
+  table-layout: auto;
+  overflow: hidden;
+  height: 100%;
+  background-color: transparent;
+}
+
+.custom-table th,
+.custom-table td {
+  opacity: 0;
+  animation: fadein 6s forwards, neon-glow 1.5s ease-in-out infinite alternate;
+  border: black;
+  color: violet;
+  background-color: transparent;
+}
+
+body {
+  background-color: black;
+  color: wheat;
+}
+
+@keyframes slideDown {
+  from {
+    max-height: 0;
+  }
+  to {
+    max-height: 200px;
+  }
+}
+.slide-down-animation {
+  animation: slideDown 0.3s ease-out;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+.buttom-left {
+  position: absolute;
+  margin-top: 2vh;
+  left: 10%;
+  background-color: blueviolet;
+  border-radius: 5px;
+  font-size: 16px;
+  color: white;
+}
+
+.hover-bigger:hover {
+  transform: scale(1.05);
+  border-color: rgb(250, 135, 236);
+  box-shadow: 0 0 70px rgb(246, 24, 246);
+}
+
+@keyframes shine {
+  0% {
+    color: blueviolet;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+  }
+  50% {
+    color: violet;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+  }
+  100% {
+    color: pink;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+  }
+}
+#title-tournaments:hover {
+  color: gold;
+  text-shadow: none;
+  animation: none;
+}
+
+@keyframes neon-glow {
+  to {
+    text-shadow: 0 0 10px rgb(255, 255, 255), 0 0 20px rgb(218, 69, 164), 0 0 30px rgba(255, 59, 173, 0.8), 0 0 40px rgba(178, 69, 224, 0.8), 0 0 120px rgba(255, 0, 187, 0.6);
+  }
+}
+@keyframes loading {
+  0% {
+    background-position: 100% 0%;
+  }
+  100% {
+    background-position: 0% 100%;
+  }
+}
+@keyframes fadeout {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes fadein {
+  to {
+    opacity: 1;
+  }
+}
 #tv-content-profile {
   background-image: url(/static/profile/images/profile.png);
 }
