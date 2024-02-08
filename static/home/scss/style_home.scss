@@ -17,14 +17,14 @@ html, body {
 	width: 100%;
 }
 
-.pong_title {
+.pong-title {
 	position: relative;
 	color: white;
-	top: 0%;
-	left: 1vw;
+	top: -1vh;
 	padding-left: 1vmin;
 	font-size: 9vmin;
 	width: 100%;
+	border : 5px, black;
 }
 
 // .P {
@@ -63,15 +63,15 @@ html, body {
 	position: absolute;
 	box-shadow: inset 5px 2px 3px rgb(255, 255, 255), 7px 15px 2px rgba(0, 0, 0, 0.632);
 	animation: moveY 3s linear 0s infinite alternate, moveX 3.4s linear 0s infinite alternate;
-  }
+}
 
-  @keyframes moveX {
+@keyframes moveX {
 	from { left: 0; } to { left: 250px; }
 }
 
 @keyframes moveY {
 	from { top: 0; } to { top: 69px; }
-  }
+}
 
 #connection-button {
 position: fixed;
@@ -117,9 +117,4 @@ cursor: pointer;
 	transform: translate(-50%, -50%);
 	width: 98%;
 	text-align: center;
-/* align-items: center; Centre le contenu verticalement */
-/* justify-content: center; Centre le contenu horizontalement */
-/* Aucun besoin de position: absolute; */
-/*align-items: center; (pas nécessaire ici, car cela s'applique aux enfants de .howtoplay) */
-/*justify-content: center; (pas nécessaire ici, car cela s'applique aux enfants de .howtoplay) */
 }
