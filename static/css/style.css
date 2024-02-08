@@ -4,34 +4,6 @@
   padding: 0;
 }
 
-.btn-primary {
-  width: 15rem;
-  font-size: 1.5rem;
-}
-
-/* Si vous souhaitez ajouter un espacement entre les boutons */
-.form-button {
-  margin-bottom: 20px; /* Ajustez l'espacement vertical selon vos besoins */
-}
-
-.button-image.play-button a {
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-}
-
-.button-image.play-button {
-  display: block;
-  width: 220px;
-  height: 50px;
-  text-align: center;
-  border-radius: 15px;
-  padding: 10px;
-}
-
 .tv-content {
   position: absolute;
   top: 40.8%;
@@ -83,30 +55,13 @@ html, body {
   width: 100%;
 }
 
-.pong_title {
+.pong-title {
+  position: relative;
   color: white;
-  top: 0%;
-  left: 1vw;
+  top: -1vh;
   padding-left: 1vmin;
   font-size: 9vmin;
   width: 100%;
-}
-
-.P {
-  position: fixed;
-  border: 5px, solid black;
-}
-
-.O {
-  position: fixed;
-  border: 5px, solid black;
-}
-
-.N {
-  border: 5px, solid black;
-}
-
-.pong_title .G {
   border: 5px, black;
 }
 
@@ -178,12 +133,8 @@ html, body {
   margin-bottom: -1px;
   width: 100%;
   background: linear-gradient(to bottom, #f63192, #6c4fef);
-  /*background-color: #6c14fa; !* Ajoutez une couleur de fond pour le menu si nécessaire *!*/
-  padding: 10px; /* Ajoutez un espace autour des boutons si nécessaire */
+  padding: 10px;
   border-radius: 20px 20px 0 0;
-}
-
-#nav-home-bottom {
   background-color: transparent;
 }
 
@@ -194,11 +145,6 @@ html, body {
   transform: translate(-50%, -50%);
   width: 98%;
   text-align: center;
-  /* align-items: center; Centre le contenu verticalement */
-  /* justify-content: center; Centre le contenu horizontalement */
-  /* Aucun besoin de position: absolute; */
-  /*align-items: center; (pas nécessaire ici, car cela s'applique aux enfants de .howtoplay) */
-  /*justify-content: center; (pas nécessaire ici, car cela s'applique aux enfants de .howtoplay) */
 }
 
 nav-pong a {
@@ -329,7 +275,12 @@ canvas {
 .hover-bigger:hover {
   transform: scale(1.05);
   border-color: rgb(250, 135, 236);
-  box-shadow: 0 0 70px rgb(246, 24, 246);
+  box-shadow: 0 0 40vh rgb(246, 24, 246);
+}
+
+.hover-aura:hover {
+  border-color: rgb(7, 186, 226);
+  box-shadow: 0 0 50vh rgb(7, 186, 226);
 }
 
 @keyframes shine {

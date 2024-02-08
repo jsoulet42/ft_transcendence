@@ -3,34 +3,6 @@
 	padding: 0;
 }
 
-.btn-primary {
-	width: 15rem;
-	font-size: 1.5rem;
-}
-
-/* Si vous souhaitez ajouter un espacement entre les boutons */
-.form-button {
-	margin-bottom: 20px; /* Ajustez l'espacement vertical selon vos besoins */
-}
-
-.button-image.play-button a {
-	margin: 0;
-	padding: 0;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	position: relative;
-}
-
-.button-image.play-button {
-	display: block;
-	width: 220px;
-	height: 50px;
-	text-align: center;
-	border-radius: 15px;
-	padding: 10px;
-}
-
 .tv-content {
 	position: absolute;
 	top: 40.8%;
@@ -60,7 +32,3 @@
 	background: linear-gradient(45deg, #ff00ff, #00ffff, #ff00ff, #00ffff);
 	border-color: #072949; /* Couleur de la bordure lorsque survolé */
 }
-
-
-
-
