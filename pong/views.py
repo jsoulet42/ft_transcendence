@@ -9,12 +9,14 @@ def pong(request):
 		return render(request, 'pong_block.html')
 	return render(request, 'pong.html')
 
+@login_required
 def game(request):
 	if request.META.get('HTTP_HX_REQUEST'):
 		return render(request, 'game_block.html')
 	return render(request, 'game.html')
 
 @csrf_exempt
+@login_required
 def pongDjango(request):
 	print(request.POST)
 	function1()
@@ -27,7 +29,7 @@ def pongDjango(request):
 	result = int(a) + int(b)
 	return JsonResponse({"operation_result": result})
 
-
+@login_required
 def function1():
 	print("Django sa mere")
 	# def compute(request):
