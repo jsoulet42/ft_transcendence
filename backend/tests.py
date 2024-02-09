@@ -1,5 +1,5 @@
 from django.test import TestCase
-from .models import User, UsersList, Tournament
+from .models import CustomUser, UsersList, Tournament
 
 class TournamentTestCase(TestCase):
     def setUp(self):
@@ -13,7 +13,7 @@ class TournamentTestCase(TestCase):
         )
 
     def test_tournament_fill_in(self):
-        test_user = User.objects.get(name='Test_user_1')
+        test_user = CustomUser.objects.get(name='Test_user_1')
 
         test_tournament = Tournament(
             name = 'Test_tournament',
