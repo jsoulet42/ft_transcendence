@@ -1,21 +1,32 @@
 import uuid
 from django.db import models
 from django.db.models import JSONField
+from django.contrib.auth.models import AbstractBaseUser
 
 # Create your models here.
 # Model = heritage d'une class django vierge personnalisable
-class User(models.Model):
+class CustomUser(AbstractBaseUser):
 	#CharField = model de string
-	name = models.CharField(max_length = 50)
+	name = models.CharField(max_length = 50, unique = True)
 	# UUIDField attribution d'un id non modifable
 	uuid = models.UUIDField(default = uuid.uuid4, editable = False)
 	# date de creation du user qui ne bouge pas si on met a jours le user
 	join_date = models.DateField(auto_now = False, auto_now_add = True)
 	# assignation du user a une list qui doit etre nommer a la creation du user et qui supprime tout les user si on delete la list
-	list = models.ForeignKey("UsersList", null = False, on_delete = models.CASCADE)
+	photo_medium_url = models.URLField(max_length=255, blank=True)
+	photo_small_url = models.URLField(max_length=255, blank=True)
+	list = models.ForeignKey("UsersList", null = False, on_delete = models.CASCADE, related_name = "users")
+
+	USERNAME_FIELD = 'name'
+	EMAIL_FILED = ''
+	REQUIRED_FIELDS = []
+
 
 class UsersList(models.Model):
 	name = models.CharField(max_length = 255)
+
+	def __str__(self):
+		return f"{self.name}"
 
 # models.ManyToManyField()
 class Tournament(models.Model):
@@ -31,7 +42,7 @@ class Tournament(models.Model):
 
 	name = models.CharField(max_length = 50)
 	date = models.DateField(auto_now = False, auto_now_add = True)
-	host = models.ForeignKey("User", null = False, on_delete = models.CASCADE)
+	host = models.ForeignKey("CustomUser", null = False, on_delete = models.CASCADE)
 
 	players_count = models.PositiveSmallIntegerField(default = 8, choices = COUNT_CHOICES)
 
