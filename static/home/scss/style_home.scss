@@ -37,7 +37,6 @@ html, body {
 
 .O{
 	animation: fly-in 4s ease-out;
-	animation-iteration-count: 1;
 	display: inline-block;
 }
 
@@ -49,6 +48,45 @@ html, body {
 .G {
 	animation: fly-in 6s ease-out;
 	display: inline-block;
+}
+
+ .electricity{
+	position: relative;
+	width: 20vw;
+	height: 20vw;
+	background: radial-gradient(circle, #fff 10%, transparent 70%);
+	animation: electricity-pulse 2s infinite alternate;
+}
+
+@keyframes electricity-pulse {
+	0% {
+		opacity: 0.5;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+.electricity {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 1vw;
+	height: 1vw;
+	background-color: #fff;
+	border-radius: 50%;
+	animation: electricity-glow 1s infinite alternate;
+}
+
+@keyframes electricity-glow {
+	0% {
+		box-shadow: 0 0 2vw 1vw rgba(255, 255, 255, 0.5);
+	}
+	100% {
+		box-shadow: 0 0 4vw 2vw rgba(255, 255, 255, 1);
+	}
 }
 
 .O:hover {
@@ -69,7 +107,6 @@ html, body {
 	  40% {transform: translateY(-30px);}
 	  60% {transform: translateY(-15px);}
   }
-  
 
 @keyframes fly-in {
 	0%   { 
@@ -153,4 +190,3 @@ cursor: pointer;
 	width: 98%;
 	text-align: center;
 }
-  

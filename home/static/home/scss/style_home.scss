@@ -36,8 +36,7 @@ html, body {
 }
 
 .O{
-	animation: fly-in 4s ease-out;
-	animation-iteration-count: 1;
+	animation: bounce 4s ease-out;
 	display: inline-block;
 }
 
@@ -69,16 +68,6 @@ html, body {
 	  40% {transform: translateY(-30px);}
 	  60% {transform: translateY(-15px);}
   }
-  
-
-@keyframes fly-in {
-	0%   { 
-		transform: translateY(-200%); 		
-	}
-	100% { 
-		transform: translateY(0%); 
-	}
-}
 
 #ball {
 	width: 1vw;
@@ -153,4 +142,3 @@ cursor: pointer;
 	width: 98%;
 	text-align: center;
 }
-  

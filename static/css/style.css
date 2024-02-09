@@ -75,7 +75,6 @@ html, body {
 
 .O {
   animation: fly-in 4s ease-out;
-  animation-iteration-count: 1;
   display: inline-block;
 }
 
@@ -89,6 +88,43 @@ html, body {
   display: inline-block;
 }
 
+.electricity {
+  position: relative;
+  width: 20vw;
+  height: 20vw;
+  background: radial-gradient(circle, #fff 10%, transparent 70%);
+  animation: electricity-pulse 2s infinite alternate;
+}
+
+@keyframes electricity-pulse {
+  0% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.electricity {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1vw;
+  height: 1vw;
+  background-color: #fff;
+  border-radius: 50%;
+  animation: electricity-glow 1s infinite alternate;
+}
+
+@keyframes electricity-glow {
+  0% {
+    box-shadow: 0 0 2vw 1vw rgba(255, 255, 255, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 4vw 2vw rgb(255, 255, 255);
+  }
+}
 .O:hover {
   border-radius: 50%;
   background-color: turquoise;
