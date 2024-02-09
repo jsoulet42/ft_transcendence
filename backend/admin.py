@@ -15,18 +15,10 @@ class userAdmin(admin.ModelAdmin):
 
 @admin.register(UsersList)
 class UsersListAdmin(admin.ModelAdmin):
-	list_display = ("name", "get_users_name", "get_users_uuid", "get_users_join_date")
+	list_display = ("name", "get_users_name")
 	search_fields = ("name",)
 
 	def get_users_name(self, obj):
-		return ", ".join([user.name for user in obj.users.all()])
-
-	def get_users_uuid(self, obj):
-		return ", ".join([str(user.uuid) for user in obj.users.all()])
-
-	def get_users_join_date(self, obj):
-		return ", ".join([str(user.join_date) for user in obj.users.all()])
+		return " | ".join([user.name for user in obj.users.all()])
 
 	get_users_name.short_description = "User Names"
-	get_users_uuid.short_description = "User UUIDs"
-	get_users_join_date.short_description = "User Join Dates"

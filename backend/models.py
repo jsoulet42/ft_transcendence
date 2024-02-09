@@ -15,6 +15,9 @@ class CustomUser(AbstractBaseUser):
 	# assignation du user a une list qui doit etre nommer a la creation du user et qui supprime tout les user si on delete la list
 	photo_medium_url = models.URLField(max_length=255, blank=True)
 	photo_small_url = models.URLField(max_length=255, blank=True)
+
+	is_42_authenticated = models.BooleanField(default = False)
+
 	list = models.ForeignKey("UsersList", null = False, on_delete = models.CASCADE, related_name = "users")
 
 	USERNAME_FIELD = 'name'
