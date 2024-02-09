@@ -73,12 +73,10 @@ html, body {
 	from { top: 0; } to { top: 69px; }
 }
 
-#connection-button {
+#logout-button {
 position: fixed;
-top: 15px;
-left: 1000px;
-width: 180px;
-height: 50px;
+top: 3vh;
+right: 5vw;
 background-color: rgba(0, 0, 0, 0.3);
 cursor: pointer;
 }

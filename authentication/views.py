@@ -12,8 +12,10 @@ from backend.models import CustomUser, UsersList
 
 def login_required(view_func):
 	def wrapper(request, *args, **kwargs):
-		if not request.user or not request.user.is_authenticated:
-			return redirect('login')  # Redirige vers la page de connexion si l'utilisateur n'est pas connecté
+		if not request.user:
+			return redirect('login')
+		if not request.user.is_42_authenticated and not request.user.is_authenticated:
+			return redirect('login')
 		return view_func(request, *args, **kwargs)
 	return wrapper
 
@@ -34,6 +36,12 @@ def login(request):
 			)
 			return redirect(url)
 	return render(request, 'login.html')
+
+@login_required
+def logout(request):
+	request.session.flush()
+	request.user.is_42_authenticated = False
+	return redirect('login')
 
 #~recuperation des donnees du formulaire de login
 def authenticate(request):
@@ -60,10 +68,10 @@ def authenticate(request):
 	if response.status_code // 100 != 2:
 		return HttpResponse(status = 500)
 	user = store_token_user(request, response.json().get('access_token'))
-	if not user:
+	if user == None:
 		return HttpResponse(status = 500)
 	request.session['user_id'] = str(user.uuid)
-	user.is_authenticated = True
+	user.is_42_authenticated = True
 	return redirect('hub')
 
 def store_token_user(request, access_token):
