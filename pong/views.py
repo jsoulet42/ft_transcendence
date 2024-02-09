@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from authentication.views import login_required
 
-
+@login_required
 def pong(request):
 	if request.META.get('HTTP_HX_REQUEST'):
 		return render(request, 'pong_block.html')
