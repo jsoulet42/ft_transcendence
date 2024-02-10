@@ -47,7 +47,7 @@ body {
   background-image: url("/static/home/images/background.png");
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 100vw 100vh;
+  background-size: cover;
 }
 
 html, body {
@@ -55,40 +55,51 @@ html, body {
   width: 100%;
 }
 
-.pong-title {
-  color: white;
-  top: -1vh;
-  padding-left: 0, 4vmin;
-  font-size: 10vmin;
-  width: 100%;
-  -webkit-text-stroke: 0.3vmin black;
-  overflow: hidden;
-  margin: 0;
-  display: inline-block;
-  scale: 1;
-  margin: 0;
+#nav-home-top {
+  position: fixed;
+  width: 100vw;
+  height: 7vw;
+  top: 0;
+  font-size: 0;
+  text-align: justify;
 }
 
-.pong-title:hover {
-  text-shadow: 1vh 0vh 5vh rgb(0, 255, 238);
+#home-btn {
+  float: left;
+  width: 26vw;
+  height: 100%;
+  font-size: 7vw;
+  text-align: center;
+  color: white;
+  -webkit-text-stroke: 0.3vw black;
+  overflow: hidden;
+  scale: 1;
+}
+
+#home-btn:hover {
+  text-shadow: 0vw 0vw 1vw rgb(0, 255, 238);
   cursor: pointer;
 }
 
 .P {
+  position: relative;
+  top: -4.6666666667vw;
   animation: fly-in 3s ease-out;
   display: inline-block;
   transition: transform 0.3s ease;
 }
 
 .O {
+  position: relative;
+  width: 3.5vw;
+  height: 3.5vw;
+  bottom: -0.3vw;
   border-radius: 50%;
   background-color: turquoise;
   color: transparent;
   -webkit-text-stroke: transparent;
   text-align: center;
-  line-height: 6.5vh;
-  width: 6.5vh;
-  height: 6.5vh;
+  line-height: 6.5vw;
   background: radial-gradient(circle at 50% 120%, #95f5e6, #1fbc9d 80%, #1bc19f 100%);
   animation: bounce2 3s ease infinite;
   display: inline-block;
@@ -96,11 +107,15 @@ html, body {
 }
 
 .N {
+  position: relative;
+  top: -4.6666666667vw;
   animation: fly-in 5s ease-out;
   display: inline-block;
 }
 
 .G {
+  position: relative;
+  top: -4.6666666667vw;
   animation: fly-in 6s ease-out;
   display: inline-block;
 }
@@ -144,7 +159,7 @@ html, body {
     transform: translateY(0%);
   }
 }
-.ball {
+#ball {
   width: 1vw;
   height: 2vh;
   border-radius: 50%;
@@ -169,7 +184,7 @@ html, body {
     left: 0;
   }
   to {
-    left: 18vw;
+    left: 26vw;
   }
 }
 @keyframes moveY {
@@ -177,40 +192,31 @@ html, body {
     top: 0;
   }
   to {
-    top: 9vh;
+    top: 7vw;
   }
 }
-#logout-button {
-  position: fixed;
-  top: 3vh;
-  right: 5vw;
+#logout-btn {
+  float: right;
+  height: 7vw;
   background-color: rgba(0, 0, 0, 0.3);
   cursor: pointer;
 }
 
-#tv-container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  max-height: 70vh;
+#main-container {
+  position: fixed;
   width: 100vw;
-  background-color: transparent;
-  background-size: 100% 100%;
-  border-radius: 5vmin;
+  top: 7vw;
+  bottom: 7vw;
 }
 
 #nav-home-bottom {
+  position: absolute;
   list-style: none;
-  display: flex;
   justify-content: space-around;
-  align-items: flex-end;
-  position: fixed;
-  bottom: 0px;
-  margin-bottom: -1px;
+  bottom: 0;
   width: 100%;
+  height: 7vw;
   background: linear-gradient(to bottom, #f63192, #6c4fef);
-  padding: 10px;
   border-radius: 20px 20px 0 0;
   background-color: transparent;
 }
