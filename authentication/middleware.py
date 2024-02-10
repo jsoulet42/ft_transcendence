@@ -1,4 +1,3 @@
-# myapp/middleware.py
 from backend.models import CustomUser
 
 class CustomUserSessionMiddleware:

@@ -1,13 +1,17 @@
 import uuid
 from django.db import models
 from django.db.models import JSONField
-from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 # Model = heritage d'une class django vierge personnalisable
-class CustomUser(AbstractBaseUser):
+class CustomUser(AbstractUser):
+	USERNAME_FIELD = 'username'
+	EMAIL_FILED = ''
+	REQUIRED_FIELDS = []
+
 	#CharField = model de string
-	name = models.CharField(max_length = 50, unique = True)
+	username = models.CharField(max_length = 50, unique = True, null = True)
 	# UUIDField attribution d'un id non modifable
 	uuid = models.UUIDField(default = uuid.uuid4, editable = False)
 	# date de creation du user qui ne bouge pas si on met a jours le user
@@ -19,10 +23,6 @@ class CustomUser(AbstractBaseUser):
 	is_42_authenticated = models.BooleanField(default = False)
 
 	list = models.ForeignKey("UsersList", null = False, on_delete = models.CASCADE, related_name = "users")
-
-	USERNAME_FIELD = 'name'
-	EMAIL_FILED = ''
-	REQUIRED_FIELDS = []
 
 
 class UsersList(models.Model):
