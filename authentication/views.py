@@ -12,7 +12,7 @@ from backend.models import CustomUser, UsersList
 
 def login_required(view_func):
 	def wrapper(request, *args, **kwargs):
-		if not request.user:
+		if request.user == None:
 			return redirect('login')
 		if not request.user.is_42_authenticated and not request.user.is_authenticated:
 			return redirect('login')
