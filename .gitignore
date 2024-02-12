@@ -25,6 +25,9 @@ __pycache__/
 .vscode/
 .idea/
 
+#dossier de compilation
+css/
+
 # Fichiers temporaires
 *.swp
 *~
