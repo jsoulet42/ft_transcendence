@@ -58,7 +58,7 @@ MIDDLEWARE = [
 	'django.contrib.messages.middleware.MessageMiddleware',
 	'django.middleware.clickjacking.XFrameOptionsMiddleware',
 	'django_htmx.middleware.HtmxMiddleware',
-	'authentication.middleware.CustomLoginMiddleware',
+	'authentication.middleware.UserSessionMiddleware',
 ]
 
 ROOT_URLCONF = 'transcendence.urls'
