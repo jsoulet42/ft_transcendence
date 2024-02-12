@@ -1,11 +1,17 @@
-<nav id="nav-home-bottom" class="align-self-center btn-group">
-	<a id="play" class="btn buttonPong w-25" href="{% url 'pong' %}" hx-post="{% url 'pong' %}" hx-target="#main-container" hx-push-url="/pong" hx-headers="{ 'X-CSRFToken': '{{ csrf_token }}' }">
-		PLAY
+<nav id="nav-home-bottom" class="align-self-center text-center">
+	<a id="play" class="btn buttonPong nav-bottom-btn" href="{% url 'pong' %}" hx-post="{% url 'pong' %}" hx-target="#main-container" hx-push-url="/pong" hx-headers="{ 'X-CSRFToken': '{{ csrf_token }}' }">
+		<span class="center-text">
+			PLAY
+		</span>
 	</a>
-	<a id="tournaments_stats" class="btn buttonPong w-25" href="{% url 'tournaments_stats' %}" hx-post="{% url 'tournaments_stats' %}" hx-target="#main-container" hx-push-url="/tournaments_stats" hx-headers="{ 'X-CSRFToken': '{{ csrf_token }}' }">
-		TOURNAMENTS STATS
+	<a id="tournaments_stats" class="btn buttonPong nav-bottom-btn" href="{% url 'tournaments_stats' %}" hx-post="{% url 'tournaments_stats' %}" hx-target="#main-container" hx-push-url="/tournaments_stats" hx-headers="{ 'X-CSRFToken': '{{ csrf_token }}' }">
+		<span class="center-text">
+			TOURNAMENTS STATS
+		</span>
 	</a>
-	<a id="profile" class="btn buttonPong w-25" href="{% url 'profile' %}" hx-get="{% url 'profile' %}" hx-target="#main-container" hx-push-url="true">
-		PROFILE
+	<a id="profile" class="btn buttonPong nav-bottom-btn" href="{% url 'profile' %}" hx-get="{% url 'profile' %}" hx-target="#main-container" hx-push-url="true">
+		<span class="center-text">
+			PROFILE
+		</span>
 	</a>
 </nav>
