@@ -1,9 +1,9 @@
 // style_home.scss
 
-$nav_home_top_height: 7vw;
+$nav_home_top_height: 5vw;
 $nav_home_bottom_height: 5vw;
 
-$home_btn_width: 26vw;
+$home_btn_width: 22vw;
 
 body {
 	margin: 0;
@@ -50,7 +50,7 @@ html, body {
 
 .P {
 	position: relative;
-	top: calc(-1 * $nav_home_top_height / 3);
+	top: calc(-1 * $nav_home_top_height / 3.5);
 	animation: fly-in 3s ease-out;
 	display: inline-block;
 	transition: transform 0.3s ease;
@@ -58,9 +58,9 @@ html, body {
 
 .O{
 	position: relative;
-	width: 3.5vw;
-	height: 3.5vw;
-	bottom: -0.3vw;
+	width: $nav_home_top_height - 1.3vw;
+	height: $nav_home_top_height - 1.3vw;
+	top: 0.1vw;
 	border-radius: 50%;
 	background-color: turquoise;
 	color: transparent;
@@ -75,14 +75,14 @@ html, body {
 
 .N {
 	position: relative;
-	top: calc(-1 * $nav_home_top_height / 3);
+	top: calc(-1 * $nav_home_top_height / 3.5);
 	animation: fly-in 5s ease-out;
 	display: inline-block;
 }
 
 .G {
 	position: relative;
-	top: calc(-1 * $nav_home_top_height / 3);
+	top: calc(-1 * $nav_home_top_height / 3.5);
 	animation: fly-in 6s ease-out;
 	display: inline-block;
 }
