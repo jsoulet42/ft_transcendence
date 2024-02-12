@@ -21,8 +21,8 @@ html, body {
 	font-family: "Shadows Into Light", cursive;
 	font-weight: 400;
 	font-style: normal;
-	-webkit-text-stroke: 0.1vmin black;
-	text-shadow: black 0.5vmin 0.5vmin 1vmin;
+	// -webkit-text-stroke: 0.1vmin black;
+	// text-shadow: black 0.5vmin 0.5vmin 1vmin;
 	height: 100%;
 	width: 100%;
 }
@@ -177,7 +177,7 @@ html, body {
 	right: 1vw;
 	font-size: calc($nav_home_top_height / 2.5);
 	background-color: rgba(0, 0, 0, 0.3);
-	-webkit-text-stroke: 0.01vmin black;
+	// -webkit-text-stroke: 0.01vmin black;
 	cursor: pointer;
 }
 
