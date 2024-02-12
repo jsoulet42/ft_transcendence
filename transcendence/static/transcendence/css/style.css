@@ -161,7 +161,7 @@ html, body {
 }
 #ball {
   width: 1vw;
-  height: 2vh;
+  height: 1vw;
   border-radius: 50%;
   background-color: rgb(34, 195, 178);
   position: absolute;
@@ -171,7 +171,7 @@ html, body {
 
 #ball1 {
   width: 1vw;
-  height: 2vh;
+  height: 1vw;
   border-radius: 50%;
   background-color: rgb(34, 195, 178);
   position: absolute;
@@ -184,7 +184,7 @@ html, body {
     left: 0;
   }
   to {
-    left: 26vw;
+    left: 24vw;
   }
 }
 @keyframes moveY {
@@ -192,7 +192,7 @@ html, body {
     top: 0;
   }
   to {
-    top: 7vw;
+    top: 5vw;
   }
 }
 #logout-btn {
@@ -206,7 +206,7 @@ html, body {
   position: fixed;
   width: 100vw;
   top: 7vw;
-  bottom: 7vw;
+  bottom: 5vw;
 }
 
 #nav-home-bottom {
@@ -215,7 +215,7 @@ html, body {
   justify-content: space-around;
   bottom: 0;
   width: 100%;
-  height: 7vw;
+  height: 5vw;
   background: linear-gradient(to bottom, #f63192, #6c4fef);
   border-radius: 20px 20px 0 0;
   background-color: transparent;
