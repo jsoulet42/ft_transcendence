@@ -1,6 +1,6 @@
 <!-- Votre template pong_block.html -->
 <nav id="navGameMode" class="btn-group hover-aura">
-	<a class="btn buttonPong buttonInPlay" href="{% url 'game' %}" hx-post="{% url 'game' %}" hx-target="#tv-container" hx-push-url="pong/game" hx-headers="{ 'X-CSRFToken': '{{ csrf_token }}' }">
+	<a class="btn buttonPong buttonInPlay" href="{% url 'game' %}" hx-post="{% url 'game' %}" hx-target="#main-container" hx-push-url="pong/game" hx-headers="{ 'X-CSRFToken': '{{ csrf_token }}' }">
 		<span class="center-text">
 			1 VS 1
 		</span>
