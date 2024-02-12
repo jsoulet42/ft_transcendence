@@ -9,9 +9,9 @@ class UserInline(admin.TabularInline):
 
 @admin.register(CustomUser)
 class userAdmin(admin.ModelAdmin):
-	list_display = ("name", "uuid", "list", "join_date", "photo_medium_url", "photo_small_url")
-	list_filter = ("name","join_date")
-	search_fields = ("name", )
+	list_display = ("username", "uuid", "list", "join_date", "photo_medium_url", "photo_small_url")
+	list_filter = ("username","join_date")
+	search_fields = ("username", )
 
 @admin.register(UsersList)
 class UsersListAdmin(admin.ModelAdmin):
@@ -19,6 +19,6 @@ class UsersListAdmin(admin.ModelAdmin):
 	search_fields = ("name",)
 
 	def get_users_name(self, obj):
-		return " | ".join([user.name for user in obj.users.all()])
+		return " | ".join([user.username for user in obj.users.all()])
 
-	get_users_name.short_description = "User Names"
+	get_users_name.short_description = "Usernames"
