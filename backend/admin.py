@@ -19,6 +19,6 @@ class UsersListAdmin(admin.ModelAdmin):
 	search_fields = ("name",)
 
 	def get_users_name(self, obj):
-		return " | ".join([user.name for user in obj.users.all()])
+		return " | ".join([user.username for user in obj.users.all()])
 
 	get_users_name.short_description = "Usernames"
