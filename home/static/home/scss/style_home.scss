@@ -1,7 +1,7 @@
 // style_home.scss
 
 $nav_home_top_height: 7vw;
-$nav_home_bottom_height: 7vw;
+$nav_home_bottom_height: 5vw;
 
 $home_btn_width: 26vw;
 
@@ -125,7 +125,7 @@ html, body {
 
 #ball {
 	width: 1vw;
-	height: 2vh;
+	height: 1vw;
 	border-radius: 50%;
 	background-color: rgb(34, 195, 178);
 	position: absolute;
@@ -135,7 +135,7 @@ html, body {
 
 #ball1 {
 	width: 1vw;
-	height: 2vh;
+	height: 1vw;
 	border-radius: 50%;
 	background-color: rgb(34, 195, 178);
 	position: absolute;
@@ -144,11 +144,11 @@ html, body {
 }
 
 @keyframes moveX {
-	from { left: 0; } to { left: $home_btn_width; }
+	from { left: 0; } to { left: $home_btn_width - 2vw; }
 }
 
 @keyframes moveY {
-	from { top: 0; } to { top: $nav_home_top_height; }
+	from { top: 0; } to { top: $nav_home_top_height - 2vw; }
 }
 
 #logout-btn {
