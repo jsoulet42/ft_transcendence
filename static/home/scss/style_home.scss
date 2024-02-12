@@ -1,7 +1,7 @@
 // style_home.scss
 
 $nav_home_top_height: 5vw;
-$nav_home_bottom_height: 5vw;
+$nav_home_bottom_height: 3vw;
 
 $home_btn_width: 22vw;
 
@@ -118,7 +118,7 @@ html, body {
 	0% {
 		transform: translateY(-200%);
 	}
-	100% { 
+	100% {
 		transform: translateY(0%);
 	}
 }
