@@ -1,13 +1,45 @@
 import uuid
 from django.db import models
 from django.db.models import JSONField
-from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import AbstractUser, BaseUserManager
+
+class CustomUserManager(BaseUserManager):
+	def create_user(self, username, list, password=None, **extra_fields):
+		if not username:
+			raise ValueError('The username field must be set')
+		if not list:
+			raise ValueError('The list field must be set')
+		user = self.model(username=username, list=list, **extra_fields)
+		user.set_password(password)
+		user.save(using=self._db)
+		return user
+
+	def create_superuser(self, username, password=None, **extra_fields):
+		extra_fields.setdefault('is_staff', True)
+		extra_fields.setdefault('is_superuser', True)
+
+		if extra_fields.get('is_staff') is not True:
+			raise ValueError('Superuser must have is_staff=True.')
+		if extra_fields.get('is_superuser') is not True:
+			raise ValueError('Superuser must have is_superuser=True.')
+
+		if not UsersList.objects.filter(name = 'Superusers').exists():
+			newlist = UsersList(name = 'Superusers')
+			newlist.save()
+
+		newlist = UsersList.objects.get(name = 'Superusers')
+		return self.create_user(username, newlist, password, **extra_fields)
+
 
 # Create your models here.
 # Model = heritage d'une class django vierge personnalisable
-class CustomUser(AbstractBaseUser):
+class CustomUser(AbstractUser):
+	USERNAME_FIELD = 'username'
+	EMAIL_FILED = ''
+	REQUIRED_FIELDS = []
+
 	#CharField = model de string
-	name = models.CharField(max_length = 50, unique = True)
+	username = models.CharField(max_length = 50, unique = True, null = True)
 	# UUIDField attribution d'un id non modifable
 	uuid = models.UUIDField(default = uuid.uuid4, editable = False)
 	# date de creation du user qui ne bouge pas si on met a jours le user
@@ -20,9 +52,7 @@ class CustomUser(AbstractBaseUser):
 
 	list = models.ForeignKey("UsersList", null = False, on_delete = models.CASCADE, related_name = "users")
 
-	USERNAME_FIELD = 'name'
-	EMAIL_FILED = ''
-	REQUIRED_FIELDS = []
+	objects = CustomUserManager()
 
 
 class UsersList(models.Model):

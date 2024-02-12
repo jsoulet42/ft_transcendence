@@ -100,10 +100,10 @@ def store_token_user(request, access_token):
 		campus = newlist
 
 	try:
-		user = CustomUser.objects.get(name = user_login)
+		user = CustomUser.objects.get(username = user_login)
 	except ObjectDoesNotExist:
 		newuser = CustomUser(
-			name = json_response.get('login'),
+			username = json_response.get('login'),
 			list = campus
 		)
 		newuser.save()
