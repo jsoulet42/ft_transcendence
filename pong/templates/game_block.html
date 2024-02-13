@@ -11,13 +11,15 @@
 	<br>
 	<button id="drawTrajectory">Draw Trajectory</button> -->
 	<br>
-	<p id="ajax"></p>
+
+	<p id="ajax" style="color: azure;">
+	</p>
 	<br>
 	<canvas id="pongCanvas"></canvas>
 
-	<form method="POST">
+	<!-- <form method="POST">
 		{% csrf_token %}
-		<label>Opération</label>
+		<label style="color: azure;">Opération</label>
 		<input type="text" id="player1"> + <input type="text" id="player2">
 		<input id="ajax-call" type="submit" value="Calculer">
 	</form>
@@ -42,9 +44,6 @@
 					resultElement.innerHTML = result["operation_result"];
 				})
 		})
-
-
-	</script>
-	<script type="module" src="{% static 'pong/js/pongManager.js' %}" defer></script>
+	</script> -->
 	<script type="module" src="{% static 'pong/js/pong.js' %}" defer></script>
 </div>
