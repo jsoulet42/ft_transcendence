@@ -9,16 +9,27 @@ from transcendence import settings
 from hub.urls import hub
 from .models import RequestCache
 from backend.models import CustomUser, UsersList
+from django.contrib.auth.models import AnonymousUser
 
 def login_required(view_func):
 	def wrapper(request, *args, **kwargs):
-		if not request.user:
+		if request.user == None or isinstance(request.user, AnonymousUser):
 			return redirect('login')
 		if not request.user.is_42_authenticated and not request.user.is_authenticated:
 			return redirect('login')
 		return view_func(request, *args, **kwargs)
 	return wrapper
 
+def not_authenticated(view_func):
+	def wrapper(request, *args, **kwargs):
+		if request.user == None or isinstance(request.user, AnonymousUser):
+			return view_func(request, *args, **kwargs)
+		if not request.user.is_42_authenticated and not request.user.is_authenticated:
+			return view_func(request, *args, **kwargs)
+		return redirect('hub')
+	return wrapper
+
+@not_authenticated
 def login(request):
 	if request.META.get('HTTP_HX_REQUEST'):
 		return render(request, 'login_block.html')
@@ -39,8 +50,8 @@ def login(request):
 
 @login_required
 def logout(request):
-	request.session.flush()
 	request.user.is_42_authenticated = False
+	request.session.flush()
 	return redirect('login')
 
 #~recuperation des donnees du formulaire de login

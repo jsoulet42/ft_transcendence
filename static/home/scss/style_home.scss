@@ -1,9 +1,9 @@
 // style_home.scss
 
 $nav_home_top_height: 5vw;
-$nav_home_bottom_height: 5vw;
+$nav_home_bottom_height: 3vw;
 
-$home_btn_width: 22vw;
+$home_btn_width: 18vw;
 
 body {
 	margin: 0;
@@ -18,6 +18,11 @@ body {
 }
 
 html, body {
+	font-family: "Shadows Into Light", cursive;
+	font-weight: 400;
+	font-style: normal;
+	// -webkit-text-stroke: 0.1vmin black;
+	// text-shadow: black 0.5vmin 0.5vmin 1vmin;
 	height: 100%;
 	width: 100%;
 }
@@ -35,21 +40,29 @@ html, body {
 	float: left;
 	width: $home_btn_width;
 	height: 100%;
+	// font-family: "Honk", system-ui;
+	// font-optical-sizing: auto;
+	// font-weight: 400;
+	// font-style: normal;
+	// font-variation-settings:
+	// 	"MORF" 15,
+	// 	"SHLN" 50;
 	font-size: $nav_home_top_height;
 	text-align: center;
 	color: white;
-	-webkit-text-stroke: 0.3vw black;
+	-webkit-text-stroke: 0.2vmin black;
 	overflow: hidden;
 	scale: 1.0;
 }
 
-#home-btn:hover{
+#home-btn:hover .P, #home-btn:hover .N, #home-btn:hover .G{
 	text-shadow: 0vw 0vw 1vw rgb(0, 255, 238);
 	cursor: pointer;
 }
 
 .P {
 	position: relative;
+	margin: 0 -0.5vw 0 -0.5vw;
 	top: calc(-1 * $nav_home_top_height / 3.5);
 	animation: fly-in 3s ease-out;
 	display: inline-block;
@@ -58,15 +71,18 @@ html, body {
 
 .O{
 	position: relative;
-	width: $nav_home_top_height - 1.3vw;
-	height: $nav_home_top_height - 1.3vw;
+	width: $nav_home_top_height - 2vw;
+	height: $nav_home_top_height - 2vw;
 	top: 0.1vw;
 	border-radius: 50%;
+	border-width: 1vw;
+	border-color: black;
 	background-color: turquoise;
 	color: transparent;
 	-webkit-text-stroke: transparent;
 	text-align: center;
 	line-height: 6.5vw;
+	text-shadow: 0 0 0.0vw transparent;
 	background: radial-gradient(circle at 50% 120%, #95f5e6, #1fbc9d 80%, #1bc19f 100%);
 	animation: bounce2 3s ease infinite;
 	display: inline-block;
@@ -75,6 +91,7 @@ html, body {
 
 .N {
 	position: relative;
+	margin: 0 -0.5vw 0 -0.5vw;
 	top: calc(-1 * $nav_home_top_height / 3.5);
 	animation: fly-in 5s ease-out;
 	display: inline-block;
@@ -82,6 +99,7 @@ html, body {
 
 .G {
 	position: relative;
+	margin: 0 -0.5vw 0 -0.5vw;
 	top: calc(-1 * $nav_home_top_height / 3.5);
 	animation: fly-in 6s ease-out;
 	display: inline-block;
@@ -118,7 +136,7 @@ html, body {
 	0% {
 		transform: translateY(-200%);
 	}
-	100% { 
+	100% {
 		transform: translateY(0%);
 	}
 }
@@ -153,8 +171,13 @@ html, body {
 
 #logout-btn {
 	float: right;
-	height: $nav_home_top_height;
+	height: calc($nav_home_top_height / 1.5);
+	width: 8vw;
+	top: 1vw;
+	right: 1vw;
+	font-size: calc($nav_home_top_height / 2.5);
 	background-color: rgba(0, 0, 0, 0.3);
+	// -webkit-text-stroke: 0.01vmin black;
 	cursor: pointer;
 }
 
@@ -168,13 +191,21 @@ html, body {
 #nav-home-bottom {
 	position: absolute;
 	list-style: none;
-	justify-content: space-around;
 	bottom: 0;
 	width: 100%;
 	height: $nav_home_bottom_height;
+	min-height: 4vh;
 	background: linear-gradient(to bottom, #f63192, #6c4fef);
 	border-radius: 20px 20px 0 0;
 	background-color: transparent;
+}
+
+.nav-bottom-btn {
+	width: 32vw;
+	height: 90%;
+	top: 5%;
+	font-size: 10vw;
+	margin: auto 0.1vw auto 0.1vw;
 }
 
 .howtoplay {
