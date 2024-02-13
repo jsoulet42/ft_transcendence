@@ -7,9 +7,20 @@
 		<div id="ball"></div>
 		<div id="ball1"></div>
 	</div>
-	<a id="logout-btn" class="btn buttonPong" href="{% url 'logout' %}" hx-get="{% url 'logout' %}" hx-target="#main-container" hx-push-url="/login">
-		<span class="center-text">
-			Logout
-		</span>
-	</a>
+	<div id="trigger-bouton">
+		{% if not user.is_authenticated %}
+			<a id="login-btn" class="btn buttonPong" href="{% url 'login' %}" hx-get="{% url 'login' %}" hx-target="#main-container" hx-trigger="trigger-bouton" hx-push-url="/login">
+				<span class="center-text">
+					Login
+				</span>
+			</a>
+		{% endif %}
+		{% if user.is_authenticated %}
+		<a id="logout-btn" class="btn buttonPong" href="{% url 'logout' %}" hx-get="{% url 'logout' %}" hx-target="#main-container" hx-trigger="trigger-bouton"  hx-push-url="/">
+			<span class="center-text">
+				Logout
+			</span>
+		</a>
+		{% endif %}
+	</div>
 </nav>

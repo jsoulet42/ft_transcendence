@@ -52,7 +52,7 @@ def login(request):
 def logout(request):
 	request.user.is_42_authenticated = False
 	request.session.flush()
-	return redirect('login')
+	return render(request, 'hub_block.html')
 
 #~recuperation des donnees du formulaire de login
 def authenticate(request):

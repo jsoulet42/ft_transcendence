@@ -5,7 +5,7 @@
 			1 VS 1
 		</span>
 	</a>
-	<a class="btn buttonPong buttonInPlay" href="{% url 'tournaments_stats' %}" hx-get="{% url 'tournaments_stats' %}" hx-target="body">
+	<a class="btn buttonPong buttonInPlay" href="{% url 'game' %}" hx-post="{% url 'game' %}" hx-target="#main-container" hx-push-url="pong/game" hx-headers="{ 'X-CSRFToken': '{{ csrf_token }}' }">
 		<span class="center-text">
 			1 VS BOT
 		</span>
@@ -16,3 +16,51 @@
 		</span>
 	</a>
 </nav>
+
+{% comment %} <nav id="navGameMode" class="btn-group hover-aura">
+    <a class="btn buttonPong buttonInPlay"
+       href="{% url 'game' %}"
+       hx-post="{% url 'game' %}"
+       hx-target="#main-container"
+       hx-push-url="pong/game"
+       hx-headers="{ 'X-CSRFToken': '{{ csrf_token }}' }"
+       data-game-mode="1vs1" <!-- Mode 1 VS 1 -->
+    >
+        <span class="center-text">
+            1 VS 1
+        </span>
+    </a>
+    <a class="btn buttonPong buttonInPlay"
+       href="{% url 'game' %}"
+       hx-post="{% url 'game' %}"
+       hx-target="#main-container"
+       hx-push-url="pong/game"
+       hx-headers="{ 'X-CSRFToken': '{{ csrf_token }}' }"
+       data-game-mode="1vsBot" <!-- Mode 1 VS BOT -->
+    >
+        <span class="center-text">
+            1 VS BOT
+        </span>
+    </a>
+</nav>
+
+
+{% comment %} // Récupérer tous les boutons
+const buttons = document.querySelectorAll('.buttonPong');
+
+// Parcourir les boutons et ajouter un gestionnaire d'événements
+buttons.forEach(button => {
+    button.addEventListener('click', function() {
+        // Récupérer le mode de jeu à partir de l'attribut personnalisé
+        const gameMode = this.getAttribute('data-game-mode');
+
+        // Faire quelque chose en fonction du mode de jeu sélectionné
+        if (gameMode === '1vs1') {
+            // Mode 1 VS 1
+            // Ajoutez votre logique ici
+        } else if (gameMode === '1vsBot') {
+            // Mode 1 VS BOT
+            // Ajoutez votre logique ici
+        }
+    });
+}); {% endcomment %}
