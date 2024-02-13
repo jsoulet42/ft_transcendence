@@ -10,7 +10,7 @@
 			1 VS BOT
 		</span>
 	</a>
-	<a class="btn buttonPong buttonInPlay" href="{% url 'profile' %}" hx-get="{% url 'profile' %}" hx-target="body">
+	<a class="btn buttonPong buttonInPlay" href="{% url 'tournaments' %}" hx-get="{% url 'tournaments' %}" hx-target="#main-container" hx-push-url="pong/tournaments" hx-headers="{ 'X-CSRFToken': '{{ csrf_token }}' }">
 		<span class="center-text">
 			TOURNAMENT
 		</span>

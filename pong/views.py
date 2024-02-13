@@ -15,6 +15,21 @@ def game(request):
 		return render(request, 'game_block.html')
 	return render(request, 'game.html')
 
+def tournaments(request):
+	if request.META.get('HTTP_HX_REQUEST'):
+		return render(request, 'tournaments_choice_block.html')
+	return render(request, 'tournaments_choice.html')
+
+def catjoueurs(request):
+	if request.META.get('HTTP_HX_REQUEST'):
+		return render(request, '4joueurs_block.html')
+	return render(request, '4joueurs.html')
+
+def huitjoueurs(request):
+	if request.META.get('HTTP_HX_REQUEST'):
+		return render(request, '8joueurs_block.html')
+	return render(request, '8joueurs.html')
+
 @csrf_exempt
 @login_required
 def pongDjango(request):

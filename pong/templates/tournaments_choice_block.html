@@ -1,0 +1,12 @@
+<div id="btn_tournaments">
+    <a class="btn button_2vs2" href="{% url 'catjoueurs' %}" hx-get="{% url 'catjoueurs' %}" hx-target="#main-container" hx-push-url="catjoueurs" hx-headers="{ 'X-CSRFToken': '{{ csrf_token }}' }">
+    	<span class="text_btn_tournaments pulse">
+            4 joueurs
+    	</span>
+    </a>
+    <a class="btn button_4vs4" href="{% url 'huitjoueurs' %}" hx-get="{% url 'huitjoueurs' %}" hx-target="#main-container" hx-push-url="huitjoueurs" hx-headers="{ 'X-CSRFToken': '{{ csrf_token }}' }">
+    	<span class="text_btn_tournaments pulse">
+    		8 joueurs
+    	</span>
+    </a>
+</div>
