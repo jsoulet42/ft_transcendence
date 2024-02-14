@@ -57,16 +57,28 @@ canvas {
 	font-size: 8vh;
 	padding: 3vw;
 	color: white;
-	border: 0.5vmin solid black;
+	border: 0.5vmin solid violet;
 	border-radius: 10%;
-	background-image: linear-gradient(#f679ff 0%, #a20cc0 50%, #720480 100%);
+	background: url(https://media1.tenor.com/m/T3H92Qstl68AAAAC/p-ong.gif);
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-color: black;
+}
+
+.text_btn_tournaments_one {
+	font-size: 8vh;
+	padding: 3vw;
+	color: white;
+	border: 0.5vmin solid violet;
+	border-radius: 10%;
+	background: url(https://i0.wp.com/sandiegofreepress.org/wp-content/uploads/2014/07/gif-animated-color-bouncing-balls.gif?fit=600%2C400&ssl=1&w=640);
+	background-repeat: no-repeat;
 }
 
 .pulse:hover, 
 .pulse:focus {
   animation: pulse 1s;
   box-shadow: 0 0 0 2em transparent;
-  background-color: green;
 }
 
 .pulse {
