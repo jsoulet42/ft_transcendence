@@ -10,10 +10,10 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-image: url("../images/profilebackg.png");
+    background-image: url("/static/profile/images/profilebackg.png");
     background-size: cover;
     background-position: center;
-    opacity: 95%;
+	border-radius: 25px;
 }
 
 .tv-content-profile::before {
@@ -24,7 +24,6 @@
     right: 0;
     bottom: 0;
     border: 10px solid #ff2ffc; /* Contour avec une opacité de 100% */
-    z-index: -1; /* Assurez-vous que le contour est sous l'image de fond */
     opacity: 100%;
 }
 
@@ -36,14 +35,13 @@
     color: #ff2ffc;
 }
 
-.tv-content-profile #profile-img {
-    position: absolute;
-    z-index: 1;
-    top: 42%;
+.tv-content-profile #choice-div {
+	position: absolute;
+	width: 30%;
+    height: 30%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 30%;
-    height: 45%;
 }
 
 .tv-content-profile  h4 {

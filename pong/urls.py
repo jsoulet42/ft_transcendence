@@ -24,6 +24,9 @@ urlpatterns = [
 	path('game/', views.game, name='game'),
 	path('game/<str:mode>/', views.game, name='game_with_mode'),
 	path('pongDjango/', views.pongDjango, name='pongDjango'),
+    path('tournaments/', views.tournaments, name='tournaments'),
+    path('tournaments/catjoueurs/', views.catjoueurs, name='catjoueurs'),
+    path('tournaments/huitjoueurs/', views.huitjoueurs, name='huitjoueurs'),
 ]
 
 
