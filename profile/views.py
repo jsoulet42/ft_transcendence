@@ -13,7 +13,7 @@ def get_image_url(request):
 		selected_option = request.POST.get('avatarselect')
 		# image_url = 'images/character1.png'
 		if selected_option == '1':
-			image_url =  '/static/profile/images/character1.png'
+			image_url =  '/static/images/defaultcharacter.png'
 		# elif selected_option == '2':
 		# 	image_url = 'static/profile/images/character2.png'
 		# elif selected_option == '3':
