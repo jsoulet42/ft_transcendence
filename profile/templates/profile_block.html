@@ -1,17 +1,40 @@
 {%  load static %}
 <div class="tv-content-profile">
-    <h1>NICKNAME : </h1>
-    <div id="imgswap">
-        <img id="profile-img" class="player-profil rounded-5 float-start border border-info border-3" src="{{ image_url }}" alt="player-profil">
-    </div>
-        <h4>TOTAL GAME PLAYED : 0
-            <br><br><br><br>
-            WINRATE : 0%</h4>
-        <select id="avatarselect" name="avatarselect" class="form-select" style="width: 9rem;" hx-post="{% url 'get_image_url' %}" hx-target="#imgswap" hx-headers="{ 'X-CSRFToken': '{{ csrf_token }}' }">
-            <option selected>Default Avatar</option>
-            <option value="1">Character 1</option>
-            <option value="2">Character 2</option>
-            <option value="3">Uploaded</option>
-            <option value="4">42 Profile</option>
-        </select>
+	<h1>{{ user.username }}</h1>
+	<div id="choice-div">
+		<img id="choice-img" class="rounded-5 border border-info border-3" src="{{ user.photo_medium_url }}" alt="player-profile">
+	</div>
+	<h4>
+		TOTAL GAME PLAYED : 0
+		<br><br><br><br>
+		WINRATE : 0%
+	</h4>
+	<select id="avatarselect" name="avatarselect" class="form-select" style="width: 9rem;">
+		<option selected value="1">42 Profile</option>
+		<option value="2">Character 1</option>
+		<option value="3">Character 2</option>
+		<option value="4">Uploaded</option>
+	</select>
 </div>
+
+<script>
+    document.getElementById('avatarselect').addEventListener('change', function() {
+        var selectedValue = this.value;
+        if (selectedValue !== "Default Avatar") {
+            var url = "{% url 'get_image_url' %}";
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({ 'avatarselect': selectedValue })
+            })
+            .then(response => response.json())
+			.then(data => {
+				document.getElementById('choice-img').src = data.image_url;
+            })
+            .catch(error => console.error('Error:', error));
+		}
+    });
+</script>
