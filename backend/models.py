@@ -9,6 +9,7 @@ class CustomUserManager(BaseUserManager):
 			raise ValueError('The username field must be set')
 		if not list:
 			raise ValueError('The list field must be set')
+
 		user = self.model(username=username, list=list, **extra_fields)
 		user.set_password(password)
 		user.save(using=self._db)
@@ -23,12 +24,8 @@ class CustomUserManager(BaseUserManager):
 		if extra_fields.get('is_superuser') is not True:
 			raise ValueError('Superuser must have is_superuser=True.')
 
-		if not UsersList.objects.filter(name = 'Superusers').exists():
-			newlist = UsersList(name = 'Superusers')
-			newlist.save()
-
-		newlist = UsersList.objects.get(name = 'Superusers')
-		return self.create_user(username, newlist, password, **extra_fields)
+		userlist, created = UsersList.objects.get_or_create(name = 'Superusers')
+		return self.create_user(username, userlist, password, **extra_fields)
 
 
 # Create your models here.

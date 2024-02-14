@@ -1,6 +1,6 @@
 from django.http import JsonResponse
 from django.shortcuts import render
-from authentication.views import login_required
+from django.contrib.auth.decorators import login_required
 
 @login_required
 def tournaments_stats(request):

@@ -5,57 +5,40 @@ from django.utils.http import urlencode
 from django.utils.crypto import get_random_string
 from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
 from django.http import HttpResponse
-from transcendence import settings
-from hub.urls import hub
-from .models import RequestCache
 from backend.models import CustomUser, UsersList
-from django.contrib.auth.models import AnonymousUser
+from django.contrib.auth import login as auth_login
+from django.contrib.auth import logout as auth_logout
+from django.contrib.auth.decorators import login_required
 
-def login_required(view_func):
-	def wrapper(request, *args, **kwargs):
-		if request.user == None or isinstance(request.user, AnonymousUser):
-			return redirect('login')
-		if not request.user.is_42_authenticated and not request.user.is_authenticated:
-			return redirect('login')
-		return view_func(request, *args, **kwargs)
-	return wrapper
-
-def not_authenticated(view_func):
-	def wrapper(request, *args, **kwargs):
-		if request.user == None or isinstance(request.user, AnonymousUser):
-			return view_func(request, *args, **kwargs)
-		if not request.user.is_42_authenticated and not request.user.is_authenticated:
-			return view_func(request, *args, **kwargs)
-		return redirect('hub')
-	return wrapper
+from transcendence import settings
+from .models import RequestCache
+from .decorators import not_authenticated
 
 @not_authenticated
 def login(request):
 	if request.META.get('HTTP_HX_REQUEST'):
 		return render(request, 'login_block.html')
 
-	if request.method == 'GET':
-		if '42auth' in request.GET != '':
-			RequestCache.state = get_random_string(length=32)
-			url = '{0}?{1}&{2}&{3}&{4}&{5}'.format(
-				settings.EXTERNAL_API_AUTH_URL,
-				urlencode({'client_id': settings.EXTERNAL_API_CLIENT_ID}),
-				urlencode({'redirect_uri': settings.EXTERNAL_API_REDIRECT_URI}),
-				urlencode({'response_type': 'code'}),
-				urlencode({'scope': 'public'}),
-				urlencode({'state': RequestCache.state}),
-			)
-			return redirect(url)
+	if request.method == 'GET' and '42auth' in request.GET != '':
+		RequestCache.state = get_random_string(length=32)
+		url = '{0}?{1}&{2}&{3}&{4}&{5}'.format(
+			settings.EXTERNAL_API_AUTH_URL,
+			urlencode({'client_id': settings.EXTERNAL_API_CLIENT_ID}),
+			urlencode({'redirect_uri': settings.EXTERNAL_API_REDIRECT_URI}),
+			urlencode({'response_type': 'code'}),
+			urlencode({'scope': 'public'}),
+			urlencode({'state': RequestCache.state}),
+		)
+		return redirect(url)
 	return render(request, 'login.html')
 
 @login_required
 def logout(request):
-	request.user.is_42_authenticated = False
-	request.session.flush()
+	auth_logout(request)
 	return redirect('hub')
 
 #~recuperation des donnees du formulaire de login
-def authenticate(request):
+def custom_auth(request):
 	code = request.GET.get('code', None)
 	state = request.GET.get('state', None)
 	error = request.GET.get('error', None)
@@ -78,24 +61,25 @@ def authenticate(request):
 
 	if response.status_code // 100 != 2:
 		return HttpResponse(status = 500)
+
 	user = store_token_user(request, response.json().get('access_token'))
 	if user == None:
 		return HttpResponse(status = 500)
-	request.session['user_id'] = str(user.uuid)
-	user.is_42_authenticated = True
+	
+	auth_login(request, user)
+
 	return redirect('hub')
 
 def store_token_user(request, access_token):
-
 	response = requests.get(
 		settings.EXTERNAL_API_USER_URL,
 		headers = {
 			'Authorization': 'Bearer ' + access_token,
 		})
+
 	if response.status_code // 100 != 2:
 		return None
 	json_response = response.json()
-	#print(json_response)
 
 	user_id = json_response.get('id')
 	user_login = json_response.get('login')
@@ -103,24 +87,17 @@ def store_token_user(request, access_token):
 	campus_id = json_response.get('campus')[0].get('id')
 	campus_name = json_response.get('campus')[0].get('name')
 
-	try:
-		campus = UsersList.objects.get(name = campus_name)
-	except ObjectDoesNotExist:
-		newlist = UsersList(name = campus_name)
-		newlist.save()
-		campus = newlist
+	campuslist, created = UsersList.objects.get_or_create(name = campus_name)
 
 	try:
 		user = CustomUser.objects.get(username = user_login)
 	except ObjectDoesNotExist:
-		newuser = CustomUser(
+		user = CustomUser.objects.create_user(
 			username = json_response.get('login'),
-			list = campus
+			list = campus,
+			password = None,
 		)
-		newuser.save()
-		user = newuser
 
-	user.list = campus
 	user.photo_medium_url = json_response.get('image').get('versions').get('medium')
 	user.photo_small_url = json_response.get('image').get('versions').get('small')
 	user.save()
