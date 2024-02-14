@@ -1,6 +1,59 @@
 // style_profile.scss
 
-#tv-content-profile
-{
-	background-image: url(/static/profile/images/profile.png);
+.tv-content-profile {
+    position: absolute;
+    overflow: hidden;
+    z-index: 0;
+    display: flex;
+    width: 80%;
+    height: 80%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-image: url("/static/profile/images/profilebackg.png");
+    background-size: cover;
+    background-position: center;
+	border-radius: 25px;
+}
+
+.tv-content-profile::before {
+    content: ""; /* Ajoutez du contenu vide pour que la pseudo-classe soit visible */
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 10px solid #ff2ffc; /* Contour avec une opacité de 100% */
+    opacity: 100%;
+}
+
+.tv-content-profile  h1 {
+    position: absolute;
+    z-index: 1;
+    left: 33vw;
+    top: 4vh;
+    color: #ff2ffc;
+}
+
+.tv-content-profile #choice-div {
+	position: absolute;
+	width: 30%;
+    height: 30%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.tv-content-profile  h4 {
+    position: absolute;
+    z-index: 1;
+    left: 73%;
+    top: 9vh;
+    color: #ffffff;
+}
+.tv-content-profile #avatarselect {
+    margin: 0;
+    position: absolute;
+    top: 8vh;
+    left: 15vw;
 }
