@@ -24,7 +24,7 @@
 		</button>
 		<ul class="dropdown-menu">
 			<li>
-				<button class="dropdown-item" type="button">Action</button>
+				<button class="dropdown-item" type="button" href="{% url 'profile' %}" hx-get="{% url 'profile' %}" hx-target="#main-container" hx-push-url="true">Profile</button>
 				<button class="dropdown-item" type="button" href="{% url 'logout' %}" hx-get="{% url 'logout' %}" hx-target="body" hx-push-url="/">Logout</button>
 			</li>
 		</ul>
