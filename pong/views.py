@@ -10,7 +10,7 @@ def pong(request):
 	return render(request, 'pong.html')
 
 @login_required
-def game(request):
+def game(request, mode=None):
 	if request.META.get('HTTP_HX_REQUEST'):
 		return render(request, 'game_block.html')
 	return render(request, 'game.html')
@@ -29,7 +29,7 @@ def pongDjango(request):
 	result = int(a) + int(b)
 	return JsonResponse({"operation_result": result})
 
-@login_required
+
 def function1():
 	print("Django sa mere")
 	# def compute(request):
