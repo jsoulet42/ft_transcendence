@@ -1,1 +1,17 @@
-<div id="tv-content-profile" class="tv-content"></div>
+{%  load static %}
+<div class="tv-content-profile">
+    <h1>NICKNAME : </h1>
+    <div id="imgswap">
+        <img id="profile-img" class="player-profil rounded-5 float-start border border-info border-3" src="{{ image_url }}" alt="player-profil">
+    </div>
+        <h4>TOTAL GAME PLAYED : 0
+            <br><br><br><br>
+            WINRATE : 0%</h4>
+        <select id="avatarselect" name="avatarselect" class="form-select" style="width: 9rem;" hx-post="{% url 'get_image_url' %}" hx-target="#imgswap" hx-headers="{ 'X-CSRFToken': '{{ csrf_token }}' }">
+            <option selected>Default Avatar</option>
+            <option value="1">Character 1</option>
+            <option value="2">Character 2</option>
+            <option value="3">Uploaded</option>
+            <option value="4">42 Profile</option>
+        </select>
+</div>
