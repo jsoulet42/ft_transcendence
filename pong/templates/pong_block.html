@@ -1,3 +1,5 @@
+{% load static %}
+
 <nav id="navGameMode" class="btn-group hover-aura">
 	<a class="btn buttonPong buttonInPlay" href="{% url 'game_with_mode' mode='pvp' %}" hx-post="{% url 'game_with_mode' mode='pvp' %}"
 		hx-target="#main-container" hx-push-url="true" hx-headers="{ 'X-CSRFToken': '{{ csrf_token }}' }"
@@ -13,10 +15,13 @@
 			1 VS BOT
 		</span>
 	</a>
-	<a class="btn buttonPong buttonInPlay" href="{% url 'profile' %}" hx-get="{% url 'profile' %}" hx-target="body"
-		hx-push-url="pong/game" hx-headers="{ 'X-CSRFToken': '{{ csrf_token }}' }" data-game-mode="tournament">
+	<a class="btn buttonPong buttonInPlay" href="{% url 'tournaments' %}" hx-get="{% url 'tournaments' %}" hx-target="#main-container"
+		hx-push-url="pong/tournaments" hx-headers="{ 'X-CSRFToken': '{{ csrf_token }}' }" data-game-mode="tournament">
 		<span class="center-text">
 			TOURNAMENT
 		</span>
 	</a>
 </nav>
+
+<script src="{% static 'js/anim_balls.js' %}" defer></script>
+```
