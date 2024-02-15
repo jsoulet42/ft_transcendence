@@ -12,3 +12,28 @@
 	</form>
 </div>
 
+{% if error %}
+<div id="auth-error-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="AuthErrorModal" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content alert alert-danger">
+			<div class="modal-body">
+				<p><strong>{{ error }}</strong></p>
+			</div>
+			<button type="button" class="btn btn-light" data-dismiss="modal">Oh...</button>
+		</div>
+	</div>
+</div>
+{% endif %}
+
+<script>
+$(document).ready(function(){
+	// Check if the modal element exists in the DOM
+	if ($('#auth-error-modal').length) {
+		$('#auth-error-modal').appendTo('body').modal('show');
+
+		$(document).on('click', '#auth-error-modal .btn', function() {
+			$('#auth-error-modal').modal('hide');
+		});
+	}
+});
+</script>

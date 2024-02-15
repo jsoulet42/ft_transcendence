@@ -1,6 +1,6 @@
 import json
 from django.shortcuts import render
-from authentication.views import login_required
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 
 @login_required
