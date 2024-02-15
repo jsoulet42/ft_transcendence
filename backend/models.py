@@ -45,8 +45,6 @@ class CustomUser(AbstractUser):
 	photo_medium_url = models.URLField(max_length=255, blank=True)
 	photo_small_url = models.URLField(max_length=255, blank=True)
 
-	is_42_authenticated = models.BooleanField(default = False)
-
 	list = models.ForeignKey("UsersList", null = False, on_delete = models.CASCADE, related_name = "users")
 
 	objects = CustomUserManager()
