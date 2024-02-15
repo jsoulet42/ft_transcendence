@@ -9,6 +9,7 @@ from backend.models import CustomUser, UsersList
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.decorators import login_required
+from django.utils import timezone
 
 from transcendence import settings
 from .models import RequestCache
@@ -65,7 +66,7 @@ def custom_auth(request):
 	user = store_token_user(request, response.json().get('access_token'))
 	if user == None:
 		return render(request, 'login.html', {'error': 'Failed 42 authentication'})
-	
+
 	auth_login(request, user)
 
 	return redirect('hub')

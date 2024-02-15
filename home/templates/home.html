@@ -7,18 +7,32 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Transcendence</title>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 	<link rel="stylesheet" href="{% static 'css/style.css' %}">
-	<link rel="shortcut icon" type="image/png" href="{% static 'images/favicon_purple.png' %}" >
+	<link rel="shortcut icon" type="image/png" href="{% static 'images/favicon_purple.png' %}">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Honk&family=Shadows+Into+Light&display=swap" rel="stylesheet">
+	<script type="importmap">
+		{
+		  "imports": {
+			"three": "https://unpkg.com/three@v0.161.0/build/three.module.js",
+			"three/addons/": "https://unpkg.com/three@v0.161.0/examples/jsm/"
+		  }
+		}
+	  </script>
+
+
+
 </head>
 
 <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
 	<script src="{% static 'js/htmx.min.js' %}" defer></script>
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+		crossorigin="anonymous"></script>
 	{% include 'top-nav.html' %}
 	<div id="main-container">
 		{% block content %}{% endblock %}
@@ -27,4 +41,3 @@
 </body>
 
 </html>
-
