@@ -32,7 +32,7 @@ let drawTrajectory = false;
 let ball = {
 	x: canvas.width / 2,
 	y: canvas.height / 2,
-	speedX: canvas.width / 100,
+	speedX: canvas.width / 150,
 	speedY: 0,
 	Bradius: canvas.height / 50,
 	speedBaseX: canvas.width / 100, // Vitesse de déplacement horizontal de la balle
@@ -47,12 +47,12 @@ let IA = {
 }
 
 let paddle = {
-	leftHeight: canvas.width / 15,
+	leftHeight: canvas.width / 10,
 	leftWidth: canvas.height / 50,
-	rightHeight: canvas.width / 15,
+	rightHeight: canvas.width / 10,
 	rightWidth: canvas.height / 50,
-	leftY: (canvas.height - canvas.width / 15) / 2, // start in the middle of the canvas
-	rightY: (canvas.height - canvas.width / 15) / 2, // start in the middle of the canvas
+	leftY: (canvas.height - canvas.width / 10) / 2, // start in the middle of the canvas
+	rightY: (canvas.height - canvas.width / 10) / 2, // start in the middle of the canvas
 	speed: canvas.height / 80,	// Vitesse de déplacement des raquettes
 	centreR: 0,
 	centreL: 0,
@@ -150,7 +150,7 @@ function keyUpHandler(e) {
 }
 
 function lisenInput() {
-	if (pause || putBackBallBool)
+	if (pause)
 		return;
 	if (inputs.upLeft) {
 		paddle.leftY -= paddle.speed;
@@ -449,20 +449,20 @@ async function putBackBall(directionX) {
 	// Stop the ball for 1 second
 	ball.speedX = 0;
 	ball.speedY = 0;
-	for (let i = 0; i < 100; i++) {
+	for (let i = 0; i < 50; i++) {
 		ball.Bradius += 0.5; // Increase the size of the ball
 		if (i % 10 == 0)
 			changeColor();
 		await delay(10); // Wait for 0.1 seconds
 	}
-	await delay(1000); // Wait for 1 second
+	await delay(500); // Wait for 1 second
 
 	putBackBallBool = false;
 	// Place the ball at the center of the canvas for 1 second
 	ball.x = canvas.width / 2;
 	ball.y = canvas.height / 2;
 	ball.Bradius = canvas.height / 50;
-	await delay(1000); // Wait for 1 second
+	await delay(200); // Wait for 1 second
 
 	// Send the ball
 	while (pause)
@@ -560,12 +560,12 @@ function initializeVariables(mode) {
 		IA.activate = false;
 
 	paddle = {
-		leftHeight: canvas.width / 15,
+		leftHeight: canvas.width / 10,
 		leftWidth: canvas.height / 50,
-		rightHeight: canvas.width / 15,
+		rightHeight: canvas.width / 10,
 		rightWidth: canvas.height / 50,
-		leftY: (canvas.height - canvas.width / 15) / 2, // start in the middle of the canvas
-		rightY: (canvas.height - canvas.width / 15) / 2, // start in the middle of the canvas
+		leftY: (canvas.height - canvas.width / 10) / 2, // start in the middle of the canvas
+		rightY: (canvas.height - canvas.width / 10) / 2, // start in the middle of the canvas
 		speed: canvas.height / 80,	// Vitesse de déplacement des raquettes
 		centreR: 0,
 		centreL: 0,
@@ -586,6 +586,8 @@ function initializeVariables(mode) {
 		leftName: "Player 1",
 		rightName: "Player 2"
 	}
+	if (mode == 2)
+		UI.rightName = "IA";
 
 	startGame();
 }
@@ -601,13 +603,13 @@ function showCanvas() {
 	// console.log("show");
 }
 
-function stqrt() {
+function run() {
 	// console.log("DOM entièrement chargé et analysé");
 	// const urlParams = new URLSearchParams(window.location.search);
 	// const mode = urlParams.get('mode');
 
 	let url = new URL(window.location.href);
-	let mode = url.pathname.split("/")[4]; // Assuming 'mode' is the third segment in the URL
+	let mode = url.pathname.split("/")[3]; // Assuming 'mode' is the fourth segment in the URL
 
 	if (mode == "pvp")
 		initializeVariables(1);
@@ -619,7 +621,6 @@ function stqrt() {
 		console.log("Error: mode not found `" + mode + "`");
 }
 
-stqrt();
-
+run();
 
 //#endregion

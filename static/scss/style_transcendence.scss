@@ -3,6 +3,11 @@
 	padding: 0;
 }
 
+:root {
+	--alert-danger-bg: #b60012;
+	--alert-danger-text: #ffffff;
+}
+
 .tv-content {
 	position: absolute;
 	top: 40.8%;
@@ -34,4 +39,10 @@
 	-webkit-text-stroke: 0.08vmin black;
 	background: linear-gradient(45deg, #ff00ff, #00ffff, #ff00ff, #00ffff);
 	border-color: #072949; /* Couleur de la bordure lorsque survolé */
+}
+
+/* Bootstrap values overrides */
+.alert-danger {
+	background-color: var(--alert-danger-bg);
+	color: var(--alert-danger-text);
 }

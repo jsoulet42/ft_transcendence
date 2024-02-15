@@ -2,3 +2,11 @@
 {
 	background-color: rgba(0, 0, 0, 0.0);
 }
+
+#auth-error-modal {
+	font-size: 10vw;
+	font-family: var(--bs-body-font-family);
+    font-size: var(--bs-body-font-size);
+    font-weight: var(--bs-body-font-weight);
+    line-height: var(--bs-body-line-height);
+}
