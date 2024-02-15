@@ -58,7 +58,6 @@ MIDDLEWARE = [
 	'django.contrib.messages.middleware.MessageMiddleware',
 	'django.middleware.clickjacking.XFrameOptionsMiddleware',
 	'django_htmx.middleware.HtmxMiddleware',
-	'authentication.middleware.UserSessionMiddleware',
 ]
 
 ROOT_URLCONF = 'transcendence.urls'
@@ -152,12 +151,15 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
 # 42 API settings
+
 EXTERNAL_API_URL = 'https://api.intra.42.fr/oauth'
 EXTERNAL_API_AUTH_URL = os.path.join(EXTERNAL_API_URL, 'authorize')
 EXTERNAL_API_TOKEN_URL = os.path.join(EXTERNAL_API_URL, 'token')
@@ -165,8 +167,14 @@ EXTERNAL_API_CLIENT_ID = os.getenv('EXTERNAL_API_CLIENT_ID')
 EXTERNAL_API_CLIENT_SECRET = os.getenv('EXTERNAL_API_CLIENT_SECRET')
 EXTERNAL_API_REDIRECT_URI = 'http://localhost:8000/login/authenticate'
 EXTERNAL_API_USER_URL = 'https://api.intra.42.fr/v2/me'
-EXTERNAL_API_USER_IMAGE_URL = 'https://cdn.intra.42.fr/users/'	# + user_id + '.jpg'
+EXTERNAL_API_USER_IMAGE_URL = 'https://cdn.intra.42.fr/users/'
 EXTERNAL_API_USER_IMAGE_URL_DEFAULT = 'https://cdn.intra.42.fr/users/default.png'
-EXTERNAL_API_USER_IMAGE_URL_SMALL = 'https://cdn.intra.42.fr/users/small_'	# + user_id + '.jpg'
+EXTERNAL_API_USER_IMAGE_URL_SMALL = 'https://cdn.intra.42.fr/users/small_'
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+
+# Default login url name for the login_required decorator
+# https://docs.djangoproject.com/en/4.2/topics/auth/default/#the-login-required-decorator
+
+LOGIN_URL = 'login'

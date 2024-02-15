@@ -16,8 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include	# Added include() function
-from .views import profile
+
+from . import views
 
 urlpatterns = [
-	path('', profile, name='profile'),
+	path('', views.profile, name='profile'),
+	path('get-image/', views.get_image_url, name='get_image_url'),
 ]

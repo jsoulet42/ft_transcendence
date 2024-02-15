@@ -21,8 +21,6 @@ html, body {
 	font-family: "Shadows Into Light", cursive;
 	font-weight: 400;
 	font-style: normal;
-	// -webkit-text-stroke: 0.1vmin black;
-	// text-shadow: black 0.5vmin 0.5vmin 1vmin;
 	height: 100%;
 	width: 100%;
 }
@@ -40,13 +38,6 @@ html, body {
 	float: left;
 	width: $home_btn_width;
 	height: 100%;
-	// font-family: "Honk", system-ui;
-	// font-optical-sizing: auto;
-	// font-weight: 400;
-	// font-style: normal;
-	// font-variation-settings:
-	// 	"MORF" 15,
-	// 	"SHLN" 50;
 	font-size: $nav_home_top_height;
 	text-align: center;
 	color: white;
@@ -169,15 +160,32 @@ html, body {
 	from { top: 0; } to { top: $nav_home_top_height - 2vw; }
 }
 
+#login-btn {
+	height: calc($nav_home_top_height / 1.5);
+}
+
+.trigger-btn {
+	float: right;
+	min-width: 8vw;
+	top: 1vw;
+	right: 1vw;
+	font-size: calc($nav_home_top_height / 2.5);
+	background-color: transparent;
+	cursor: pointer;
+}
+
+.login-text {
+	font-size: calc($nav_home_top_height / 3.5);
+}
+
 #logout-btn {
 	float: right;
 	height: calc($nav_home_top_height / 1.5);
 	width: 8vw;
-	top: 1vw;
+	top: 0vw;
 	right: 1vw;
-	font-size: calc($nav_home_top_height / 2.5);
+	font-size: calc($nav_home_top_height / 3);
 	background-color: rgba(0, 0, 0, 0.3);
-	// -webkit-text-stroke: 0.01vmin black;
 	cursor: pointer;
 }
 
@@ -215,4 +223,10 @@ html, body {
 	transform: translate(-50%, -50%);
 	width: 98%;
 	text-align: center;
+}
+
+#profile-img {
+	border-radius: 20%;
+	object-fit: cover;
+	box-shadow: black 0.5vmin 0.5vmin 1vmin;
 }

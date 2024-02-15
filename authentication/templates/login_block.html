@@ -3,12 +3,37 @@
 <div id="tv-login-content" class="text-center tv-content">
 	<form action="/login/" method="get">
 		{% csrf_token %}
-			<button id="42auth_button" class="btn buttonStyle buttonPong w-50 mx-5 mb-2" name="42auth" type="submit">
-				<span style="font-size: 2rem;">Login with 42</span>
-			</button>
-			<button id="guest_submit" class="btn buttonStyle buttonPong w-50 mx-5 mb-2" type="submit" name="guest">
-				<span style="font-size: 2rem;">Continue as guest</span>
-			</button>
-		</form>
+		<button id="42auth_button" class="btn buttonStyle buttonPong w-50 mx-5 mb-2" name="42auth" type="submit">
+			<span style="font-size: 2rem;">Login with 42</span>
+		</button>
+		<button id="guest_submit" class="btn buttonStyle buttonPong w-50 mx-5 mb-2" type="submit" name="guest">
+			<span style="font-size: 2rem;">Continue as guest</span>
+		</button>
+	</form>
 </div>
 
+{% if error %}
+<div id="auth-error-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="AuthErrorModal" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content alert alert-danger">
+			<div class="modal-body">
+				<p><strong>{{ error }}</strong></p>
+			</div>
+			<button type="button" class="btn btn-light" data-dismiss="modal">Oh...</button>
+		</div>
+	</div>
+</div>
+{% endif %}
+
+<script>
+$(document).ready(function(){
+	// Check if the modal element exists in the DOM
+	if ($('#auth-error-modal').length) {
+		$('#auth-error-modal').appendTo('body').modal('show');
+
+		$(document).on('click', '#auth-error-modal .btn', function() {
+			$('#auth-error-modal').modal('hide');
+		});
+	}
+});
+</script>
