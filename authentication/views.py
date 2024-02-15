@@ -43,9 +43,9 @@ def custom_auth(request):
 	state = request.GET.get('state', None)
 	error = request.GET.get('error', None)
 
-	if code == None or error != None:
-		return redirect('login')
-	if state == None or state != RequestCache.state:
+	if error != None:
+		return render(request, 'login.html', {'error': 'Failed 42 authentication'})
+	if code == None or state == None or state != RequestCache.state:
 		raise PermissionDenied
 
 	payload = {
@@ -60,11 +60,11 @@ def custom_auth(request):
 	RequestCache.state = None
 
 	if response.status_code // 100 != 2:
-		return HttpResponse(status = 500)
+		return render(request, 'login.html', {'error': 'Failed 42 authentication'})
 
 	user = store_token_user(request, response.json().get('access_token'))
 	if user == None:
-		return HttpResponse(status = 500)
+		return render(request, 'login.html', {'error': 'Failed 42 authentication'})
 	
 	auth_login(request, user)
 
@@ -79,12 +79,9 @@ def store_token_user(request, access_token):
 
 	if response.status_code // 100 != 2:
 		return None
+
 	json_response = response.json()
-
-	user_id = json_response.get('id')
 	user_login = json_response.get('login')
-
-	campus_id = json_response.get('campus')[0].get('id')
 	campus_name = json_response.get('campus')[0].get('name')
 
 	campuslist, created = UsersList.objects.get_or_create(name = campus_name)
@@ -94,7 +91,7 @@ def store_token_user(request, access_token):
 	except ObjectDoesNotExist:
 		user = CustomUser.objects.create_user(
 			username = json_response.get('login'),
-			list = campus,
+			list = campuslist,
 			password = None,
 		)
 
