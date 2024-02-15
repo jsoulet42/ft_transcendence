@@ -47,12 +47,12 @@ let IA = {
 }
 
 let paddle = {
-	leftHeight: canvas.width / 15,
+	leftHeight: canvas.width / 10,
 	leftWidth: canvas.height / 50,
-	rightHeight: canvas.width / 15,
+	rightHeight: canvas.width / 10,
 	rightWidth: canvas.height / 50,
-	leftY: (canvas.height - canvas.width / 15) / 2, // start in the middle of the canvas
-	rightY: (canvas.height - canvas.width / 15) / 2, // start in the middle of the canvas
+	leftY: (canvas.height - canvas.width / 10) / 2, // start in the middle of the canvas
+	rightY: (canvas.height - canvas.width / 10) / 2, // start in the middle of the canvas
 	speed: canvas.height / 80,	// Vitesse de déplacement des raquettes
 	centreR: 0,
 	centreL: 0,
@@ -564,8 +564,8 @@ function initializeVariables(mode) {
 		leftWidth: canvas.height / 50,
 		rightHeight: canvas.width / 10,
 		rightWidth: canvas.height / 50,
-		leftY: (canvas.height - canvas.width / 15) / 2, // start in the middle of the canvas
-		rightY: (canvas.height - canvas.width / 15) / 2, // start in the middle of the canvas
+		leftY: (canvas.height - canvas.width / 10) / 2, // start in the middle of the canvas
+		rightY: (canvas.height - canvas.width / 10) / 2, // start in the middle of the canvas
 		speed: canvas.height / 80,	// Vitesse de déplacement des raquettes
 		centreR: 0,
 		centreL: 0,
