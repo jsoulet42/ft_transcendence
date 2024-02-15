@@ -4,6 +4,7 @@ __pycache__/
 *.pyo
 *.pyd
 db.sqlite3
+mydatabase
 media/
 
 # Secret key

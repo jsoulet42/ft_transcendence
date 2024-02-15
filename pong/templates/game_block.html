@@ -12,10 +12,13 @@
 	<button id="drawTrajectory">Draw Trajectory</button> -->
 	<br>
 
-	<p id="ajax" style="color: azure;">
+	<!-- <p id="ajax" style="color: azure;">
+	</p> -->
+	<canvas id="pongCanvas3D"></canvas>
+	<!-- <canvas id="pongCanvas"></canvas> -->
+	<p>
+		{{ user.username }}
 	</p>
-	<br>
-	<canvas id="pongCanvas"></canvas>
 
 	<!-- <form method="POST">
 		{% csrf_token %}
@@ -45,5 +48,11 @@
 				})
 		})
 	</script> -->
-	<script type="module" src="{% static 'pong/js/pong.js' %}" defer></script>
+	<script type="module" src="{% static 'pong/js/pong3D.js' %}" defer></script>
+	<!-- <script type="module" src="{% static 'pong/js/pong.js' %}" defer></script> -->
+	<br>
 </div>
+<br>
+<br>
+
+
