@@ -178,3 +178,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 # https://docs.djangoproject.com/en/4.2/topics/auth/default/#the-login-required-decorator
 
 LOGIN_URL = 'login'
+
+
+SESSION_COOKIE_AGE = 900
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
