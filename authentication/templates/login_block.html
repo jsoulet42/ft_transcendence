@@ -1,14 +1,33 @@
 {% load static %}
 
 <div id="tv-login-content" class="text-center tv-content">
-	<form action="/login/" method="get">
+	<form class="login-form" action="/login/" method="post">
 		{% csrf_token %}
-		<button id="42auth_button" class="btn buttonStyle buttonPong w-50 mx-5 mb-2" name="42auth" type="submit">
-			<span style="font-size: 2rem;">Login with 42</span>
-		</button>
-		<button id="guest_submit" class="btn buttonStyle buttonPong w-50 mx-5 mb-2" type="submit" name="guest">
+		<fieldset>
+			<input name="username" class="input-pong my-1" type="text" placeholder="Username" required>
+			<input name="password" class="input-pong my-1" type="password" placeholder="Password" required>
+			
+			<div id="login-btn-group" class="mt-1">
+				<button id="login-submit-btn" name="login-submit" class="btn btn-primary buttonPong" type="submit">
+					<span>Log in</span>
+				</button>
+			
+				<button id="signin-btn" name="signin" class="btn btn-success pong-btn-success" type="submit" formnovalidate>
+					<span>Sign in</span>
+				</button>
+			</div>
+		</fieldset>
+		<hr />
+		<fieldset>
+			<button id="42auth-btn" name="42auth" class="btn btn-primary buttonPong w-100" type="submit" formnovalidate>
+				<span>Login with 42</span>
+			</button>
+		</fieldset>
+		{% comment %}
+		<button id="guest-btn" name="guest" class="btn buttonStyle buttonPong w-100" type="submit">
 			<span style="font-size: 2rem;">Continue as guest</span>
 		</button>
+		{% endcomment %}
 	</form>
 </div>
 
