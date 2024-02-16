@@ -1,22 +1,54 @@
 {%  load static %}
+<div class="modal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Modal body text goes here.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="tv-content-profile">
 	<h1>{{ user.username }}</h1>
-	<div id="choice-div">
-		<img id="choice-img" class="rounded-5 border border-info border-3" src="{{ user.photo_medium_url }}" alt="player-profile">
+	<div id="choice-div" class="rounded-5 border border-info border-3">
+		<img id="choice-img" class="rounded-5 border border-info border-3" src="{% static '/profile/images/character1.png' %}" alt="player-profile">
 	</div>
-	<h4>
-		TOTAL GAME PLAYED : 0
-		<br><br><br><br>
-		WINRATE : 0%
+	<h4><br>
+		GAME PLAYED :
+		<br><br><br>
+		WIN COUNT :
+        <br><br><br>
+        LOOSE COUNT :
 	</h4>
-	<select id="avatarselect" name="avatarselect" class="form-select" style="width: 9rem;">
-		<option selected value="1">42 Profile</option>
-		<option value="2">Character 1</option>
-		<option value="3">Character 2</option>
-		<option value="4">Uploaded</option>
-	</select>
+    <div id="profile-leftside">
+        <h4>Choose</h4>
+        <select id="avatarselect" name="avatarselect" class="form-select">
+            <option selected value="1">John Doe</option>
+            <option value="2">Bunny Bang</option>
+            <option value="3">42 Profile</option>
+            <option value="4">Uploaded</option>
+        </select><br><br><br><br><br>
+        <button type="button" style="background-color: #8360c3;" class="btn btn-outline-info" >Upload image</button>
+        <h4 id="h4or">Or</h4>
+    </div>
+    <button type="button" class="bottom-edit btn btn-outline-info">EDIT PROFILE</button>
 </div>
+<script>
+    const myModal = document.getElementById('myModal')
+    const myInput = document.getElementById('myInput')
 
+    myModal.addEventListener('shown.bs.modal', () => {
+        myInput.focus()
+    })
+</script>
 <script>
     document.getElementById('avatarselect').addEventListener('change', function() {
         var selectedValue = this.value;

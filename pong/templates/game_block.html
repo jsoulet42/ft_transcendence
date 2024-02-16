@@ -3,24 +3,24 @@
 {% if hx_push_url %}
 	<script hx-push-url="{{ hx_push_url }}"></script>
 {% endif %}
-<div class="game">
+	{% comment %}
 	<!-- <canvas id="pongCanvas" style="width: 80vw"></canvas> -->
 	<!-- <button id="startButton">Start Game</button>
 	<br>
 	<button id="StartIA">Partie contre l'IA ia ia ia</button>
 	<br>
 	<button id="drawTrajectory">Draw Trajectory</button> -->
-	<br>
+
 
 	<!-- <p id="ajax" style="color: azure;">
 	</p> -->
-	<canvas id="pongCanvas3D"></canvas>
+
 	<!-- <canvas id="pongCanvas"></canvas> -->
 	<p>
 		{{ user.username }}
 	</p>
 
-	<!-- <form method="POST">
+	<form method="POST">
 		{% csrf_token %}
 		<label style="color: azure;">Opération</label>
 		<input type="text" id="player1"> + <input type="text" id="player2">
@@ -47,12 +47,12 @@
 					resultElement.innerHTML = result["operation_result"];
 				})
 		})
-	</script> -->
-	<script type="module" src="{% static 'pong/js/pong3D.js' %}" defer></script>
-	<!-- <script type="module" src="{% static 'pong/js/pong.js' %}" defer></script> -->
-	<br>
-</div>
-<br>
-<br>
+	</script>
+	{% endcomment %}
 
+
+	<canvas id="pongCanvas3D"></canvas>
+	<script type="module" src="{% static 'pong/js/pong3D.js' %}" defer></script>
+
+	<!-- <script type="module" src="{% static 'pong/js/pong.js' %}" defer></script> -->
 
