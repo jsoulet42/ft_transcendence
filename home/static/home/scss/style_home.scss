@@ -46,9 +46,15 @@ html, body {
 	scale: 1.0;
 }
 
-#home-btn:hover .P, #home-btn:hover .N, #home-btn:hover .G{
-	//text-shadow: 0vw 0vw 1vw rgb(0, 255, 238);
-	//cursor: pointer;
+#home-btn:hover .P,
+#home-btn:hover .N,
+#home-btn:hover .G,
+#home-btn:focus .P,
+#home-btn:focus .N,
+#home-btn:focus .G {
+	text-shadow: 0vw 0vw 1vw rgb(0, 255, 238);
+	cursor: pointer;
+	border: 0;
 }
 
 .P {

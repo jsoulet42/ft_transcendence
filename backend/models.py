@@ -1,16 +1,19 @@
 import uuid
 from django.db import models
 from django.db.models import JSONField
-from django.contrib.auth.models import AbstractUser, BaseUserManager
+from django.contrib.auth.models import AbstractUser, BaseUserManager, Group, Permission
+from django.contrib.contenttypes.models import ContentType
 
 class CustomUserManager(BaseUserManager):
-	def create_user(self, username, list, password=None, **extra_fields):
+	def create_user(self, username, userlist_name, password=None, **extra_fields):
 		if not username:
 			raise ValueError('The username field must be set')
-		if not list:
+		if not userlist_name:
 			raise ValueError('The list field must be set')
 
-		user = self.model(username=username, list=list, **extra_fields)
+		userlist, created = UsersList.objects.get_or_create(name=userlist_name)
+
+		user = self.model(username=username, list=userlist, **extra_fields)
 		user.set_password(password)
 		user.save(using=self._db)
 		return user
@@ -24,30 +27,52 @@ class CustomUserManager(BaseUserManager):
 		if extra_fields.get('is_superuser') is not True:
 			raise ValueError('Superuser must have is_superuser=True.')
 
-		userlist, created = UsersList.objects.get_or_create(name = 'Superusers')
-		return self.create_user(username, userlist, password, **extra_fields)
+		return self.create_user(username, 'Superusers', password, **extra_fields)
+
+	def create_dev(self, username, userlist_name, password=None, **extra_fields):
+		extra_fields.setdefault('is_staff', True)
+
+		if extra_fields.get('is_staff') is not True:
+			raise ValueError('Dev user must have is_staff=True.')
+
+		dev_user = self.create_user(username, userlist_name, password)
+		
+		dev_group, created = Group.objects.get_or_create(name='Dev')
+
+		admin_content_type = ContentType.objects.get_for_model(CustomUser)
+		admin_permissions = Permission.objects.filter(content_type=admin_content_type)
+		dev_group.permissions.add(*admin_permissions)
+
+		dev_user.groups.add(dev_group)
+		return dev_user
 
 
 # Create your models here.
 # Model = heritage d'une class django vierge personnalisable
 class CustomUser(AbstractUser):
 	USERNAME_FIELD = 'username'
-	EMAIL_FILED = ''
+	EMAIL_FILED = 'email'
 	REQUIRED_FIELDS = []
 
+	objects = CustomUserManager()
+
 	#CharField = model de string
-	username = models.CharField(max_length = 50, unique = True, null = True)
+	username = models.CharField(max_length=50, unique=True, null=True)
 	# UUIDField attribution d'un id non modifable
-	uuid = models.UUIDField(default = uuid.uuid4, editable = False)
-	# date de creation du user qui ne bouge pas si on met a jours le user
-	join_date = models.DateField(auto_now = False, auto_now_add = True)
+	uuid = models.UUIDField(default=uuid.uuid4, editable=False)
+
+	bio = models.CharField(max_length=2000, blank=True, null=True)
+	
+	email = models.EmailField(max_length=254, blank=True)
+
 	# assignation du user a une list qui doit etre nommer a la creation du user et qui supprime tout les user si on delete la list
+	list = models.ForeignKey("UsersList", null=False, on_delete=models.CASCADE, related_name="users")
+
+	# 42 related data
+	campus = models.CharField(max_length=50, default="None")
+
 	photo_medium_url = models.URLField(max_length=255, blank=True)
 	photo_small_url = models.URLField(max_length=255, blank=True)
-
-	list = models.ForeignKey("UsersList", null = False, on_delete = models.CASCADE, related_name = "users")
-
-	objects = CustomUserManager()
 
 
 class UsersList(models.Model):

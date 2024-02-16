@@ -1,3 +1,29 @@
-<div class="tv-content">
-    <h1>Nous sommes sur la page hub</h1>
+<div id="carousel-hub" class="carousel slide" data-bs-ride="carousel">
+	<div class="carousel-inner">
+		{% for dev in devs %}
+			{% if forloop.counter == 1 %}
+			<div class="carousel-item active" data-bs-interval="4000">
+			{% else %}
+			<div class="carousel-item" data-bs-interval="4000">
+			{% endif %}
+				<div class="carousel-content">
+					<div class="carousel-custom-header">
+						<div class="username">
+							<h1> {{ dev.username }} </h1>
+						</div>
+					</div>
+					<div class="carousel-custom-body">
+						<div class="carousel-custom-body-left">
+							<img src="{{ dev.photo_medium_url }}" class="carousel-img">
+						</div>
+						<div class="carousel-custom-body-right">
+							<p> {{ dev.description }} </p>
+						</div>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
 </div>
+
+
