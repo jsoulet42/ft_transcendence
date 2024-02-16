@@ -6,8 +6,25 @@ const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight);
 
 
-const light = new THREE.DirectionalLight('white', 1, 0, 0);
-light.position.set(5, 10, 0);
+const light = new THREE.SpotLight('white', 1, 0, 0);
+camera.position.set(0, 0, 10);
+camera.lookAt(0, 0, 0);
+
+light.position.set(0, 0, -10);
+light.rotation.set(0, 0, 0);
+renderer.setSize(window.window.innerWidth / 2, window.innerHeight / 2);
+//renderer.setSize(canvas.width, canvas.height);
+renderer.setClearColor('black', 1);
+
+scene.add(light);
+
+const renderer = new THREE.WebGLRenderer({ canvas: window.canvas });
+
+function rotationLight() {
+	light.rotation.x += 0.01;
+	light.rotation.y += 0.01;
+	light.rotation.z += 0.01;
+}
 
 //#region Input
 
@@ -223,11 +240,11 @@ checkTableTopBottomCollision() {
 	const planeBox = new THREE.Box3().setFromObject(pongTable.mesh);
 
 	// Check for collisions with the top and bottom of the table
-	if (this.directiony == 1) {
-		ballPosition.y += this.mesh.geometry.parameters.radius;
-	} else {
-		ballPosition.y -= this.mesh.geometry.parameters.radius;
-	}
+	// if (this.directiony == 1) {
+	// 	ballPosition.y += this.mesh.geometry.parameters.radius;
+	// } else {
+	// 	ballPosition.y -= this.mesh.geometry.parameters.radius;
+	// }
 
 	if (!planeBox.intersectsSphere(new THREE.Sphere(ballPosition, this.mesh.geometry.parameters.radius))) {
 		this.directiony *= -1;
@@ -259,25 +276,9 @@ checkTableLeftRightCollision() {
 
 const pongTable = new tablePongClass(0, -0.5, 0, 17, 10, 0.5, 0xffff00, scene);
 const manager = new managerPong();
-const paddleLeft = new PaddleClasse(-8, 0, 0, 0.5, 3, 0.5, 0xff0000, scene, 0.1, pongTable); // Red paddle on the left
-const paddleRight = new PaddleClasse(8, 0, 0, 0.5, 3, 0.5, 0x0000ff, scene, 0.1, pongTable); // Blue paddle on the right
-const ball = new ballClasse(0, 0, 0, 0.5, 0x00ff00, scene); // Green ball in the middle
-
-
-//#region scene.add
-
-scene.add(light);
-
-//#endregion
-
-camera.position.set(0, 0, 10);
-camera.lookAt(0, -0, 0);
-
-const renderer = new THREE.WebGLRenderer({ canvas: window.canvas });
-
-renderer.setSize(window.window.innerWidth / 2, window.innerHeight / 2);
-//renderer.setSize(canvas.width, canvas.height);
-renderer.setClearColor('black', 1);
+const paddleLeft = new PaddleClasse(-8, 0, 0, 1, 3, 1, 0xff0000, scene, 0.1, pongTable); // Red paddle on the left
+const paddleRight = new PaddleClasse(8, 0, 0, 1, 3, 1, 0x0000ff, scene, 0.1, pongTable); // Blue paddle on the right
+const ball = new ballClasse(0, 0, 0, 0.5, "white", scene); // Green ball in the middle
 
 function loop() {
 	requestAnimationFrame(loop);
@@ -287,6 +288,8 @@ function loop() {
 		ball.checkTableTopBottomCollision();
 		ball.checkTableLeftRightCollision();
 	}
+	rotationLight();
+
 	listenInput();
 	renderer.render(scene, camera);
 }
