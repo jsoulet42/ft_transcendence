@@ -26,10 +26,14 @@ nav-pong a {
 	transform: translate(-50%, -50%);
 	border-radius: 5vmin;
 
-	// height: 40vh;
-	// width: 40vw;
 }
 
+@media (max-width: 768px) {
+	#pongCanvas3D {
+		height: 6rem;
+		width: 8rem;
+	}
+}
 
 .buttonInPlay {
     width: 20vw;
@@ -83,7 +87,7 @@ nav-pong a {
 	background-repeat: no-repeat;
 }
 
-.pulse:hover, 
+.pulse:hover,
 .pulse:focus {
   animation: pulse 1s;
   box-shadow: 0 0 0 2em transparent;

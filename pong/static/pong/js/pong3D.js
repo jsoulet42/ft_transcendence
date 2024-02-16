@@ -2,21 +2,27 @@ import * as THREE from 'three';
 
 window.canvas = document.getElementById('pongCanvas3D');
 
-// canvas.width = window.innerWidth / 2;
-// canvas.height = window.innerHeight / 2;
-window.iw = window.innerWidth;
-window.ih = window.innerHeight;
-
 const scene = new THREE.Scene();
 
-const camera = new THREE.PerspectiveCamera(70, iw / ih);
+const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight);
 
 const BallMesh = new THREE.SphereGeometry(0.5, 32, 32);
 
 const material = new THREE.MeshPhongMaterial({ color: 'red' });
 
-const light = new THREE.PointLight('white', 1, 0, 0);
+const light = new THREE.DirectionalLight('white', 1, 0, 0);
+light.position.set(5, 10, 0);
 
+
+
+
+
+//#region material
+
+
+
+
+//#endregion
 
 //#region procedural plane
 
@@ -26,75 +32,6 @@ let materialPlan = new THREE.PointsMaterial({ size: 0.015, vertexColors: true })
 let planeProcedural = {
 	mesh: new THREE.Points(geometry, materialPlan)
 };
-
-const planeGeometry = new THREE.PlaneGeometry(15, 10);
-const planeMaterial = new THREE.MeshBasicMaterial({color: 0xffff00, side: THREE.DoubleSide});
-const plane = new THREE.Mesh(planeGeometry, planeMaterial);
-plane.rotation.x = Math.PI / 2;
-plane.position.y = -0.5;
-scene.add(plane);
-
-//#endregion
-
-
-let ball = {
-	mesh: new THREE.Mesh(BallMesh, material),
-	direction: 1,
-};
-
-const clock = new THREE.Clock()
-let t = 0
-
-scene.add(ball.mesh);
-scene.add(light);
-//scene.add(planeProcedural.mesh);
-
-
-//camera.position.set(0, 10, -10);
-camera.position.set(0, 10, -1);
-camera.lookAt(0, 0, 0);
-
-const renderer = new THREE.WebGLRenderer({ canvas: window.canvas });
-
-renderer.setSize(window.iw / 1.5, window.ih / 1.5);
-renderer.setClearColor('cyan');
-
-function loop() {
-	requestAnimationFrame(loop);
-	moveBall();
-	collisionDetection();
-
-	t += clock.getDelta()
-	//animeGeometry(geometry, t)
-	//plane.mesh.rotation.y = 0.1*t
-	renderer.render(scene, camera);
-}
-
-function moveBall() {
-	ball.mesh.position.x += 0.1 * ball.direction;
-
-}
-
-function collisionDetection() {
-
-	// Adjust the ball position by its radius
-	const ballPosition = new THREE.Vector3(
-		ball.mesh.position.x,
-		ball.mesh.position.y,
-		ball.mesh.position.z
-	);
-
-	const planeBox = new THREE.Box3().setFromObject(plane);
-	if (ball.direction == 1) {
-		ballPosition.x += ball.mesh.geometry.parameters.radius * 2;
-	}
-	else
-		ballPosition.x -= ball.mesh.geometry.parameters.radius * 2;
-	if (!planeBox.intersectsSphere(new THREE.Sphere(ballPosition, ball.mesh.geometry.parameters.radius))) {
-		ball.direction *= -1;
-		console.log('hit');
-	}
-}
 
 function computeGeometry() {
 	const space = 4, nb = 100, amp = 0.1, fre = 1, pi2 = Math.PI * 2
@@ -148,4 +85,136 @@ function animeGeometry(geometry, progress) {
 	geometry.attributes.color.needsUpdate = true
 }
 
+const clock = new THREE.Clock()
+let t = 0
+//#endregion
+
+// class tablePongClass {
+// 	constructor(x, y, z, width, height, depth, color, scene) {
+// 		this.geometry = new THREE.BoxGeometry(width, height, depth);
+// 		this.material = new THREE.MeshBasicMaterial({ color: color });
+// 		this.mesh = new THREE.Mesh(this.geometry, this.material);
+// 		this.mesh.position.set(x, y, z);
+// 		this.mesh.rotation.x = Math.PI / 2;
+// 		scene.add(this.mesh);
+// 	}
+// }
+
+class tablePongClass {
+	constructor(x, y, z, width, height, depth, color, scene) {
+		this.geometry = new THREE.BoxGeometry(width, height, depth);
+
+		// Create a gradient texture
+		const canvas = document.createElement('canvas');
+		canvas.width = 128;
+		canvas.height = 128;
+		const context = canvas.getContext('2d');
+
+		const gradient = context.createLinearGradient(0, 0, canvas.width, 0);
+		gradient.addColorStop(0, 'red'); // Start color
+		gradient.addColorStop(1, 'blue'); // End color
+
+		context.fillStyle = gradient;
+		context.fillRect(0, 0, canvas.width, canvas.height);
+
+		const texture = new THREE.CanvasTexture(canvas);
+
+		this.material = new THREE.MeshBasicMaterial({ map: texture });
+
+		this.mesh = new THREE.Mesh(this.geometry, this.material);
+		this.mesh.position.set(x, y, z);
+		this.mesh.rotation.x = Math.PI / 2;
+		scene.add(this.mesh);
+	}
+}
+
+
+
+class PaddleClasse {
+	constructor(x, y, z, width, height, depth, color, scene) {
+		const loader = new THREE.TextureLoader();
+		loader.load('/static/pong/textures/brick_wall_02_4k.blend/textures/brick_wall_02_diff_4k.jpg', (texture) => {
+			texture.wrapS = THREE.RepeatWrapping;
+			texture.wrapT = THREE.RepeatWrapping;
+			texture.repeat.set(width / height, 1); // Repeat the texture based on the width/height ratio of the paddle
+
+			this.geometry = new THREE.BoxGeometry(width, height, depth);
+			this.material = new THREE.MeshBasicMaterial({ map: texture });
+			this.mesh = new THREE.Mesh(this.geometry, this.material);
+			this.mesh.position.set(x, y, z);
+
+			// Add the mesh to the scene in the texture loader callback
+			scene.add(this.mesh);
+		});
+	}
+}
+
+class ballClasse {
+	constructor(x, y, z, radius, color, scene) {
+		this.geometry = new THREE.SphereGeometry(radius, 32, 32);
+		this.material = new THREE.MeshBasicMaterial({ color: color });
+		this.mesh = new THREE.Mesh(this.geometry, this.material);
+		this.mesh.position.set(x, y, z);
+		this.direction = 1;
+		scene.add(this.mesh);
+	}
+}
+
+const paddleLeft = new PaddleClasse(-8, 0, 0, 1, 1, 4, 0xff0000, scene); // Red paddle on the left
+const paddleRight = new PaddleClasse(8, 0, 0, 1, 1, 4, 0x0000ff, scene); // Blue paddle on the right
+const ball = new ballClasse(0, 0, 0, 0.5, 0x00ff00, scene); // Green ball in the middle
+const pongTable = new tablePongClass(0, -0.5, 0, 15, 10, 0.5, 0xffff00, scene);
+//#endregion
+
+
+//#region scene.add
+
+scene.add(light);
+
+//#endregion
+
+camera.position.set(0, 10, -1);
+camera.lookAt(0, 0, 0);
+
+const renderer = new THREE.WebGLRenderer({ canvas: window.canvas });
+
+renderer.setSize(window.window.innerWidth / 1.5, window.innerHeight / 1.5);
+//renderer.setSize(canvas.width, canvas.height);
+renderer.setClearColor('black', 1);
+
+function loop() {
+	requestAnimationFrame(loop);
+	moveBall();
+	collisionDetection();
+	renderer.render(scene, camera);
+}
+
+function moveBall() {
+	ball.mesh.position.x += 0.1 * ball.direction;
+
+}
+
+function collisionDetection() {
+
+	const ballPosition = new THREE.Vector3(
+		ball.mesh.position.x,
+		ball.mesh.position.y,
+		ball.mesh.position.z
+	);
+
+	const planeBox = new THREE.Box3().setFromObject(pongTable.mesh);
+	if (ball.direction == 1) {
+		ballPosition.x += ball.mesh.geometry.parameters.radius * 2;
+	}
+	else
+		ballPosition.x -= ball.mesh.geometry.parameters.radius * 2;
+	if (!planeBox.intersectsSphere(new THREE.Sphere(ballPosition, ball.mesh.geometry.parameters.radius))) {
+		ball.direction *= -1;
+		console.log('hit');
+	}
+}
+
+
+
 loop();
+
