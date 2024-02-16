@@ -5,7 +5,20 @@ from django.contrib.auth.models import AbstractUser, BaseUserManager, Group, Per
 from django.contrib.contenttypes.models import ContentType
 
 class CustomUserManager(BaseUserManager):
+	"""
+	Custom user manager for managing CustomUser instances.
+
+	Methods:
+		create_user: Creates a regular user with the given username and userlist.
+		create_superuser: Creates a superuser with the given username and password.
+		create_dev: Creates a developer user with the given username and userlist.
+	"""
+
 	def create_user(self, username, userlist_name, password=None, **extra_fields):
+		"""
+		Creates a regular user with the given username and userlist name.
+		Creates the userlist if not found.
+		"""
 		if not username:
 			raise ValueError('The username field must be set')
 		if not userlist_name:
@@ -19,6 +32,11 @@ class CustomUserManager(BaseUserManager):
 		return user
 
 	def create_superuser(self, username, password=None, **extra_fields):
+		"""
+		Creates a superuser with the given username and password.
+		Creates the 'Superusers' Userslist if not found and assigns the new superuser
+		to it.
+		"""
 		extra_fields.setdefault('is_staff', True)
 		extra_fields.setdefault('is_superuser', True)
 
@@ -30,6 +48,11 @@ class CustomUserManager(BaseUserManager):
 		return self.create_user(username, 'Superusers', password, **extra_fields)
 
 	def create_dev(self, username, userlist_name, password=None, **extra_fields):
+		"""
+		Creates a developer user with the given username and userlist.
+		Creates the userlist if not found.
+		Creates the 'Dev' group if not found and assigns the new user to it.
+		"""
 		extra_fields.setdefault('is_staff', True)
 
 		if extra_fields.get('is_staff') is not True:

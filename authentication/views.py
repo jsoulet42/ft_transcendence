@@ -9,12 +9,30 @@ from backend.models import CustomUser, UsersList
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth import authenticate
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 
 from transcendence import settings
 from .models import RequestCache
 from .decorators import not_authenticated
+
+@not_authenticated
+def signin(request):
+	if request.method == 'POST':
+		form = UserCreationForm(request.POST)
+		if form.is_valid():
+			# If form is valid, create new user and sign them in
+			user = form.save()
+			auth_login(request, user)
+			# Redirect to a success page or home page
+			return redirect('home')
+	else:
+		# If request method is GET, render the sign-up form
+		form = UserCreationForm()
+	
+	# Render the sign-up form with validation errors, if any
+	return render(request, 'signin.html', {'form': form})
 
 @not_authenticated
 def login(request):
@@ -40,6 +58,9 @@ def login(request):
 				auth_login(request, user)
 				return redirect('hub')
 			return render(request, 'login.html', {'error': 'Invalid username or password'})
+
+		if 'signin' in request.POST != '':
+			return signin(request)
 	return render(request, 'login.html')
 
 @login_required
