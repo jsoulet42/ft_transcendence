@@ -2,7 +2,7 @@
 	position: relative;
 	float: left;
 	left: 5%;
-	top: 10%;
+	top: 20%;
 	width: 45rem;
 	height: 30rem;
 	border-radius: 5rem;
@@ -59,12 +59,14 @@
 
 .other-info {
 	position: relative;
+	font-size: 2rem;
+	text-align: center;
+	width: 33%;
 }
 
-.campus-info {
-	position: relative;
-	float: left;
+.table-titles th {
 	font-size: 2rem;
+	padding-top: 1.5rem;
 }
 
 .table-img {
@@ -133,19 +135,19 @@
 	animation-delay: 2s;
 }
 
+// @include media-breakpoint-only(sm) {
+// 	#carousel-hub { width: 30rem; height: 15rem; }
+// }
+// @include media-breakpoint-only(md) {
+// 	#carousel-hub { width: 35rem; height: 20rem; }
+// }
+// @include media-breakpoint-only(lg) {
+// 	#carousel-hub { width: 40rem; height: 25rem; }
+// }
+// @include media-breakpoint-only(xl) {
+// 	#carousel-hub { width: 45rem; height: 30rem; }
+// }
+// @include media-breakpoint-only(xxl) {
+// 	#carousel-hub { width: 50rem; height: 35rem; }
+// }
 
-@media (max-width: 768px) {
-	.carousel-img {
-		border-radius: 2vw;
-		height: 10vw;
-		width: 10vw !important;
-	}
-}
-
-@media (max-width: 450px) {
-	.carousel-img {
-		border-radius: 3vw;
-		height: 15vw;
-		width: 15vw !important;
-	}
-}
