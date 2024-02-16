@@ -7,19 +7,26 @@
 			<div class="carousel-item" data-bs-interval="4000">
 			{% endif %}
 				<div class="carousel-content">
-					<div class="carousel-custom-header">
-						<div class="username">
-							<h1> {{ dev.username }} </h1>
-						</div>
+					<div class="carousel-header py-2">
+						<h1 class="neonEffect">{{ dev.username }}</h1>
 					</div>
-					<div class="carousel-custom-body">
-						<div class="carousel-custom-body-left">
-							<img src="{{ dev.photo_medium_url }}" class="carousel-img">
-						</div>
-						<div class="carousel-custom-body-right">
-							<p> {{ dev.description }} </p>
-						</div>
-					</div>
+
+					<table class="carousel-body">
+						<thead>
+						<tr>
+							<td class="table-img"><img src="{{ dev.photo_medium_url }}"></td>
+							<td><p>{{ dev.bio }}</p></td>
+						</tr>
+						</thead>
+						<tbody>
+						<tr>
+							<td class="other-info" colspan="2">
+								<p class="campus-info"><strong class="neonEffect">Location:</strong> {{ dev.campus }}</p>
+								<p>{{ dev.role }}</p>
+							</td>
+						</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		{% endfor %}
