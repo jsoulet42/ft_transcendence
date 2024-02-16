@@ -3,21 +3,21 @@
 	float: left;
 	left: 5%;
 	top: 20%;
-	width: 45rem;
-	height: 30rem;
+	width: 60%;
+	height: 60%;
 	border-radius: 5rem;
 	background-color: rgba($color: #110011, $alpha: 0.8);
 	color: white;
 }
 
 .carousel-content {
-	margin: 1rem;
+	margin: 10%;
 	text-align: center;
 }
 
 .carousel-header {
 	width: 100%;
-	height: 5rem;
+	height: 10%;
 }
 
 .carousel-header h1 {
@@ -45,40 +45,39 @@
 .carousel-body thead {
 	position: relative;
 	text-wrap: wrap;
-	font-size: 1.5rem;
 	background-color: rgba($color: #000000, $alpha: 0.7);
 }
 
-.carousel-body strong {
-	font-size: 1.5rem;
-}
-
 .carousel-body td {
-	padding: 1rem;
+	padding: 10%;
 }
 
 .other-info {
 	position: relative;
-	font-size: 2rem;
 	text-align: center;
 	width: 33%;
 }
 
+.other-info img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
 .table-titles th {
-	font-size: 2rem;
-	padding-top: 1.5rem;
+	padding-top: 10%;
 }
 
 .table-img {
-	width: 10rem;
+	width: 10%;
 }
 
 .table-img img {
 	position: relative;
-	border:rgb(157, 0, 255) 0.5rem solid;
+	border:rgb(157, 0, 255) 5% solid;
 	animation: border-neon-animation 2s infinite alternate, radius-neon-animation-top-left 4s infinite alternate, radius-neon-animation-top-right 4s infinite alternate;
-	height: 8rem;
-	width: 8rem;
+	height: 100%;
+	width: 100%;
 	object-fit: cover;
 }
 
@@ -135,19 +134,69 @@
 	animation-delay: 2s;
 }
 
-// @include media-breakpoint-only(sm) {
-// 	#carousel-hub { width: 30rem; height: 15rem; }
-// }
-// @include media-breakpoint-only(md) {
-// 	#carousel-hub { width: 35rem; height: 20rem; }
-// }
-// @include media-breakpoint-only(lg) {
-// 	#carousel-hub { width: 40rem; height: 25rem; }
-// }
-// @include media-breakpoint-only(xl) {
-// 	#carousel-hub { width: 45rem; height: 30rem; }
-// }
-// @include media-breakpoint-only(xxl) {
-// 	#carousel-hub { width: 50rem; height: 35rem; }
-// }
+@media only screen and (max-width: 576px) {
+	#carousel-size {
+		width: 150px;
+		height: 50px;
+		font-size: 20px;
+	}
+
+	#carousel-size h1 {
+		font-size: 50px;
+	}
+
+	#carousel-size h5 {
+		font-size: 35px;
+	}
+}
+
+@media only screen and (max-width: 768px) {
+	#carousel-size {
+		width: 300px;
+		height: 200px;
+		font-size: 30px;
+	}
+
+	#carousel-size h1 {
+		font-size: 70px;
+	}
+
+	#carousel-size h5 {
+		font-size: 50px;
+	}
+}
+
+@media only screen and (max-width: 992px) {
+	#carousel-size {
+		width: 400px;
+		height: 250px;
+		font-size: 40px;
+	}
+
+	#carousel-size h1 {
+		font-size: 80px;
+	}
+
+	#carousel-size h5 {
+		font-size: 60px;
+	}
+}
+
+@media only screen and (max-width: 1200px) {
+	#carousel-size {
+		width: 500px;
+		height: 300px;
+		font-size: 50px;
+	}
+
+	#carousel-size h1 {
+		font-size: 90px;
+	}
+
+	#carousel-size h5 {
+		font-size: 70px;
+	}
+}
+
+
 
