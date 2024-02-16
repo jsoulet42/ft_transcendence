@@ -4,9 +4,9 @@
 	<div class="carousel-inner">
 		{% for dev in devs %}
 			{% if forloop.counter == 1 %}
-			<div class="carousel-item active" data-bs-interval="6000">
+			<div class="carousel-item active" data-bs-interval="5000">
 			{% else %}
-			<div class="carousel-item" data-bs-interval="6000">
+			<div class="carousel-item" data-bs-interval="5000">
 			{% endif %}
 				<div class="carousel-content">
 					<div class="carousel-header py-2">
@@ -22,9 +22,9 @@
 						</thead>
 						<tbody>
 						<tr class="neonEffect table-titles">
-							<th>Location</th>
-							<th>Role</th>
-							<th>Github</th>
+							<th><h5>Location</h5></th>
+							<th><h5>Role</h5></th>
+							<th><h5>GitHub</h5></th>
 						</tr>
 						<tr>
 							<td class="other-info">{{ dev.campus }}</td>
