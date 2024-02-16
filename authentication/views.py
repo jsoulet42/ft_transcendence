@@ -9,18 +9,18 @@ from backend.models import CustomUser, UsersList
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth import authenticate
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 
 from transcendence import settings
+from .forms import CustomUserCreationForm
 from .models import RequestCache
 from .decorators import not_authenticated
 
 @not_authenticated
 def signin(request):
 	if request.method == 'POST':
-		form = UserCreationForm(request.POST)
+		form = CustomUserCreationForm(request.POST)
 		if form.is_valid():
 			# If form is valid, create new user and sign them in
 			user = form.save()
