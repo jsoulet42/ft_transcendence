@@ -8,6 +8,7 @@ from django.http import HttpResponse
 from backend.models import CustomUser, UsersList
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
+from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 
@@ -20,22 +21,31 @@ def login(request):
 	if request.META.get('HTTP_HX_REQUEST'):
 		return render(request, 'login_block.html')
 
-	if request.method == 'GET' and '42auth' in request.GET != '':
-		RequestCache.state = get_random_string(length=32)
-		url = '{0}?{1}&{2}&{3}&{4}&{5}'.format(
-			settings.EXTERNAL_API_AUTH_URL,
-			urlencode({'client_id': settings.EXTERNAL_API_CLIENT_ID}),
-			urlencode({'redirect_uri': settings.EXTERNAL_API_REDIRECT_URI}),
-			urlencode({'response_type': 'code'}),
-			urlencode({'scope': 'public'}),
-			urlencode({'state': RequestCache.state}),
-		)
-		return redirect(url)
+	if request.method == 'POST':
+		if '42auth' in request.POST != '':
+			RequestCache.state = get_random_string(length=32)
+			url = '{0}?{1}&{2}&{3}&{4}&{5}'.format(
+				settings.EXTERNAL_API_AUTH_URL,
+				urlencode({'client_id': settings.EXTERNAL_API_CLIENT_ID}),
+				urlencode({'redirect_uri': settings.EXTERNAL_API_REDIRECT_URI}),
+				urlencode({'response_type': 'code'}),
+				urlencode({'scope': 'public'}),
+				urlencode({'state': RequestCache.state}),
+			)
+			return redirect(url)
+		
+		if 'login-submit' in request.POST != '':
+			user = authenticate(username=request.POST.get('username'), password=request.POST.get('password'))
+			if user is not None:
+				auth_login(request, user)
+				return redirect('hub')
+			return render(request, 'login.html', {'error': 'Invalid username or password'})
 	return render(request, 'login.html')
 
 @login_required
 def logout(request):
 	auth_logout(request)
+	request.META['reload'] = 'True'
 	return redirect('hub')
 
 #~recuperation des donnees du formulaire de login
@@ -83,20 +93,28 @@ def store_token_user(request, access_token):
 
 	json_response = response.json()
 	user_login = json_response.get('login')
+	user_email = json_response.get('email')
 	campus_name = json_response.get('campus')[0].get('name')
 
-	campuslist, created = UsersList.objects.get_or_create(name = campus_name)
-
+	photo_medium_url = json_response.get('image').get('versions').get('medium')
+	photo_small_url = json_response.get('image').get('versions').get('small')
+	
 	try:
 		user = CustomUser.objects.get(username = user_login)
 	except ObjectDoesNotExist:
-		user = CustomUser.objects.create_user(
-			username = json_response.get('login'),
-			list = campuslist,
+		return CustomUser.objects.create_user(
+			username = user_login,
+			userlist_name = '42Users',
 			password = None,
+			email = user_email,
+			campus = campus_name,
+			photo_medium_url = photo_medium_url,
+			photo_small_url = photo_small_url,
 		)
 
-	user.photo_medium_url = json_response.get('image').get('versions').get('medium')
-	user.photo_small_url = json_response.get('image').get('versions').get('small')
+	user.email = user_email
+	user.campus = campus_name
+	user.photo_medium_url = photo_medium_url
+	user.photo_small_url = photo_small_url
 	user.save()
 	return user
