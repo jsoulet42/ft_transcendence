@@ -26,7 +26,7 @@ def signin(request):
 			user = form.save()
 			auth_login(request, user)
 			# Redirect to a success page or home page
-			return redirect('home')
+			return redirect('hub')
 	else:
 		# If request method is GET, render the sign-up form
 		form = UserCreationForm()
