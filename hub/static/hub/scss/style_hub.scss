@@ -1,15 +1,32 @@
 #carousel-hub {
 	position: relative;
-	float: right;
-	width: 50vw;
-	height: 50vw;
+	float: left;
+	left: 5%;
+	top: 10%;
+	width: 45rem;
+	height: 45rem;
+	border-radius: 5rem;
 	background-color: rgba($color: #000000, $alpha: 0.8);
 }
 
+.carousel-custom-header {
+	width: 100%;
+}
+
+.username {
+	color: white;
+}
+
+.carousel-content {
+	margin: 1rem;
+	text-align: center;
+}
+
 .carousel-img {
-	border-radius: 1vw;
-	height: 5vw;
-	width: 5vw !important;
+	position: relative;
+	border-radius: 1rem;
+	height: 10vw;
+	width: 10vw;
 	object-fit: cover;
 }
 
