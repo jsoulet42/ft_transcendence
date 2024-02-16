@@ -1,12 +1,12 @@
 <nav id="nav-home-top">
-	<div id="home-btn">
+	<a id="home-btn" href="{% url 'hub' %}" hx-post="{% url 'hub' %}" hx-target="body" hx-push-url="true" hx-headers="{ 'X-CSRFToken': '{{ csrf_token }}' }">
 		<p class="P">P</p>
 		<p class="O">O</p>
 		<p class="N">N</p>
 		<p class="G">G</p>
 		<div id="ball"></div>
 		<div id="ball1"></div>
-	</div>
+	</a>
 	{% if not user.is_authenticated %}
 		<a id="login-btn" class="btn trigger-btn buttonPong" href="{% url 'login' %}" hx-get="{% url 'login' %}" hx-target="#main-container" hx-push-url="/login">
 			<span class="center-text">
