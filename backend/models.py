@@ -36,7 +36,7 @@ class CustomUserManager(BaseUserManager):
 			raise ValueError('Dev user must have is_staff=True.')
 
 		dev_user = self.create_user(username, userlist_name, password)
-		
+
 		dev_group, created = Group.objects.get_or_create(name='Dev')
 
 		admin_content_type = ContentType.objects.get_for_model(CustomUser)
@@ -62,7 +62,9 @@ class CustomUser(AbstractUser):
 	uuid = models.UUIDField(default=uuid.uuid4, editable=False)
 
 	bio = models.CharField(max_length=2000, blank=True, null=True)
-	
+
+	github = models.URLField(max_length=255, blank=True)
+
 	email = models.EmailField(max_length=254, blank=True)
 
 	# assignation du user a une list qui doit etre nommer a la creation du user et qui supprime tout les user si on delete la list
