@@ -2,150 +2,302 @@ import * as THREE from 'three';
 
 window.canvas = document.getElementById('pongCanvas3D');
 
-// canvas.width = window.innerWidth / 2;
-// canvas.height = window.innerHeight / 2;
-window.iw = window.innerWidth;
-window.ih = window.innerHeight;
-
 const scene = new THREE.Scene();
-
-const camera = new THREE.PerspectiveCamera(70, iw / ih);
-
-const BallMesh = new THREE.SphereGeometry(0.5, 32, 32);
-
-const material = new THREE.MeshPhongMaterial({ color: 'red' });
-
-const light = new THREE.PointLight('white', 1, 0, 0);
+const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight);
 
 
-//#region procedural plane
-
-const geometry = computeGeometry();
-let materialPlan = new THREE.PointsMaterial({ size: 0.015, vertexColors: true });
-
-let planeProcedural = {
-	mesh: new THREE.Points(geometry, materialPlan)
-};
-
-const planeGeometry = new THREE.PlaneGeometry(15, 10);
-const planeMaterial = new THREE.MeshBasicMaterial({color: 0xffff00, side: THREE.DoubleSide});
-const plane = new THREE.Mesh(planeGeometry, planeMaterial);
-plane.rotation.x = Math.PI / 2;
-plane.position.y = -0.5;
-scene.add(plane);
-
-//#endregion
-
-
-let ball = {
-	mesh: new THREE.Mesh(BallMesh, material),
-	direction: 1,
-};
-
-const clock = new THREE.Clock()
-let t = 0
-
-scene.add(ball.mesh);
-scene.add(light);
-//scene.add(planeProcedural.mesh);
-
-
-//camera.position.set(0, 10, -10);
-camera.position.set(0, 10, -1);
+const light = new THREE.SpotLight('white', 1, 0, 0);
+camera.position.set(0, 0, 10);
 camera.lookAt(0, 0, 0);
+
+light.position.set(0, 0, -10);
+light.rotation.set(0, 0, 0);
+renderer.setSize(window.window.innerWidth / 2, window.innerHeight / 2);
+//renderer.setSize(canvas.width, canvas.height);
+renderer.setClearColor('black', 1);
+
+scene.add(light);
 
 const renderer = new THREE.WebGLRenderer({ canvas: window.canvas });
 
-renderer.setSize(window.iw / 1.5, window.ih / 1.5);
-renderer.setClearColor('cyan');
+function rotationLight() {
+	light.rotation.x += 0.01;
+	light.rotation.y += 0.01;
+	light.rotation.z += 0.01;
+}
+
+//#region Input
+
+document.addEventListener("keydown", keyDownHandler, false); // écouteur d'événement
+document.addEventListener("keyup", keyUpHandler, false); // écouteur d'événement
+
+let inputs = {
+	upLeft: false,
+	downLeft: false,
+	upRight: false,
+	downRight: false
+};
+
+function keyDownHandler(e)// Fonction de gestion des événements
+{
+	if (!manager.pause) {
+		if (e.key == "z" || e.key == "Z") {
+			inputs.upLeft = true;
+		}
+		else if (e.key == "s" || e.key == "S") {
+			inputs.downLeft = true;
+		}
+		else if (e.key == "ArrowUp") {
+			if (!manager.IA.activate)
+				inputs.upRight = true;
+		}
+		else if (e.key == "ArrowDown") {
+			if (!manager.IA.activate)
+				inputs.downRight = true;
+		}
+	}
+}
+
+function keyUpHandler(e) {
+	if (e.key == "z" || e.key == "Z") {
+		inputs.upLeft = false;
+	}
+	else if (e.key == "s" || e.key == "S") {
+		inputs.downLeft = false;
+	}
+	else if (e.key == "ArrowUp") {
+		if (!manager.IA.activate)
+			inputs.upRight = false;
+	}
+	else if (e.key == "ArrowDown") {
+		if (!manager.IA.activate)
+			inputs.downRight = false;
+	}
+}
+
+function listenInput() {
+	if (inputs.upLeft) {
+		paddleLeft.move('up');
+	}
+	else if (inputs.downLeft) {
+		paddleLeft.move('down');
+	}
+	if (inputs.upRight) {
+		paddleRight.move('up');
+	}
+	else if (inputs.downRight) {
+		paddleRight.move('down');
+	}
+}
+
+//#endregion
+
+class managerPong {
+	pause = false;
+
+	IA = {
+		activate: false,
+	};
+}
+
+class tablePongClass {
+	constructor(x, y, z, width, height, depth, color, scene) {
+		this.geometry = new THREE.BoxGeometry(width, height, depth);
+
+		// Create a gradient texture
+		const canvas = document.createElement('canvas');
+		canvas.width = 128;
+		canvas.height = 128;
+		const context = canvas.getContext('2d');
+
+		const gradient = context.createLinearGradient(0, 0, canvas.width, canvas.height);
+		gradient.addColorStop(0, 'red'); // Start color
+		gradient.addColorStop(1, 'blue'); // End color
+
+		context.fillStyle = gradient;
+		context.fillRect(0, 0, canvas.width, canvas.height);
+
+		const texture = new THREE.CanvasTexture(canvas);
+
+		this.material = new THREE.MeshBasicMaterial({ map: texture });
+
+		this.mesh = new THREE.Mesh(this.geometry, this.material);
+		this.mesh.position.set(x, y, z);
+
+		scene.add(this.mesh);
+	}
+}
+
+class PaddleClasse {
+	constructor(x, y, z, width, height, depth, color, scene, speed, tablePong) {
+		const loader = new THREE.TextureLoader();
+		loader.load('/static/pong/textures/brick_wall_02_4k.blend/textures/brick_wall_02_diff_4k.jpg', (texture) => {
+			texture.wrapS = THREE.RepeatWrapping;
+			texture.wrapT = THREE.RepeatWrapping;
+			texture.repeat.set(width / height, 1); // Repeat the texture based on the width/height ratio of the paddle
+
+			this.geometry = new THREE.BoxGeometry(width, height, depth);
+			this.material = new THREE.MeshBasicMaterial({ map: texture });
+			this.mesh = new THREE.Mesh(this.geometry, this.material);
+			this.mesh.position.set(x, y, z);
+
+			scene.add(this.mesh);
+		});
+		this.speed = speed;
+		this.table = tablePong; // Set the table reference
+	}
+
+	move(direction) {
+		if (!this.table) {
+			throw new Error('Table not set for paddle');
+		}
+		if (direction === 'up') {
+			if (this.mesh.position.y + this.geometry.parameters.height / 2 < this.table.mesh.position.y + this.table.geometry.parameters.height / 2) {
+				this.mesh.position.y += this.speed;
+			}
+		}
+		else if (direction === 'down') {
+			if (this.mesh.position.y - this.geometry.parameters.height / 2 > this.table.mesh.position.y - this.table.geometry.parameters.height / 2) {
+				this.mesh.position.y -= this.speed;
+			}
+		}
+	}
+}
+
+class ballClasse {
+	constructor(x, y, z, radius, color, scene) {
+		this.geometry = new THREE.SphereGeometry(radius, 32, 32);
+		this.material = new THREE.MeshBasicMaterial({ color: color });
+		this.mesh = new THREE.Mesh(this.geometry, this.material);
+		this.mesh.position.set(x, y, z);
+		this.directionx = 1;
+		this.directiony = 0;
+		scene.add(this.mesh);
+	}
+	paddleLeft = null;
+	paddleRight = null;
+	setPaddles(paddleLeft, paddleRight) {
+		this.paddleLeft = paddleLeft;
+		this.paddleRight = paddleRight;
+	}
+	move() {
+		this.mesh.position.x += 0.1 * this.directionx;
+		this.mesh.position.y += 0.1 * this.directiony;
+	}
+	// collisionDetection() {
+	// 	const ballPosition = new THREE.Vector3(
+	// 		this.mesh.position.x,
+	// 		this.mesh.position.y,
+	// 		this.mesh.position.z
+	// 	);
+
+	// 	const planeBox = new THREE.Box3().setFromObject(pongTable.mesh);
+	// 	if (this.directionx == 1) {
+	// 		ballPosition.x += this.mesh.geometry.parameters.radius * 2;
+	// 	}
+	// 	else
+	// 		ballPosition.x -= this.mesh.geometry.parameters.radius * 2;
+	// 	if (!planeBox.intersectsSphere(new THREE.Sphere(ballPosition, this.mesh.geometry.parameters.radius))) {
+	// 		this.directionx *= -1;
+	// 	}
+	// }
+	checkPaddleCollision() {
+		if (!this.paddleLeft || !this.paddleRight) {
+			throw new Error('Paddles not set for ball');
+		}
+		const ballPosition = new THREE.Vector3(
+			this.mesh.position.x,
+			this.mesh.position.y,
+			this.mesh.position.z
+		);
+		if (!this.paddleLeft.mesh || !this.paddleRight.mesh) {
+			return;
+		}
+		const paddleLeftBox = new THREE.Box3().setFromObject(this.paddleLeft.mesh);
+		const paddleRightBox = new THREE.Box3().setFromObject(this.paddleRight.mesh);
+		const paddleHeight = this.paddleLeft.mesh.geometry.parameters.height;
+		const speedFactor = 1;
+		if (paddleLeftBox.intersectsSphere(new THREE.Sphere(ballPosition, this.mesh.geometry.parameters.radius))) {
+			this.directionx *= -1;
+			let distanceFromCenter = ballPosition.y - this.paddleLeft.mesh.position.y;
+			this.directiony = distanceFromCenter / paddleHeight * speedFactor;
+		}
+
+		if (paddleRightBox.intersectsSphere(new THREE.Sphere(ballPosition, this.mesh.geometry.parameters.radius))) {
+			this.directionx *= -1;
+			let distanceFromCenter = ballPosition.y - this.paddleRight.mesh.position.y;
+			this.directiony = distanceFromCenter / paddleHeight * speedFactor;
+		}
+
+	}
+checkTableTopBottomCollision() {
+	const ballPosition = new THREE.Vector3(
+		this.mesh.position.x,
+		this.mesh.position.y,
+		this.mesh.position.z
+	);
+
+	const planeBox = new THREE.Box3().setFromObject(pongTable.mesh);
+
+	// Check for collisions with the top and bottom of the table
+	// if (this.directiony == 1) {
+	// 	ballPosition.y += this.mesh.geometry.parameters.radius;
+	// } else {
+	// 	ballPosition.y -= this.mesh.geometry.parameters.radius;
+	// }
+
+	if (!planeBox.intersectsSphere(new THREE.Sphere(ballPosition, this.mesh.geometry.parameters.radius))) {
+		this.directiony *= -1;
+	}
+}
+
+checkTableLeftRightCollision() {
+	const ballPosition = new THREE.Vector3(
+		this.mesh.position.x,
+		this.mesh.position.y,
+		this.mesh.position.z
+	);
+
+	const planeBox = new THREE.Box3().setFromObject(pongTable.mesh);
+
+	// Check for collisions with the left and right sides of the table
+	if (this.directionx == 1) {
+		ballPosition.x += this.mesh.geometry.parameters.radius;
+	} else {
+		ballPosition.x -= this.mesh.geometry.parameters.radius;
+	}
+
+	if (!planeBox.intersectsSphere(new THREE.Sphere(ballPosition, this.mesh.geometry.parameters.radius))) {
+		this.directionx *= -1;
+	}
+}
+}
+
+
+const pongTable = new tablePongClass(0, -0.5, 0, 17, 10, 0.5, 0xffff00, scene);
+const manager = new managerPong();
+const paddleLeft = new PaddleClasse(-8, 0, 0, 1, 3, 1, 0xff0000, scene, 0.1, pongTable); // Red paddle on the left
+const paddleRight = new PaddleClasse(8, 0, 0, 1, 3, 1, 0x0000ff, scene, 0.1, pongTable); // Blue paddle on the right
+const ball = new ballClasse(0, 0, 0, 0.5, "white", scene); // Green ball in the middle
 
 function loop() {
 	requestAnimationFrame(loop);
-	moveBall();
-	collisionDetection();
+	if (!manager.pause) {
+		ball.move();
+		ball.checkPaddleCollision();
+		ball.checkTableTopBottomCollision();
+		ball.checkTableLeftRightCollision();
+	}
+	rotationLight();
 
-	t += clock.getDelta()
-	//animeGeometry(geometry, t)
-	//plane.mesh.rotation.y = 0.1*t
+	listenInput();
 	renderer.render(scene, camera);
 }
 
-function moveBall() {
-	ball.mesh.position.x += 0.1 * ball.direction;
-
+function Start() {
+	ball.setPaddles(paddleLeft, paddleRight);
+	loop();
 }
 
-function collisionDetection() {
+Start();
 
-	// Adjust the ball position by its radius
-	const ballPosition = new THREE.Vector3(
-		ball.mesh.position.x,
-		ball.mesh.position.y,
-		ball.mesh.position.z
-	);
-
-	const planeBox = new THREE.Box3().setFromObject(plane);
-	if (ball.direction == 1) {
-		ballPosition.x += ball.mesh.geometry.parameters.radius * 2;
-	}
-	else
-		ballPosition.x -= ball.mesh.geometry.parameters.radius * 2;
-	if (!planeBox.intersectsSphere(new THREE.Sphere(ballPosition, ball.mesh.geometry.parameters.radius))) {
-		ball.direction *= -1;
-		console.log('hit');
-	}
-}
-
-function computeGeometry() {
-	const space = 4, nb = 100, amp = 0.1, fre = 1, pi2 = Math.PI * 2
-
-	const geometry = new THREE.BufferGeometry()
-
-	const positions = new Float32Array(nb * nb * 3)
-	const colors = new Float32Array(nb * nb * 3)
-
-	let k = 0
-	for (let i = 0; i < nb; i++) {
-		for (let j = 0; j < nb; j++) {
-			const x = i * (space / nb) - space / 2
-			const z = j * (space / nb) - space / 2
-			const y = amp * (Math.cos(x * pi2 * fre) + Math.sin(z * pi2 * fre))
-			positions[3 * k + 0] = x
-			positions[3 * k + 1] = y
-			positions[3 * k + 2] = z
-			const intensity = (y / amp) / 2 + 0.3
-			colors[3 * k + 0] = j / nb * intensity
-			colors[3 * k + 1] = 0
-			colors[3 * k + 2] = i / nb * intensity
-			k++
-		}
-	}
-	geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3))
-	geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3))
-	geometry.computeBoundingBox()
-	return geometry
-}
-
-function animeGeometry(geometry, progress) {
-	const space = 4, nb = 100, amp = 0.1, pi2 = Math.PI * 2
-	const phase = progress
-	const fre = 0.8 + Math.cos(progress) / 2
-
-	let k = 0
-	for (let i = 0; i < nb; i++) {
-		for (let j = 0; j < nb; j++) {
-			const x = i * (space / nb) - space / 2
-			const z = j * (space / nb) - space / 2
-			const y = amp * (Math.cos(x * pi2 * fre + phase) + Math.sin(z * pi2 * fre + phase))
-			geometry.attributes.position.setY(k, y)
-			const intensity = (y / amp) / 2 + 0.3
-			geometry.attributes.color.setX(k, j / nb * intensity)
-			geometry.attributes.color.setZ(k, i / nb * intensity)
-			k++
-		}
-	}
-	geometry.attributes.position.needsUpdate = true
-	geometry.attributes.color.needsUpdate = true
-}
-
-loop();
