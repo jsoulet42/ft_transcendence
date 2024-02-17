@@ -171,29 +171,28 @@ html, body {
 	height: calc($nav_home_top_height / 1.5);
 }
 
-.trigger-btn {
+.login-btn {
 	float: right;
-	min-width: 8vw;
-	top: 1vw;
+	width: 15%;
+	height: auto;
+	top: 0.5vw;
 	right: 1vw;
 	font-size: calc($nav_home_top_height / 2.5);
-	background-color: transparent;
 	cursor: pointer;
 }
 
-.login-text {
-	font-size: calc($nav_home_top_height / 3.5);
+.dropdown-toggle.buttonPong {
+	width: 100%;
+	height: 100%;
+	font-size: calc($nav_home_top_height / 2.5);
 }
 
-#logout-btn {
-	float: right;
-	height: calc($nav_home_top_height / 1.5);
-	width: 8vw;
-	top: 0vw;
-	right: 1vw;
-	font-size: calc($nav_home_top_height / 3);
-	background-color: rgba(0, 0, 0, 0.3);
-	cursor: pointer;
+#profile-img {
+	width: 20%;
+	height: 20%;
+	border-radius: 0.5rem;
+	object-fit: cover;
+	box-shadow: black 0.5rem 0.5rem 1rem;
 }
 
 #main-container {
@@ -231,10 +230,4 @@ html, body {
 	transform: translate(-50%, -50%);
 	width: 98%;
 	text-align: center;
-}
-
-#profile-img {
-	border-radius: 20%;
-	object-fit: cover;
-	box-shadow: black 0.5vmin 0.5vmin 1vmin;
 }
