@@ -26,6 +26,7 @@ html, body {
 }
 
 #nav-home-top {
+	z-index: 2;
 	position: fixed;
 	width: 100vw;
 	height: $nav_home_top_height;
@@ -196,6 +197,7 @@ html, body {
 }
 
 #main-container {
+	z-index: 1;
 	position: fixed;
 	width: 100vw;
 	top: $nav_home_top_height;

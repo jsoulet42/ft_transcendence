@@ -11,6 +11,7 @@ from django.contrib.auth import logout as auth_logout
 from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
+from django.views.decorators.http import require_http_methods
 
 from transcendence import settings
 from .forms import CustomUserCreationForm
@@ -18,30 +19,25 @@ from .models import RequestCache
 from .decorators import not_authenticated
 
 @not_authenticated
-def signin(request):
+def signup(request):
 	if request.method == 'POST':
 		form = CustomUserCreationForm(request.POST)
 		if form.is_valid():
-			# If form is valid, create new user and sign them in
 			user = form.save()
 			auth_login(request, user)
-			# Redirect to a success page or home page
 			return redirect('hub')
 	else:
-		# If request method is GET, render the sign-up form
-		form = UserCreationForm()
+		form = CustomUserCreationForm()
 	
-	# Render the sign-up form with validation errors, if any
-	return render(request, 'signin.html', {'form': form})
+	if request.META.get('HTTP_HX_REQUEST'):
+		return render(request, 'signup_block.html', {'form': form})
+	return render(request, 'signup.html', {'form': form})
 
 @not_authenticated
 def login(request):
-	if request.META.get('HTTP_HX_REQUEST'):
-		return render(request, 'login_block.html')
-
 	if request.method == 'POST':
 		if '42auth' in request.POST != '':
-			RequestCache.state = get_random_string(length=32)
+			RequestCache.state = get_random_string(length=64)
 			url = '{0}?{1}&{2}&{3}&{4}&{5}'.format(
 				settings.EXTERNAL_API_AUTH_URL,
 				urlencode({'client_id': settings.EXTERNAL_API_CLIENT_ID}),
@@ -51,16 +47,21 @@ def login(request):
 				urlencode({'state': RequestCache.state}),
 			)
 			return redirect(url)
-		
+
 		if 'login-submit' in request.POST != '':
-			user = authenticate(username=request.POST.get('username'), password=request.POST.get('password'))
+			request_username = request.POST.get('username')
+			user = authenticate(username=request_username, password=request.POST.get('password'))
 			if user is not None:
 				auth_login(request, user)
 				return redirect('hub')
-			return render(request, 'login.html', {'error': 'Invalid username or password'})
 
-		if 'signin' in request.POST != '':
-			return signin(request)
+			context = {'error': 'Invalid username or password', 'username': request_username}
+			if request.META.get('HTTP_HX_REQUEST'):
+				return render(request, 'login_block.html', context)
+			return render(request, 'login.html', context)
+	
+	if request.META.get('HTTP_HX_REQUEST'):
+		return render(request, 'login_block.html')
 	return render(request, 'login.html')
 
 @login_required
@@ -70,7 +71,8 @@ def logout(request):
 	return redirect('hub')
 
 #~recuperation des donnees du formulaire de login
-def custom_auth(request):
+@require_http_methods(['GET'])
+def auth42(request):
 	code = request.GET.get('code', None)
 	state = request.GET.get('state', None)
 	error = request.GET.get('error', None)

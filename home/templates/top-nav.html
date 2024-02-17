@@ -1,5 +1,5 @@
 <nav id="nav-home-top">
-	<a id="home-btn" href="{% url 'hub' %}" hx-post="{% url 'hub' %}" hx-target="body" hx-push-url="true" hx-headers="{ 'X-CSRFToken': '{{ csrf_token }}' }">
+	<a id="home-btn" href="{% url 'hub' %}" hx-post="{% url 'hub' %}" hx-target="body" hx-push-url="true" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }'>
 		<p class="P">P</p>
 		<p class="O">O</p>
 		<p class="N">N</p>
@@ -7,15 +7,17 @@
 		<div id="ball"></div>
 		<div id="ball1"></div>
 	</a>
+
 	{% if not user.is_authenticated %}
-		<a id="login-btn" class="btn trigger-btn buttonPong" href="{% url 'login' %}" hx-get="{% url 'login' %}" hx-target="#main-container" hx-push-url="/login">
+		<a id="login-btn" class="btn trigger-btn buttonPong" href="{% url 'login' %}" hx-get="{% url 'login' %}" hx-target="#main-container" hx-push-url="true" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }'>
 			<span class="center-text">
 				Login
 			</span>
 		</a>
 	{% endif %}
+	
 	{% if user.is_authenticated %}
-	<div class="btn-group dropstart trigger-btn">
+	<div class="btn-group dropdown trigger-btn">
 		<button type="button" class="btn btn-secondary dropdown-toggle buttonPong" data-bs-toggle="dropdown" aria-expanded="false">
 			<span class="login-text">
 				{{ user.username }}
@@ -24,8 +26,8 @@
 		</button>
 		<ul class="dropdown-menu">
 			<li>
-				<button class="dropdown-item" type="button" href="{% url 'profile' %}" hx-get="{% url 'profile' %}" hx-target="#main-container" hx-push-url="true">Profile</button>
-				<button class="dropdown-item" type="button" href="{% url 'logout' %}" hx-get="{% url 'logout' %}" hx-target="body" hx-push-url="/">Logout</button>
+				<button class="dropdown-item" type="button" href="{% url 'profile' %}" hx-get="{% url 'profile' %}" hx-target="#main-container" hx-push-url="true" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }'>Profile</button>
+				<button class="dropdown-item" type="button" href="{% url 'logout' %}" hx-post="{% url 'logout' %}" hx-target="body" hx-push-url="/" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }'>Logout</button>
 			</li>
 		</ul>
 	  </div>
