@@ -4,10 +4,27 @@
 	height: 50%; /* Ajuster la hauteur en pourcentage de l'écran */
 	margin-top: 15%;
 	margin-left: 25%;
+	border: 0.5rem solid black;
 	border-radius: 5rem;
 	background-color: rgba(17, 0, 17, 0.8);
+	box-shadow: black 0.5vmin 0.5vmin 0.5vmin;
 	color: white;
 }
+
+.fade-in {
+    animation: fadeInAnimation 2s ease-in-out forwards;
+    opacity: 0; /* Assurez-vous que l'élément est initialement invisible */
+}
+
+@keyframes fadeInAnimation {
+    from {
+        opacity: 0; /* Début de l'animation : élément invisible */
+    }
+    to {
+        opacity: 1; /* Fin de l'animation : élément visible */
+    }
+}
+
 
 .carousel-content {
 	padding: 10px; /* Ajouter un espacement autour du contenu */
