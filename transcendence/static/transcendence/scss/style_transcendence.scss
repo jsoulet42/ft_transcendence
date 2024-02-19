@@ -6,6 +6,8 @@
 :root {
 	--alert-danger-bg: #b60012;
 	--alert-danger-text: #ffffff;
+	--alert-success-bg: #45b345;
+	--alert-success-fg: #ffffff;
 }
 
 .tv-content {
@@ -80,4 +82,9 @@
 .alert-danger {
 	background-color: var(--alert-danger-bg);
 	color: var(--alert-danger-text);
+}
+
+.alert-success {
+	background-color: var(--alert-success-bg);
+	color: var(--alert-success-fg);
 }
