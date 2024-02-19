@@ -18,6 +18,7 @@ from .forms import CustomUserCreationForm
 from .models import RequestCache
 from .decorators import not_authenticated
 
+
 @not_authenticated
 def signup(request):
 	if request.method == 'POST':
@@ -66,9 +67,9 @@ def login(request):
 
 @login_required
 def logout(request):
-	auth_logout(request)
-	request.META['reload'] = 'True'
-	return redirect('hub')
+    auth_logout(request)
+    request.META['reload'] = 'True'
+    return redirect('hub')
 
 #~recuperation des donnees du formulaire de login
 @require_http_methods(['GET'])
@@ -77,67 +78,59 @@ def auth42(request):
 	state = request.GET.get('state', None)
 	error = request.GET.get('error', None)
 
-	if error != None:
-		return render(request, 'login.html', {'error': 'Failed 42 authentication'})
-	if code == None or state == None or state != RequestCache.state:
-		raise PermissionDenied
+    payload = {
+        'grant_type': 'authorization_code',
+        'client_id': settings.EXTERNAL_API_CLIENT_ID,
+        'client_secret': settings.EXTERNAL_API_CLIENT_SECRET,
+        'code': code,
+        'redirect_uri': settings.EXTERNAL_API_REDIRECT_URI,
+        'state': RequestCache.state,
+    }
+    response = requests.post(settings.EXTERNAL_API_TOKEN_URL, data=payload)
+    RequestCache.state = None
 
-	payload = {
-		'grant_type': 'authorization_code',
-		'client_id': settings.EXTERNAL_API_CLIENT_ID,
-		'client_secret': settings.EXTERNAL_API_CLIENT_SECRET,
-		'code': code,
-		'redirect_uri': settings.EXTERNAL_API_REDIRECT_URI,
-		'state': RequestCache.state,
-	}
-	response = requests.post(settings.EXTERNAL_API_TOKEN_URL, data = payload)
-	RequestCache.state = None
+    if response.status_code // 100 != 2:
+        return render(request, 'login.html', {'error': 'Failed 42 authentication'})
 
-	if response.status_code // 100 != 2:
-		return render(request, 'login.html', {'error': 'Failed 42 authentication'})
+    user = store_token_user(request, response.json().get('access_token'))
+    if user == None:
+        return render(request, 'login.html', {'error': 'Failed 42 authentication'})
 
-	user = store_token_user(request, response.json().get('access_token'))
-	if user == None:
-		return render(request, 'login.html', {'error': 'Failed 42 authentication'})
+    auth_login(request, user)
 
-	auth_login(request, user)
+    return redirect('hub')
 
-	return redirect('hub')
 
 def store_token_user(request, access_token):
-	response = requests.get(
-		settings.EXTERNAL_API_USER_URL,
-		headers = {
-			'Authorization': 'Bearer ' + access_token,
-		})
+    response = requests.get(
+        settings.EXTERNAL_API_USER_URL,
+        headers={
+            'Authorization': 'Bearer ' + access_token,
+        })
 
-	if response.status_code // 100 != 2:
-		return None
+    if response.status_code // 100 != 2:
+        return None
 
-	json_response = response.json()
-	user_login = json_response.get('login')
-	user_email = json_response.get('email')
-	campus_name = json_response.get('campus')[0].get('name')
+    json_response = response.json()
+    user_login = json_response.get('login')
+    user_email = json_response.get('email')
+    campus_name = json_response.get('campus')[0].get('name')
 
-	photo_medium_url = json_response.get('image').get('versions').get('medium')
-	photo_small_url = json_response.get('image').get('versions').get('small')
-	
-	try:
-		user = CustomUser.objects.get(username = user_login)
-	except ObjectDoesNotExist:
-		return CustomUser.objects.create_user(
-			username = user_login,
-			userlist_name = '42Users',
-			password = None,
-			email = user_email,
-			campus = campus_name,
-			photo_medium_url = photo_medium_url,
-			photo_small_url = photo_small_url,
-		)
+    photo_medium_url = json_response.get('image').get('versions').get('medium')
+    photo_small_url = json_response.get('image').get('versions').get('small')
 
-	user.email = user_email
-	user.campus = campus_name
-	user.photo_medium_url = photo_medium_url
-	user.photo_small_url = photo_small_url
-	user.save()
-	return user
+    try:
+        user = CustomUser.objects.get(username=user_login)
+    except ObjectDoesNotExist:
+        return CustomUser.objects.create_user(
+            username=user_login,
+            userlist_name='42Users',
+            password=None,
+            email=user_email,
+            campus=campus_name,
+            photo_medium_url=photo_medium_url,
+            photo_small_url=photo_small_url,
+            profile_image_path=photo_small_url,
+        )
+    user.save()
+    return user

@@ -52,12 +52,12 @@
   }
 
 .tv-content-profile  h1 {
-    position: absolute;
     font-weight: bold;
+    width: 100%;
+    text-align: center;
     text-transform: uppercase;
     z-index: 1;
-    left: 28vw;
-    top: 3vh;
+    margin-top: 1.1rem;
     color: #ff2ffc;
     text-shadow: 3px 3px #000000;
     animation: shine2 10s linear infinite alternate, bounce 7s ease infinite;
@@ -65,8 +65,8 @@
 
 .tv-content-profile #choice-div {
 	position: absolute;
-	width: 37%;
-    height: 45%;
+	width: 33%;
+    height: 62%;
     top: 22%;
     left: 33%;
     overflow: hidden;
@@ -104,6 +104,7 @@
     height: 100%;
     object-fit: cover;
     object-position: center;
+	box-shadow: black 0.8vmin 0.8vmin 2vmin;
     transform: scale(0.9);
     z-index: 2;
     transition: transform 0.8s ease;
@@ -113,38 +114,32 @@
     transform: rotate(1deg);
 }
 
-.tv-content-profile  h4 {
+.tv-content-profile .h4lol {
     position: absolute;
-    z-index: 1;
-    left: 73%;
-    top: 9vh;
-    color: #ffffff;
+    left: 76%;
+    top: 23%;
+    animation: shine2 10s linear infinite alternate, bounce 7s ease infinite;
 }
+
 .tv-content-profile #profile-leftside {
     position: absolute;
     top: 12vh;
     left: 7vw;
     display: block;
 }
-.tv-content-profile #profile-leftside h4 {
-    top: 0vh;
-    margin-bottom: 5px;
-    left: 1%;
-}
 
-.tv-content-profile #profile-leftside #avatarselect {
-    position: absolute;
-    top: 7vh;
-    width: 7rem;
-}
-.tv-content-profile #profile-leftside #h4or {
-    position: absolute;
-    top: 16vh;
-    margin-bottom: 5px;
-}
+
+//.tv-content-profile #profile-leftside #avatarselect {
+//    position: absolute;
+//    top: 7vh;
+//    width: 7rem;
+//}
+
 
 .bottom-edit {
+    z-index: 9;
     position: absolute;
+    width: 8rem;
     bottom: 5%;
     left: 8%;
     background-color: #8360c3;

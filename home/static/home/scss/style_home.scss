@@ -257,3 +257,16 @@ html, body {
 	width: 98%;
 	text-align: center;
 }
+
+#profile-img {
+	border-radius: 20%;
+	object-fit: cover;
+	box-shadow: black 0.5vmin 0.5vmin 1vmin;
+}
+
+.supermodal {
+    position: absolute; /* Positionnement absolu par rapport à son conteneur parent */
+    top: 50%; /* Distance par rapport au bord supérieur de son conteneur parent */
+    left: 20%; /* Pour le centrer horizontalement */
+    z-index: 4; /* Empilement par-dessus d'autres éléments */
+}
