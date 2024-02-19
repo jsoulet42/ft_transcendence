@@ -18,9 +18,13 @@
 	<div class="btn-group dropstart trigger-btn">
 		<button type="button" class="btn btn-secondary dropdown-toggle buttonPong" data-bs-toggle="dropdown" aria-expanded="false">
 			<span class="login-text">
-				{{ user.username }}
+				{%  if user.nickname %}
+	                {{ user.nickname }}
+                {% else %}
+                    {{ user.username }}
+                {%  endif %}
 			</span>
-			<img id="profile-img" src="{{ user.photo_small_url }}" alt="{{ user.username }}" width="50" height="50"></img>
+			<img id="profile-img" src="{{ user.profile_image_path }}" alt="{{ user.username }}" width="50" height="50"></img>
 		</button>
 		<ul class="dropdown-menu">
 			<li>
