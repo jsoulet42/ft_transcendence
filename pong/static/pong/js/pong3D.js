@@ -2,6 +2,7 @@ import * as THREE from 'three';
 
 window.canvas = document.getElementById('pongCanvas3D');
 
+const renderer = new THREE.WebGLRenderer({ canvas: window.canvas });
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight);
 
@@ -18,7 +19,6 @@ renderer.setClearColor('black', 1);
 
 scene.add(light);
 
-const renderer = new THREE.WebGLRenderer({ canvas: window.canvas });
 
 function rotationLight() {
 	light.rotation.x += 0.01;
@@ -126,6 +126,24 @@ class tablePongClass {
 
 		scene.add(this.mesh);
 	}
+	getCornerCoordinates(vertex) {
+		const halfWidth = this.geometry.parameters.width / 2;
+		const halfDepth = this.geometry.parameters.depth / 2;
+		const height = this.geometry.parameters.height;
+
+		if (vertex === 'topLeft') {
+			return new THREE.Vector3(this.mesh.position.x - halfWidth, this.mesh.position.y + height, this.mesh.position.z - halfDepth);
+		}
+		else if (vertex === 'topRight') {
+			return new THREE.Vector3(this.mesh.position.x + halfWidth, this.mesh.position.y + height, this.mesh.position.z - halfDepth);
+		}
+		else if (vertex === 'bottomLeft') {
+			return new THREE.Vector3(this.mesh.position.x - halfWidth, this.mesh.position.y, this.mesh.position.z + halfDepth);
+		}
+		else if (vertex === 'bottomRight') {
+			return new THREE.Vector3(this.mesh.position.x + halfWidth, this.mesh.position.y, this.mesh.position.z + halfDepth);
+		}
+	}
 }
 
 class PaddleClasse {
@@ -165,13 +183,14 @@ class PaddleClasse {
 }
 
 class ballClasse {
-	constructor(x, y, z, radius, color, scene) {
+	constructor(x, y, z, speed, radius, color, scene) {
 		this.geometry = new THREE.SphereGeometry(radius, 32, 32);
 		this.material = new THREE.MeshBasicMaterial({ color: color });
 		this.mesh = new THREE.Mesh(this.geometry, this.material);
 		this.mesh.position.set(x, y, z);
 		this.directionx = 1;
 		this.directiony = 0;
+		this.speed = speed;
 		scene.add(this.mesh);
 	}
 	paddleLeft = null;
@@ -181,8 +200,8 @@ class ballClasse {
 		this.paddleRight = paddleRight;
 	}
 	move() {
-		this.mesh.position.x += 0.1 * this.directionx;
-		this.mesh.position.y += 0.1 * this.directiony;
+		this.mesh.position.x += this.speed * this.directionx;
+		this.mesh.position.y += this.speed * this.directiony;
 	}
 	// collisionDetection() {
 	// 	const ballPosition = new THREE.Vector3(
@@ -230,55 +249,51 @@ class ballClasse {
 		}
 
 	}
-checkTableTopBottomCollision() {
-	const ballPosition = new THREE.Vector3(
-		this.mesh.position.x,
-		this.mesh.position.y,
-		this.mesh.position.z
-	);
 
-	const planeBox = new THREE.Box3().setFromObject(pongTable.mesh);
+	checkTableTopBottomCollision() {
+		const ballTop = this.mesh.position.y + this.mesh.geometry.parameters.radius;
+		const ballBottom = this.mesh.position.y - this.mesh.geometry.parameters.radius;
+		const tableTop = pongTable.mesh.position.y + pongTable.geometry.parameters.height / 2;
+		const tableBottom = pongTable.mesh.position.y - pongTable.geometry.parameters.height / 2;
 
-	// Check for collisions with the top and bottom of the table
-	// if (this.directiony == 1) {
-	// 	ballPosition.y += this.mesh.geometry.parameters.radius;
-	// } else {
-	// 	ballPosition.y -= this.mesh.geometry.parameters.radius;
-	// }
+		// Check if the ball is going to leave the table
+		if (ballTop > tableTop || ballBottom < tableBottom) {
+			// If the ball is going to leave the table, reverse its direction immediately
+			this.directiony *= -1;
+		} else {
+			// If the ball is not going to leave the table, check for collisions with the table
+			const planeBox = new THREE.Box3().setFromObject(pongTable.mesh);
+			if (!planeBox.intersectsSphere(new THREE.Sphere(this.mesh.position, this.mesh.geometry.parameters.radius))) {
+				this.directiony *= -1;
+			}
+		}
+	}
+	checkTableLeftRightCollision() {
+		const ballLeft = this.mesh.position.x - this.mesh.geometry.parameters.radius;
+		const ballRight = this.mesh.position.x + this.mesh.geometry.parameters.radius;
+		const tableLeft = pongTable.mesh.position.x - pongTable.geometry.parameters.width / 2;
+		const tableRight = pongTable.mesh.position.x + pongTable.geometry.parameters.width / 2;
 
-	if (!planeBox.intersectsSphere(new THREE.Sphere(ballPosition, this.mesh.geometry.parameters.radius))) {
-		this.directiony *= -1;
+		// Check for collisions with the left and right sides of the table
+		if (ballRight > tableRight || ballLeft < tableLeft) {
+			// If the ball is going to leave the table, reverse its direction immediately
+			this.directionx *= -1;
+		} else {
+			// If the ball is not going to leave the table, check for collisions with the table
+			const planeBox = new THREE.Box3().setFromObject(pongTable.mesh);
+			if (!planeBox.intersectsSphere(new THREE.Sphere(this.mesh.position, this.mesh.geometry.parameters.radius))) {
+				this.directionx *= -1;
+			}
+		}
 	}
 }
 
-checkTableLeftRightCollision() {
-	const ballPosition = new THREE.Vector3(
-		this.mesh.position.x,
-		this.mesh.position.y,
-		this.mesh.position.z
-	);
 
-	const planeBox = new THREE.Box3().setFromObject(pongTable.mesh);
-
-	// Check for collisions with the left and right sides of the table
-	if (this.directionx == 1) {
-		ballPosition.x += this.mesh.geometry.parameters.radius;
-	} else {
-		ballPosition.x -= this.mesh.geometry.parameters.radius;
-	}
-
-	if (!planeBox.intersectsSphere(new THREE.Sphere(ballPosition, this.mesh.geometry.parameters.radius))) {
-		this.directionx *= -1;
-	}
-}
-}
-
-
-const pongTable = new tablePongClass(0, -0.5, 0, 17, 10, 0.5, 0xffff00, scene);
+const pongTable = new tablePongClass(0, -0.5, 0, 18, 10, 0.5, 0xffff00, scene);
 const manager = new managerPong();
 const paddleLeft = new PaddleClasse(-8, 0, 0, 1, 3, 1, 0xff0000, scene, 0.1, pongTable); // Red paddle on the left
 const paddleRight = new PaddleClasse(8, 0, 0, 1, 3, 1, 0x0000ff, scene, 0.1, pongTable); // Blue paddle on the right
-const ball = new ballClasse(0, 0, 0, 0.5, "white", scene); // Green ball in the middle
+const ball = new ballClasse(0, 0, 0, 0.3, 0.5, "white", scene); // Green ball in the middle
 
 function loop() {
 	requestAnimationFrame(loop);
