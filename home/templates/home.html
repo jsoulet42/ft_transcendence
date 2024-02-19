@@ -39,25 +39,6 @@
 	</div>
 	{% include 'bottom-nav.html' %}
 
-	<!-- Friend Request Modal -->
-	<div class="modal fade" id="friend-request-modal" tabindex="-1" role="dialog" aria-labelledby="friend-request-modal" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header alert alert-success">
-					<h5 class="modal-title" id="exampleModalLabel">Send friend request</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-				</div>
-				<div class="modal-body text-center">
-					<p>Please enter one of the following</p>
-					<input type="text" placeholder="Username" autocomplete="username" autofocus>
-					<span> OR </span>
-					<input type="text" placeholder="UUID" autocomplete="UUID">
-				</div>
-				<div class="modal-footer text-center">
-					<button type="button" class="btn btn-success w-100">Send request</button>
-				</div>
-			</div>
-		</div>
-	</div>
+	{% include 'friend_request_modal.html' %}
 </body>
 </html>

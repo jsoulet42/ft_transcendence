@@ -122,7 +122,7 @@ class FriendRequest(models.Model):
 	)
 
 	sender = models.ForeignKey('CustomUser', related_name='sent_requests', on_delete=models.CASCADE)
-	reciever = models.ForeignKey('CustomUser', related_name='received_requests', on_delete=models.CASCADE)
+	receiver = models.ForeignKey('CustomUser', related_name='received_requests', on_delete=models.CASCADE)
 	status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending')
 	created_at = models.DateTimeField(auto_now_add=True)
 

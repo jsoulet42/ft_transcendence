@@ -21,6 +21,7 @@ from home import views
 urlpatterns = [
 	path('', include('hub.urls')),
     path('admin/', admin.site.urls),
+	path('home/', include('home.urls')),
 	path('pong/', include('pong.urls')),
 	path('hub/', include('hub.urls')),
 	path('profile/', include('profile.urls')),
