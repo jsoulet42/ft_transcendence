@@ -43,8 +43,8 @@ def update_image(request):
 			uploaded_image_url = settings.MEDIA_URL + 'images/' + str(uploaded_image_name)
 			user.uploaded_image = uploaded_image_url
 			user.profile_image_path = uploaded_image_url
+			print(user.username)
 			user.save()
-			form.save()
 		return HttpResponseRedirect('/profile')
 
 
