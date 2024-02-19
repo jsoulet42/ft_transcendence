@@ -1,27 +1,42 @@
 #carousel-hub {
 	position: relative;
-	float: left;
-	left: 5%;
-	top: 20%;
-	width: 45rem;
-	height: 30rem;
+	width: 50%; /* Ajuster la largeur en pourcentage de l'écran */
+	height: 50%; /* Ajuster la hauteur en pourcentage de l'écran */
+	margin-top: 15%;
+	margin-left: 25%;
+	border: 0.4rem solid black;
 	border-radius: 5rem;
-	background-color: rgba($color: #110011, $alpha: 0.8);
+	background-color: rgba(17, 0, 17, 0.8);
+	box-shadow: black 0.2vmin 0.2vmin 0.2vmin;
 	color: white;
 }
 
+.fade-in {
+    animation: fadeInAnimation 2s ease-in-out forwards;
+    opacity: 0; /* Assurez-vous que l'élément est initialement invisible */
+}
+
+@keyframes fadeInAnimation {
+    from {
+        opacity: 0; /* Début de l'animation : élément invisible */
+    }
+    to {
+        opacity: 1; /* Fin de l'animation : élément visible */
+    }
+}
+
+
 .carousel-content {
-	margin: 1rem;
+	padding: 10px; /* Ajouter un espacement autour du contenu */
 	text-align: center;
 }
 
 .carousel-header {
-	width: 100%;
-	height: 5rem;
+	margin-bottom: 10px; /* Ajouter un espacement en bas du titre */
 }
 
 .carousel-header h1 {
-	color: #fff;
+	font-size: 3vw; /* Taille de police responsive */
 }
 
 .neonEffect {
@@ -29,125 +44,144 @@
 	animation: neon-animation 1.5s infinite alternate;
 }
 
-	@keyframes neon-animation {
-		from {
-			opacity: 0.5;
-		}
-		to {
-			opacity: 1;
-		}
+@keyframes neon-animation {
+	from {
+		opacity: 0.5;
 	}
+	to {
+		opacity: 1;
+	}
+}
 
 .carousel-body {
 	width: 100%;
 }
 
 .carousel-body thead {
-	position: relative;
-	text-wrap: wrap;
-	font-size: 1.5rem;
-	background-color: rgba($color: #000000, $alpha: 0.7);
-}
-
-.carousel-body strong {
-	font-size: 1.5rem;
+	background-color: rgba(0, 0, 0, 0.7);
 }
 
 .carousel-body td {
-	padding: 1rem;
+	padding: 10px;
+}
+
+.bio {
+	font-size: 1vw;
 }
 
 .other-info {
-	position: relative;
-	font-size: 2rem;
-	text-align: center;
 	width: 33%;
+	font-size: 1.5vw; /* Taille de police responsive */
+}
+
+.other-info img {
+	width: 60%;
+	height: auto; /* Assurer que l'image conserve son ratio */
 }
 
 .table-titles th {
-	font-size: 2rem;
-	padding-top: 1.5rem;
+	font-size: 1.5vw; /* Taille de police responsive */
+	padding-top: 5%;
 }
 
 .table-img {
-	width: 10rem;
+	width: 40%;
 }
 
 .table-img img {
-	position: relative;
-	border:rgb(157, 0, 255) 0.5rem solid;
+	border: 0.5rem solid rgb(157, 0, 255);
 	animation: border-neon-animation 2s infinite alternate, radius-neon-animation-top-left 4s infinite alternate, radius-neon-animation-top-right 4s infinite alternate;
-	height: 8rem;
-	width: 8rem;
-	object-fit: cover;
+	width: 60%;
+	height: auto; /* Assurer que l'image conserve son ratio */
 }
 
-	@keyframes border-neon-animation {
-		from {
-			border-color: rgb(157, 0, 255);
-		}
-		to {
-			border-color: rgb(245, 199, 255);
-		}
+@keyframes border-neon-animation {
+	from {
+		border-color: rgb(157, 0, 255);
 	}
-
-	@keyframes radius-neon-animation-top-left {
-		0% {
-			border-radius: 10% 50% 50% 50%;
-		}
-		25% {
-			border-radius: 50% 10% 50% 50%;
-		}
-		50% {
-			border-radius: 50% 50% 10% 50%;
-		}
-		75% {
-			border-radius: 50% 50% 50% 10%;
-		}
-		100% {
-			border-radius: 10% 50% 50% 50%;
-		}
+	to {
+		border-color: rgb(245, 199, 255);
 	}
-
-	@keyframes radius-neon-animation-top-right {
-		0% {
-			border-radius: 10% 50% 10% 50%;
-		}
-		25% {
-			border-radius: 50% 10% 50% 10%;
-		}
-		50% {
-			border-radius: 10% 50% 50% 50%;
-		}
-		75% {
-			border-radius: 50% 10% 50% 50%;
-		}
-		100% {
-			border-radius: 50% 50% 10% 50%;
-		}
-	}
-
-.table-img:nth-child(1) img {
-	animation-delay: 0s;
 }
 
-.table-img:nth-child(2) img {
-	animation-delay: 2s;
+@keyframes radius-neon-animation-top-left {
+	0% {
+		border-radius: 10% 50% 50% 50%;
+	}
+	25% {
+		border-radius: 50% 10% 50% 50%;
+	}
+	50% {
+		border-radius: 50% 50% 10% 50%;
+	}
+	75% {
+		border-radius: 50% 50% 50% 10%;
+	}
+	100% {
+		border-radius: 10% 50% 50% 50%;
+	}
 }
 
-// @include media-breakpoint-only(sm) {
-// 	#carousel-hub { width: 30rem; height: 15rem; }
-// }
-// @include media-breakpoint-only(md) {
-// 	#carousel-hub { width: 35rem; height: 20rem; }
-// }
-// @include media-breakpoint-only(lg) {
-// 	#carousel-hub { width: 40rem; height: 25rem; }
-// }
-// @include media-breakpoint-only(xl) {
-// 	#carousel-hub { width: 45rem; height: 30rem; }
-// }
-// @include media-breakpoint-only(xxl) {
-// 	#carousel-hub { width: 50rem; height: 35rem; }
-// }
+@keyframes radius-neon-animation-top-right {
+	0% {
+		border-radius: 10% 50% 10% 50%;
+	}
+	25% {
+		border-radius: 50% 10% 50% 10%;
+	}
+	50% {
+		border-radius: 10% 50% 50% 50%;
+	}
+	75% {
+		border-radius: 50% 10% 50% 50%;
+	}
+	100% {
+		border-radius: 50% 50% 10% 50%;
+	}
+}
 
+/* Ajouter des media queries pour la responsivité */
+@media only screen and (max-width: 1200px) {
+	.carousel-header h1 {
+		font-size: 5vw;
+	}
+	.other-info {
+		font-size: 2vw;
+	}
+	.table-titles th {
+		font-size: 2vw;
+	}
+}
+@media only screen and (max-width: 992px) {
+	.carousel-header h1 {
+		font-size: 6vw;
+	}
+	.other-info {
+		font-size: 3vw;
+	}
+	.table-titles th {
+		font-size: 3vw;
+	}
+}
+@media only screen and (max-width: 768px) {
+	.carousel-header h1 {
+		font-size: 8vw;
+	}
+	.other-info {
+		font-size: 4vw;
+	}
+	.table-titles th {
+		font-size: 4vw;
+	}
+}
+@media only screen and (max-width: 576px) {
+	.carousel-header h1 {
+		font-size: 10vw;
+	}
+	.other-info {
+		font-size: 5vw;
+	}
+	.table-titles th {
+		font-size: 5vw;
+	}
+}

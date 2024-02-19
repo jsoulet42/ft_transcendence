@@ -1,52 +1,56 @@
 {% load static %}
 
-<div id="carousel-hub" class="carousel slide" data-bs-ride="carousel">
-	<div class="carousel-inner">
-		{% for dev in devs %}
-			{% if forloop.counter == 1 %}
-			<div class="carousel-item active" data-bs-interval="6000">
-			{% else %}
-			<div class="carousel-item" data-bs-interval="6000">
-			{% endif %}
-				<div class="carousel-content">
-					<div class="carousel-header py-2">
-						<h1 class="neonEffect">{{ dev.username }}</h1>
-					</div>
-
-					<table class="carousel-body">
-						<thead>
-						<tr>
-							<td class="table-img"><img src="{{ dev.photo_medium_url }}"></td>
-							<td colspan="2"><p>{{ dev.bio }}</p></td>
-						</tr>
-						</thead>
-						<tbody>
-						<tr class="neonEffect table-titles">
-							<th>Location</th>
-							<th>Role</th>
-							<th>Github</th>
-						</tr>
-						<tr>
-							<td class="other-info">{{ dev.campus }}</td>
-							<td class="other-info">
-								<p class="role-dev">
-								{% for group in dev.groups.all %}
-									{% if group.name != "Dev" %}
-										{{ group.name }}<br>
-									{% endif %}
-								{% endfor %}
-								</p>
-							</td>
-							<td class="other-info">
-								<a href="{{ dev.github }}" target="_blank"><img src="{% static 'hub/images/github.png' %}"></a>
-							</td>
-						</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-		{% endfor %}
-	</div>
+<div class="container">
+    <div id="carousel-hub" class="carousel slide fade-in" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            {% for dev in devs %}
+            {% if forloop.counter == 1 %}
+            <div class="carousel-item active" data-bs-interval="5000">
+            {% else %}
+            <div class="carousel-item" data-bs-interval="5000">
+            {% endif %}
+                <div class="carousel-content">
+                    <div class="carousel-header py-2">
+                        <h1 class="neonEffect">{{ dev.username }}</h1>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="carousel-body">
+                            <thead>
+                                <tr>
+                                    <td class="table-img col-md-4"><img src="{{ dev.photo_medium_url }}" class="img-fluid"></td>
+                                    <td colspan="2" class="col-md-8 bio"><p>{{ dev.bio }}</p></td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="neonEffect table-titles">
+                                    <th class="col-md-4"><h5>Location</h5></th>
+                                    <th class="col-md-4"><h5>Role</h5></th>
+                                    <th class="col-md-4"><h5>GitHub</h5></th>
+                                </tr>
+                                <tr>
+                                    <td class="other-info col-md-4">{{ dev.campus }}</td>
+                                    <td class="other-info col-md-4">
+                                        <p class="role-dev">
+                                            {% for group in dev.groups.all %}
+                                                {% if group.name != "Dev" %}
+                                                {{ group.name }}<br>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </p>
+                                    </td>
+                                    <td class="other-info col-md-4">
+                                        <a href="{{ dev.github }}" target="_blank"><img src="{% static 'hub/images/github.png' %}"></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
 </div>
+
 
 
