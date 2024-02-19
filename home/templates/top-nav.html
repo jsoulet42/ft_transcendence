@@ -75,7 +75,10 @@
 					dropdownMenu.insertAdjacentHTML('afterbegin', listItem);
 				} else {
 					data.forEach(request => {
-						const listItem = `<li>${request.username}</li>`;
+						const listItem = `<li>`
+							+ `<span>${request.username}</span>`
+							+ `<button type="button" class="btn-close float-right" aria-label="Close"></button>`;
+							+ `</li>`;
 						dropdownMenu.insertAdjacentHTML('afterbegin', listItem);
 					});
 				}
