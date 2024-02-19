@@ -21,5 +21,7 @@ from . import views
 
 urlpatterns = [
 	path('', views.profile, name='profile'),
-	path('get-image/', views.get_image_url, name='get_image_url'),
+	# path('get-image/', views.get_image_url, name='get_image_url'),
+	path('update-profile/', views.update_profile, name='update_profile'),
+	path('update-image/', views.update_image, name='update_image'),
 ]

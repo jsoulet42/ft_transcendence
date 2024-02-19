@@ -9,7 +9,7 @@ class UserInline(admin.TabularInline):
 
 @admin.register(CustomUser)
 class userAdmin(admin.ModelAdmin):
-	list_display = ("username", "uuid", "list", "date_joined", "photo_medium_url", "photo_small_url")
+	list_display = ("username", "uuid", "list", "date_joined", "nickname", "photo_medium_url", "photo_small_url")
 	list_filter = ("username","date_joined")
 	search_fields = ("username", )
 

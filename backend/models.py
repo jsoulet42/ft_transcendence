@@ -76,6 +76,13 @@ class CustomUser(AbstractUser):
 	photo_medium_url = models.URLField(max_length=255, blank=True)
 	photo_small_url = models.URLField(max_length=255, blank=True)
 
+	upload_image = models.ImageField(null=True, blank=True, upload_to='images')
+
+	profile_image_path = models.CharField(max_length=255, blank=True, default='')
+
+	uploaded_image = models.CharField(max_length=255, blank=True, default='')
+
+	nickname = models.CharField(max_length=50, blank=True, null=True)
 
 class UsersList(models.Model):
 	name = models.CharField(max_length = 255)
