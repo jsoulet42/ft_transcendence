@@ -1,23 +1,32 @@
 {% load static %}
 
-<div id="tv-login-content" class="text-center tv-content">
-	<form class="login-form" action="/login/" method="post">
+<div id="tv-login-content" class="text-center tv-content">	
+	{% if error %}
+	<div id="alert-error" class="alert alert-danger alert-dismissible fade show" role="alert">
+		{{ error }}
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+	{% endif %}
+
+	<form id="login-form" action="{% url 'login' %}" method="post">
 		{% csrf_token %}
 		<fieldset>
-			<input name="username" class="input-pong my-1" type="text" placeholder="Username" required>
-			<input name="password" class="input-pong my-1" type="password" placeholder="Password" required>
+			<input name="username" class="input-pong my-1" type="text" placeholder="Username" value="{{ username }}" autocomplete="username" required autofocus>
+			<input name="password" class="input-pong my-1" type="password" placeholder="Password" autocomplete="current-password" required>
 			
 			<div id="login-btn-group" class="mt-1">
 				<button id="login-submit-btn" name="login-submit" class="btn btn-primary buttonPong" type="submit">
 					<span>Log in</span>
 				</button>
-			
-				<button id="signin-btn" name="signin" class="btn btn-success pong-btn-success" type="submit" formnovalidate>
-					<span>Sign in</span>
+
+				<button id="signup-btn" name="signup" class="btn btn-success pong-btn-success" hx-post="{% url 'signup' %}" hx-target="#main-container" hx-push-url="true" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }' formnovalidate>
+					<span>Sign up</span>
 				</button>
 			</div>
 		</fieldset>
+
 		<hr />
+
 		<fieldset>
 			<button id="42auth-btn" name="42auth" class="btn btn-primary buttonPong w-100" type="submit" formnovalidate>
 				<span>Login with 42</span>
@@ -31,7 +40,7 @@
 	</form>
 </div>
 
-{% if error %}
+{% comment %} {% if error %}
 <div id="auth-error-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="AuthErrorModal" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content alert alert-danger">
@@ -55,4 +64,4 @@ $(document).ready(function(){
 		});
 	}
 });
-</script>
+</script> {% endcomment %}

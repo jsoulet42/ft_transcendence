@@ -87,22 +87,29 @@ WSGI_APPLICATION = 'transcendence.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-	'default': {
-		'ENGINE': os.getenv('DB_ENGINE'),
-		'NAME': os.getenv('DB_NAME'),
-		'USER': os.getenv('DB_USER'),
-		'PASSWORD': os.getenv('DB_PASSWORD'),
-		'HOST': os.getenv('DB_HOST'),
-		'PORT': os.getenv('DB_PORT'),
-		'OPTIONS': {
-			'connect_timeout': 300,
-		}
-	},
 	# 'default': {
-	# 	'ENGINE': 'django.db.backends.sqlite3',
-	# 	'NAME': 'mydatabase',
-	# }
+	# 	'ENGINE': os.getenv('DB_ENGINE'),
+	# 	'NAME': os.getenv('DB_NAME'),
+	# 	'USER': os.getenv('DB_USER'),
+	# 	'PASSWORD': os.getenv('DB_PASSWORD'),
+	# 	'HOST': os.getenv('DB_HOST'),
+	# 	'PORT': os.getenv('DB_PORT'),
+	# 	'OPTIONS': {
+	# 		'connect_timeout': 300,
+	# 	}
+	# },
+	'default': {
+		'ENGINE': 'django.db.backends.sqlite3',
+		'NAME': 'mydatabase',
+	}
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 DATABASE_ROUTERS = ['transcendence.routers.CustomRouter']
 
@@ -151,7 +158,9 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
+MEDIA_URL = 'media/'
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
@@ -165,7 +174,7 @@ EXTERNAL_API_AUTH_URL = os.path.join(EXTERNAL_API_URL, 'authorize')
 EXTERNAL_API_TOKEN_URL = os.path.join(EXTERNAL_API_URL, 'token')
 EXTERNAL_API_CLIENT_ID = os.getenv('EXTERNAL_API_CLIENT_ID')
 EXTERNAL_API_CLIENT_SECRET = os.getenv('EXTERNAL_API_CLIENT_SECRET')
-EXTERNAL_API_REDIRECT_URI = 'http://localhost:8000/login/authenticate'
+EXTERNAL_API_REDIRECT_URI = 'http://localhost:8000/authentication/auth42/'
 EXTERNAL_API_USER_URL = 'https://api.intra.42.fr/v2/me'
 EXTERNAL_API_USER_IMAGE_URL = 'https://cdn.intra.42.fr/users/'
 EXTERNAL_API_USER_IMAGE_URL_DEFAULT = 'https://cdn.intra.42.fr/users/default.png'
