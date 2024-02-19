@@ -22,11 +22,15 @@
 			}
 		}
 	</script>
-
-
-
 </head>
+<script>
+    const myModal = document.getElementById('myModal')
+    const myInput = document.getElementById('myInput')
 
+    myModal.addEventListener('shown.bs.modal', () => {
+        myInput.focus()
+    })
+</script>
 <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
 	<script src="{% static 'js/htmx.min.js' %}" defer></script>
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -34,6 +38,69 @@
 		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
 		crossorigin="anonymous"></script>
 	{% include 'top-nav.html' %}
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">EDIT IMAGE</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+        <form action="{% url 'update_image' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="new-img" class="form-label">UPLOAD YOUR IMAGE</label>
+                    {{ form.as_p }}
+{#                    <button type="submit" style="background-color: #8360c3;" class="btn btn-outline-info" >Upload image</button>#}
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" style="background-color: #8360c3;" class="btn btn-outline-info">Save</button>
+            </div>
+        </form>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">EDIT PROFILE</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div><form action="{% url 'update_profile' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="modal-body">
+                <div class="mb-3">
+                    <label for="new-nickname" class="form-label">Nickname</label>
+                    <input type="text" class="form-control" id="new-nickname" name="new_nickname" placeholder="Enter new nickname">
+                </div>
+                <div class="mb-3">
+                    <label for="new-password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="new-password" name="new_password" placeholder="Enter new password">
+                </div>
+                <div class="mb-3">
+                    <label for="new-picture" class="form-label">Profile Picture</label>
+                    <select id="avatarselect" name="avatarselect" class="form-select">
+                        <option selected value="0">Choose picture..</option>
+                        <option value="1">John Doe</option>
+                        <option value="2">Bunny Bang</option>
+                        <option value="3">42 Profile</option>
+                        {% if user.uploaded_image %}
+                            <option value="4">Uploaded</option>
+                        {% endif %}
+                    </select>
+                </div>
+        </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div></form>
+    </div>
+  </div>
+</div>
 	<div id="main-container">
 		{% block content %}{% endblock %}
 	</div>
