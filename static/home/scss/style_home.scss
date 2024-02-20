@@ -26,6 +26,7 @@ html, body {
 }
 
 #nav-home-top {
+	z-index: 2;
 	position: fixed;
 	width: 100vw;
 	height: $nav_home_top_height;
@@ -166,36 +167,62 @@ html, body {
 	from { top: 0; } to { top: $nav_home_top_height - 2vw; }
 }
 
-#login-btn {
-	height: calc($nav_home_top_height / 1.5);
-}
-
-.trigger-btn {
+#login-status {
+	position: relative;
 	float: right;
-	min-width: 8vw;
-	top: 1vw;
-	right: 1vw;
-	font-size: calc($nav_home_top_height / 2.5);
-	background-color: transparent;
+	width: 20%;
+	height: 90%;
+	right: 2%;
 	cursor: pointer;
+	border-radius: 0 0 2rem 2rem;
+	background: linear-gradient(to bottom, #f63192, #6c4fef);
 }
 
-.login-text {
-	font-size: calc($nav_home_top_height / 3.5);
+#login-status .dropdown-toggle {
+	height: 100%;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
 }
 
-#logout-btn {
-	float: right;
-	height: calc($nav_home_top_height / 1.5);
-	width: 8vw;
-	top: 0vw;
-	right: 1vw;
-	font-size: calc($nav_home_top_height / 3);
-	background-color: rgba(0, 0, 0, 0.3);
-	cursor: pointer;
+#login-status .login-btn {
+	position: relative;
+	width: 100%;
+	height: 80%;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+
+#menu-profile-img {
+	width: 20%;
+	height: 100%;
+	border-radius: 0.5rem;
+	object-fit: cover;
+	box-shadow: 0.5rem 0.5rem 1rem rgba(0, 0, 0, 0.7);
+}
+
+#menu-friends-icon {
+	width: 50%;
+	height: 100%;
+	border-radius: 0.5rem;
+	object-fit: cover;
+	border: solid 0.15rem black;
+}
+
+#login-status .menu-icon {
+	width: 20%;
+	height: auto;
+	object-fit: cover;
+}
+
+#login-status .dropdown-menu {
+	width: 16vw;
+	max-height: 50vh;
+	text-align: center;
+	font-size: 1.2rem;
 }
 
 #main-container {
+	z-index: 1;
 	position: fixed;
 	width: 100vw;
 	top: $nav_home_top_height;
