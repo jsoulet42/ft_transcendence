@@ -47,14 +47,13 @@
 					<li><hr class="dropdown-divider"></li>
 					<li>
 						<div class="btn-group">
-							<button class="dropdown-item btn btn-add" type="button" data-bs-toggle="modal" data-bs-target="#friend-request-modal"></button>
-							{% comment %} <button class="dropdown-item btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#friend-request-modal">
+							{% comment %} <button class="dropdown-item btn btn-add" type="button" data-bs-toggle="modal" data-bs-target="#friend-request-modal"></button> {% endcomment %}
+							<button class="dropdown-item btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#friend-request-modal">
 								<img class="img-fluid menu-icon" src="{% static 'home/images/plus_icon.png' %}" alt="plus_icon">
-							</button> {% endcomment %}
-							<button class="btn btn-close">
-							{% comment %} <button class="dropdown-item btn btn-secondary" type="button" href="{% url 'logout' %}" hx-post="{% url 'logout' %}" hx-target="body" hx-push-url="/" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }'>
+							</button>
+							<button class="dropdown-item btn btn-secondary" type="button" href="{% url 'logout' %}" hx-post="{% url 'logout' %}" hx-target="body" hx-push-url="/" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }'>
 								<img class="img-fluid menu-icon" src="{% static 'home/images/refresh_icon.png' %}" alt="refresh_icon">
-							</button> {% endcomment %}
+							</button>
 						</div>
 					</li>
 				</ul>
@@ -81,7 +80,9 @@
 					data.forEach(request => {
 						const listItem = `<li>`
 							+ `<span>${request.username}</span>`
-							+ `<button type="button" class="btn-add float-right" aria-label="Close"></button>`;
+							+ `<button type="button" class="btn-add float-right" aria-label="Close">`
+							+ `<img class="img-fluid menu-icon" src="{% static 'home/images/plus_icon.png' %}" alt="plus_icon">`
+							+ `</button>`
 							+ `</li>`;
 						dropdownMenu.insertAdjacentHTML('afterbegin', listItem);
 					});
