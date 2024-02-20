@@ -38,4 +38,56 @@
 			<li><a class="dropdown-item">Tournament 3</a></li>
 		</ul>
 	</div>
+	<table class="columns">
+		<tr>
+		  <td><div id="Sarah_chart_div" style="border: 1px solid #ccc"></div></td>
+		  <td><div id="Anthony_chart_div" style="border: 1px solid #ccc"></div></td>
+		</tr>
+	  </table>
 </div>
+<script type="text/javascript">
+	document.body.addEventListener('htmx:afterSwap', drawChart);
+
+	  google.charts.load("current", {packages:["corechart"]});
+	  google.charts.setOnLoadCallback(drawChart);
+	  function drawChart() {
+		// Données factices
+		var dataFromDjango = [
+		  {nom: 'Joueur 1', victoires: 10, defaites: 5},
+		  {nom: 'Joueur 2', victoires: 8, defaites: 7},
+		  {nom: 'Joueur 3', victoires: 15, defaites: 3},
+		  {nom: 'Joueur 4', victoires: 12, defaites: 8},
+		  {nom: 'Joueur 5', victoires: 6, defaites: 4},
+		];
+
+		// Création du tableau de données pour Google Charts
+		var data = new google.visualization.DataTable();
+		data.addColumn('string', 'Nom');
+		data.addColumn('number', 'Défaites');
+		data.addColumn('number', 'Victoires');
+		data.addColumn('number', 'Ratio');
+		data.addColumn('number', 'Taille de la bulle');
+
+		dataFromDjango.forEach(function(player) {
+			var victoires = parseInt(player.victoires);
+			var defaites = parseInt(player.defaites);
+			var ratio = parseInt(parseFloat(victoires) / parseFloat(defaites)) ;
+			var tailleBulle = parseInt(victoires + defaites);
+			data.addRow([null, defaites, victoires, ratio, tailleBulle]);
+		});
+
+		// Options du graphique
+		var options = {
+		  colorAxis: {colors: ['yellow', 'red']},
+		  bubble: {textStyle: {fontSize: 11}} // Taille du texte à l'intérieur des bulles
+		};
+
+		// Dessin du graphique
+		var chart = new google.visualization.BubbleChart(document.getElementById('chart_div'));
+		chart.draw(data, options);
+	  }
+	</script>
+<div id="chart_div" style="width: 900px; height: 500px;"></div>
+
+
+

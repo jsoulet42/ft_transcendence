@@ -6,6 +6,8 @@
 :root {
 	--alert-danger-bg: #b60012;
 	--alert-danger-text: #ffffff;
+	--alert-success-bg: #45b345;
+	--alert-success-fg: #ffffff;
 }
 
 .tv-content {
@@ -22,8 +24,7 @@
 .buttonPong {
 	position: relative;
 	display: inline-block;
-	padding: 10px 20px;
-	font-size: 16px;
+	font-size: 1.2rem;
 	text-align: center;
 	text-decoration: none;
 	color: #ffff;
@@ -31,12 +32,12 @@
 	border: 0.3rem solid #072949;
 	border-radius: 1.5rem;
 	overflow: hidden;
-	-webkit-text-stroke: 0.08vmin white;
-	text-shadow: black 0.5vmin 0.5vmin 1vmin;
+	-webkit-text-stroke: 0.05rem white;
+	text-shadow: black 0.5rem 0.5rem 1rem;
 }
 
 .buttonPong:hover, .buttonPong:focus {
-	-webkit-text-stroke: 0.08vmin black;
+	-webkit-text-stroke: 0.05rem black;
 	background: linear-gradient(45deg, #ff00ff, #00ffff, #ff00ff, #00ffff);
 	border-color: #072949; /* Couleur de la bordure lorsque survolé */
 }
@@ -44,8 +45,7 @@
 .pong-btn-success {
 	position: relative;
 	display: inline-block;
-	padding: 10px 20px;
-	font-size: 16px;
+	font-size: 1.2rem;
 	text-align: center;
 	text-decoration: none;
 	color: #ffff;
@@ -53,12 +53,12 @@
 	border: 0.3rem solid #124907;
 	border-radius: 1.5rem;
 	overflow: hidden;
-	-webkit-text-stroke: 0.08vmin white;
-	text-shadow: black 0.5vmin 0.5vmin 1vmin;
+	-webkit-text-stroke: 0.05rem white;
+	text-shadow: black 0.5rem 0.5rem 1rem;
 }
 
 .pong-btn-success:hover, .pong-btn-success:focus {
-	-webkit-text-stroke: 0.08vmin black;
+	-webkit-text-stroke: 0.05vmin black;
 	background: linear-gradient(45deg, #15ff00, #b3ff00, #15ff00, #b3ff00);
 	border-color: #308f0a;
 }
@@ -70,8 +70,21 @@
 	font-size: 1.5rem;
 }
 
+.float-left {
+	float: left;
+}
+
+.float-right {
+	float: right;
+}
+
 /* Bootstrap values overrides */
 .alert-danger {
 	background-color: var(--alert-danger-bg);
 	color: var(--alert-danger-text);
+}
+
+.alert-success {
+	background-color: var(--alert-success-bg);
+	color: var(--alert-success-fg);
 }
