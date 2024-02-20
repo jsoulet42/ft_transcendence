@@ -1,5 +1,6 @@
+{% load static %}
 <nav id="nav-home-top">
-	<a id="home-btn" href="{% url 'hub' %}" hx-post="{% url 'hub' %}" hx-target="body" hx-push-url="true" hx-headers="{ 'X-CSRFToken': '{{ csrf_token }}' }">
+	<a id="home-btn" href="{% url 'hub' %}" hx-post="{% url 'hub' %}" hx-target="body" hx-push-url="true" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }'>
 		<p class="P">P</p>
 		<p class="O">O</p>
 		<p class="N">N</p>
@@ -7,31 +8,53 @@
 		<div id="ball"></div>
 		<div id="ball1"></div>
 	</a>
-	{% if not user.is_authenticated %}
-		<a id="login-btn" class="btn trigger-btn buttonPong" href="{% url 'login' %}" hx-get="{% url 'login' %}" hx-target="#main-container" hx-push-url="/login">
+
+	<div id="login-status" class="container">
+		{% if not user.is_authenticated %}
+		<a class="btn buttonPong login-btn" href="{% url 'login' %}" hx-get="{% url 'login' %}" hx-target="#main-container" hx-push-url="true" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }'>
 			<span class="center-text">
 				Login
 			</span>
 		</a>
-	{% endif %}
-	{% if user.is_authenticated %}
-	<div class="btn-group dropstart trigger-btn">
-		<button type="button" class="btn btn-secondary dropdown-toggle buttonPong" data-bs-toggle="dropdown" aria-expanded="false">
-			<span class="login-text">
-				{%  if user.nickname %}
-	                {{ user.nickname }}
-                {% else %}
-                    {{ user.username }}
-                {%  endif %}
-			</span>
-			<img id="profile-img" src="{{ user.profile_image_path }}" alt="{{ user.username }}" width="50" height="50"></img>
-		</button>
-		<ul class="dropdown-menu">
-			<li>
-				<button class="dropdown-item" type="button" href="{% url 'profile' %}" hx-get="{% url 'profile' %}" hx-target="#main-container" hx-push-url="true">Profile</button>
-				<button class="dropdown-item" type="button" href="{% url 'logout' %}" hx-get="{% url 'logout' %}" hx-target="body" hx-push-url="/">Logout</button>
-			</li>
-		</ul>
-	  </div>
-	{% endif %}
+		{% else %}
+		<div class="btn-group login-btn">
+			<div class="btn-group dropdown">
+				<button type="button" class="btn btn-primary dropdown-toggle buttonPong" data-bs-toggle="dropdown" aria-expanded="false">
+					<span class="login-text">
+						{{ user.username }}
+					</span>
+					<img id="menu-profile-img" class="img-fluid" src="{{ user.photo_small_url }}" alt="{{ user.username }}">
+				</button>
+				<ul class="dropdown-menu">
+					<li><button class="dropdown-item" type="button" href="{% url 'profile' %}" hx-get="{% url 'profile' %}" hx-target="#main-container" hx-push-url="true" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }'>Profile</button></li>
+					<li><button class="dropdown-item" type="button" href="{% url 'logout' %}" hx-post="{% url 'logout' %}" hx-target="body" hx-push-url="/" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }'>Logout</button></li>
+				</ul>
+			</div>
+			<div class="btn-group dropdown">
+				<button type="button" class="btn btn-secondary dropdown-toggle pong-btn-success" data-bs-toggle="dropdown" aria-expanded="false">
+					<img id="menu-friends-icon" class="img-fluid" src="{% static 'home/images/friends_icon.png' %}" alt="friends_icon">
+				</button>
+				<ul class="dropdown-menu">
+					{% if not user.friends.exists %}
+						<li>You have no friends yet D:</li>
+					{% endif %}
+					{% for friend in user.friends.all %}
+						<li><button class="dropdown-item" type="button" href="{% url 'profile' %}" hx-get="{% url 'profile' %}" hx-target="#main-container" hx-push-url="true" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }'>{{ friend.username }}</button></li>
+					{% endfor %}
+					<li><hr class="dropdown-divider"></li>
+					<li>
+						<div class="btn-group">
+							<button class="dropdown-item btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#friend-request-modal">
+								<img class="img-fluid menu-icon" src="{% static 'home/images/plus_icon.png' %}" alt="plus_icon">
+							</button>
+							<button class="dropdown-item btn btn-secondary" type="button" href="{% url 'logout' %}" hx-post="{% url 'logout' %}" hx-target="body" hx-push-url="/" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }'>
+								<img class="img-fluid menu-icon" src="{% static 'home/images/refresh_icon.png' %}" alt="refresh_icon">
+							</button>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		{% endif %}
+	</div>
 </nav>
