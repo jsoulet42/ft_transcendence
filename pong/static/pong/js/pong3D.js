@@ -430,5 +430,3 @@ function displayTimeNow() {
 //#endregion
 
 Start();
-
-
