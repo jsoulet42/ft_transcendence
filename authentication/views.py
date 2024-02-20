@@ -29,7 +29,7 @@ def signup(request):
 			return redirect('hub')
 	else:
 		form = CustomUserCreationForm()
-	
+
 	if request.META.get('HTTP_HX_REQUEST'):
 		return render(request, 'signup_block.html', {'form': form})
 	return render(request, 'signup.html', {'form': form})
@@ -60,7 +60,7 @@ def login(request):
 			if request.META.get('HTTP_HX_REQUEST'):
 				return render(request, 'login_block.html', context)
 			return render(request, 'login.html', context)
-	
+
 	if request.META.get('HTTP_HX_REQUEST'):
 		return render(request, 'login_block.html')
 	return render(request, 'login.html')

@@ -9,7 +9,7 @@ from .forms import ProfilePicForm
 import os
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
-from backend.models import CustomUser, FriendRequest
+from backend.models import CustomUser
 
 @login_required
 def profile(request):
