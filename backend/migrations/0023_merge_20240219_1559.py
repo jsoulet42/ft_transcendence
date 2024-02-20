@@ -6,7 +6,6 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('backend', '0021_alter_customuser_profile_image_path_and_more'),
         ('backend', '0022_rename_reciever_friendrequest_receiver'),
     ]
 
