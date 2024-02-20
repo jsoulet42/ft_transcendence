@@ -23,68 +23,40 @@
 		}
 	</script>
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
+	{% comment %} <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<script type="text/javascript">
+	document.body.addEventListener('htmx:afterSwap', drawChart);
 
-      // Load Charts and the corechart package.
-      google.charts.load('current', {'packages':['corechart']});
+	  google.charts.load("current", {packages:["corechart"]});
+	  google.charts.setOnLoadCallback(drawChart);
+	  function drawChart() {
+		// Récupérer les données depuis Django
+		var dataFromDjango = JSON.parse('{{ data_from_django | escapejs }}'); // ici on recupere la bdd tournois et escapejs assure la securité
 
-      // Draw the pie chart for Sarah's pizza when Charts is loaded.
-      google.charts.setOnLoadCallback(drawSarahChart);
+		// Créer le tableau de données pour Google Charts
+		var data = new google.visualization.DataTable();
+		data.addColumn('string', 'Nom');
+		data.addColumn('number', 'Victoires');
+		data.addColumn('number', 'Défaites');
+		data.addColumn('number', 'Ratio');
+		data.addColumn({type: 'string', role: 'tooltip', 'p': {'html': true}});
+		data.addColumn({type: 'string', role: 'style'});
+		dataFromDjango.forEach(function(player) {
+		  var ratio = player.victoires / player.defaites;
+		  var tooltip = '<div style="padding:10px;"><img src="' + player.image + '" style="width:100px;height:100px;"><br>' + player.nom + '<br> Victoires: ' + player.victoires + '<br> Défaites: ' + player.defaites + '<br> Ratio: ' + ratio + '</div>';
+		  var style = 'point { fill-color: ' + (ratio > 1 ? 'green' : 'red') + '; }';
+		  data.addRow([null, player.victoires, player.defaites, ratio, tooltip, style]);
+		});
 
-      // Draw the pie chart for the Anthony's pizza when Charts is loaded.
-      google.charts.setOnLoadCallback(drawAnthonyChart);
-
-      // Callback that draws the pie chart for Sarah's pizza.
-      function drawSarahChart() {
-
-        // Create the data table for Sarah's pizza.
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Topping');
-        data.addColumn('number', 'Slices');
-        data.addRows([
-          ['Mushrooms', 1],
-          ['Onions', 1],
-          ['Olives', 2],
-          ['Zucchini', 2],
-          ['Pepperoni', 1]
-        ]);
-
-        // Set options for Sarah's pie chart.
-        var options = {title:'How Much Pizza Sarah Ate Last Night',
-                       width:400,
-                       height:300};
-
-        // Instantiate and draw the chart for Sarah's pizza.
-        var chart = new google.visualization.PieChart(document.getElementById('Sarah_chart_div'));
-        chart.draw(data, options);
-      }
-
-      // Callback that draws the pie chart for Anthony's pizza.
-      function drawAnthonyChart() {
-
-        // Create the data table for Anthony's pizza.
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Topping');
-        data.addColumn('number', 'Slices');
-        data.addRows([
-          ['Mushrooms', 2],
-          ['Onions', 2],
-          ['Olives', 2],
-          ['Zucchini', 0],
-          ['Pepperoni', 3]
-        ]);
-
-        // Set options for Anthony's pie chart.
-        var options = {title:'How Much Pizza Anthony Ate Last Night',
-                       width:400,
-                       height:300};
-
-        // Instantiate and draw the chart for Anthony's pizza.
-        var chart = new google.visualization.PieChart(document.getElementById('Anthony_chart_div'));
-        chart.draw(data, options);
-      }
-    </script>
-
+		// Dessiner le graphique
+		var options = {
+		  colorAxis: {colors: ['yellow', 'red']},
+		  bubble: {textStyle: {fontSize: 11}} // Taille du texte à l'intérieur des bulles
+		};
+		var chart = new google.visualization.BubbleChart(document.getElementById('chart_div'));
+		chart.draw(data, options);
+	  }
+	</script> {% endcomment %}
 </head>
 <script>
     const myModal = document.getElementById('myModal')

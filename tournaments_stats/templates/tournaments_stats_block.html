@@ -45,48 +45,49 @@
 		</tr>
 	  </table>
 </div>
-    <!--Table and divs that hold the pie charts-->
+<script type="text/javascript">
+	document.body.addEventListener('htmx:afterSwap', drawChart);
 
+	  google.charts.load("current", {packages:["corechart"]});
+	  google.charts.setOnLoadCallback(drawChart);
+	  function drawChart() {
+		// Données factices
+		var dataFromDjango = [
+		  {nom: 'Joueur 1', victoires: 10, defaites: 5},
+		  {nom: 'Joueur 2', victoires: 8, defaites: 7},
+		  {nom: 'Joueur 3', victoires: 15, defaites: 3},
+		  {nom: 'Joueur 4', victoires: 12, defaites: 8},
+		  {nom: 'Joueur 5', victoires: 6, defaites: 4},
+		];
 
-	{% comment %} <html>
-		<head>
-		  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-		  <script type="text/javascript">
-			google.charts.load("current", {packages:["corechart"]});
-			google.charts.setOnLoadCallback(drawChart);
-			function drawChart() {
-			  // Récupérer les données depuis Django
-			  var dataFromDjango = JSON.parse('{{ data_from_django | escapejs }}'); // ici on recupere la bdd tournois et escapejs assure la securité
+		// Création du tableau de données pour Google Charts
+		var data = new google.visualization.DataTable();
+		data.addColumn('string', 'Nom');
+		data.addColumn('number', 'Défaites');
+		data.addColumn('number', 'Victoires');
+		data.addColumn('number', 'Ratio');
+		data.addColumn('number', 'Taille de la bulle');
 
-			  // Créer le tableau de données pour Google Charts
-			  var data = new google.visualization.DataTable();
-			  data.addColumn('string', 'Nom');
-			  data.addColumn('number', 'Victoires');
-			  data.addColumn('number', 'Défaites');
-			  data.addColumn('number', 'Ratio');
-			  data.addColumn({type: 'string', role: 'tooltip', 'p': {'html': true}});
-			  data.addColumn({type: 'string', role: 'style'});
-			  dataFromDjango.forEach(function(player) {
-				var ratio = player.victoires / player.defaites;
-				var tooltip = '<div style="padding:10px;"><img src="' + player.image + '" style="width:100px;height:100px;"><br>' + player.nom + '<br> Victoires: ' + player.victoires + '<br> Défaites: ' + player.defaites + '<br> Ratio: ' + ratio + '</div>';
-				var style = 'point { fill-color: ' + (ratio > 1 ? 'green' : 'red') + '; }';
-				data.addRow([null, player.victoires, player.defaites, ratio, tooltip, style]);
-			  });
+		dataFromDjango.forEach(function(player) {
+			var victoires = parseInt(player.victoires);
+			var defaites = parseInt(player.defaites);
+			var ratio = parseInt(parseFloat(victoires) / parseFloat(defaites)) ;
+			var tailleBulle = parseInt(victoires + defaites);
+			data.addRow([null, defaites, victoires, ratio, tailleBulle]);
+		});
 
-			  // Dessiner le graphique
-			  var options = {
-				colorAxis: {colors: ['yellow', 'red']},
-				bubble: {textStyle: {fontSize: 11}} // Taille du texte à l'intérieur des bulles
-			  };
-			  var chart = new google.visualization.BubbleChart(document.getElementById('chart_div'));
-			  chart.draw(data, options);
-			}
-		  </script>
-		</head>
-		<body>
-		  <div id="chart_div" style="width: 900px; height: 500px;"></div>
-		</body>
-		</html> {% endcomment %}
+		// Options du graphique
+		var options = {
+		  colorAxis: {colors: ['yellow', 'red']},
+		  bubble: {textStyle: {fontSize: 11}} // Taille du texte à l'intérieur des bulles
+		};
+
+		// Dessin du graphique
+		var chart = new google.visualization.BubbleChart(document.getElementById('chart_div'));
+		chart.draw(data, options);
+	  }
+	</script>
+<div id="chart_div" style="width: 900px; height: 500px;"></div>
 
 
 
