@@ -271,7 +271,7 @@ const pongTable = new tablePongClass(0, 0, 0, 26, 13.7, 0.5, 0xffff00, scene);
 const manager = new managerPong();
 const paddleLeft = new PaddleClasse(-11.5, 0, 0, 0.5, 3, 1, 0xff0000, scene, 0.1, pongTable); // Red paddle on the left
 const paddleRight = new PaddleClasse(11.5, 0, 0, 0.5, 3, 1, 0x0000ff, scene, 0.1, pongTable); // Blue paddle on the right
-const ball = new ballClasse(0, 0, 0, 0.05, 0.5, "black", scene); // Green ball in the middle
+const ball = new ballClasse(0, 0, 0, 1, 0.5, "black", scene); // Green ball in the middle
 
 async function sleep(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
@@ -294,7 +294,60 @@ async function resetBallAfterGoal() {
 	ball.directionx *= -1;
 	ball.directiony = 0;
 	ball.speed = speedtemp;
+	sendScoreToBackend(score);
 }
+
+
+//#region request back-end
+
+function sendScoreToBackend(score, retries = 3) {
+	console.log(score); // Affiche le contenu de score
+	console.log(window.csrfTokenValue); // Affiche le token CSRF
+
+	let formData = new FormData();
+	formData.append('playerRight', score.playerRight);
+	formData.append('playerLeft', score.playerLeft);
+	formData.append('scoreRight', score.scoreRight);
+	formData.append('scoreLeft', score.scoreLeft);
+	formData.append('startDate', score.startDate);
+	formData.append('startTime', score.startTime);
+	formData.append('timeNow', score.timeNow);
+
+	let csrfElement = document.querySelector('[name=csrfmiddlewaretoken]');
+	if (!csrfElement) {
+		console.error('CSRF token not found');
+		return;
+	}
+	let csrfTokenValue = window.csrfTokenValue;
+
+	const request = new Request('{% url "pongDjango" %}', {
+		method: 'POST',
+		body: formData,
+		headers: { 'X-CSRFToken': csrfTokenValue }
+	});
+
+	fetch(request)
+		.then(response => {
+			if (!response.ok) {
+				console.error(`Response not OK: ${response.status} ${response.statusText}`);
+				throw new Error("Network response was not ok");
+			}
+			return response.json();
+		})
+		.then(result => {
+			console.log(result); // Vous pouvez traiter le résultat ici
+		})
+		.catch(error => {
+			console.error(`Fetch error:`, error);
+			if (retries > 0) {
+				console.log(`Retrying... (${retries} attempts left)`);
+				setTimeout(() => sendScoreToBackend(score, retries - 1), 1000); // Attend 1 seconde avant de retenter
+			} else {
+				console.error("message d'erreur :" + error);
+			}
+		});
+}
+//#endregion
 
 function loop() {
 	requestAnimationFrame(loop);
@@ -391,14 +444,13 @@ function displayScore1() {
 	<p>${score.playerRight}: ${score.scoreRight}</p>`;
 
 	scoreElement.style.position = 'relative';
-    scoreElement.style.top = `${rect.top + rect.height * 0.02}px`; // Utilisez des guillemets inversés ici
-    scoreElement.style.left = `${rect.left + rect.width * 0.8}px`;
+	scoreElement.style.top = `${rect.top + rect.height * 0.02}px`; // Utilisez des guillemets inversés ici
+	scoreElement.style.left = `${rect.left + rect.width * 0.8}px`;
 	scoreElement.style.fontSize = '2em';
 	scoreElement.style.color = 'white';
 
 	document.body.appendChild(scoreElement);
 }
-
 function displayScore2() {
 
 	scoreElement2.innerHTML = `
@@ -406,8 +458,8 @@ function displayScore2() {
     `;
 
 	scoreElement2.style.position = 'absolute';
-    scoreElement2.style.top = `${rect.top + rect.height * 0.02}px`; // Utilisez des guillemets inversés ici
-    scoreElement2.style.left = `${rect.left + rect.width * 0.02}px`;
+	scoreElement2.style.top = `${rect.top + rect.height * 0.02}px`; // Utilisez des guillemets inversés ici
+	scoreElement2.style.left = `${rect.left + rect.width * 0.02}px`;
 	scoreElement2.style.fontSize = '2em';
 	scoreElement2.style.color = 'white';
 

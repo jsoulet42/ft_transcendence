@@ -35,15 +35,8 @@ def huitjoueurs(request):
 def pongDjango(request):
 	print(request.POST)
 	function1()
-	a = request.POST.get("p1")
-	b = request.POST.get("p2")
-	if a is None:
-		a = 0
-	if b is None:
-		b = 0
-	result = int(a) + int(b)
-	return JsonResponse({"operation_result": result})
 
+	return JsonResponse({"operation_result": 1})
 
 def function1():
 	print("Django sa mere")
