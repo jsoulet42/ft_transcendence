@@ -69,6 +69,16 @@ class CustomUserManager(BaseUserManager):
 		dev_user.groups.add(dev_group)
 		return dev_user
 
+	def reset_stats(self, username):
+		user = self.get(username=username)
+		user.stats.games_played = 0
+		user.stats.tournaments_played = 0
+		user.stats.wins = 0
+		user.stats.losses = 0
+		user.stats.save()
+		return user
+
+
 
 # Create your models here.
 # Model = heritage d'une class django vierge personnalisable
@@ -79,41 +89,43 @@ class CustomUser(AbstractUser):
 
 	objects = CustomUserManager()
 
-	#CharField = model de string
+	nickname = models.CharField(max_length=50, blank=True, null=True)
 	username = models.CharField(max_length=50, unique=True, null=True)
-	# UUIDField attribution d'un id non modifable
 	uuid = models.UUIDField(default=uuid.uuid4, editable=False)
 
 	bio = models.CharField(max_length=2000, blank=True, null=True)
-
 	github = models.URLField(max_length=255, blank=True)
-
 	email = models.EmailField(max_length=254, blank=True)
 
 	friends = models.ManyToManyField('self', blank=True)
 
-	# assignation du user a une list qui doit etre nommer a la creation du user et qui supprime tout les user si on delete la list
 	list = models.ForeignKey('UsersList', null=False, on_delete=models.CASCADE, related_name='users')
 
-	# 42 related data
+	games = models.ManyToManyField('Game', related_name='players', blank=True)
+	tournaments = models.ManyToManyField('Tournament', related_name='players', blank=True)
+	stats = models.OneToOneField('Stats', null=False, on_delete=models.CASCADE, related_name='user')
+
 	campus = models.CharField(max_length=50, default='None')
 
+	profile_image_path = models.CharField(max_length=255, blank=True, default='')
 	photo_medium_url = models.URLField(max_length=255, blank=True)
 	photo_small_url = models.URLField(max_length=255, blank=True)
 
 	upload_image = models.ImageField(null=True, blank=True, upload_to='images')
-
-	profile_image_path = models.CharField(max_length=255, blank=True, default='')
-
 	uploaded_image = models.CharField(max_length=255, blank=True, default='')
 
-	nickname = models.CharField(max_length=50, blank=True, null=True)
-
-class UsersList(models.Model):
-	name = models.CharField(max_length = 255)
-
-	def __str__(self):
-		return f"{self.name}"
+	def save(self, *args, **kwargs):
+		# Check if the user is being created for the first time
+		if not self.pk:
+			stats = Stats.objects.create(
+				games_played=0,
+				tournaments_played=0,
+				wins=0,
+				losses=0
+			)
+			self.stats = stats
+			stats.save()
+		super().save(*args, **kwargs)
 
 
 class FriendRequest(models.Model):
@@ -129,12 +141,82 @@ class FriendRequest(models.Model):
 	)
 
 	sender = models.ForeignKey('CustomUser', related_name='sent_requests', on_delete=models.CASCADE)
-	reciever = models.ForeignKey('CustomUser', related_name='received_requests', on_delete=models.CASCADE)
+	receiver = models.ForeignKey('CustomUser', related_name='received_requests', on_delete=models.CASCADE)
 	status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending')
 	created_at = models.DateTimeField(auto_now_add=True)
 
+class Stats(models.Model):
+	"""
+	Model with the data of a user's stats.
+	Stores the number of games and tournaments played, the number of wins and the number of losses.
+	"""
+	games_played = models.PositiveSmallIntegerField(default=0)
+	tournaments_played = models.PositiveSmallIntegerField(default=0)
+
+	wins = models.PositiveSmallIntegerField(default=0)
+	losses = models.PositiveSmallIntegerField(default=0)
+
+	def __str__(self):
+		return f"{self.user.username} - Plays: {self.games_played} - Wins: {self.wins} - Losses: {self.losses} - Tournaments: {self.tournaments_played}"
+
+
+class UsersList(models.Model):
+	name = models.CharField(max_length = 255)
+
+	def __str__(self):
+		return f"{self.name}"
+
+
+class Game(models.Model):
+	"""
+	Model with the data of a match.
+	If the match is part of a tournament, the tournament field links to the its id.
+	"""
+	date = models.DateTimeField(auto_now=False, auto_now_add=True)
+	game_duration = models.DurationField()
+
+	host = models.ForeignKey("CustomUser", on_delete=models.CASCADE, related_name="host")
+
+	player1 = models.CharField(max_length=50, null=False)
+	player2 = models.CharField(max_length=50, null=False)
+
+	player1_score = models.PositiveSmallIntegerField(default=0)
+	player2_score = models.PositiveSmallIntegerField(default=0)
+
+
+class Leaderboard(models.Model):
+	"""
+	Model with the data of a leaderboard.
+	Stores a link to the logged in user and a list of all the players names in JSON format.
+	"""
+	host = models.ForeignKey("CustomUser", on_delete=models.CASCADE, related_name="leaderboard_host")
+	usernames = JSONField(default=list)
+
+	def get_usernames(self):
+		usernames_array = []
+		for username in self.usernames:
+			usernames_array.append(username)
+		return usernames_array
+
+	def set_usernames(self, usernames_list):
+		"""
+		Add usernames from the provided list to the existing JSON field.
+		"""
+		if not isinstance(usernames_list, list):
+			raise ValueError("Input must be a list of usernames")
+
+		existing_usernames = self.usernames or []
+		existing_usernames.extend(usernames_list)
+
+		self.usernames = existing_usernames
+
 
 class Tournament(models.Model):
+	"""
+	Model with the data of a tournament.
+	Stores the host of the tournament, the number of players, the date of the tournament and the leaderboard.
+	The number of players can only be 4 or 8.
+	"""
 	CHOICE_OPTION1 = 4
 	CHOICE_OPTION2 = 8
 
@@ -143,28 +225,13 @@ class Tournament(models.Model):
 		(CHOICE_OPTION2, 8),
 	)
 
-	DEFAULT_NAME = 'Unknown'
+	name = models.CharField(max_length=50, null=False)
+	date = models.DateTimeField(auto_now=False, auto_now_add=True)
 
-	name = models.CharField(max_length = 50)
-	date = models.DateField(auto_now = False, auto_now_add = True)
-	host = models.ForeignKey('CustomUser', null = False, on_delete = models.CASCADE)
+	players_count = models.PositiveSmallIntegerField(choices=COUNT_CHOICES, default=CHOICE_OPTION1)
+	leaderboard = models.ForeignKey("Leaderboard", null=True, on_delete=models.CASCADE, related_name="leaderboard")
 
-	players_count = models.PositiveSmallIntegerField(default = 8, choices = COUNT_CHOICES)
+	games = models.ManyToManyField("Game", related_name="tournament_games")
 
-	leaderboard = JSONField(default = list)
-
-	def add_leaderboard_user(self, new_user_name, position=0):
-		if self.leaderboard == []:
-			self.leaderboard.append(new_user_name)
-			self.save()
-			return self
-		leaderboard_len = len(self.leaderboard)
-		if leaderboard_len > self.players_count:
-			return self
-		if position > leaderboard_len or position <= 0:
-			self.leaderboard.append(new_user_name)
-			self.save()
-			return self
-		self.leaderboard.insert(position, new_user_name)
-		self.save()
-		return self
+	def __str__(self):
+		return f"{self.name} - {self.date} -- Leaderboard: {self.leaderboard.get_usernames()}"
