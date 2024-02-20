@@ -17,14 +17,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include	# Added include() function
 from home import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
 	path('', include('hub.urls')),
-    path('admin/', admin.site.urls),
+  path('admin/', admin.site.urls),
+	path('backend/', include('backend.urls')),
 	path('login/', include('authentication.urls')),
+	path('home/', include('home.urls')),
 	path('pong/', include('pong.urls')),
 	path('hub/', include('hub.urls')),
 	path('profile/', include('profile.urls')),
 	path('tournaments_stats/', include('tournaments_stats.urls')),
 	path('authentication/', include('authentication.urls')),
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
