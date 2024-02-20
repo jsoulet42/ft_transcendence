@@ -34,9 +34,8 @@ def huitjoueurs(request):
 @login_required
 def pongDjango(request):
 	print(request.POST)
-	function1()
 
-	return JsonResponse({"operation_result": 1})
+	return JsonResponse({ 'message': 'pongDjango' })
 
 def function1():
 	print("Django sa mere")

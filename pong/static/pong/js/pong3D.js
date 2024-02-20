@@ -300,53 +300,42 @@ async function resetBallAfterGoal() {
 
 //#region request back-end
 
-function sendScoreToBackend(score, retries = 3) {
-	console.log(score); // Affiche le contenu de score
-	console.log(window.csrfTokenValue); // Affiche le token CSRF
+let repeat = 1;
+
+function sendScoreToBackend(score) {
+
+	if (repeat-- <= 0)
+		return;
+
 
 	let formData = new FormData();
 	formData.append('playerRight', score.playerRight);
 	formData.append('playerLeft', score.playerLeft);
-	formData.append('scoreRight', score.scoreRight);
-	formData.append('scoreLeft', score.scoreLeft);
-	formData.append('startDate', score.startDate);
-	formData.append('startTime', score.startTime);
-	formData.append('timeNow', score.timeNow);
+	// formData.append('scoreRight', score.scoreRight);
+	// formData.append('scoreLeft', score.scoreLeft);
+	// formData.append('startDate', score.startDate);
+	// formData.append('startTime', score.startTime);
+	// formData.append('timeNow', score.timeNow);
 
-	let csrfElement = document.querySelector('[name=csrfmiddlewaretoken]');
-	if (!csrfElement) {
-		console.error('CSRF token not found');
-		return;
-	}
-	let csrfTokenValue = window.csrfTokenValue;
+	let csrfTokenValue = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
-	const request = new Request('{% url "pongDjango" %}', {
+	const request = new Request('/pongDjango/', {
 		method: 'POST',
 		body: formData,
 		headers: { 'X-CSRFToken': csrfTokenValue }
 	});
 
 	fetch(request)
-		.then(response => {
-			if (!response.ok) {
-				console.error(`Response not OK: ${response.status} ${response.statusText}`);
-				throw new Error("Network response was not ok");
-			}
-			return response.json();
-		})
+		.then(response => response.json())
 		.then(result => {
 			console.log(result); // Vous pouvez traiter le résultat ici
 		})
 		.catch(error => {
-			console.error(`Fetch error:`, error);
-			if (retries > 0) {
-				console.log(`Retrying... (${retries} attempts left)`);
-				setTimeout(() => sendScoreToBackend(score, retries - 1), 1000); // Attend 1 seconde avant de retenter
-			} else {
-				console.error("message d'erreur :" + error);
-			}
+			console.error(`Fetch error: ${error.message}`);
 		});
 }
+
+
 //#endregion
 
 function loop() {

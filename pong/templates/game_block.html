@@ -8,14 +8,10 @@
 </p>
 
 
+
+<form id="csrfForm" style="display: none;">
+    {% csrf_token %}
+</form>
+
 <canvas id="pongCanvas3D"></canvas>
-<script>
-	document.addEventListener('DOMContentLoaded', (event) => {
-		let csrfElement = document.querySelector('[name=csrfmiddlewaretoken]');
-		if (!csrfElement) {
-			console.error('CSRF token not found');
-			return;
-		}
-		window.csrfTokenValue = csrfElement.value;
-	});</script>
 <script type="module" src="{% static 'pong/js/pong3D.js' %}" defer></script>
