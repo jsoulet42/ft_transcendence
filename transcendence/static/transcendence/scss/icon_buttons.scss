@@ -1,0 +1,47 @@
+$btn-add-width:				1em !default;
+$btn-add-height:			$btn-add-width !default;
+$btn-add-padding-x:			.25em !default;
+$btn-add-padding-y:			$btn-add-padding-x !default;
+$btn-add-color:				#009900 !default;
+$btn-add-bg:				url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$btn-add-color}'><path d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/></svg>") !default;
+$btn-add-focus-shadow:		0 !default;
+$btn-add-opacity:			.5 !default;
+$btn-add-hover-opacity:		.75 !default;
+$btn-add-focus-opacity:		1 !default;
+$btn-add-disabled-opacity:	.25 !default;
+$btn-add-white-filter:		invert(1) grayscale(100%) brightness(200%) !default;
+
+.btn-add {
+	box-sizing: content-box;
+	width: $btn-add-width;
+	height: $btn-add-height;
+	padding: $btn-add-padding-y $btn-add-padding-x;
+	color: $btn-add-color;
+	background: transparent escape-svg($btn-add-bg) center / $btn-add-width auto no-repeat; // include transparent for button elements
+	border: 0; // for button elements
+	opacity: $btn-add-opacity;
+  
+	// Override <a>'s hover style
+	&:hover {
+		color: $btn-add-color;
+		text-decoration: none;
+		opacity: $btn-add-hover-opacity;
+	}
+  
+	&:focus {
+		outline: 0;
+		box-shadow: $btn-add-focus-shadow;
+		opacity: $btn-add-focus-opacity;
+	}
+  
+	&:disabled,
+	&.disabled {
+		pointer-events: none;
+		user-select: none;
+		opacity: $btn-add-disabled-opacity;
+	}
+}
+
+.btn-add-white {
+	filter: $btn-add-white-filter;
+}
