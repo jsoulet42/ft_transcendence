@@ -6,7 +6,6 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('backend', '0021_alter_customuser_friends'),
         ('backend', '0028_alter_customuser_games_alter_customuser_tournaments'),
     ]
 
