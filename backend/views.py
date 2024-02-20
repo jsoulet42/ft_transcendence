@@ -14,16 +14,16 @@ def get_user_name(request, user_id):
 
 def test_tournament(request):
 	data = {
-		'host_username': 'jsoulet',
+		'host_username': 'mdiamant',
 		'tournament_name': 'test',
 		'date': '2020-12-12',
 		'players_count': 4,
-		'leaderboard': ['jsoulet', 'pos2', 'pos3', 'pos4'],
+		'leaderboard': ['pos1', 'pos2', 'mdiamant', 'pos4'],
 		'games': [
 			{
 				'game_duration': '00:10:00',
-				'host': 'jsoulet',
-				'player1': 'jsoulet',
+				'host': 'mdiamant',
+				'player1': 'mdiamant',
 				'player2': 'pos2',
 				'player1_score': 2,
 				'player2_score': 1,
@@ -33,8 +33,8 @@ def test_tournament(request):
 				'host': None,
 				'player1': 'pos3',
 				'player2': 'pos4',
-				'player1_score': 2,
-				'player2_score': 1,
+				'player1_score': 5,
+				'player2_score': 4,
 			},
 		]
 	}
@@ -123,7 +123,6 @@ def save_tournament(request):
 				player1_score=game.get('player1_score'),
 				player2_score=game.get('player2_score'),
 			)
-			game.save()
 
 			if game.host is not None:
 				host.games.add(game)
@@ -140,10 +139,12 @@ def save_tournament(request):
 						host.stats.losses += 1
 
 			tournament.games.add(game)
-		leaderboard.save()
+
 		host.stats.tournaments_played += 1
+		host.tournaments.add(tournament)
+		leaderboard.save()
 		host.stats.save()
-		tournament.save()
+		host.save()
 		return JsonResponse({'success': 'Tournament saved'})
 
 	return JsonResponse({'error': 'Tournament not saved'})

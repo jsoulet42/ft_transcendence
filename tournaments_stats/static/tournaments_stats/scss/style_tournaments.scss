@@ -57,10 +57,13 @@
   .custom-table th,
   .custom-table td {
 	opacity: 0;
+	width: 25%;
 	animation: fadein 6s forwards , neon-glow 1.5s ease-in-out infinite alternate;
 	border: black;
 	color: violet;
 	background-color: transparent;
+	text-align: center;
+	font-size: 1.5rem;
   }
 
   @keyframes slideDown {
@@ -91,7 +94,7 @@
 .hover-bigger:hover {
 	transform: scale(1.05);
 	border-color: rgb(250, 135, 236);
-	box-shadow: 0 0 20vh rgb(246, 24, 246);
+	box-shadow: rgb(246, 24, 246);
   }
 
 .hover-aura:hover {
