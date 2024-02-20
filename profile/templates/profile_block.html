@@ -19,12 +19,10 @@
         <button type="button" class="bottom-edit btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
         Edit image
         </button>
-{#        <form action="{% url 'update_image' %}" method="POST" enctype="multipart/form-data">#}
-{#            {% csrf_token %}#}
-{#            {{ form.as_p }}#}
-{#            <button type="submit" style="background-color: #8360c3;" class="btn btn-outline-info" >Upload image</button>#}
-{#        </form>#}
+	<a id="match-history" class="btn btn-outline-info" href="{% url 'match_history' %}" hx-get="{% url 'match_history' %}" hx-target="#main-container" hx-push-url="true">
+        MATCH HISTORY </a>
     </div>
+
     <button type="button" class="bottom-edit btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#exampleModal">EDIT PROFILE</button>
 </div>
 {#<script>#}

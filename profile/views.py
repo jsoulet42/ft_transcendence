@@ -43,10 +43,16 @@ def update_image(request):
 			uploaded_image_url = settings.MEDIA_URL + 'images/' + str(uploaded_image_name)
 			user.uploaded_image = uploaded_image_url
 			user.profile_image_path = uploaded_image_url
-			print(user.username)
 			user.save()
+			form.save()
 		return HttpResponseRedirect('/profile')
 
+
+def match_history(request):
+	form = ProfilePicForm()
+	if request.META.get('HTTP_HX_REQUEST'):
+		return render(request, 'match_history.html')
+	return render(request, 'profile.html', {'form':form})
 
 def update_profile(request):
 	if request.method == 'POST':
