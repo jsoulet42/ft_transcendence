@@ -210,7 +210,6 @@ class Tournament(models.Model):
 
 	name = models.CharField(max_length=50, null=False)
 	date = models.DateTimeField(auto_now=False, auto_now_add=True)
-	host = models.ForeignKey('CustomUser', null = False, on_delete = models.CASCADE)
 
 	players_count = models.PositiveSmallIntegerField(choices=COUNT_CHOICES, default=CHOICE_OPTION1)
 	leaderboard = models.ForeignKey("Leaderboard", null=True, on_delete=models.CASCADE, related_name="leaderboard")
