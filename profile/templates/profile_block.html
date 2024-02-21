@@ -10,19 +10,17 @@
 	</div>
 	<h3 class="h4lol"><br>
 		GAME PLAYED : {{ user.stats.games_played }}<br><br>
-		<br><br><br>
+		<br>
 		WIN COUNT : {{ user.stats.wins }}<br><br>
-        <br><br><br>
+        <br>
         LOOSE COUNT : {{ user.stats.losses }}<br><br>
 	</h3>
     <div id="profile-leftside">
         <button type="button" class="bottom-edit btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
         Edit image
         </button>
-	<a id="match-history" class="btn btn-outline-info" href="{% url 'match_history' %}" hx-get="{% url 'match_history' %}" hx-target="#main-container" hx-push-url="true">
-        MATCH HISTORY </a>
     </div>
-
+    <button type="button" class="bottom-edit2 btn btn-outline-info" hx-get="{% url 'match_history' %}" hx-target="#main-container" hx-push-url="true">MATCH HISTORY</button>
     <button type="button" class="bottom-edit btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#exampleModal">EDIT PROFILE</button>
 </div>
 {#<script>#}

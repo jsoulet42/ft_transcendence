@@ -9,7 +9,7 @@ from .forms import ProfilePicForm
 import os
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
-from backend.models import CustomUser
+from backend.models import CustomUser, Game
 
 @login_required
 def profile(request):
@@ -52,8 +52,9 @@ def update_image(request):
 
 def match_history(request):
 	form = ProfilePicForm()
+	latest_matches = Game.objects.all()[:10]
 	if request.META.get('HTTP_HX_REQUEST'):
-		return render(request, 'match_history.html')
+		return render(request, 'match_history.html', {'matches': latest_matches})
 	return render(request, 'profile.html', {'form':form})
 
 def update_profile(request):
