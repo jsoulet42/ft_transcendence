@@ -14,16 +14,16 @@ def get_user_name(request, user_id):
 
 def test_tournament(request):
 	data = {
-		'host_username': 'mdiamant',
+		'host_username': 'lolefevr',
 		'tournament_name': 'test',
 		'date': '2020-12-12',
 		'players_count': 4,
-		'leaderboard': ['pos1', 'pos2', 'mdiamant', 'pos4'],
+		'leaderboard': ['pos1', 'pos2', 'lolefevr', 'pos4'],
 		'games': [
 			{
 				'game_duration': '00:10:00',
-				'host': 'mdiamant',
-				'player1': 'mdiamant',
+				'host': 'lolefevr',
+				'player1': 'lolefevr',
 				'player2': 'pos2',
 				'player1_score': 2,
 				'player2_score': 1,
@@ -123,6 +123,8 @@ def save_tournament(request):
 				player1_score=game.get('player1_score'),
 				player2_score=game.get('player2_score'),
 			)
+
+			game.tournament = tournament
 
 			if game.host is not None:
 				host.games.add(game)
