@@ -70,8 +70,8 @@ let inputs = {
 let UI = {
 	leftScore: 0,
 	rightScore: 0,
-	leftName: "Player 1",
-	rightName: "Player 2"
+	leftName: host_name,
+	rightName: name_player2
 }
 
 let directionXtmp = ball.speedX;
@@ -472,6 +472,8 @@ async function putBackBall(directionX) {
 	IATrajectory(ball.x, ball.y, ball.speedX, ball.speedY, 0);
 	IA.destYL = IA.destYRT + Math.random() * paddle.leftHeight - paddle.leftHeight / 2;
 	startUpdatingAI();
+
+	sendScoreToBackend(score);
 }
 
 function delay(ms) {
@@ -583,8 +585,8 @@ function initializeVariables(mode) {
 	UI = {
 		leftScore: 0,
 		rightScore: 0,
-		leftName: "Player 1",
-		rightName: "Player 2"
+		leftName: host_name,
+		rightName: name_player2
 	}
 	if (mode == 2)
 		UI.rightName = "IA";
@@ -637,19 +639,23 @@ let score = {
 	startTime: new Date()
 }
 
+let limit = 3;
 
 function sendScoreToBackend(score) {
+	if (limit-- <= 0)
+		return;
 	let formData = new FormData();
-	formData.append('game_duration', new Date() - score.startDate);
-	formData.append('host_username', score.playerLeft);
-	formData.append('player1', score.playerLeft);
-	formData.append('player2', score.playerRight);
-	formData.append('player1_score', score.scoreLeft);
-	formData.append('player2_score', score.scoreRight);
+	console.log((new Date() - score.startDate) / 1000);
+	formData.append('game_duration', (new Date() - score.startDate) / 1000);
+	formData.append('host_username', host_name);
+	formData.append('player1', host_name);
+	formData.append('player2', name_player2);
+	formData.append('player1_score', UI.leftScore);
+	formData.append('player2_score', UI.rightScore);
 
 	let csrfTokenValue = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
-	const request = new Request(pongDjangoUrl, {
+	const request = new Request(save_game, {
 		method: 'POST',
 		body: formData,
 		headers: { 'X-CSRFToken': csrfTokenValue }
