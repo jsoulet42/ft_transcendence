@@ -1,40 +1,41 @@
 // style_pong.scss
 
 nav-pong a {
-    border: 0.5vmin solid #072949;
-    border-radius: 0.5vmax;
+	border: 0.5vmin solid #072949;
+	border-radius: 0.5vmax;
 	background-color: rgba(0, 0, 0, 0.3);
 }
 
 #pongCanvas {
 	position: absolute;
-	top: 0%;
+	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	height: 40vh;
-	width: 40vw;
+	height: 60vh;
+	width: 60vw;
 	background-size: 100% 100%;
 	border-radius: 5vmin;
 	background: linear-gradient(180deg, #8360c3, #2ebf91);
 }
 
 #pongCanvas3D {
+	margin: auto;
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	background-color: white;
 	transform: translate(-50%, -50%);
 	border-radius: 5vmin;
-
 }
+
 
 $carousel-indicator-height: 3px;
 
 
 .buttonInPlay {
-    width: 20vw;
-    height: 30vh;
-    border-radius: 15px;
+	width: 20vw;
+	height: 30vh;
+	border-radius: 15px;
 }
 
 .center-text {
@@ -85,17 +86,19 @@ $carousel-indicator-height: 3px;
 
 .pulse:hover,
 .pulse:focus {
-  animation: pulse 1s;
-  box-shadow: 0 0 0 2em transparent;
+	animation: pulse 1s;
+	box-shadow: 0 0 0 2em transparent;
 }
 
 .pulse {
 	--color: #84f3d9;
 	--hover: #e677f5;
-  }
+}
 
 @keyframes pulse {
-  0% { box-shadow: 0 0 0 0 var(--hover); }
+	0% {
+		box-shadow: 0 0 0 0 var(--hover);
+	}
 }
 
 .button_2vs2 {
@@ -106,11 +109,11 @@ $carousel-indicator-height: 3px;
 	border: transparent;
 }
 
-  @keyframes slidebg {
+@keyframes slidebg {
 	to {
-	  background-position:20vw;
+		background-position: 20vw;
 	}
-  }
+}
 
 #text_btn {
 	font-size: 10vh;
@@ -122,7 +125,7 @@ $carousel-indicator-height: 3px;
 	outline-color: rgba(255, 255, 255, 0);
 	outline-offset: 15px;
 	text-shadow: 1px 1px 2px #427388;
-  }
+}
 
 //4joueurs
 
@@ -163,7 +166,7 @@ $carousel-indicator-height: 3px;
     background-color: black;
 	color: white;
 	border-color: violet;
-	box-shadow: 0 0 0 0.2rem rgba(255, 0, 255, 0.467); 
+	box-shadow: 0 0 0 0.2rem rgba(255, 0, 255, 0.467);
 }
 
 //.player_three {
@@ -189,11 +192,11 @@ $carousel-indicator-height: 3px;
 	border: 0.5rem solid violet;
 	overflow: hidden;
   }
-  
+
   .glitch_anim{
 	animation: glitch 1s linear infinite, neon-glow1 1.5s ease-in-out infinite alternate;
   }
-  
+
   @keyframes glitch{
 	2%,64%{
 	  transform: translate(2px,0) skew(0deg);
@@ -202,10 +205,10 @@ $carousel-indicator-height: 3px;
 	  transform: translate(-2px,0) skew(0deg);
 	}
 	62%{
-	  transform: translate(0,0) skew(5deg); 
+	  transform: translate(0,0) skew(5deg);
 	}
   }
-  
+
   .glitch_anim:before,
   .glitch_anim:after{
 	content: attr(data-text);
@@ -216,13 +219,13 @@ $carousel-indicator-height: 3px;
 	font-size:11vh;
 	animation: neon-glow1 1.5s ease-in-out infinite alternate;
   }
-  
+
   .glitch_anim:before{
 	animation: glitchTop 1s linear infinite;
 	clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
 	-webkit-clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
   }
-  
+
   @keyframes glitchTop{
 	2%,64%{
 	  transform: translate(2px,-2px);
@@ -231,16 +234,16 @@ $carousel-indicator-height: 3px;
 	  transform: translate(-2px,2px);
 	}
 	62%{
-	  transform: translate(13px,-1px) skew(-13deg); 
+	  transform: translate(13px,-1px) skew(-13deg);
 	}
   }
-  
+
   .glitch_anim:after{
 	animation: glitchBotom 1.5s linear infinite;
 	clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
 	-webkit-clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
   }
-  
+
   @keyframes glitchBotom{
 	2%,64%{
 	  transform: translate(-2px,0);
@@ -249,6 +252,6 @@ $carousel-indicator-height: 3px;
 	  transform: translate(-2px,0);
 	}
 	62%{
-	  transform: translate(-22px,5px) skew(21deg); 
+	  transform: translate(-22px,5px) skew(21deg);
 	}
-  }
+}

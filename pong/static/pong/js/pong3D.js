@@ -1,8 +1,12 @@
+{/* <canvas id="pongCanvas3D"></canvas>
+<script type="module" src="{% static 'pong/js/pong3D.js' %}" defer></script> */}
+
+
 import * as THREE from 'three';
 
 window.canvas = document.getElementById('pongCanvas3D');
 
-const renderer = new THREE.WebGLRenderer({ canvas: window.canvas });
+const renderer = new THREE.WebGLRenderer({ canvas: canvas });
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight);
 
@@ -18,6 +22,52 @@ renderer.setSize(window.window.innerWidth / 2, window.innerHeight / 2);
 renderer.setClearColor('black', 1);
 
 scene.add(light);
+
+
+//#region Resize
+
+function resizeRendererToDisplaySize(renderer) {
+	const canvas = renderer.domElement;
+	const width = canvas.clientWidth;
+	const height = canvas.clientHeight;
+	// const width = window.innerWidth / 2;
+	// const height = window.innerHeight / 2;
+	const needResize = canvas.width !== width || canvas.height !== height;
+	if (needResize) {
+		renderer.setSize(width, height, false);
+	}
+	return needResize;
+}
+
+// #pongCanvas3D {
+// 	position: absolute;
+// 	top: 50%;
+// 	left: 50%;
+// 	background-color: white;
+// 	transform: translate(-50%, -50%);
+// 	border-radius: 5vmin;
+// }
+
+// /* Apply these styles when the window is at least 768px wide */
+// @media (min-width: 768px) {
+// 	#pongCanvas3D {
+// 		width: 75%;
+// 		height: 75%;
+// 		transform: translate(-50%, -50%);
+// 	}
+// }
+
+// /* Apply these styles when the window is less than 768px wide */
+// @media (max-width: 767px) {
+// 	#pongCanvas3D {
+// 		width: 100%;
+// 		height: 100%;
+// 		transform: translate(-50%, -50%);
+// 	}
+// }
+
+
+//#endregion
 
 function rotationLight() {
 	light.rotation.x += 0.01;
@@ -107,19 +157,19 @@ class tablePongClass {
 		this.geometry = new THREE.BoxGeometry(width, height, depth);
 
 		// Create a gradient texture
-		const canvas = document.createElement('canvas');
-		canvas.width = 128;
-		canvas.height = 128;
-		const context = canvas.getContext('2d');
+		const tableCanvas = document.createElement('canvas');
+		tableCanvas.width = 256;
+		tableCanvas.height = 256;
+		const context = tableCanvas.getContext('2d');
 
-		const gradient = context.createLinearGradient(0, 0, canvas.width, canvas.height);
+		const gradient = context.createLinearGradient(0, 0, tableCanvas.width, tableCanvas.height);
 		gradient.addColorStop(0, 'red'); // Start color
 		gradient.addColorStop(1, 'blue'); // End color
 
 		context.fillStyle = gradient;
-		context.fillRect(0, 0, canvas.width, canvas.height);
+		context.fillRect(0, 0, tableCanvas.width, tableCanvas.height);
 
-		const texture = new THREE.CanvasTexture(canvas);
+		const texture = new THREE.CanvasTexture(tableCanvas);
 
 		this.material = new THREE.MeshBasicMaterial({ map: texture });
 
@@ -159,7 +209,11 @@ class PaddleClasse {
 			this.geometry = new THREE.BoxGeometry(width, height, depth);
 			this.material = new THREE.MeshBasicMaterial({ map: texture });
 			this.mesh = new THREE.Mesh(this.geometry, this.material);
-			this.mesh.position.set(x, y, z);
+			const tableWidth = tablePong.geometry.parameters.width;
+			if (x == "left")
+				this.mesh.position.set(-tableWidth / 2 + width, y, z);
+			else if (x == "right")
+				this.mesh.position.set(tableWidth / 2 - width, y, z);
 
 			scene.add(this.mesh);
 		});
@@ -269,9 +323,9 @@ class ballClasse {
 
 const pongTable = new tablePongClass(0, 0, 0, 26, 13.7, 0.5, 0xffff00, scene);
 const manager = new managerPong();
-const paddleLeft = new PaddleClasse(-11.5, 0, 0, 0.5, 3, 1, 0xff0000, scene, 0.1, pongTable); // Red paddle on the left
-const paddleRight = new PaddleClasse(11.5, 0, 0, 0.5, 3, 1, 0x0000ff, scene, 0.1, pongTable); // Blue paddle on the right
-const ball = new ballClasse(0, 0, 0, 0.05, 0.5, "black", scene); // Green ball in the middle
+const paddleLeft = new PaddleClasse("left", 0, 0, 0.5, 3, 1, 0xff0000, scene, 0.1, pongTable); // Red paddle on the left
+const paddleRight = new PaddleClasse("right", 0, 0, 0.5, 3, 1, 0x0000ff, scene, 0.1, pongTable); // Blue paddle on the right
+const ball = new ballClasse(0, 0, 0, 0.5, 0.5, "black", scene); // Green ball in the middle
 
 async function sleep(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
@@ -294,10 +348,48 @@ async function resetBallAfterGoal() {
 	ball.directionx *= -1;
 	ball.directiony = 0;
 	ball.speed = speedtemp;
+	sendScoreToBackend(score);
 }
+
+
+//#region request back-end
+
+
+
+function sendScoreToBackend(score) {
+	let formData = new FormData();
+	formData.append('playerRight', score.playerRight);
+	formData.append('playerLeft', score.playerLeft);
+	formData.append('scoreRight', score.scoreRight);
+	formData.append('scoreLeft', score.scoreLeft);
+	formData.append('startDate', score.startDate);    
+	formData.append('startTime', score.startTime);
+	formData.append('timeNow', score.timeNow);
+
+	let csrfTokenValue = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+	const request = new Request(pongDjangoUrl, {
+		method: 'POST',
+		body: formData,
+		headers: { 'X-CSRFToken': csrfTokenValue }
+	});
+
+	fetch(request)
+		.then(response => response.json())
+		.then(result => {
+			console.log(result); // Vous pouvez traiter le résultat ici
+		})
+		.catch(error => {
+			console.error(`Fetch error: ${error.message}`);
+		});
+}
+
+
+//#endregion
 
 function loop() {
 	requestAnimationFrame(loop);
+	renderer.render(scene, camera);
 
 	if (!manager.pauseBool) {
 		ball.move();
@@ -306,15 +398,20 @@ function loop() {
 		ball.checkTableLeftRightCollision();
 		displayTimeNow();
 	}
+	// if(resizeRendererToDisplaySize(renderer)){
+	// 	const canvas = renderer.domElement;
+	// 	camera.aspect = canvas.clientWidth / canvas.clientHeight;
+	// 	camera.updateProjectionMatrix();
+	// }
+
 	rotationLight();
 	listenInput();
-	renderer.render(scene, camera);
 }
 
 let score = {
 
-	playerRight: "Player 2",
 	playerLeft: "Player 1",
+	playerRight: "Player 2",
 	scoreRight: 0,
 	scoreLeft: 0,
 	startDate: null,
@@ -328,7 +425,7 @@ function Start() {
 	console.log("La partie à commencé à : " + score.startDate.toLocaleString());
 	displayScore1();
 	displayScore2();
-	updateCountdown();
+	displayCountdown();
 
 	ball.setPaddles(paddleLeft, paddleRight);
 	loop();
@@ -347,31 +444,32 @@ function updatePartyDuration() {
 
 let countdownValue = 4; // Start countdown at 10 seconds
 const countdownElement = document.createElement('div');
-
-countdownElement.style.position = 'absolute';
-countdownElement.style.top = '50%';
-countdownElement.style.left = '50%';
-countdownElement.style.transform = 'translate(-50%, -50%)';
-countdownElement.style.fontSize = '20vh';
-countdownElement.style.color = 'white';
+const scoreElement = document.createElement('div');
+const scoreElement2 = document.createElement('div');
+const rect = canvas.getBoundingClientRect();
+const timeElement = document.createElement('div');
 
 document.body.appendChild(countdownElement);
 
-function updateCountdown() {
+function displayCountdown() {
 	ball.directionx = 0;
 	ball.directiony = 0;
 	countdownValue--;
+	countdownElement.style.position = 'absolute';
+	countdownElement.style.top = '50%';
+	countdownElement.style.left = '50%';
+	countdownElement.style.transform = 'translate(-50%, -50%)';
+	countdownElement.style.fontSize = '20vh';
+	countdownElement.style.color = 'white';
+	countdownElement.style.zIndex = '2';
 
 	if (countdownValue < 0) {
 		countdownValue = 0;
 	}
-
-	// Update the countdown element's text to display the new countdown value
 	countdownElement.textContent = Math.ceil(countdownValue).toString();
 
 	if (countdownValue > 0) {
-		// Call updateCountdown again after 1 second
-		setTimeout(updateCountdown, 1000);
+		setTimeout(displayCountdown, 1000);
 	}
 	else {
 		countdownElement.textContent = "";
@@ -379,37 +477,31 @@ function updateCountdown() {
 		ball.directiony = 0;
 	}
 }
-
-const rect = canvas.getBoundingClientRect();
-const scoreElement = document.createElement('div');
-const scoreElement2 = document.createElement('div');
-const timeElement = document.createElement('div');
-
 function displayScore1() {
 
 	scoreElement.innerHTML = `
 	<p>${score.playerRight}: ${score.scoreRight}</p>`;
 
-	scoreElement.style.position = 'relative';
-    scoreElement.style.top = `${rect.top + rect.height * 0.02}px`; // Utilisez des guillemets inversés ici
-    scoreElement.style.left = `${rect.left + rect.width * 0.8}px`;
-	scoreElement.style.fontSize = '2em';
+	scoreElement.style.position = 'absolute';
+	scoreElement.style.top = `${rect.top + rect.height * 0.02}px`;
+	scoreElement.style.left = `${rect.left + rect.width * 0.8}px`;
+	scoreElement.style.fontSize = '3em';
 	scoreElement.style.color = 'white';
+	scoreElement.style.zIndex = '2';
 
 	document.body.appendChild(scoreElement);
 }
-
 function displayScore2() {
 
 	scoreElement2.innerHTML = `
-	<p>${score.playerLeft}: ${score.scoreLeft}</p>
-    `;
+	<p>${score.playerLeft}: ${score.scoreLeft}</p>`;
 
 	scoreElement2.style.position = 'absolute';
-    scoreElement2.style.top = `${rect.top + rect.height * 0.02}px`; // Utilisez des guillemets inversés ici
-    scoreElement2.style.left = `${rect.left + rect.width * 0.02}px`;
-	scoreElement2.style.fontSize = '2em';
+	scoreElement2.style.top = `${rect.top + rect.height * 0.02}px`;
+	scoreElement2.style.left = `${rect.left + rect.width * 0.02}px`;
+	scoreElement2.style.fontSize = '3em';
 	scoreElement2.style.color = 'white';
+	scoreElement2.style.zIndex = '2';
 
 	document.body.appendChild(scoreElement2);
 }
@@ -423,10 +515,10 @@ function displayTimeNow() {
 	timeElement.style.left = `${rect.left + rect.width * 0.4}px`;
 	timeElement.style.fontSize = '2em';
 	timeElement.style.color = 'white';
+	timeElement.style.zIndex = '2';
 
 	document.body.appendChild(timeElement);
 }
 
 //#endregion
-
 Start();
