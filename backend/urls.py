@@ -4,7 +4,7 @@ from .views import get_user_name, test_game, save_game, test_tournament, save_to
 urlpatterns = [
 	path('api/user/<int:user_id>/name/', get_user_name),
 	path('game_test/', test_game),
-	path('game_save/', save_game),
+	path('game_save/', save_game, name='game_save'),
 	path('tournament_test/', test_tournament),
-	path('tournament_save/', save_tournament),
+	path('tournament_save/', save_tournament, name='tournament_save'),
 ]
