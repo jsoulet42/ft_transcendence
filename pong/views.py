@@ -30,10 +30,10 @@ def huitjoueurs(request):
 		return render(request, '8joueurs_block.html')
 	return render(request, '8joueurs.html')
 
-@csrf_exempt
-@login_required
+
 def pongDjango(request):
-	print(request.POST)
+	for key, value in request.POST.items():
+		print(f'{key}: {value}')
 
 	return JsonResponse({ 'message': 'pongDjango' })
 

@@ -1,8 +1,8 @@
 // style_pong.scss
 
 nav-pong a {
-    border: 0.5vmin solid #072949;
-    border-radius: 0.5vmax;
+	border: 0.5vmin solid #072949;
+	border-radius: 0.5vmax;
 	background-color: rgba(0, 0, 0, 0.3);
 }
 
@@ -19,22 +19,23 @@ nav-pong a {
 }
 
 #pongCanvas3D {
+	margin: auto;
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	background-color: white;
 	transform: translate(-50%, -50%);
 	border-radius: 5vmin;
-
 }
+
 
 $carousel-indicator-height: 3px;
 
 
 .buttonInPlay {
-    width: 20vw;
-    height: 30vh;
-    border-radius: 15px;
+	width: 20vw;
+	height: 30vh;
+	border-radius: 15px;
 }
 
 .center-text {
@@ -85,17 +86,19 @@ $carousel-indicator-height: 3px;
 
 .pulse:hover,
 .pulse:focus {
-  animation: pulse 1s;
-  box-shadow: 0 0 0 2em transparent;
+	animation: pulse 1s;
+	box-shadow: 0 0 0 2em transparent;
 }
 
 .pulse {
 	--color: #84f3d9;
 	--hover: #e677f5;
-  }
+}
 
 @keyframes pulse {
-  0% { box-shadow: 0 0 0 0 var(--hover); }
+	0% {
+		box-shadow: 0 0 0 0 var(--hover);
+	}
 }
 
 .button_2vs2 {
@@ -106,11 +109,11 @@ $carousel-indicator-height: 3px;
 	border: transparent;
 }
 
-  @keyframes slidebg {
+@keyframes slidebg {
 	to {
-	  background-position:20vw;
+		background-position: 20vw;
 	}
-  }
+}
 
 #text_btn {
 	font-size: 10vh;
@@ -122,7 +125,7 @@ $carousel-indicator-height: 3px;
 	outline-color: rgba(255, 255, 255, 0);
 	outline-offset: 15px;
 	text-shadow: 1px 1px 2px #427388;
-  }
+}
 
 //4joueurs
 
@@ -160,27 +163,25 @@ $carousel-indicator-height: 3px;
 //	width: 20%;
 //}
 
-  .carousel_container {
+.carousel_container {
 	width: 50%;
 	height: 50%;
 	left: 25%;
-  }
+}
 
-  @font-face {
+@font-face {
 	font-family: Clip;
 	src: url("https://acupoftee.github.io/fonts/Clip.ttf");
-  }
+}
 
-  .sign {
+.sign {
 	position: absolute;
 	display: inline-block;
 	width: 50%;
 	height: 50%;
-	background-image: radial-gradient(
-	  ellipse 50% 35% at 50% 50%,
-	  #6b1839,
-	  transparent
-	);
+	background-image: radial-gradient(ellipse 50% 35% at 50% 50%,
+			#6b1839,
+			transparent);
 	transform: translate(-50%, -50%);
 	letter-spacing: 2;
 	left: 50%;
@@ -190,176 +191,180 @@ $carousel-indicator-height: 3px;
 	font-size: 10vh;
 	color: #ffe6ff;
 	text-shadow: 0 0 0.6rem #ffe6ff, 0 0 1.5rem #ff65bd,
-	  -0.2rem 0.1rem 1rem #ff65bd, 0.2rem 0.1rem 1rem #ff65bd,
-	  0 -0.5rem 2rem #ff2483, 0 0.5rem 3rem #ff2483;
+		-0.2rem 0.1rem 1rem #ff65bd, 0.2rem 0.1rem 1rem #ff65bd,
+		0 -0.5rem 2rem #ff2483, 0 0.5rem 3rem #ff2483;
 	animation: shine 2s forwards, flicker 3s infinite;
-  }
+}
 
-  @keyframes blink {
+@keyframes blink {
+
 	0%,
 	22%,
 	36%,
 	75% {
-	  color: #ffe6ff;
-	  text-shadow: 0 0 0.6rem #ffe6ff, 0 0 1.5rem #ff65bd,
-		-0.2rem 0.1rem 1rem #ff65bd, 0.2rem 0.1rem 1rem #ff65bd,
-		0 -0.5rem 2rem #ff2483, 0 0.5rem 3rem #ff2483;
+		color: #ffe6ff;
+		text-shadow: 0 0 0.6rem #ffe6ff, 0 0 1.5rem #ff65bd,
+			-0.2rem 0.1rem 1rem #ff65bd, 0.2rem 0.1rem 1rem #ff65bd,
+			0 -0.5rem 2rem #ff2483, 0 0.5rem 3rem #ff2483;
 	}
+
 	28%,
 	33% {
-	  color: #ff65bd;
-	  text-shadow: none;
+		color: #ff65bd;
+		text-shadow: none;
 	}
+
 	82%,
 	97% {
-	  color: #ff2483;
-	  text-shadow: none;
+		color: #ff2483;
+		text-shadow: none;
 	}
-  }
+}
 
-  .flicker {
+.flicker {
 	animation: shine 2s forwards, blink 3s 2s infinite;
-  }
+}
 
-  .fast-flicker {
+.fast-flicker {
 	animation: shine 2s forwards, blink 10s 1s infinite;
-  }
+}
 
-  @keyframes shine {
+@keyframes shine {
 	0% {
-	  color: #6b1839;
-	  text-shadow: none;
+		color: #6b1839;
+		text-shadow: none;
 	}
-	100% {
-	  color: #ffe6ff;
-	  text-shadow: 0 0 0.6rem #ffe6ff, 0 0 1.5rem #ff65bd,
-		-0.2rem 0.1rem 1rem #ff65bd, 0.2rem 0.1rem 1rem #ff65bd,
-		0 -0.5rem 2rem #ff2483, 0 0.5rem 3rem #ff2483;
-	}
-  }
 
-  @keyframes flicker {
+	100% {
+		color: #ffe6ff;
+		text-shadow: 0 0 0.6rem #ffe6ff, 0 0 1.5rem #ff65bd,
+			-0.2rem 0.1rem 1rem #ff65bd, 0.2rem 0.1rem 1rem #ff65bd,
+			0 -0.5rem 2rem #ff2483, 0 0.5rem 3rem #ff2483;
+	}
+}
+
+@keyframes flicker {
 	from {
-	  opacity: 1;
+		opacity: 1;
 	}
 
 	4% {
-	  opacity: 0.9;
+		opacity: 0.9;
 	}
 
 	6% {
-	  opacity: 0.85;
+		opacity: 0.85;
 	}
 
 	8% {
-	  opacity: 0.95;
+		opacity: 0.95;
 	}
 
 	10% {
-	  opacity: 0.9;
+		opacity: 0.9;
 	}
 
 	11% {
-	  opacity: 0.922;
+		opacity: 0.922;
 	}
 
 	12% {
-	  opacity: 0.9;
+		opacity: 0.9;
 	}
 
 	14% {
-	  opacity: 0.95;
+		opacity: 0.95;
 	}
 
 	16% {
-	  opacity: 0.98;
+		opacity: 0.98;
 	}
 
 	17% {
-	  opacity: 0.9;
+		opacity: 0.9;
 	}
 
 	19% {
-	  opacity: 0.93;
+		opacity: 0.93;
 	}
 
 	20% {
-	  opacity: 0.99;
+		opacity: 0.99;
 	}
 
 	24% {
-	  opacity: 1;
+		opacity: 1;
 	}
 
 	26% {
-	  opacity: 0.94;
+		opacity: 0.94;
 	}
 
 	28% {
-	  opacity: 0.98;
+		opacity: 0.98;
 	}
 
 	37% {
-	  opacity: 0.93;
+		opacity: 0.93;
 	}
 
 	38% {
-	  opacity: 0.5;
+		opacity: 0.5;
 	}
 
 	39% {
-	  opacity: 0.96;
+		opacity: 0.96;
 	}
 
 	42% {
-	  opacity: 1;
+		opacity: 1;
 	}
 
 	44% {
-	  opacity: 0.97;
+		opacity: 0.97;
 	}
 
 	46% {
-	  opacity: 0.94;
+		opacity: 0.94;
 	}
 
 	56% {
-	  opacity: 0.9;
+		opacity: 0.9;
 	}
 
 	58% {
-	  opacity: 0.9;
+		opacity: 0.9;
 	}
 
 	60% {
-	  opacity: 0.99;
+		opacity: 0.99;
 	}
 
 	68% {
-	  opacity: 1;
+		opacity: 1;
 	}
 
 	70% {
-	  opacity: 0.9;
+		opacity: 0.9;
 	}
 
 	72% {
-	  opacity: 0.95;
+		opacity: 0.95;
 	}
 
 	93% {
-	  opacity: 0.93;
+		opacity: 0.93;
 	}
 
 	95% {
-	  opacity: 0.95;
+		opacity: 0.95;
 	}
 
 	97% {
-	  opacity: 0.93;
+		opacity: 0.93;
 	}
 
 	to {
-	  opacity: 1;
+		opacity: 1;
 	}
-  }
+}

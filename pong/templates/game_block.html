@@ -7,11 +7,13 @@
 	{{ user.username }}
 </p>
 
+<script>
+    var pongDjangoUrl = '{% url "pongDjango" %}';
+</script>
 
 
-<form id="csrfForm" style="display: none;">
-    {% csrf_token %}
-</form>
+<canvas>pongCanvas</canvas>
+<script src="{% static 'pong/pong.js' %}"></script>
 
-<canvas id="pongCanvas3D"></canvas>
-<script type="module" src="{% static 'pong/js/pong3D.js' %}" defer></script>
+
+
