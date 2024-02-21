@@ -8,13 +8,13 @@
 	<div id="choice-div" class="rounded-5 border border-info border-3">
 		<img id="choice-img" class="rounded-5 border border-info border-3" src="{{ user.profile_image_path }}" alt="player-profile">
 	</div>
-	<h4 class="h4lol"><br>
-		GAME PLAYED :
+	<h3 class="h4lol"><br>
+		GAME PLAYED : {{ user.stats.games_played }}<br><br>
 		<br><br><br>
-		WIN COUNT :
+		WIN COUNT : {{ user.stats.wins }}<br><br>
         <br><br><br>
-        LOOSE COUNT :
-	</h4>
+        LOOSE COUNT : {{ user.stats.losses }}<br><br>
+	</h3>
     <div id="profile-leftside">
         <button type="button" class="bottom-edit btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
         Edit image
