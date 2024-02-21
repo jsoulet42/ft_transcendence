@@ -14,16 +14,16 @@ def get_user_name(request, user_id):
 
 def test_tournament(request):
 	data = {
-		'host_username': 'jsoulet',
+		'host_username': 'lolefevr',
 		'tournament_name': 'test',
 		'date': '2020-12-12',
 		'players_count': 4,
-		'leaderboard': ['jsoulet', 'pos2', 'pos3', 'pos4'],
+		'leaderboard': ['pos1', 'pos2', 'lolefevr', 'pos4'],
 		'games': [
 			{
 				'game_duration': '00:10:00',
-				'host': 'jsoulet',
-				'player1': 'jsoulet',
+				'host': 'lolefevr',
+				'player1': 'lolefevr',
 				'player2': 'pos2',
 				'player1_score': 2,
 				'player2_score': 1,
@@ -33,8 +33,8 @@ def test_tournament(request):
 				'host': None,
 				'player1': 'pos3',
 				'player2': 'pos4',
-				'player1_score': 2,
-				'player2_score': 1,
+				'player1_score': 5,
+				'player2_score': 4,
 			},
 		]
 	}
@@ -45,6 +45,7 @@ def test_tournament(request):
 		return JsonResponse({'error': 'Could not save tournament'})
 	return JsonResponse(response.json())
 
+@csrf_exempt
 def save_game(request):
 	if request.method == 'POST':
 		data = json.loads(request.body)
@@ -68,8 +69,8 @@ def save_game(request):
 			player2=player2,
 			player1_score=player1_score,
 			player2_score=player2_score,
+			tournament=None,
 		)
-		game.save()
 		host.games.add(game)
 		host.stats.games_played += 1
 
@@ -123,8 +124,9 @@ def save_tournament(request):
 				player1_score=game.get('player1_score'),
 				player2_score=game.get('player2_score'),
 			)
-			game.save()
 
+			game.tournament = tournament
+			game.save()
 			if game.host is not None:
 				host.games.add(game)
 				host.stats.games_played += 1
@@ -140,10 +142,28 @@ def save_tournament(request):
 						host.stats.losses += 1
 
 			tournament.games.add(game)
-		leaderboard.save()
+
 		host.stats.tournaments_played += 1
+		host.tournaments.add(tournament)
+		leaderboard.save()
 		host.stats.save()
-		tournament.save()
+		host.save()
 		return JsonResponse({'success': 'Tournament saved'})
 
 	return JsonResponse({'error': 'Tournament not saved'})
+
+def test_game(request):
+	data = {
+		'game_duration': '00:10:00',
+		'host_username': 'lolefevr',
+		'player1': 'lolefevr',
+		'player2': 'pos2',
+		'player1_score': 2,
+		'player2_score': 1,
+	}
+	headers = {'Content-Type': 'application/json'}
+	response = requests.post('http://localhost:8000/backend/game/save/', data=json.dumps(data), headers=headers)
+
+	if response.status_code / 100 != 2:
+		return JsonResponse({'error': 'Could not save game'})
+	return JsonResponse(response.json())

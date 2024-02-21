@@ -1,4 +1,4 @@
-from backend.models import CustomUser, Stats, UsersList, Game, Tournament
+from backend.models import CustomUser, UsersList, Stats, Game, Tournament, Leaderboard
 from django.contrib import admin
 
 # Register your models here.
@@ -15,12 +15,6 @@ class userAdmin(admin.ModelAdmin):
 	search_fields = ("username", )
 
 
-@admin.register(Stats)
-class StatsAdmin(admin.ModelAdmin):
-	list_display = ("user", "games_played", "tournaments_played", "wins", "losses")
-	search_fields = ("user",)
-
-
 @admin.register(UsersList)
 class UsersListAdmin(admin.ModelAdmin):
 	list_display = ("name", "get_users_name")
@@ -32,9 +26,15 @@ class UsersListAdmin(admin.ModelAdmin):
 	get_users_name.short_description = "Usernames"
 
 
+@admin.register(Stats)
+class StatsAdmin(admin.ModelAdmin):
+	list_display = ("user", "games_played", "tournaments_played", "wins", "losses")
+	search_fields = ("user",)
+
+
 @admin.register(Game)
 class GameAdmin(admin.ModelAdmin):
-	list_display = ("host", "game_duration", "player1", "player2", "player1_score", "player2_score")
+	list_display = ("host", "game_duration", "player1", "player2", "player1_score", "player2_score", "tournament")
 	search_fields = ("host", "player1", "player2")
 
 
@@ -47,3 +47,14 @@ class TournamentAdmin(admin.ModelAdmin):
 		return " | ".join(obj.leaderboard.get_usernames())
 
 	get_players_name.short_description = "Leaderboard"
+
+
+@admin.register(Leaderboard)
+class LeaderboardAdmin(admin.ModelAdmin):
+	list_display = ("host", "get_usernames")
+	search_fields = ("host",)
+
+	def get_usernames(self, obj):
+		return " | ".join(obj.get_usernames())
+
+	get_usernames.short_description = "Usernames"
