@@ -30,20 +30,12 @@ def huitjoueurs(request):
 		return render(request, '8joueurs_block.html')
 	return render(request, '8joueurs.html')
 
-@csrf_exempt
-@login_required
-def pongDjango(request):
-	print(request.POST)
-	function1()
-	a = request.POST.get("p1")
-	b = request.POST.get("p2")
-	if a is None:
-		a = 0
-	if b is None:
-		b = 0
-	result = int(a) + int(b)
-	return JsonResponse({"operation_result": result})
 
+def pongDjango(request):
+	for key, value in request.POST.items():
+		print(f'{key}: {value}')
+
+	return JsonResponse({ 'message': 'pongDjango' })
 
 def function1():
 	print("Django sa mere")
