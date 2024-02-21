@@ -153,6 +153,9 @@ def save_tournament(request):
 	return JsonResponse({'error': 'Tournament not saved'})
 
 def test_game(request):
+	request.POST.items()
+
+
 	data = {
 		'game_duration': '00:10:00',
 		'host_username': 'lolefevr',

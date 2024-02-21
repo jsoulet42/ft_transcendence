@@ -624,3 +624,44 @@ function run() {
 run();
 
 //#endregion
+
+
+//#region request backend
+
+let score = {
+	playerLeft: "Player 1",
+	playerRight: "Player 2",
+	scoreLeft: 0,
+	scoreRight: 0,
+	startDate: new Date(),
+	startTime: new Date()
+}
+
+
+function sendScoreToBackend(score) {
+	let formData = new FormData();
+	formData.append('game_duration', new Date() - score.startDate);
+	formData.append('host_username', score.playerLeft);
+	formData.append('player1', score.playerLeft);
+	formData.append('player2', score.playerRight);
+	formData.append('player1_score', score.scoreLeft);
+	formData.append('player2_score', score.scoreRight);
+
+	let csrfTokenValue = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+	const request = new Request(pongDjangoUrl, {
+		method: 'POST',
+		body: formData,
+		headers: { 'X-CSRFToken': csrfTokenValue }
+	});
+
+	fetch(request)
+		.then(response => response.json())
+		.then(result => {
+			console.log(result); // Vous pouvez traiter le résultat ici
+		})
+		.catch(error => {
+			console.error(`Fetch error: ${error.message}`);
+		});
+}
+//#endregion

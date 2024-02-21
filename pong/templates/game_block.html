@@ -10,10 +10,12 @@
 <script>
     var pongDjangoUrl = '{% url "pongDjango" %}';
 </script>
+<script>
+	var save_game = '{% url "save_game" %}';
+</script>
 
 
-<canvas>pongCanvas</canvas>
-<script src="{% static 'pong/pong.js' %}"></script>
-
+<canvas id="pongCanvas"></canvas>
+<script type="module" src="{% static 'pong/js/pong.js' %}" defer></script>
 
 

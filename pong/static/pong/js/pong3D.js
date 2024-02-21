@@ -362,7 +362,7 @@ function sendScoreToBackend(score) {
 	formData.append('playerLeft', score.playerLeft);
 	formData.append('scoreRight', score.scoreRight);
 	formData.append('scoreLeft', score.scoreLeft);
-	formData.append('startDate', score.startDate);
+	formData.append('startDate', score.startDate);    
 	formData.append('startTime', score.startTime);
 	formData.append('timeNow', score.timeNow);
 
