@@ -52,9 +52,20 @@ def update_image(request):
 
 def match_history(request):
 	form = ProfilePicForm()
-	latest_matches = Game.objects.all()[:10]
+	# user = request.user
+	# .order_by('-date')
+	latest_matches = Game.objects.filter(player1=request.user)[:10]
 	if request.META.get('HTTP_HX_REQUEST'):
 		return render(request, 'match_history.html', {'matches': latest_matches})
+	return render(request, 'profile.html', {'form':form})
+
+def tournaments_history(request):
+	form = ProfilePicForm()
+	# user = request.user
+	# .order_by('-date')
+	latest_matches = Game.objects.filter(player1=request.user, tournament__isnull=False)[:10]
+	if request.META.get('HTTP_HX_REQUEST'):
+		return render(request, 'tournaments_history.html', {'matches': latest_matches})
 	return render(request, 'profile.html', {'form':form})
 
 def update_profile(request):

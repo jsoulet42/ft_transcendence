@@ -1,7 +1,7 @@
 {%  load static %}
 <div class="tv-match-history">
-    <button type="button" class="bottom-edit3 btn btn-outline-info" hx-get="{% url 'tournaments_history' %}" hx-target="#main-container" hx-push-url="true">TOURNAMENTS HISTORY</button>
-    <h2 class="lol">  1 VS 1 History</h2>
+    <button type="button" class="bottom-edit3 btn btn-outline-info" hx-get="{% url 'match_history' %}" hx-target="#main-container" hx-push-url="true">1 VS 1 HISTORY</button>
+    <h2>Tournaments History</h2>
     <table class="table">
         <thead>
             <tr>
@@ -21,7 +21,6 @@
                 <td>{{ match.player2_score}}</td>
                 <td>{% if match.player1_score > match.player2_score %}Win{% else %}Loss{% endif %}</td>
             </tr>
-{#                if user.game.host == user.username#}
             {% endfor %}
         </tbody>
     </table>
