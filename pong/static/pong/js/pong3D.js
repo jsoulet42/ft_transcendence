@@ -522,35 +522,3 @@ function displayTimeNow() {
 
 //#endregion
 Start();
-
-
-
-
-
-/*
-<script>
-	document.addEventListener("DOMContentLoaded", function() {
-		// Fonction pour effectuer l'appel AJAX une fois que la page est chargée
-		function executeAjaxCall() {
-			console.log("executeAjaxCall");
-			let formData = new FormData();
-			formData.append('p1', "test1");
-			formData.append('p2', "test2");
-			let csrfTokenValue = document.querySelector('[name=csrfmiddlewaretoken]').value;
-			const request = new Request('{% url "pongDjango" %}',{
-				method: 'POST',
-				body: formData,
-				headers: { 'X-CSRFToken': csrfTokenValue }
-			});
-			fetch(request)
-				.then(response => response.json())
-				.catch(error => {
-					console.error('Fetch error:', error);
-				});
-		}
-
-		// Appel de la fonction une fois que la page est chargée
-		executeAjaxCall();
-	});
-</script>
-*/
