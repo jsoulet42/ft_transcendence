@@ -472,6 +472,8 @@ async function putBackBall(directionX) {
 	IATrajectory(ball.x, ball.y, ball.speedX, ball.speedY, 0);
 	IA.destYL = IA.destYRT + Math.random() * paddle.leftHeight - paddle.leftHeight / 2;
 	startUpdatingAI();
+
+	sendScoreToBackend(score);
 }
 
 function delay(ms) {
@@ -623,4 +625,49 @@ function run() {
 
 run();
 
+//#endregion
+
+
+//#region request backend
+
+let score = {
+	playerLeft: "Player 1",
+	playerRight: "Player 2",
+	scoreLeft: 0,
+	scoreRight: 0,
+	startDate: new Date(),
+	startTime: new Date()
+}
+
+let limit = 3;
+
+function sendScoreToBackend(score) {
+	if (limit-- <= 0)
+		return;
+	let formData = new FormData();
+	console.log((new Date() - score.startDate) / 1000);
+	formData.append('game_duration', (new Date() - score.startDate) / 1000);
+	formData.append('host_username', host_name);
+	formData.append('player1', score.playerLeft);
+	formData.append('player2', score.playerRight);
+	formData.append('player1_score', UI.leftScore);
+	formData.append('player2_score', UI.rightScore);
+
+	let csrfTokenValue = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+	const request = new Request(save_game, {
+		method: 'POST',
+		body: formData,
+		headers: { 'X-CSRFToken': csrfTokenValue }
+	});
+
+	fetch(request)
+		.then(response => response.json())
+		.then(result => {
+			console.log(result); // Vous pouvez traiter le résultat ici
+		})
+		.catch(error => {
+			console.error(`Fetch error: ${error.message}`);
+		});
+}
 //#endregion
