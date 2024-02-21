@@ -35,8 +35,7 @@
 					<img id="menu-friends-icon" class="img-fluid" src="{% static 'home/images/friends_icon.png' %}" alt="friends_icon">
 				</button>
 				<ul id="friends-dropdown" class="dropdown-menu">
-					<li><div class="dropdown-header">Requests</div></li>
-					<li><hr class="dropdown-divider"></li>
+					<div class="friend-requests-container"></div>
 					<li><div class="dropdown-header">Friends</div></li>
 					{% if not user.friends.exists %}
 						<li>You have no friends yet D:</li>
@@ -47,14 +46,15 @@
 					<li><hr class="dropdown-divider"></li>
 					<li>
 						<div class="btn-group">
-							{% comment %} <button class="dropdown-item btn btn-add" type="button" data-bs-toggle="modal" data-bs-target="#friend-request-modal"></button> {% endcomment %}
-							<button class="dropdown-item btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#friend-request-modal">
-								<img class="img-fluid menu-icon" src="{% static 'home/images/plus_icon.png' %}" alt="plus_icon">
-							</button>
-							<button class="dropdown-item btn btn-secondary" type="button" href="{% url 'logout' %}" hx-post="{% url 'logout' %}" hx-target="body" hx-push-url="/" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }'>
-								<img class="img-fluid menu-icon" src="{% static 'home/images/refresh_icon.png' %}" alt="refresh_icon">
-							</button>
+							<button class="dropdown-item btn btn-add mx-4" type="button" data-bs-toggle="modal" data-bs-target="#friend-request-modal"></button>
+							<button class="dropdown-item btn btn-refresh mx-4" type="button" data-bs-toggle="modal" data-bs-target="#friend-request-modal"></button>
 						</div>
+							{% comment %} <button class="dropdown-item btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#friend-request-modal">
+								<img class="img-fluid menu-icon" src="{% static 'home/images/plus_icon.png' %}" alt="plus_icon">
+							</button> {% endcomment %}
+							{% comment %} <button class="dropdown-item btn btn-secondary" type="button" href="{% url 'logout' %}" hx-post="{% url 'logout' %}" hx-target="body" hx-push-url="/" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }'>
+								<img class="img-fluid menu-icon" src="{% static 'home/images/refresh_icon.png' %}" alt="refresh_icon">
+							</button> {% endcomment %}
 					</li>
 				</ul>
 			</div>
@@ -73,19 +73,27 @@
 			.then(response => response.json())
 			.then(data => {
 				const dropdownMenu = document.getElementById('friends-dropdown');
+				const friend_requests_container = dropdownMenu.querySelector('.friend-requests-container');
+
 				if (data.length === 0) {
-					const listItem = `<li>No friend requests</li>`;
-					dropdownMenu.insertAdjacentHTML('afterbegin', listItem);
+					friend_requests_container.innerHTML = `<li>No friend requests</li>`;
 				} else {
+					const header = `<li><div class="dropdown-header">Requests</div></li>`;
+					const divider = `<li><hr class="dropdown-divider"></li>`;
+
+					friend_requests_container.innerHTML = '';
+					friend_requests_container.insertAdjacentHTML('afterbegin', header);
+					
 					data.forEach(request => {
 						const listItem = `<li>`
 							+ `<span>${request.username}</span>`
-							+ `<button type="button" class="btn-add float-right" aria-label="Close">`
-							+ `<img class="img-fluid menu-icon" src="{% static 'home/images/plus_icon.png' %}" alt="plus_icon">`
-							+ `</button>`
+							+ `<button type="button" class="btn btn-add" aria-label="Accept"></button>`
+							+ `<button type="button" class="btn btn-deny" aria-label="Deny"></button>`
 							+ `</li>`;
-						dropdownMenu.insertAdjacentHTML('afterbegin', listItem);
+						friend_requests_container.insertAdjacentHTML('beforeEnd', listItem);
 					});
+
+					friend_requests_container.insertAdjacentHTML('beforeEnd', divider);
 				}
 			})
 			.catch(error => console.error('Error fetching friend requests:', error));
