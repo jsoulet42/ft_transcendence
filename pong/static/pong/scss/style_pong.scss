@@ -185,9 +185,9 @@ $carousel-indicator-height: 3px;
 //}
 
   .carousel_container {
-	width: 60%;
+	width: 55%;
 	height: 50%;
-	left: 20%;
+	left: 23%;
 	border-radius: 5rem;
 	border: 0.5rem solid violet;
 	overflow: hidden;
@@ -254,4 +254,18 @@ $carousel-indicator-height: 3px;
 	62%{
 	  transform: translate(-22px,5px) skew(21deg);
 	}
+
+//8 players css
+
+#eight_players_containers {
+	top: 0%;
+}
+
+.eightplayers_text {
+	text-align: center;
+	color: white;
+}
+
+.form_eightplayers {
+	color: black;
 }
