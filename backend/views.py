@@ -45,6 +45,7 @@ def test_tournament(request):
 		return JsonResponse({'error': 'Could not save tournament'})
 	return JsonResponse(response.json())
 
+@csrf_exempt
 def save_game(request):
 	if request.method == 'POST':
 		data = json.loads(request.body)
@@ -68,8 +69,8 @@ def save_game(request):
 			player2=player2,
 			player1_score=player1_score,
 			player2_score=player2_score,
+			tournament=None,
 		)
-		game.save()
 		host.games.add(game)
 		host.stats.games_played += 1
 
@@ -125,7 +126,7 @@ def save_tournament(request):
 			)
 
 			game.tournament = tournament
-
+			game.save()
 			if game.host is not None:
 				host.games.add(game)
 				host.stats.games_played += 1
@@ -150,3 +151,19 @@ def save_tournament(request):
 		return JsonResponse({'success': 'Tournament saved'})
 
 	return JsonResponse({'error': 'Tournament not saved'})
+
+def test_game(request):
+	data = {
+		'game_duration': '00:10:00',
+		'host_username': 'lolefevr',
+		'player1': 'lolefevr',
+		'player2': 'pos2',
+		'player1_score': 2,
+		'player2_score': 1,
+	}
+	headers = {'Content-Type': 'application/json'}
+	response = requests.post('http://localhost:8000/backend/game/save/', data=json.dumps(data), headers=headers)
+
+	if response.status_code / 100 != 2:
+		return JsonResponse({'error': 'Could not save game'})
+	return JsonResponse(response.json())

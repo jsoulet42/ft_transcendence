@@ -34,7 +34,7 @@ class StatsAdmin(admin.ModelAdmin):
 
 @admin.register(Game)
 class GameAdmin(admin.ModelAdmin):
-	list_display = ("host", "game_duration", "player1", "player2", "player1_score", "player2_score")
+	list_display = ("host", "game_duration", "player1", "player2", "player1_score", "player2_score", "tournament")
 	search_fields = ("host", "player1", "player2")
 
 
