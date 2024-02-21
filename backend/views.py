@@ -30,16 +30,16 @@ def test_game(request):
 
 def test_tournament(request):
 	data = {
-		'host_username': 'hnogared',
+		'host_username': 'lolefevr',
 		'tournament_name': 'test',
 		'date': '2020-12-12',
 		'players_count': 4,
-		'leaderboard': ['hnogared', 'pos2', 'pos3', 'pos4'],
+		'leaderboard': ['lolefevr', 'pos2', 'pos3', 'pos4'],
 		'games': [
 			{
 				'game_duration': '00:10:00',
-				'host': 'hnogared',
-				'player1': 'hnogared',
+				'host': 'lolefevr',
+				'player1': 'lolefevr',
 				'player2': 'pos2',
 				'player1_score': 5,
 				'player2_score': 1,
