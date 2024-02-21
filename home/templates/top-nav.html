@@ -34,27 +34,19 @@
 				<button id="friends-dropdown-toggle" type="button" class="btn btn-secondary dropdown-toggle pong-btn-success" data-bs-toggle="dropdown" aria-expanded="false">
 					<img id="menu-friends-icon" class="img-fluid" src="{% static 'home/images/friends_icon.png' %}" alt="friends_icon">
 				</button>
-				<ul id="friends-dropdown" class="dropdown-menu">
-					<div class="friend-requests-container"></div>
+				<ul id="friends-dropdown" class="dropdown-menu px-3">
+					<div id="friend-requests-container"></div>
 					<li><div class="dropdown-header">Friends</div></li>
 					{% if not user.friends.exists %}
-						<li>You have no friends yet D:</li>
+						<li>404 Friends no found</li>
 					{% endif %}
 					{% for friend in user.friends.all %}
 						<li><button class="dropdown-item" type="button" href="{% url 'profile' %}" hx-get="{% url 'profile' %}" hx-target="#main-container" hx-push-url="true" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }'>{{ friend.username }}</button></li>
 					{% endfor %}
 					<li><hr class="dropdown-divider"></li>
-					<li>
-						<div class="btn-group">
-							<button class="dropdown-item btn btn-add mx-4" type="button" data-bs-toggle="modal" data-bs-target="#friend-request-modal"></button>
-							<button class="dropdown-item btn btn-refresh mx-4" type="button" data-bs-toggle="modal" data-bs-target="#friend-request-modal"></button>
-						</div>
-							{% comment %} <button class="dropdown-item btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#friend-request-modal">
-								<img class="img-fluid menu-icon" src="{% static 'home/images/plus_icon.png' %}" alt="plus_icon">
-							</button> {% endcomment %}
-							{% comment %} <button class="dropdown-item btn btn-secondary" type="button" href="{% url 'logout' %}" hx-post="{% url 'logout' %}" hx-target="body" hx-push-url="/" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }'>
-								<img class="img-fluid menu-icon" src="{% static 'home/images/refresh_icon.png' %}" alt="refresh_icon">
-							</button> {% endcomment %}
+					<li class="row">
+						<button class="dropdown-item btn btn-add col" type="button" data-bs-toggle="modal" data-bs-target="#friend-request-modal"></button>
+						<button id="friends-refresh-btn" class="dropdown-item btn btn-refresh col" type="button" onclick="refreshFriendRequests()"></button>
 					</li>
 				</ul>
 			</div>
@@ -64,38 +56,148 @@
 </nav>
 
 <script>
+	var session_user_username = "{{ user.username }}";
+	var csrf_token = "{{ csrf_token }}";
+</script>
+
+<script>
 	document.getElementById('friends-dropdown-toggle').addEventListener('click', function() {
 		fetchFriendRequests();
 	});
 
 	function fetchFriendRequests() {
-		fetch('/home/get_friend_requests/')
-			.then(response => response.json())
-			.then(data => {
-				const dropdownMenu = document.getElementById('friends-dropdown');
-				const friend_requests_container = dropdownMenu.querySelector('.friend-requests-container');
+		fetch('/friends/requests/get/', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				'X-CSRFToken': csrf_token,
+			},
+			body: JSON.stringify({})
+		})
+		.then(response => response.json())
+		.then(data => {
+			const friend_requests_container = document.getElementById('friend-requests-container');
+			const header = `<li><div class="dropdown-header">Requests</div></li>`;
+			const divider = `<li><hr class="dropdown-divider"></li>`;
 
-				if (data.length === 0) {
-					friend_requests_container.innerHTML = `<li>No friend requests</li>`;
-				} else {
-					const header = `<li><div class="dropdown-header">Requests</div></li>`;
-					const divider = `<li><hr class="dropdown-divider"></li>`;
+			friend_requests_container.innerHTML = '';
+			friend_requests_container.insertAdjacentHTML('afterbegin', header);
+			
+			if (data.length === 0) {
+				friend_requests_container.insertAdjacentHTML('beforeEnd', `<li>No friend requests</li>`);
+			} else {
+				const btn_accept = `<button type="button" class="btn btn-add" onclick="acceptFriendRequest(event)" aria-label="Accept"></button>`
+				const btn_deny = `<button type="button" class="btn btn-deny" onclick="rejectFriendRequest(event)" aria-label="Reject"></button>`
 
-					friend_requests_container.innerHTML = '';
-					friend_requests_container.insertAdjacentHTML('afterbegin', header);
-					
-					data.forEach(request => {
-						const listItem = `<li>`
-							+ `<span>${request.username}</span>`
-							+ `<button type="button" class="btn btn-add" aria-label="Accept"></button>`
-							+ `<button type="button" class="btn btn-deny" aria-label="Deny"></button>`
-							+ `</li>`;
-						friend_requests_container.insertAdjacentHTML('beforeEnd', listItem);
-					});
+				data.forEach(request => {
+					const listItem = `<li class="row">`
+						+ `<span class="col text-start">${request.username}</span>`
+						+ `<div class="col text-end">`
+						+ `${btn_accept}`
+						+ `${btn_deny}`
+						+ `</div>`
+						+ `</li>`;
+					friend_requests_container.insertAdjacentHTML('beforeEnd', listItem);
+				});
+			}
+			friend_requests_container.insertAdjacentHTML('beforeEnd', divider);
+		})
+		.catch(error => console.error('Error fetching friend requests:', error));
+	}
 
-					friend_requests_container.insertAdjacentHTML('beforeEnd', divider);
-				}
-			})
-			.catch(error => console.error('Error fetching friend requests:', error));
+	function refreshFriendRequests() {
+		fetch('/friends/requests/get/', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				'X-CSRFToken': csrf_token,
+			},
+			body: JSON.stringify({})
+		})
+		.then(response => response.json())
+		.then(data => {
+			const friend_requests_container = document.getElementById('friend-requests-container');
+			const header = `<li><div class="dropdown-header">Requests</div></li>`;
+			const divider = `<li><hr class="dropdown-divider"></li>`;
+
+			friend_requests_container.innerHTML = '';
+			friend_requests_container.insertAdjacentHTML('afterbegin', header);
+			
+			if (data.length === 0) {
+				friend_requests_container.insertAdjacentHTML('beforeEnd', `<li>No friend requests</li>`);
+			} else {
+				const btn_accept = `<button type="button" class="btn btn-add" onclick="acceptFriendRequest(event)" aria-label="Accept"></button>`
+				const btn_deny = `<button type="button" class="btn btn-deny" onclick="rejectFriendRequest(event)" aria-label="Reject"></button>`
+
+				data.forEach(request => {
+					const listItem = `<li class="row">`
+						+ `<span class="col text-start">${request.username}</span>`
+						+ `<div class="col text-end">`
+						+ `${btn_accept}`
+						+ `${btn_deny}`
+						+ `</div>`
+						+ `</li>`;
+					friend_requests_container.insertAdjacentHTML('beforeEnd', listItem);
+				});
+			}
+			
+			friend_requests_container.insertAdjacentHTML('beforeEnd', divider);
+
+			const friends_dropdown_toggle = document.getElementById('friends-dropdown-toggle');
+			const friends_dropdown_menu = friends_dropdown_toggle.nextElementSibling;
+			const friends_dropdown = new bootstrap.Dropdown(friends_dropdown_toggle);
+			friends_dropdown.show();
+		})
+		.catch(error => console.error('Error fetching friend requests:', error));
+	}
+
+	function acceptFriendRequest(event) {
+		const sender = event.target.parentNode.previousElementSibling.textContent;
+
+		fetch(`/friends/requests/accept/${sender}/${session_user_username}/`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				'X-CSRFToken': csrf_token,
+			},
+			body: JSON.stringify({})
+		})
+		.then(response => {
+			if (response.ok) {
+				return response.json();
+			}
+			throw new Error('Network response was not ok.');
+		})
+		.then(data => {
+			console.log(data);
+		})
+		.catch(error => {
+			console.error('Error while requesting friend accept:', error);
+		});
+	}
+
+	function rejectFriendRequest(event) {
+		const sender = event.target.parentNode.previousElementSibling.textContent;
+
+		fetch(`/friends/requests/reject/${sender}/${session_user_username}/`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				'X-CSRFToken': csrf_token,
+			},
+			body: JSON.stringify({})
+		})
+		.then(response => {
+			if (response.ok) {
+				return response.json();
+			}
+			throw new Error('Network response was not ok.');
+		})
+		.then(data => {
+			console.log(data);
+		})
+		.catch(error => {
+			console.error('Error while requesting friend reject:', error);
+		});
 	}
 </script>

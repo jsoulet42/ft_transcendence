@@ -17,8 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from .views import home
+from .views import get_friend_requests, send_friend_request, accept_friend_request, reject_friend_request
 
 urlpatterns = [
-	path('', home, name='home'),
+	path('requests/get/', get_friend_requests, name='get_friend_requests'),
+	path('requests/send/', send_friend_request, name='send_friend_request'),
+	path('requests/accept/<str:sender_username>/<str:receiver_username>/', accept_friend_request),
+	path('requests/reject/<str:sender_username>/<str:receiver_username>/', reject_friend_request),
 ]
