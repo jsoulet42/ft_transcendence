@@ -12,20 +12,36 @@ def get_user_name(request, user_id):
 	user = CustomUser.objects.get(id=user_id)
 	return JsonResponse({'name': user.name})
 
+def test_game(request):
+	data = {
+		'game_duration': '00:10:00',
+		'host_username': 'lolefevr',
+		'player1': 'lolefevr',
+		'player2': 'pos2',
+		'player1_score': 2,
+		'player2_score': 1,
+	}
+	headers = {'Content-Type': 'application/json'}
+	response = requests.post('http://localhost:8000/backend/game_save/', data=json.dumps(data), headers=headers)
+
+	if response.status_code / 100 != 2:
+		return JsonResponse({'error': 'Could not save game'})
+	return JsonResponse(response.json())
+
 def test_tournament(request):
 	data = {
-		'host_username': 'lolefevr',
+		'host_username': 'hnogared',
 		'tournament_name': 'test',
 		'date': '2020-12-12',
 		'players_count': 4,
-		'leaderboard': ['pos1', 'pos2', 'lolefevr', 'pos4'],
+		'leaderboard': ['hnogared', 'pos2', 'pos3', 'pos4'],
 		'games': [
 			{
 				'game_duration': '00:10:00',
-				'host': 'lolefevr',
-				'player1': 'lolefevr',
+				'host': 'hnogared',
+				'player1': 'hnogared',
 				'player2': 'pos2',
-				'player1_score': 2,
+				'player1_score': 5,
 				'player2_score': 1,
 			},
 			{
@@ -33,13 +49,13 @@ def test_tournament(request):
 				'host': None,
 				'player1': 'pos3',
 				'player2': 'pos4',
-				'player1_score': 5,
-				'player2_score': 4,
+				'player1_score': 2,
+				'player2_score': 0,
 			},
 		]
 	}
 	headers = {'Content-Type': 'application/json'}
-	response = requests.post('http://localhost:8000/backend/tournament/save/', data=json.dumps(data), headers=headers)
+	response = requests.post('http://localhost:8000/backend/tournament_save/', data=json.dumps(data), headers=headers)
 
 	if response.status_code / 100 != 2:
 		return JsonResponse({'error': 'Could not save tournament'})
@@ -151,19 +167,3 @@ def save_tournament(request):
 		return JsonResponse({'success': 'Tournament saved'})
 
 	return JsonResponse({'error': 'Tournament not saved'})
-
-def test_game(request):
-	data = {
-		'game_duration': '00:10:00',
-		'host_username': 'lolefevr',
-		'player1': 'lolefevr',
-		'player2': 'pos2',
-		'player1_score': 2,
-		'player2_score': 1,
-	}
-	headers = {'Content-Type': 'application/json'}
-	response = requests.post('http://localhost:8000/backend/game/save/', data=json.dumps(data), headers=headers)
-
-	if response.status_code / 100 != 2:
-		return JsonResponse({'error': 'Could not save game'})
-	return JsonResponse(response.json())
