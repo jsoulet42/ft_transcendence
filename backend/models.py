@@ -176,6 +176,7 @@ class Game(models.Model):
 	game_duration = models.DurationField()
 
 	host = models.ForeignKey("CustomUser", on_delete=models.CASCADE, related_name="host")
+	tournament = models.ForeignKey("Tournament", null=True, on_delete=models.CASCADE, related_name="tournament")
 
 	player1 = models.CharField(max_length=50, null=False)
 	player2 = models.CharField(max_length=50, null=False)
