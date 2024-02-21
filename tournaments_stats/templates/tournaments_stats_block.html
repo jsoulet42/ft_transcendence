@@ -9,21 +9,25 @@
 			<table class="table">
 				<thead>
 					<tr>
-						<th scope="col"> Position </th>
-						<th scope="col"> Name </th>
-						<th scope="col"> Score </th>
-						<th scope="col"> Win </th>
-						<th scope="col"> Lost </th>
+						<th scope="col">Name</th>
+						<th scope="col">Position</th>
+						<th scope="col">Players count</th>
+						<th scope="col">Date</th>
 					</tr>
 				</thead>
 				<thead>
+					{% for tournament in tournaments %} tournaments = tounaments[i]
 					<tr>
-						<td>test</td>
-						<td>test</td>
-						<td>test</td>
-						<td>test</td>
-						<td>test</td>
+						<td>{{ tournament.name }}</td>
+						{% for player in tournament.leaderboard.usernames %}
+							{% if user.username == player %}
+								<td>{{ forloop.counter }}</td>
+							{% endif %}
+						{% endfor %}
+						<td>{{ tournament.players_count }}</td>
+						<td>{{ tournament.date }}</td>
 					</tr>
+					{% endfor %}
 				</thead>
 			</table>
 		</div>
@@ -38,56 +42,55 @@
 			<li><a class="dropdown-item">Tournament 3</a></li>
 		</ul>
 	</div>
-	<table class="columns">
-		<tr>
-		  <td><div id="Sarah_chart_div" style="border: 1px solid #ccc"></div></td>
-		  <td><div id="Anthony_chart_div" style="border: 1px solid #ccc"></div></td>
-		</tr>
-	  </table>
 </div>
 <script type="text/javascript">
 	document.body.addEventListener('htmx:afterSwap', drawChart);
 
-	  google.charts.load("current", {packages:["corechart"]});
-	  google.charts.setOnLoadCallback(drawChart);
-	  function drawChart() {
-		// Données factices
-		var dataFromDjango = [
-		  {nom: 'Joueur 1', victoires: 10, defaites: 5},
-		  {nom: 'Joueur 2', victoires: 8, defaites: 7},
-		  {nom: 'Joueur 3', victoires: 15, defaites: 3},
-		  {nom: 'Joueur 4', victoires: 12, defaites: 8},
-		  {nom: 'Joueur 5', victoires: 6, defaites: 4},
-		];
+	google.charts.load("current", {packages:["corechart"]});
+	google.charts.setOnLoadCallback(drawChart);
+	function drawChart() {
+		var dataFromDjango = JSON.parse(document.getElementById('data_for_template').textContent);
 
-		// Création du tableau de données pour Google Charts
 		var data = new google.visualization.DataTable();
-		data.addColumn('string', 'Nom');
-		data.addColumn('number', 'Défaites');
+		data.addColumn('string', 'Player');
 		data.addColumn('number', 'Victoires');
+		data.addColumn('number', 'Défaites');
 		data.addColumn('number', 'Ratio');
 		data.addColumn('number', 'Taille de la bulle');
 
 		dataFromDjango.forEach(function(player) {
+			var playerName = player.username;
 			var victoires = parseInt(player.victoires);
 			var defaites = parseInt(player.defaites);
-			var ratio = parseInt(parseFloat(victoires) / parseFloat(defaites)) ;
-			var tailleBulle = parseInt(victoires + defaites);
-			data.addRow([null, defaites, victoires, ratio, tailleBulle]);
+			var ratio = defaites !== 0 ? victoires / defaites : 0;
+			var tailleBulle = victoires + defaites;
+			data.addRow([playerName, victoires, defaites, ratio, tailleBulle]);
 		});
 
-		// Options du graphique
 		var options = {
-		  colorAxis: {colors: ['yellow', 'red']},
-		  bubble: {textStyle: {fontSize: 11}} // Taille du texte à l'intérieur des bulles
+			hAxis: {
+				gridlines: { color: 'transparent' }, // Masque les lignes de la grille horizontale
+				baselineColor: 'transparent' // Masque l'axe horizontal
+			},
+			vAxis: {
+				gridlines: { color: 'transparent' }, // Masque les lignes de la grille verticale
+				baselineColor: 'transparent' // Masque l'axe vertical
+			},
+			backgroundColor: '#000000',
+			bubble: { textStyle: { fontSize: 11 } }
 		};
 
-		// Dessin du graphique
 		var chart = new google.visualization.BubbleChart(document.getElementById('chart_div'));
 		chart.draw(data, options);
-	  }
-	</script>
+	}
+</script>
+<div id="data_for_template" style="display: none;">
+	{{ users_stats | json_script }}
+</div>
 <div id="chart_div" style="width: 900px; height: 500px;"></div>
+
+
+
 
 
 
