@@ -273,5 +273,138 @@ $carousel-indicator-height: 3px;
 }
 
 .form_eightplayers {
+	position: absolute;
 	color: black;
+	width: 35%;
+}
+
+.form_playertwo {
+	border: 4mm ridge rgba(146, 32, 184, 0.6);
+	top: 35%;
+	left: 10%;
+	background-color: red;
+	padding: 1vh;
+	box-sizing: border-box;
+}
+
+.form_playerthree {
+	border: 4mm ridge rgba(146, 32, 184, 0.6);
+	top: 55%;
+	left: 10%;
+	background-color: orange;
+	padding: 1vh;
+	box-sizing: border-box;
+}
+
+.form_playerfour {
+	border: 4mm ridge rgba(177, 184, 32, 0.6);
+	top: 75%;
+	left: 10%;
+	background-color: yellow;
+	padding: 1vh;
+	box-sizing: border-box;
+}
+
+.form_playerfive {
+	border: 4mm ridge rgba(78, 184, 32, 0.6);
+	top: 15%;
+	right: 10%;
+	background-color: green;
+	padding: 1vh;
+	box-sizing: border-box;
+}
+
+.form_playersix {
+	border: 4mm ridge rgba(32, 78, 184, 0.6);
+	top: 35%;
+	right: 10%;
+	background-color: blue;
+	padding: 1vh;
+	box-sizing: border-box;
+}
+
+.form_playerseven {
+	border: 4mm ridge rgba(115, 20, 147, 0.6);
+	top: 55%;
+	right: 10%;
+	background-color: indigo;
+	padding: 1vh;
+	box-sizing: border-box;
+}
+
+.form_playereight {
+	border: 4mm ridge rgba(146, 32, 184, 0.6);
+	top: 75%;
+	right: 10%;
+	background-color:  violet;
+	padding: 1vh;
+	box-sizing: border-box;
+}
+
+.form_playereight:hover {
+	transform: rotate(3deg) scale(1.1);
+	box-shadow: 0 0 20px rgba(146, 32, 184, 0.8);
+}
+
+.form_playerseven:hover {
+	transform: rotate(-3deg) scale(1.1);
+}
+
+.form_playersix:hover {
+	transform: scale(1.1); 
+	animation: wiggle 4s forwards;
+}
+
+@keyframes wiggle {
+	0%, 7% {
+	  transform: rotateZ(0);
+	}
+	15% {
+	  transform: rotateZ(-15deg);
+	}
+	20% {
+	  transform: rotateZ(10deg);
+	}
+	25% {
+	  transform: rotateZ(-10deg);
+	}
+	30% {
+	  transform: rotateZ(6deg);
+	}
+	35% {
+	  transform: rotateZ(-4deg);
+	}
+	40%, 100% {
+	  transform: rotateZ(0);
+	}
+  }
+
+.form_playerfive:hover {
+	transform: translateY(5px) scale(1.1);
+	filter: hue-rotate(90deg);
+}
+
+.form_playerfour:hover {
+	transform: scale(1.1);
+	animation: float 3s forwards;
+}
+
+@keyframes float {
+	0% {
+	  transform: translatey(0vh);
+	}
+	50% {
+	  transform: translatey(-5vh);
+	}
+	100% {
+	  transform: translatey(0vh);
+	}
+  }
+
+.form_playerthree:hover {
+	
+}
+
+.form_playertwo:hover {
+	
 }
