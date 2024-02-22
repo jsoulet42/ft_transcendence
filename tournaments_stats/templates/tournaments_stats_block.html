@@ -51,6 +51,23 @@
 	function drawChart() {
 		var dataFromDjango = JSON.parse(document.getElementById('data_for_template').textContent);
 
+		var maxVictoires = 0;
+		var maxDefaites = 0;
+
+		// Parcourez les données pour trouver le maximum de victoires et de défaites
+		dataFromDjango.forEach(function(player) {
+			var victoires = parseInt(player.victoires);
+			var defaites = parseInt(player.defaites);
+
+			if (victoires > maxVictoires){
+				maxVictoires = victoires;
+			}
+
+			if (defaites > maxDefaites) {
+				maxDefaites = defaites;
+			}
+		});
+
 		var data = new google.visualization.DataTable();
 		data.addColumn('string', 'Player');
 		data.addColumn('number', 'Victoires');
@@ -62,32 +79,71 @@
 			var playerName = player.username;
 			var victoires = parseInt(player.victoires);
 			var defaites = parseInt(player.defaites);
-			var ratio = defaites !== 0 ? victoires / defaites : 0;
-			var tailleBulle = victoires + defaites;
-			data.addRow([playerName, victoires, defaites, ratio, tailleBulle]);
+			var partiesJouees = victoires + defaites;
+
+			// Calcul du ratio de performance
+			var ratioPerformance = (partiesJouees !== 0) ? (victoires / partiesJouees) * 100 : 0;
+
+			// Calcul de la taille de la bulle en fonction du ratio de performance
+			// Vous pouvez ajuster la formule selon vos préférences pour obtenir des tailles de bulle plus petites ou plus grandes
+			var tailleBulle = Math.sqrt(partiesJouees) * (ratioPerformance + 1);
+
+
+
+			// Ajouter une ligne de données avec le contenu de l'infobulle
+			data.addRow([playerName, victoires, defaites, ratioPerformance, tailleBulle]);
 		});
 
 		var options = {
 			hAxis: {
 				gridlines: { color: 'transparent' }, // Masque les lignes de la grille horizontale
-				baselineColor: 'transparent' // Masque l'axe horizontal
+				baselineColor: 'transparent', // Masque l'axe horizontal
+				textPosition: 'none', // Masque les valeurs de l'axe horizontal
 			},
 			vAxis: {
 				gridlines: { color: 'transparent' }, // Masque les lignes de la grille verticale
-				baselineColor: 'transparent' // Masque l'axe vertical
+				baselineColor: 'transparent', // Masque l'axe vertical
+				textPosition: 'none' // Masque les valeurs de l'axe verticalviewWindow: { min: 0, max: maxDefaites }
 			},
-			backgroundColor: '#000000',
-			bubble: { textStyle: { fontSize: 11 } }
+			backgroundColor: 'transparent',
+			colors: ['#FFFFFF', '#9900FF'], // Couleurs des bulles
+			bubble: {
+				textStyle: {
+					fontSize: 14,
+					auraColor: 'none',
+				}
+			}
 		};
 
 		var chart = new google.visualization.BubbleChart(document.getElementById('chart_div'));
 		chart.draw(data, options);
+
+		// Mettez à jour les options de l'axe horizontal et vertical
+		google.visualization.events.addListener(chart, 'ready', function() {
+		// Ajoutez 4 à la valeur maximale de chaque axe
+		maxVictoires += 4;
+		maxDefaites += 4;
+
+		chart.getChart().getOptions().hAxis.viewWindow.max = maxVictoires;
+		chart.getChart().getOptions().vAxis.viewWindow.max = maxDefaites;
+		chart.getChart().getOptions().vAxis.viewWindow.min = 1;
+		chart.getChart().getOptions().hAxis.viewWindow.min = 1;
+
+		// Redessinez le graphique avec les nouvelles limites de l'axe
+		chart.draw(data, options);
+		});
+
 	}
 </script>
 <div id="data_for_template" style="display: none;">
 	{{ users_stats | json_script }}
 </div>
-<div id="chart_div" style="width: 900px; height: 500px;"></div>
+<div id="chart_div_container" class="chart-container " style="width: 1000px; height: 600px;">
+    <div id="chart_div"></div>
+	<div id="area_chart_div"></div>
+</div>
+
+
 
 
 
