@@ -1,23 +1,23 @@
 <!-- Friend Request Modal -->
-<div class="modal fade" id="friend-request-modal" tabindex="-1" role="dialog" aria-labelledby="friend-request-modal" aria-hidden="true">
-	<div class="modal-dialog" role="document">
+<div id="friend-request-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="friend-request-modal" aria-hidden="true">
+	<div class="modal-dialog p-2" role="document">
 		<div class="modal-content">
 			<div class="modal-header alert alert-success">
-				<h5 class="modal-title" id="exampleModalLabel">Send friend request</h5>
+				<h5 class="modal-title">Send friend request</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body text-center">
 				<p>Please enter one of the following</p>
-				<form id="friend-request-form" hx-post="{% url 'send_friend_request' %}" hx-target="#friend-request-modal .modal-footer" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }'>
-					<input type="text" name="username" id="username-input" placeholder="Username" autocomplete="username" autofocus>
+				<form id="friend-request-form" method="POST">
+					<div class="form-header">
+						{% csrf_token %}
+					</div>
+					<input type="text" name="username" placeholder="Username" autocomplete="username" autofocus>
 					<span> OR </span>
-					<input type="text" name="uuid" id="uuid-input" placeholder="UUID" autocomplete="UUID">
+					<input type="text" name="uuid" placeholder="UUID" autocomplete="UUID">
 					<hr />
-					<button type="submit" class="btn btn-success w-100" onclick="return validateForm()">Send request</button>
+					<button type="button" class="btn btn-success w-100" onclick="validateForm()">Send request</button>
 				</form>
-			</div>
-			<div class="modal-footer text-center">
-				{{ error }}
 			</div>
 		</div>
 	</div>
@@ -25,18 +25,48 @@
 
 <script>
 	function validateForm() {
-		var username = document.getElementById('username-input').value;
-		var uuid = document.getElementById('uuid-input').value;
+		const friendRequestForm = document.getElementById('friend-request-form');
+		const csrfToken = friendRequestForm.querySelector('[name=csrfmiddlewaretoken]').value;
 
-		if (!username && !uuid) {
+		const formData = new FormData(friendRequestForm);
+
+		if (!formData.get('username') && !formData.get('uuid')) {
 			alert('Please enter either a username or a UUID.');
 			/* Prevent form submission */
 			return false;
 		}
 
-		/* Dismiss the modal */
-		var modal = new bootstrap.Modal(document.getElementById('friend-request-modal'));
-		modal.hide();
+		fetch(`/friends/requests/send/`, {
+			method: 'POST',
+			headers: {
+				'X-CSRFToken': csrfToken,
+			},
+			body: formData
+		})
+		.then(response => response.json())
+		.then(data => {
+			var modalFooter = document.querySelector('#friend-request-modal .modal-footer');
+			if (!modalFooter) {
+				modalFooter = document.createElement('div');
+			}
+
+			modalFooter.classList = [];
+			modalFooter.classList.add('modal-footer', 'mx-5', 'alert');
+
+			if (data.error) {
+				modalFooter.textContent = data.error;
+				modalFooter.classList.add('alert-danger');
+			} else {
+				modalFooter.textContent = data.success;
+				modalFooter.classList.add('alert-success');
+			}
+
+			const modalContent = document.querySelector('#friend-request-modal .modal-content');
+			modalContent.appendChild(modalFooter);
+		})
+		.catch(error => {
+			console.error('Error sending friend request:', error);
+		});
 
 		/* Allow form submission */
 		return true;

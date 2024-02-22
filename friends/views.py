@@ -3,6 +3,7 @@ import uuid
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.urls import reverse
+from django.db.models import Q
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST, require_GET
@@ -39,7 +40,7 @@ def get_friend_requests(request):
 def remove_friend(request):
 	friend_username = request.POST.get('friend_username')
 	if not friend_username:
-		return JsonResponse({'error': 'Invalid username data'})
+		return JsonResponse({'error': 'Couldn\'t find friend'})
 
 	try:
 		user = request.user
@@ -54,16 +55,13 @@ def remove_friend(request):
 @login_required
 @require_POST
 def send_friend_request(request):
-	receiver = None
+	username = request.POST.get('username', None)
+	uuid_str = request.POST.get('uuid', None)
 	
 	try:
-		username = request.POST.get('username', None)
-		uuid_str = request.POST.get('uuid', None)
-		
-		if username != None and username != '':
+		if username:
 			receiver = CustomUser.objects.get(username=username)
-		
-		if uuid_str != None and uuid_str != '':
+		elif uuid_str:
 			try:
 				uuid_obj = uuid.UUID(uuid_str)
 			except ValueError:
@@ -72,13 +70,17 @@ def send_friend_request(request):
 	except ObjectDoesNotExist:
 		return JsonResponse({'error': 'User not found'})
 
-	already_exists = FriendRequest.objects.filter(sender=request.user, receiver=receiver).exists()
+	if receiver == request.user:
+		return JsonResponse({'error': 'Self requests not allowed'})
 
-	if receiver != None and receiver != request.user and not already_exists:
-		FriendRequest.objects.create(sender=request.user, receiver=receiver)
-		return JsonResponse({'success': 'Friend request sent'})
+	if request.user.friends.filter(username=receiver.username).exists():
+		return JsonResponse({'error': 'User is already your friend'})
 
-	return JsonResponse({'error': 'Couldn\'t send friend request'})
+	if FriendRequest.objects.filter(Q(sender=request.user, receiver=receiver) | Q(sender=receiver, receiver=request.user)).exists():
+		return JsonResponse({'error': 'Friend request already sent'})
+
+	FriendRequest.objects.create(sender=request.user, receiver=receiver)
+	return JsonResponse({'success': 'Friend request sent'})
 
 
 @login_required
