@@ -83,11 +83,13 @@ def send_friend_request(request):
 
 @login_required
 @require_POST
-def accept_friend_request(request, sender_username=None, receiver_username=None):
-	if sender_username == None:
+def accept_friend_request(request):
+	sender_username = request.POST.get('sender_username')
+	if not sender_username:
 		return JsonResponse({'error': 'Invalid sender username'})
 
-	if receiver_username == None:
+	receiver_username = request.POST.get('receiver_username')
+	if not receiver_username:
 		return JsonResponse({'error': 'Invalid receiver username'})
 
 	try:
@@ -107,11 +109,13 @@ def accept_friend_request(request, sender_username=None, receiver_username=None)
 
 @login_required
 @require_POST
-def reject_friend_request(request, sender_username=None, receiver_username=None):
-	if sender_username == None:
+def reject_friend_request(request):
+	sender_username = request.POST.get('sender_username')
+	if not sender_username:
 		return JsonResponse({'error': 'Invalid sender username'})
 
-	if receiver_username == None:
+	receiver_username = request.POST.get('receiver_username')
+	if not receiver_username:
 		return JsonResponse({'error': 'Invalid receiver username'})
 
 	try:

@@ -32,6 +32,6 @@ urlpatterns = [
 	path('list/get/<str:username>/', get_friend_list),
 	path('requests/get/', get_friend_requests, name='get_friend_requests'),
 	path('requests/send/', send_friend_request, name='send_friend_request'),
-	path('requests/accept/<str:sender_username>/<str:receiver_username>/', accept_friend_request),
-	path('requests/reject/<str:sender_username>/<str:receiver_username>/', reject_friend_request),
+	path('requests/accept/', accept_friend_request),
+	path('requests/reject/', reject_friend_request),
 ]

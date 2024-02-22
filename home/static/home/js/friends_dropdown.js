@@ -94,13 +94,16 @@
 	function acceptFriendRequest(event) {
 		const sender = event.target.parentNode.previousElementSibling.textContent;
 
-		fetch(`/friends/requests/accept/${sender}/${session_user_username}/`, {
+		const formData = new FormData();
+		formData.append('sender_username', sender);
+		formData.append('receiver_username', session_user_username);
+
+		fetch(`/friends/requests/accept/`, {
 			method: 'POST',
 			headers: {
-				'Content-Type': 'application/json',
 				'X-CSRFToken': csrf_token,
 			},
-			body: JSON.stringify({})
+			body: formData
 		})
 		.then(response => {
 			if (response.ok) {
@@ -119,13 +122,16 @@
 	function rejectFriendRequest(event) {
 		const sender = event.target.parentNode.previousElementSibling.textContent;
 
-		fetch(`/friends/requests/reject/${sender}/${session_user_username}/`, {
+		const formData = new FormData();
+		formData.append('sender_username', sender);
+		formData.append('receiver_username', session_user_username);
+
+		fetch(`/friends/requests/reject/`, {
 			method: 'POST',
 			headers: {
-				'Content-Type': 'application/json',
 				'X-CSRFToken': csrf_token,
 			},
-			body: JSON.stringify({})
+			body: formData
 		})
 		.then(response => {
 			if (response.ok) {
@@ -161,7 +167,6 @@
 			throw new Error('Network response was not ok.');
 		})
 		.then(data => {
-			console.log(data)
 			createFriendsDropdown();
 		})
 		.catch(error => {
