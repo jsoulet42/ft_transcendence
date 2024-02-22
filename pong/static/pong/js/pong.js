@@ -16,49 +16,6 @@ let lastTime = Date.now();
 //#endregion
 
 //#region Variables Object
-let ball = {
-	x: canvas.width / 2,
-	y: canvas.height / 2,
-	speedX: canvas.width / 150,
-	speedY: 0,
-	Bradius: canvas.height / 50,
-	speedBaseX: canvas.width / 100, // Vitesse de déplacement horizontal de la balle
-	speedBaseY: canvas.height / 100 * 0, // Vitesse de déplacement vertical de la balle
-	Bcolor: 'blue'
-}
-
-function initializeBall(speed) {
-	ball = {
-		x: canvas.width / 2,
-		y: canvas.height / 2,
-		speedX: speed,
-		speedY: 0,
-		Bradius: canvas.height / 50,
-		speedBaseX: canvas.width / 100, // Vitesse de déplacement horizontal de la balle
-		speedBaseY: canvas.height / 100 * 0, // Vitesse de déplacement vertical de la balle
-		Bcolor: 'blue'
-	}
-}
-
-let IA = {
-	destYRT: canvas.height / 2,
-	destYL: canvas.height / 2,
-	activate: false
-}
-
-let paddle = {
-	leftHeight: canvas.width / 10,
-	leftWidth: canvas.height / 50,
-	rightHeight: canvas.width / 10,
-	rightWidth: canvas.height / 50,
-	leftY: (canvas.height - canvas.width / 10) / 2, // start in the middle of the canvas
-	rightY: (canvas.height - canvas.width / 10) / 2, // start in the middle of the canvas
-	speed: canvas.height / 80,	// Vitesse de déplacement des raquettes
-	centreR: 0,
-	centreL: 0,
-	marge: 10,
-	angle: 5
-}
 
 let inputs = {
 	upLeft: false,
@@ -67,20 +24,30 @@ let inputs = {
 	downRight: false
 }
 
-let UI = {
-	leftScore: 0,
-	rightScore: 0,
-	leftName: host_name,
-	rightName: name_player2,
-	drawTrajectory: false
-}
+let manager = createManager();
+let paddle = createPaddle();
+let ball = createBall(0);
+let IA = createIA();
+let UI = createUI();
 
+function initializeManager(modeI) {
+	manager = createManager(modeI);
+}
+function initializePaddle() {
+	paddle = createPaddle();
+}
+function initializeBall(speed) {
+	ball = createBall(speed);
+}
+function initializeIA(activate) {
+	IA = createIA(activate);
+}
 function initializeUI(player1, player2) {
 	UI.leftName = player1;
 	UI.rightName = player2;
 	UI.leftScore = 0;
 	UI.rightScore = 0;
-	UI.drawTrajectory = false;
+	UI.drawTrajectory = true;
 }
 
 function createManager(mode = 0) {
@@ -95,11 +62,52 @@ function createManager(mode = 0) {
 		waiting: true,
 	};
 }
+function createPaddle(){
+	return {
+		leftHeight: canvas.width / 10,
+		leftWidth: canvas.height / 50,
+		rightHeight: canvas.width / 10,
+		rightWidth: canvas.height / 50,
+		leftY: (canvas.height - canvas.width / 10) / 2, // start in the middle of the canvas
+		rightY: (canvas.height - canvas.width / 10) / 2, // start in the middle of the canvas
+		speed: canvas.height / 80,	// Vitesse de déplacement des raquettes
+		centreR: 0,
+		centreL: 0,
+		marge: 10,
+		angle: 5
+	};
 
-let manager = createManager();
+}
+function createBall(speed){
+	return {
+		x: canvas.width / 2,
+		y: canvas.height / 2,
+		speedX: speed,
+		speedY: 0,
+		Bradius: canvas.height / 50,
+		speedBaseX: canvas.width / 100, // Vitesse de déplacement horizontal de la balle
+		speedBaseY: canvas.height / 100 * 0, // Vitesse de déplacement vertical de la balle
+		Bcolor: 'blue'
+	};
 
-function initializeManager(modeI) {
-	manager = createManager(modeI);
+}
+function createIA(activation) {
+	return {
+		destYLeft: canvas.height / 2,
+		destYLeftLatence: canvas.height / 2,
+		destYRight: canvas.height / 2,
+		destYRightLatence: canvas.height / 2,
+		activate: activation
+	};
+}
+function createUI() {
+	return {
+		leftScore: 0,
+		rightScore: 0,
+		leftName: host_name,
+		rightName: name_player2,
+		drawTrajectory: true
+	};
 }
 
 let directionXtmp = ball.speedX;
@@ -115,7 +123,10 @@ export function startGameFunctionPVP() {
 	manager.inputs = true;
 	manager.waiting = false;
 	UI.rightName = name_player2;
+
 	initializeBall(0);
+	initializeIA(false);
+	initializePaddle();
 
 }
 window.startGameFunctionPVP = startGameFunctionPVP;
@@ -123,8 +134,11 @@ window.startGameFunctionPVP = startGameFunctionPVP;
 export function startGameFunctionPVE() {
 	manager.inputs = true;
 	manager.waiting = false;
-	initializeUI(host_name, "IA");
+	initializeUI(host_name, name_player2);
+	initializeIA(true);
+	initializePaddle();
 	initializeBall(0);
+	console.log("startGameFunctionPVE");
 }
 window.startGameFunctionPVE = startGameFunctionPVE;
 
@@ -230,9 +244,12 @@ function IATrajectory(ox, oy, speedX, speedY, stop) {
 	if (dx != ball.Bradius && dx != canvas.width - ball.Bradius)
 		IATrajectory(dx, dy, speedX, -speedY, stop);
 	else if (ball.speedX > 0)
-		IA.destYRT = dy;
-	if (UI.drawTrajectory)
-		drawLine(ox, oy, dx, dy);
+		IA.destYLeft = dy;
+	else if (ball.speedX < 0)
+		IA.destYRight = dy;
+
+	// if (UI.drawTrajectory)
+	// 	drawLine(ox, oy, dx, dy);
 }
 
 function startUpdatingAI() {
@@ -247,7 +264,8 @@ function stopUpdatingAI() {
 }
 
 function IAUpdate() {
-	IA.destYL = IA.destYRT + Math.random() * paddle.leftHeight - paddle.leftHeight / 2;
+	IA.destYLeftLatence = IA.destYLeft + Math.random() * paddle.leftHeight - paddle.leftHeight / 2;
+	IA.destYRightLatence = IA.destYRight + Math.random() * paddle.rightHeight - paddle.rightHeight / 2;
 	// console.log(Date.now() - lastTime); // Affiche le temps écoulé depuis le dernier appel
 	lastTime = Date.now();
 }
@@ -255,22 +273,43 @@ function IAUpdate() {
 function IAMove() {
 	paddle.centreR = paddle.rightY + paddle.rightHeight / 2;
 	paddle.centreL = paddle.leftY + paddle.leftHeight / 2;
+
 	if (manager.pause || manager.putBackBallBool)
 		return;
-	var centrePaddle = paddle.rightY + paddle.rightHeight / 2;	/// centre de la raquette
-	var ecart = IA.destYL - centrePaddle;
+
+	var centrePaddleR = paddle.rightY + paddle.rightHeight / 2;	/// centre de la raquette droite
+	var centrePaddleL = paddle.leftY + paddle.leftHeight / 2;	/// centre de la raquette gauche
+	var ecartR = IA.destYLeftLatence - centrePaddleR;
+	var ecartL = IA.destYRightLatence - centrePaddleL;
 	var aiPaddleSpeed = paddle.speed * 1;  // AI moves twice as fast
 
-	if (ecart > 0) {
+	// Mouvement du paddle droit
+	if (ecartR > 0) {
 		paddle.rightY += aiPaddleSpeed;
 		if (paddle.rightY + paddle.rightHeight > canvas.height) {
 			paddle.rightY = canvas.height - paddle.rightHeight;
 		}
-	} else if (ecart < 0) {
-		var moveAmount = Math.min(-ecart, aiPaddleSpeed);
-		paddle.rightY -= moveAmount;
+	} else if (ecartR < 0) {
+		var moveAmountR = Math.min(-ecartR, aiPaddleSpeed);
+		paddle.rightY -= moveAmountR;
 		if (paddle.rightY < 0) {
 			paddle.rightY = 0;
+		}
+	}
+
+	// Mouvement du paddle gauche si manager est en attente
+	if (manager.waiting) {
+		if (ecartL > 0) {
+			paddle.leftY += aiPaddleSpeed;
+			if (paddle.leftY + paddle.leftHeight > canvas.height) {
+				paddle.leftY = canvas.height - paddle.leftHeight;
+			}
+		} else if (ecartL < 0) {
+			var moveAmountL = Math.min(-ecartL, aiPaddleSpeed);
+			paddle.leftY -= moveAmountL;
+			if (paddle.leftY < 0) {
+				paddle.leftY = 0;
+			}
 		}
 	}
 }
@@ -377,7 +416,9 @@ function drawScore() {
 	textWidth = ctx.measureText("Score: " + UI.rightScore).width;
 	ctx.fillText("Score: " + UI.rightScore, canvas.width - textWidth - canvas.width * 0.025, canvas.height * 0.06);
 	ctx.fillText(UI.leftName, canvas.width * 0.025, canvas.height * 0.12);
-	ctx.fillText(UI.rightName, canvas.width - textWidth - canvas.width * 0.025, canvas.height * 0.12);
+	ctx.fillText(UI.rightName, canvas.width - textWidth - canvas.width * 0.05, canvas.height * 0.12);
+
+
 }
 
 function collisionDetection() {
@@ -418,8 +459,7 @@ function collisionDetection() {
 
 function Update() {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
-	if (!manager.waiting)
-	{
+	if (!manager.waiting) {
 		lisenInput();
 		drawScore();
 		drawCountdown();
@@ -427,8 +467,8 @@ function Update() {
 	drawPaddle();
 	drawVerticalBar();
 	IATrajectory(ball.x, ball.y, ball.speedX, ball.speedY, 0)
-	drawBall();
 	IAManager();
+	drawBall();
 }
 
 function canvasCheck() {
@@ -449,6 +489,11 @@ function startGame() {
 
 async function putBackBall(directionX) {
 	manager.putBackBallBool = true;
+	IA.destYLeft = canvas.height / 2;
+	IA.destYRight = canvas.height / 2;
+	IA.destYLeftLatence = canvas.height / 2;
+	IA.destYRightLatence = canvas.height / 2;
+
 	// Stop the ball for 1 second
 	ball.speedX = 0;
 	ball.speedY = 0;
@@ -473,7 +518,7 @@ async function putBackBall(directionX) {
 	ball.speedX = ball.speedBaseX * directionX;
 	ball.speedY = (Math.random() * 2 - 1) * ball.speedBaseY;
 	IATrajectory(ball.x, ball.y, ball.speedX, ball.speedY, 0);
-	IA.destYL = IA.destYRT + Math.random() * paddle.leftHeight - paddle.leftHeight / 2;
+	IA.destYLeftLatence = IA.destYLeft + Math.random() * paddle.leftHeight - paddle.leftHeight / 2;
 	startUpdatingAI();
 
 	sendScoreToBackend();
@@ -507,8 +552,7 @@ async function countdown() {
 	await delay(1000);
 	manager.countdownBool = false;
 	manager.countdownInt--;
-	if (manager.countdownInt == 0)
-	{
+	if (manager.countdownInt == 0) {
 		ball.speedX = ball.speedBaseX;
 	}
 }
@@ -533,49 +577,11 @@ function initializeVariables(mode) {
 	canvas.height = window.innerHeight;
 	posBord = 10;
 
-	manager.pause = false;
-	manager.putBackBallBool = false;
-	manager.countdownInt = 3;
-
-	UI.drawTrajectory = false;
-
+	initializeManager(mode);
 	initializeBall(ball.speedBaseX);
-	IA.destYRT = canvas.height / 2;
-	IA.destYL = canvas.height / 2;
-	if (mode == 2)
-		IA.activate = true;
-	else
-		IA.activate = false;
-
-	paddle = {
-		leftHeight: canvas.width / 10,
-		leftWidth: canvas.height / 50,
-		rightHeight: canvas.width / 10,
-		rightWidth: canvas.height / 50,
-		leftY: (canvas.height - canvas.width / 10) / 2, // start in the middle of the canvas
-		rightY: (canvas.height - canvas.width / 10) / 2, // start in the middle of the canvas
-		speed: canvas.height / 80,	// Vitesse de déplacement des raquettes
-		centreR: 0,
-		centreL: 0,
-		marge: 10,
-		angle: 5
-	}
-
-	inputs = {
-		upLeft: false,
-		downLeft: false,
-		upRight: false,
-		downRight: false
-	}
-
-	UI = {
-		leftScore: 0,
-		rightScore: 0,
-		leftName: host_name,
-		rightName: name_player2
-	}
-	if (mode == 2)
-		UI.rightName = "IA";
+	initializePaddle();
+	initializeUI(host_name, name_player2);
+	initializeIA(true);
 
 	startGame();
 }
@@ -589,10 +595,8 @@ function run() {
 
 	if (mode == "pvp")
 		initializeVariables(1);
-	else if (mode == "pve")
-	{
+	else if (mode == "pve") {
 		document.getElementById("player2name").style.display = "none";
-		UI.rightName = "IA";
 		initializeVariables(2);
 	}
 	else if (mode == "tournament")
