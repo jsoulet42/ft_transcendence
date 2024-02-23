@@ -24,7 +24,6 @@ urlpatterns = [
 	path('', include('hub.urls')),
 	path('admin/', admin.site.urls),
 	path('backend/', include('backend.urls')),
-	path('auth/', include('authentication.urls')),
 	path('home/', include('home.urls')),
 	path('pong/', include('pong.urls')),
 	path('hub/', include('hub.urls')),
@@ -32,4 +31,4 @@ urlpatterns = [
 	path('friends/', include('friends.urls')),
 	path('tournaments_stats/', include('tournaments_stats.urls')),
 	path('authentication/', include('authentication.urls')),
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
