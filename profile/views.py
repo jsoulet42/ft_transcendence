@@ -37,17 +37,14 @@ def profile(request):
 # 	return JsonResponse({'error': 'Méthode non autorisée'})
 
 def update_image(request):
-	if request.method == 'POST':
-		user = request.user
-		form = ProfilePicForm(request.POST, request.FILES)
-		if form.is_valid():
-			uploaded_image_name = form.cleaned_data['upload_image']
-			uploaded_image_url = settings.MEDIA_URL + 'images/' + str(uploaded_image_name)
-			user.uploaded_image = uploaded_image_url
-			user.profile_image_path = uploaded_image_url
-			print(user.username)
-			user.save()
-		return HttpResponseRedirect('/profile')
+    if request.method == 'POST':
+        user = request.user
+        form = ProfilePicForm(request.POST, request.FILES)
+        if form.is_valid():
+            if 'upload_image' in request.FILES:
+                user.upload_image = form.cleaned_data['upload_image']
+                user.save()
+        return HttpResponseRedirect('/profile')
 
 
 def update_profile(request):
