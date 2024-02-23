@@ -61,9 +61,9 @@ def update_profile(request):
 			# Mettre à jour la session pour éviter la déconnexion
 			update_session_auth_hash(request, request.user)
 		if selected_option == '1':
-			image_url = '/static/profile/images/character1.png'
+			image_url = 'static/profile/images/character1.png'
 		elif selected_option == '2':
-			image_url = '/static/profile/images/character2.png'
+			image_url = 'static/profile/images/character2.png'
 		elif selected_option == '3':
 			image_url = request.user.photo_medium_url
 		elif selected_option == '4':
