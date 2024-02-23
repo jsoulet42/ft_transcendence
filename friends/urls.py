@@ -16,20 +16,22 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from home import views
-from django.conf import settings
-from django.conf.urls.static import static
+
+from .views import (
+	remove_friend,
+	get_friend_list,
+	get_friend_requests,
+	send_friend_request,
+	accept_friend_request,
+	reject_friend_request
+)
 
 urlpatterns = [
-	path('', include('hub.urls')),
-	path('admin/', admin.site.urls),
-	path('backend/', include('backend.urls')),
-	path('auth/', include('authentication.urls')),
-	path('home/', include('home.urls')),
-	path('pong/', include('pong.urls')),
-	path('hub/', include('hub.urls')),
-	path('profile/', include('profile.urls')),
-	path('friends/', include('friends.urls')),
-	path('tournaments_stats/', include('tournaments_stats.urls')),
-	path('authentication/', include('authentication.urls')),
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+	path('remove/', remove_friend),
+	path('list/get/', get_friend_list),
+	path('list/get/<str:username>/', get_friend_list),
+	path('requests/get/', get_friend_requests, name='get_friend_requests'),
+	path('requests/send/', send_friend_request, name='send_friend_request'),
+	path('requests/accept/', accept_friend_request),
+	path('requests/reject/', reject_friend_request),
+]
