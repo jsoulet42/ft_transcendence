@@ -3,35 +3,39 @@
 {% if hx_push_url %}
 <script hx-push-url="{{ hx_push_url }}"></script>
 {% endif %}
+<br>
+<br>
 
 <input type="text" id="player2name">
 <button id="player2nameButton">Commencer la partie</button>
-
 <script>
-	var save_game = '{% url "game_save" %}';
-	var host_name = '{{ user.username }}';
-	var tournament_save = '{% url "tournament_save" %}';
-	var name_player2 = 'Player 2';
-	document.getElementById('player2nameButton').addEventListener('click', function () {
-		let url = new URL(window.location.href);
-		let mode = url.pathname.split("/")[3];
+    var save_game = '{% url "game_save" %}';
+    var host_name = '{{ user.username }}';
+    var tournament_save = '{% url "tournament_save" %}';
+    var name_player2 = 'Player 2';
 
-		if (mode == 'pvp') {
-			name_player2 = document.getElementById('player2name').value;
-			if (name_player2.length > 10)
-				name_player2 = name_player2.substring(0, 10);
-			if (name_player2 != '') {
-				document.getElementById('player2name').style.display = 'none';
-				document.getElementById('player2nameButton').style.display = 'none';
-				window.startGameFunctionPVP();
-			}
-		} else if (mode == 'pve') {
-			name_player2 = "Glados"
-			document.getElementById('player2name').style.display = 'none';
-			document.getElementById('player2nameButton').style.display = 'none';
-			window.startGameFunctionPVE();
-		}
-	});
+    function startGame() {
+        let url = new URL(window.location.href);
+        let mode = url.pathname.split("/")[3];
+
+        if (mode == 'pvp') {
+            name_player2 = document.getElementById('player2name').value;
+            if (name_player2.length > 10)
+                name_player2 = name_player2.substring(0, 10);
+            if (name_player2 != '') {
+                document.getElementById('player2name').style.display = 'none';
+                document.getElementById('player2nameButton').style.display = 'none';
+                window.startGameFunctionPVP();
+            }
+        } else if (mode == 'pve') {
+            name_player2 = "Glados"
+            document.getElementById('player2name').style.display = 'none';
+            document.getElementById('player2nameButton').style.display = 'none';
+            window.startGameFunctionPVE();
+        }
+    }
+
+    document.getElementById('player2nameButton').addEventListener('click', startGame);
 </script>
 
 <canvas id="pongCanvas"></canvas>

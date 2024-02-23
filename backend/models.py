@@ -111,7 +111,7 @@ class CustomUser(AbstractUser):
 	photo_medium_url = models.URLField(max_length=255, blank=True)
 	photo_small_url = models.URLField(max_length=255, blank=True)
 
-	upload_image = models.ImageField(null=True, blank=True, upload_to='images')
+	upload_image = models.ImageField(null=True, blank=True, upload_to='images/')
 	uploaded_image = models.CharField(max_length=255, blank=True, default='')
 
 	def save(self, *args, **kwargs):
@@ -127,23 +127,6 @@ class CustomUser(AbstractUser):
 			stats.save()
 		super().save(*args, **kwargs)
 
-
-class FriendRequest(models.Model):
-	"""
-	Friend request sent between two users. The receiver can either accept or deny.
-	If the receiver accepts, both users are added to each other's friends lists.
-	If the receiver denies, the request is destroyed.
-	"""
-	STATUS_CHOICES = (
-		('pending', 'Pending'),
-		('accepted', 'Accepted'),
-		('denied', 'Denied'),
-	)
-
-	sender = models.ForeignKey('CustomUser', related_name='sent_requests', on_delete=models.CASCADE)
-	receiver = models.ForeignKey('CustomUser', related_name='received_requests', on_delete=models.CASCADE)
-	status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending')
-	created_at = models.DateTimeField(auto_now_add=True)
 
 class Stats(models.Model):
 	"""
