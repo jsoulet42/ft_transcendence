@@ -254,6 +254,7 @@ $carousel-indicator-height: 3px;
 	62%{
 	  transform: translate(-22px,5px) skew(21deg);
 	}
+}
 
 //8 players css
 
@@ -396,9 +397,45 @@ $carousel-indicator-height: 3px;
   }
 
 .form_playerthree:hover {
-	
+	animation: bubble-anim 4s ease-out forwards;
 }
 
+@keyframes bubble-anim {
+	0% {
+	  transform: scale(1);
+	}
+	20% {
+	  transform: scaleY(0.95) scaleX(1.05);
+	}
+	48% {
+	  transform: scaleY(1.1) scaleX(0.9);
+	}
+	68% {
+	  transform: scaleY(0.98) scaleX(1.02);
+	}
+	80% {
+	  transform: scaleY(1.02) scaleX(0.98);
+	}
+	97%, 100% {
+	  transform: scale(1);
+	}
+  }
+
 .form_playertwo:hover {
-	
+	animation: left-right 4s ease-out forwards;
 }
+
+@keyframes left-right {
+	0% {
+	  transform: translatex(0vh);
+	}
+	40% {
+		transform: translatex(7vh);
+	}
+	60% {
+	  transform: translatex(-7vh);
+	}
+	100% {
+	  transform: translatex(0vh);
+	}
+  }
