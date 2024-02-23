@@ -31,30 +31,15 @@
 				</ul>
 			</div>
 			<div class="btn-group dropdown">
-				<button id="friends-dropdown-toggle" type="button" class="btn btn-secondary dropdown-toggle pong-btn-success" data-bs-toggle="dropdown" aria-expanded="false">
+				<button id="friends-dropdown-toggle" type="button" class="btn btn-secondary dropdown-toggle pong-btn-success" onclick="createFriendsDropdown()" data-bs-toggle="dropdown" aria-expanded="false">
 					<img id="menu-friends-icon" class="img-fluid" src="{% static 'home/images/friends_icon.png' %}" alt="friends_icon">
 				</button>
-				<ul id="friends-dropdown" class="dropdown-menu">
-					<li><div class="dropdown-header">Requests</div></li>
-					<li><hr class="dropdown-divider"></li>
-					<li><div class="dropdown-header">Friends</div></li>
-					{% if not user.friends.exists %}
-						<li>You have no friends yet D:</li>
-					{% endif %}
-					{% for friend in user.friends.all %}
-						<li><button class="dropdown-item" type="button" href="{% url 'profile' %}" hx-get="{% url 'profile' %}" hx-target="#main-container" hx-push-url="true" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }'>{{ friend.username }}</button></li>
-					{% endfor %}
-					<li><hr class="dropdown-divider"></li>
-					<li>
-						<div class="btn-group">
-							{% comment %} <button class="dropdown-item btn btn-add" type="button" data-bs-toggle="modal" data-bs-target="#friend-request-modal"></button> {% endcomment %}
-							<button class="dropdown-item btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#friend-request-modal">
-								<img class="img-fluid menu-icon" src="{% static 'home/images/plus_icon.png' %}" alt="plus_icon">
-							</button>
-							<button class="dropdown-item btn btn-secondary" type="button" href="{% url 'logout' %}" hx-post="{% url 'logout' %}" hx-target="body" hx-push-url="/" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }'>
-								<img class="img-fluid menu-icon" src="{% static 'home/images/refresh_icon.png' %}" alt="refresh_icon">
-							</button>
-						</div>
+				<ul id="friends-dropdown" class="dropdown-menu px-3">
+					<div id="friend-requests-container"></div>
+					<div id="friend-list-container"></div>
+					<li class="row">
+						<button type="button" class="dropdown-item btn btn-add col" data-bs-toggle="modal" data-bs-target="#friend-request-modal"></button>
+						<button type="button" id="friends-refresh-btn" class="dropdown-item btn btn-refresh col" onclick="createFriendsDropdown()"></button>
 					</li>
 				</ul>
 			</div>
@@ -64,30 +49,6 @@
 </nav>
 
 <script>
-	document.getElementById('friends-dropdown-toggle').addEventListener('click', function() {
-		fetchFriendRequests();
-	});
-
-	function fetchFriendRequests() {
-		fetch('/home/get_friend_requests/')
-			.then(response => response.json())
-			.then(data => {
-				const dropdownMenu = document.getElementById('friends-dropdown');
-				if (data.length === 0) {
-					const listItem = `<li>No friend requests</li>`;
-					dropdownMenu.insertAdjacentHTML('afterbegin', listItem);
-				} else {
-					data.forEach(request => {
-						const listItem = `<li>`
-							+ `<span>${request.username}</span>`
-							+ `<button type="button" class="btn-add float-right" aria-label="Close">`
-							+ `<img class="img-fluid menu-icon" src="{% static 'home/images/plus_icon.png' %}" alt="plus_icon">`
-							+ `</button>`
-							+ `</li>`;
-						dropdownMenu.insertAdjacentHTML('afterbegin', listItem);
-					});
-				}
-			})
-			.catch(error => console.error('Error fetching friend requests:', error));
-	}
+	var session_user_username = "{{ user.username }}";
+	var csrf_token = "{{ csrf_token }}";
 </script>

@@ -170,7 +170,7 @@ html, body {
 #login-status {
 	position: relative;
 	float: right;
-	width: 20%;
+	width: fit-content;
 	height: 90%;
 	right: 2%;
 	cursor: pointer;
@@ -186,7 +186,7 @@ html, body {
 
 #login-status .login-btn {
 	position: relative;
-	width: 100%;
+	min-width: 10rem;
 	height: 80%;
 	border-top-left-radius: 0;
 	border-top-right-radius: 0;
