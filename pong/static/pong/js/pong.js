@@ -8,6 +8,7 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 var updateInterval;
+var updateInterval2;
 
 var posBord = 10;
 
@@ -51,6 +52,8 @@ function initializeUI(player1, player2) {
 }
 
 function createManager(mode = 0) {
+	//vérifi si duration est bien un nombre sinon on met 10
+
 	return {
 		mode: mode,
 		pause: false,
@@ -58,11 +61,14 @@ function createManager(mode = 0) {
 		countdownInt: 3,
 		countdownBool: false,
 		startTime: Date.now(),
+		partyDuration: 10,
+		secondsLeft: 10,
 		inputs: false,
 		waiting: true,
+		endGame: false
 	};
 }
-function createPaddle(){
+function createPaddle() {
 	return {
 		leftHeight: canvas.width / 10,
 		leftWidth: canvas.height / 50,
@@ -78,7 +84,7 @@ function createPaddle(){
 	};
 
 }
-function createBall(speed){
+function createBall(speed) {
 	return {
 		x: canvas.width / 2,
 		y: canvas.height / 2,
@@ -110,35 +116,50 @@ function createUI() {
 	};
 }
 
-let directionXtmp = ball.speedX;
-let directionYtmp = ball.speedY
-
 //#endregion
 
 //#region Exported functions
 
-run();
-
 export function startGameFunctionPVP() {
 	manager.inputs = true;
-	manager.waiting = false;
-	UI.rightName = name_player2;
-
-	initializeBall(0);
-	initializeIA(false);
-	initializePaddle();
-
+	if (!manager.endGame) {
+		manager.waiting = false;
+		UI.rightName = name_player2;
+		initializeIA(false);
+		initializeBall(0);
+		initializePaddle();
+	}
+	else {
+		stopUpdatingAI();
+		manager.endGame = false;
+		initializeVariables(1);
+		initializeIA(false);
+		initializeBall(0);
+		manager.waiting = false;
+		manager.inputs = true;
+	}
 }
 window.startGameFunctionPVP = startGameFunctionPVP;
 
 export function startGameFunctionPVE() {
-	manager.inputs = true;
-	manager.waiting = false;
-	initializeUI(host_name, name_player2);
-	initializeIA(true);
-	initializePaddle();
-	initializeBall(0);
-	console.log("startGameFunctionPVE");
+	if (manager.endGame){
+		stopUpdatingAI();
+		manager.endGame = false;
+		initializeVariables(2);
+		initializeIA(true);
+		initializeBall(0);
+		manager.waiting = false;
+		manager.inputs = true;
+	}
+	else {
+		manager.inputs = true;
+		manager.waiting = false;
+		initializeUI(host_name, name_player2);
+		initializeIA(true);
+		initializePaddle();
+		initializeBall(0);
+		startUpdatingAI();
+	}
 }
 window.startGameFunctionPVE = startGameFunctionPVE;
 
@@ -248,8 +269,7 @@ function IATrajectory(ox, oy, speedX, speedY, stop) {
 	else if (ball.speedX < 0)
 		IA.destYRight = dy;
 
-	// if (UI.drawTrajectory)
-	// 	drawLine(ox, oy, dx, dy);
+	drawLine(ox, oy, dx, dy);
 }
 
 function startUpdatingAI() {
@@ -266,7 +286,8 @@ function stopUpdatingAI() {
 function IAUpdate() {
 	IA.destYLeftLatence = IA.destYLeft + Math.random() * paddle.leftHeight - paddle.leftHeight / 2;
 	IA.destYRightLatence = IA.destYRight + Math.random() * paddle.rightHeight - paddle.rightHeight / 2;
-	// console.log(Date.now() - lastTime); // Affiche le temps écoulé depuis le dernier appel
+	//console.log(Date.now() - lastTime); // Affiche le temps écoulé depuis le dernier appel
+	//console.log("DestYLeftLatence: " + IA.destYLeftLatence + " DestYRightLatence: " + IA.destYRightLatence);
 	lastTime = Date.now();
 }
 
@@ -317,7 +338,7 @@ function IAMove() {
 function IAManager() {
 	if (manager.putBackBallBool || manager.pause)
 		stopUpdatingAI();
-	else if (IA.activate)
+	else if (IA.activate || manager.waiting)
 		IAMove();
 }
 //#endregion
@@ -453,6 +474,17 @@ function collisionDetection() {
 	}
 }
 
+function drawEndGame() {
+	ctx.font = "10vw Arial";
+	ctx.fillStyle = 'white';
+	let winner;
+	if (UI.leftScore > UI.rightScore)
+		winner = UI.leftName;
+	else
+		winner = UI.rightName;
+	ctx.fillText("Winner is " + winner, canvas.width / 2, canvas.height / 2); // Dessine le compteur
+}
+
 //#endregion
 
 //#region manage the game
@@ -463,12 +495,24 @@ function Update() {
 		lisenInput();
 		drawScore();
 		drawCountdown();
+		if (!manager.endGame)
+			drawCountdown2(manager.secondsLeft);
+	}
+	if (manager.endGame) {
+		drawEndGame();
+		manager.waiting = true;
 	}
 	drawPaddle();
 	drawVerticalBar();
 	IATrajectory(ball.x, ball.y, ball.speedX, ball.speedY, 0)
 	IAManager();
 	drawBall();
+
+	// Obtenez l'élément par son ID
+	var speedElement = document.getElementById('speed');
+	speedElement.style.color = 'white';
+	// Modifiez le contenu de l'élément
+	speedElement.textContent = "ball.speedX: " + ball.speedX + " ball.speedY: " + ball.speedY;
 }
 
 function canvasCheck() {
@@ -479,12 +523,30 @@ function canvasCheck() {
 
 function startGame() {
 
-	setInterval(Update, 10);
+	updateInterval2 = setInterval(Update, 10);
 	IATrajectory(ball.x, ball.y, ball.speedX, ball.speedY, 0);
 	IAUpdate();
 	startUpdatingAI();
 	initializeBall(ball.speedBaseX);
 	manager.startTime = Date.now();
+}
+
+function endGame() {
+	manager.endGame = true;
+	manager.waiting = true;
+	stopUpdatingAI();
+	if (manager.mode == 1) {
+		document.getElementById("player2name").style.display = "block";
+		document.getElementById("player2name").value = "";
+		document.getElementById('player2nameButton').style.display = 'block';
+		initializeIA(true);
+		startUpdatingAI();
+	}
+	if (manager.mode == 2) {
+		document.getElementById('player2nameButton').style.display = 'block';
+		initializeIA(true);
+		startUpdatingAI();
+	}
 }
 
 async function putBackBall(directionX) {
@@ -506,46 +568,97 @@ async function putBackBall(directionX) {
 	await delay(500); // Wait for 1 second
 
 	manager.putBackBallBool = false;
-	// Place the ball at the center of the canvas for 1 second
-	ball.x = canvas.width / 2;
-	ball.y = canvas.height / 2;
-	ball.Bradius = canvas.height / 50;
-	await delay(200); // Wait for 1 second
+	initializeBall(0);
+	await delay(200);
 
-	// Send the ball
 	while (manager.pause)
 		await delay(10);
-	ball.speedX = ball.speedBaseX * directionX;
-	ball.speedY = (Math.random() * 2 - 1) * ball.speedBaseY;
+	initializeBall(ball.speedBaseX * directionX);
 	IATrajectory(ball.x, ball.y, ball.speedX, ball.speedY, 0);
 	IA.destYLeftLatence = IA.destYLeft + Math.random() * paddle.leftHeight - paddle.leftHeight / 2;
 	startUpdatingAI();
 
-	sendScoreToBackend();
+	if (manager.secondsLeft <= 0 && UI.leftScore != UI.rightScore) {
+		endGame();
+		sendScoreToBackend();
+	}
 }
 
 function delay(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
 }
+//#region Compte à rebours
+
+function formatTime(seconds) {
+	// Convertit le temps en minutes et secondes
+	var minutes = Math.floor(seconds / 60);
+	var seconds = seconds % 60;
+
+	// Ajoute un zéro devant les nombres à un chiffre
+	if (minutes < 10) minutes = '0' + minutes;
+	if (seconds < 10) seconds = '0' + seconds;
+
+	return minutes + ':' + seconds;
+}
+
+function drawCountdown2(seconds) {
+	var canvas = document.getElementById('pongCanvas');
+	var ctx = canvas.getContext('2d');
+
+	ctx.font = '3em Arial';
+	ctx.textAlign = 'center';
+	ctx.fillStyle = 'white';
+
+	if (seconds > 0) {
+		ctx.fillText(formatTime(seconds), canvas.width / 2 - 100, 60);
+	} else {
+		if (seconds % 2 == 0)
+			ctx.fillStyle = 'red';
+		else
+			ctx.fillStyle = 'white';
+		seconds *= -1;
+
+		var text1 = "EXTRA TIME";
+		var text2 = formatTime(seconds);
+
+		var lineHeight = 30; // Hauteur de ligne en pixels
+		var lineSpacing = 10; // Espacement entre les lignes en pixels
+		var y1 = lineHeight + 30; // Position y de la première ligne
+		var y2 = y1 + lineHeight + lineSpacing; // Position y de la deuxième ligne
+
+		ctx.fillText(text1, canvas.width / 2 - 200, y1);
+		ctx.fillText(text2, canvas.width / 2 - 200, y2);
+	}
+}
+
+function startCountdown() {
+
+	var countdownInterval = setInterval(function () {
+		manager.secondsLeft--;
+		if (manager.endGame) {
+			clearInterval(countdownInterval);
+		}
+	}, 1000);
+}
+
+//#endregion
 
 function pauseGame() {
 	if (manager.pause) {
-		ball.speedX = directionXtmp;
-		ball.speedY = directionYtmp;
+		ball.speedX = ball.speedBaseX;
+		ball.speedY = ball.speedBaseY;
 
 		manager.pause = false;
 		startUpdatingAI();
 	}
 	else {
-		directionXtmp = ball.speedX;
-		directionYtmp = ball.speedY;
 		ball.speedX = 0;
 		ball.speedY = 0;
 		manager.pause = true;
 	}
 }
 
-async function countdown() {
+async function countdownBeginParty() {
 	if (manager.countdownBool)
 		return;
 	manager.countdownBool = true;
@@ -554,6 +667,7 @@ async function countdown() {
 	manager.countdownInt--;
 	if (manager.countdownInt == 0) {
 		ball.speedX = ball.speedBaseX;
+		startCountdown();
 	}
 }
 
@@ -561,14 +675,14 @@ function drawCountdown() {
 	if (manager.countdownInt <= 0) {
 		return;
 	}
-	countdown();
+	countdownBeginParty();
 	ctx.font = "10vw Arial";
 	ctx.fillStyle = 'white';
 	ctx.fillText(manager.countdownInt, ctx.canvas.width / 2, ctx.canvas.height / 2); // Dessine le compteur
 }
 
 function initializeVariables(mode) {
-	clearInterval(Update);
+	clearInterval(updateInterval2);
 
 	if (!canvas)
 		window.addEventListener('load', canvasCheck);
@@ -581,7 +695,6 @@ function initializeVariables(mode) {
 	initializeBall(ball.speedBaseX);
 	initializePaddle();
 	initializeUI(host_name, name_player2);
-	initializeIA(true);
 
 	startGame();
 }
@@ -603,17 +716,18 @@ function run() {
 		initializeVariables(3);
 	else
 		console.log("Error: mode not found `" + mode + "`");
+	initializeIA(true);
 }
 
 //#endregion
 
 //#region request backend
 
-
 function sendScoreToBackend() {
+	return;
 	let game_duration = (new Date() - manager.startTime) / 1000;
 
-	if (UI.scoreLeft == UI.scoreRight || game_duration < 60)
+	if (UI.scoreLeft == UI.scoreRight || game_duration < 60 || manager.waiting)
 		return;
 	let formData = new FormData();
 	formData.append('game_duration', game_duration);
@@ -641,3 +755,5 @@ function sendScoreToBackend() {
 		});
 }
 //#endregion
+
+run();
