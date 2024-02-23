@@ -153,12 +153,25 @@ $carousel-indicator-height: 3px;
 
 .player_forms {
 	position: absolute;
-	left: 40%;
+	left: 35%;
 	width: 20%;
 	top: 20%;
 	background-color: black;
 	color: white;
 	border-color: violet;
+}
+
+.button_submit {
+	position: absolute;
+	left: 57%;
+	width: 10%;
+	top: 20%;
+	background-color: violet;
+}
+
+button_submit:hover {
+	background-color: pink;
+	transform: scale(1.1);
 }
 
 .form-control:focus,
@@ -235,16 +248,16 @@ $carousel-indicator-height: 3px;
 
 	2%,
 	64% {
-		transform: translate(2px, -2px);
+		transform: translate(0.25vh, -0.25vh);
 	}
 
 	4%,
 	60% {
-		transform: translate(-2px, 2px);
+		transform: translate(-0.25vh, 0.25vh);
 	}
 
 	62% {
-		transform: translate(13px, -1px) skew(-13deg);
+		transform: translate(1.5vh, -0.1vh) skew(-13deg);
 	}
 }
 
@@ -280,6 +293,7 @@ $carousel-indicator-height: 3px;
 .eightplayers_text {
 	text-align: center;
 	color: white;
+	font-size: 9vh;
 }
 
 .form_eightplayers {
@@ -292,43 +306,43 @@ $carousel-indicator-height: 3px;
 	border: 4mm ridge rgba(146, 32, 184, 0.6);
 	top: 35%;
 	left: 10%;
-	background-color: red;
+	background-color: rgb(146, 75, 203);
 	padding: 1vh;
 	box-sizing: border-box;
 }
 
 .form_playerthree {
-	border: 4mm ridge rgba(146, 32, 184, 0.6);
+	border: 4mm ridge rgba(255, 97, 226, 0.6);
 	top: 55%;
 	left: 10%;
-	background-color: orange;
+	background-color: rgb(255, 0, 200);
 	padding: 1vh;
 	box-sizing: border-box;
 }
 
 .form_playerfour {
-	border: 4mm ridge rgba(177, 184, 32, 0.6);
+	border: 4mm ridge rgba(255, 46, 217, 0.6);
 	top: 75%;
 	left: 10%;
-	background-color: yellow;
+	background-color: rgb(255, 119, 232);
 	padding: 1vh;
 	box-sizing: border-box;
 }
 
 .form_playerfive {
-	border: 4mm ridge rgba(78, 184, 32, 0.6);
+	border: 4mm ridge rgba(207, 52, 254, 0.411);
 	top: 15%;
 	right: 10%;
-	background-color: green;
+	background-color: rgb(216, 47, 246);
 	padding: 1vh;
 	box-sizing: border-box;
 }
 
 .form_playersix {
-	border: 4mm ridge rgba(32, 78, 184, 0.6);
+	border: 4mm ridge rgba(184, 32, 179, 0.6);
 	top: 35%;
 	right: 10%;
-	background-color: blue;
+	background-color: rgb(255, 0, 238);
 	padding: 1vh;
 	box-sizing: border-box;
 }
@@ -404,7 +418,7 @@ $carousel-indicator-height: 3px;
 	  transform: translatey(0vh);
 	}
 	50% {
-	  transform: translatey(-5vh);
+	  transform: translatey(-4vh);
 	}
 	100% {
 	  transform: translatey(0vh);
