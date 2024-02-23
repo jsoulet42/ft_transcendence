@@ -111,7 +111,7 @@ class CustomUser(AbstractUser):
 	photo_medium_url = models.URLField(max_length=255, blank=True)
 	photo_small_url = models.URLField(max_length=255, blank=True)
 
-	upload_image = models.ImageField(null=True, blank=True, upload_to='images')
+	upload_image = models.ImageField(null=True, blank=True, upload_to='images/')
 	uploaded_image = models.CharField(max_length=255, blank=True, default='')
 
 	def save(self, *args, **kwargs):
