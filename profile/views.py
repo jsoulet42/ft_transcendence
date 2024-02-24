@@ -9,7 +9,7 @@ from .forms import ProfilePicForm
 import os
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
-from backend.models import CustomUser
+from backend.models import CustomUser, Game
 
 @login_required
 def profile(request):
@@ -42,10 +42,30 @@ def update_image(request):
         form = ProfilePicForm(request.POST, request.FILES)
         if form.is_valid():
             if 'upload_image' in request.FILES:
-                user.upload_image = form.cleaned_data['upload_image']
+                image = form.cleaned_data['upload_image']
+                user.upload_image = image
+                if 'media/images' in user.profile_image_path:
+                    user.profile_image_path = settings.MEDIA_URL + 'images/' + str(image)
                 user.save()
         return HttpResponseRedirect('/profile')
 
+def match_history(request):
+	form = ProfilePicForm()
+	# user = request.user
+	# .order_by('-date')
+	latest_matches = Game.objects.filter(player1=request.user)[:10]
+	if request.META.get('HTTP_HX_REQUEST'):
+		return render(request, 'match_history.html', {'matches': latest_matches})
+	return render(request, 'profile.html', {'form':form})
+
+def tournaments_history(request):
+	form = ProfilePicForm()
+	# user = request.user
+	# .order_by('-date')
+	latest_matches = Game.objects.filter(player1=request.user, tournament__isnull=False)[:10]
+	if request.META.get('HTTP_HX_REQUEST'):
+		return render(request, 'tournaments_history.html', {'matches': latest_matches})
+	return render(request, 'profile.html', {'form':form})
 
 def update_profile(request):
 	if request.method == 'POST':
@@ -61,13 +81,13 @@ def update_profile(request):
 			# Mettre à jour la session pour éviter la déconnexion
 			update_session_auth_hash(request, request.user)
 		if selected_option == '1':
-			image_url = 'static/profile/images/character1.png'
+			image_url = settings.MEDIA_URL + 'character1.png'
 		elif selected_option == '2':
-			image_url = 'static/profile/images/character2.png'
+			image_url = settings.MEDIA_URL + 'character2.png'
 		elif selected_option == '3':
 			image_url = request.user.photo_medium_url
 		elif selected_option == '4':
-			image_url = request.user.uploaded_image
+			image_url = user.upload_image.url
 		user.profile_image_path = image_url
 		user.save()
 		return HttpResponseRedirect('/profile')

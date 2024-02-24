@@ -167,6 +167,9 @@ class Game(models.Model):
 	player1_score = models.PositiveSmallIntegerField(default=0)
 	player2_score = models.PositiveSmallIntegerField(default=0)
 
+		# class Meta:
+		# 	ordering = ['-date_played']
+
 
 class Leaderboard(models.Model):
 	"""
