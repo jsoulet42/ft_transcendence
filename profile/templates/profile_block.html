@@ -6,26 +6,27 @@
         <h1>{{ user.username }}</h1>
     {%  endif %}
 	<div id="choice-div" class="rounded-5 border border-info border-3">
-		<img id="choice-img" class="rounded-5 border border-info border-3" src="{{ user.upload_image }}" alt="player-profile">
+		<img id="choice-img" class="rounded-5 border border-info border-3" src="{{ user.profile_image_path }}" alt="player-profile">
 	</div>
 	<h3 class="h4lol"><br>
 		GAME PLAYED : {{ user.stats.games_played }}<br><br>
-		<br><br><br>
+		<br>
 		WIN COUNT : {{ user.stats.wins }}<br><br>
-        <br><br><br>
+        <br>
         LOOSE COUNT : {{ user.stats.losses }}<br><br>
 	</h3>
     <div id="profile-leftside">
         <button type="button" class="bottom-edit btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
         Edit image
         </button>
-        <form action="{% url 'update_image' %}" method="POST" enctype="multipart/form-data">
-			{% csrf_token %}
+{#        <form action="{% url 'update_image' %}" method="POST" enctype="multipart/form-data">#}
+{#			{% csrf_token %}#}
 {#            {% csrf_token %}#}
 {#            {{ form.as_p }}#}
 {#            <button type="submit" style="background-color: #8360c3;" class="btn btn-outline-info" >Upload image</button>#}
 {#        </form>#}
     </div>
+    <button type="button" class="bottom-edit2 btn btn-outline-info" hx-get="{% url 'match_history' %}" hx-target="#main-container" hx-push-url="true">MATCH HISTORY</button>
     <button type="button" class="bottom-edit btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#exampleModal">EDIT PROFILE</button>
 </div>
 {#<script>#}

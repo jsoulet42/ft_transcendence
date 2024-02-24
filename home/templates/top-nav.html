@@ -21,9 +21,13 @@
 			<div class="btn-group dropdown">
 				<button type="button" class="btn btn-primary dropdown-toggle buttonPong" data-bs-toggle="dropdown" aria-expanded="false">
 					<span class="login-text">
-						{{ user.username }}
+                        {% if user.nickname %}
+                            {{ user.nickname }}
+                        {% else %}
+                            {{ user.username }}
+                        {% endif %}
 					</span>
-					<img id="menu-profile-img" class="img-fluid" src="{{ user.photo_small_url }}" alt="{{ user.username }}">
+					<img id="menu-profile-img" class="img-fluid" src="{{ user.profile_image_path }}" alt="{{ user.username }}">
 				</button>
 				<ul class="dropdown-menu">
 					<li><button class="dropdown-item" type="button" href="{% url 'profile' %}" hx-get="{% url 'profile' %}" hx-target="#main-container" hx-push-url="true" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }'>Profile</button></li>
