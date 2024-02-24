@@ -51,6 +51,21 @@
 		</div>
 	</div>
 </div>
+<script>
+	$(document).ready(function() {
+		// Récupérer l'index du slide actuel à partir du localStorage
+		var currentIndex = localStorage.getItem('carouselIndex') || 0;
+
+		// Initialiser le carrousel à l'index récupéré
+		$('#carousel-hub').carousel(parseInt(currentIndex));
+
+		// Enregistrer l'index du slide actuel dans le localStorage chaque fois que le slide change
+		$('#carousel-hub').on('slid.bs.carousel', function () {
+			var currentIndex = $('#carousel-hub .carousel-item.active').index();
+			localStorage.setItem('carouselIndex', currentIndex);
+		});
+	});
+</script>
 
 
 

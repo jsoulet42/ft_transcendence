@@ -15,17 +15,23 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include	# Added include() function
-from django.conf.urls.static import static
-from django.conf import settings
+from django.urls import path, include
 
-from . import views
+from .views import (
+	remove_friend,
+	get_friend_list,
+	get_friend_requests,
+	send_friend_request,
+	accept_friend_request,
+	reject_friend_request
+)
 
 urlpatterns = [
-	path('', views.profile, name='profile'),
-	# path('get-image/', views.get_image_url, name='get_image_url'),
-	path('update-profile/', views.update_profile, name='update_profile'),
-	path('update-image/', views.update_image, name='update_image'),
-	path('match-history/', views.match_history, name='match_history'),
-	path('tournaments-history/', views.tournaments_history, name='tournaments_history'),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+	path('remove/', remove_friend),
+	path('list/get/', get_friend_list),
+	path('list/get/<str:username>/', get_friend_list),
+	path('requests/get/', get_friend_requests, name='get_friend_requests'),
+	path('requests/send/', send_friend_request, name='send_friend_request'),
+	path('requests/accept/', accept_friend_request),
+	path('requests/reject/', reject_friend_request),
+]

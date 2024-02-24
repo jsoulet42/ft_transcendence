@@ -1,7 +1,5 @@
-from backend.models import CustomUser, UsersList, Stats, Game, Tournament, Leaderboard
 from django.contrib import admin
-
-# Register your models here.
+from .models import CustomUser, UsersList, Stats, Game, Tournament, Leaderboard
 
 class UserInline(admin.TabularInline):
 	model = CustomUser
