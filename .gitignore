@@ -5,7 +5,9 @@ __pycache__/
 *.pyd
 db.sqlite3
 mydatabase
-media/
+media/images/
+migrations/
+static/
 
 # Secret key
 *.secret_key
@@ -36,7 +38,7 @@ css/
 
 # Fichiers de sauvegarde
 backup*/
-/static
+
 
 
 *:Zone.Identifier
