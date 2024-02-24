@@ -1,0 +1,157 @@
+.btn-add {
+	--btn-add-width:            1.4em;
+	--btn-add-height:           var(--btn-add-width);
+	--btn-add-padding-x:        .1em;
+	--btn-add-padding-y:        var(--btn-add-padding-x);
+	--btn-add-bg:               url('/static/images/plus_icon.svg');
+	--btn-add-bg-color:         0, 255, 0;
+	--btn-add-focus-shadow:     0;
+	--btn-add-opacity:          .5;
+	--btn-add-hover-opacity:    .75;
+	--btn-add-focus-opacity:    1;
+	--btn-add-disabled-opacity: .25;
+
+	box-sizing: content-box;
+	width: var(--btn-add-width);
+	height: var(--btn-add-height);
+	padding: var(--btn-add-padding-y) var(--btn-add-padding-x);
+	color: var(--btn-add-color);
+	background: transparent var(--btn-add-bg) center / var(--btn-add-width) auto no-repeat;
+	border: 0;
+	border-radius: calc(var(--btn-add-width) / 5);
+	opacity: var(--btn-add-opacity);
+	transition: transform 0.2s ease-out;
+  
+	// Override <a>'s hover style
+	&:hover {
+		color: var(--btn-add-color);
+		text-decoration: none;
+		opacity: var(--btn-add-hover-opacity);
+		background-color: rgba(var(--btn-add-bg-color), 0.25);
+	}
+  
+	&:focus {
+		outline: 0;
+		box-shadow: var(--btn-add-focus-shadow);
+		opacity: var(--btn-add-focus-opacity);
+		background-color: rgba(var(--btn-add-bg-color), 0.25);
+	}
+  
+	&:disabled,
+	&.disabled {
+		pointer-events: none;
+		user-select: none;
+		opacity: var(--btn-add-disabled-opacity);
+	}
+}
+
+.btn-add-white {
+	--btn-add-white-filter: invert(1) grayscale(100%) brightness(200%);
+	filter: var(--btn-add-white-filter);
+}
+
+
+.btn-deny {
+	--btn-deny-width:            1.5em;
+	--btn-deny-height:           var(--btn-deny-width);
+	--btn-deny-padding-x:        .09em;
+	--btn-deny-padding-y:        var(--btn-deny-padding-x);
+	--btn-deny-bg:               url('/static/images/cross_icon.svg');
+	--btn-deny-bg-color:         255, 0, 0;
+	--btn-deny-focus-shadow:     0;
+	--btn-deny-opacity:          .5;
+	--btn-deny-hover-opacity:    .75;
+	--btn-deny-focus-opacity:    1;
+	--btn-deny-disabled-opacity: .25;
+
+	box-sizing: content-box;
+	width: var(--btn-deny-width);
+	height: var(--btn-deny-height);
+	padding: var(--btn-deny-padding-y) var(--btn-deny-padding-x);
+	color: var(--btn-deny-color);
+	background: transparent var(--btn-deny-bg) center / var(--btn-deny-width) auto no-repeat;
+	border: 0;
+	border-radius: calc(var(--btn-deny-width) / 5);
+	opacity: var(--btn-deny-opacity);
+	transition: transform 0.2s ease-out;
+  
+	// Override <a>'s hover style
+	&:hover {
+		color: var(--btn-deny-color);
+		text-decoration: none;
+		opacity: var(--btn-deny-hover-opacity);
+		background-color: rgba(var(--btn-deny-bg-color), 0.25);
+	}
+  
+	&:focus {
+		outline: 0;
+		box-shadow: var(--btn-deny-focus-shadow);
+		opacity: var(--btn-deny-focus-opacity);
+		background-color: rgba(var(--btn-deny-bg-color), 0.25);
+	}
+  
+	&:disabled,
+	&.disabled {
+		pointer-events: none;
+		user-select: none;
+		opacity: var(--btn-deny-disabled-opacity);
+	}
+}
+
+.btn-deny-white {
+	--btn-deny-white-filter: invert(1) grayscale(100%) brightness(200%);
+	filter: var(--btn-deny-white-filter);
+}
+
+
+.btn-refresh {
+	--btn-refresh-width:            1.46em;
+	--btn-refresh-height:           var(--btn-refresh-width);
+	--btn-refresh-padding-x:        .1em;
+	--btn-refresh-padding-y:        var(--btn-refresh-padding-x);
+	--btn-refresh-bg:               url('/static/images/refresh_icon.svg');
+	--btn-refresh-bg-color:         0, 0, 255;
+	--btn-refresh-focus-shadow:     0;
+	--btn-refresh-opacity:          .5;
+	--btn-refresh-hover-opacity:    .75;
+	--btn-refresh-focus-opacity:    1;
+	--btn-refresh-disabled-opacity: .25;
+
+	box-sizing: content-box;
+	width: var(--btn-refresh-width);
+	height: var(--btn-refresh-height);
+	padding: var(--btn-refresh-padding-y) var(--btn-refresh-padding-x);
+	color: var(--btn-refresh-color);
+	background: transparent var(--btn-refresh-bg) center / var(--btn-refresh-width) auto no-repeat;
+	border: 0;
+	border-radius: calc(var(--btn-refresh-width) / 5);
+	opacity: var(--btn-refresh-opacity);
+	transition: transform 0.2s ease-out;
+  
+	// Override <a>'s hover style
+	&:hover {
+		color: var(--btn-refresh-color);
+		text-decoration: none;
+		opacity: var(--btn-refresh-hover-opacity);
+		background-color: rgba(var(--btn-refresh-bg-color), 0.25);
+	}
+
+	&:focus {
+		outline: 0;
+		box-shadow: var(--btn-refresh-focus-shadow);
+		opacity: var(--btn-refresh-focus-opacity);
+		background-color: rgba(var(--btn-refresh-bg-color), 0.25);
+	}
+  
+	&:disabled,
+	&.disabled {
+		pointer-events: none;
+		user-select: none;
+		opacity: var(--btn-refresh-disabled-opacity);
+	}
+}
+
+.btn-refresh-white {
+	--btn-refresh-white-filter: invert(1) grayscale(100%) brightness(200%);
+	filter: var(--btn-refresh-white-filter);
+}
