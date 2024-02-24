@@ -1,0 +1,207 @@
+// style_profile.scss
+
+.tv-match-history {
+    position: absolute;
+    overflow: hidden;
+    z-index: 0;
+    display: flex;
+    width: 80%;
+    height: 80%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: black;
+    background-size: cover;
+    background-position: center;
+    border: 7px solid #ff2ffc;
+    animation: borderChange 10s linear infinite alternate;
+}
+
+.lol {
+    position: absolute;
+    left: 3%;
+ }
+
+.table-success {
+    background-color: #c3e6cb; /* Green background for wins */
+}
+
+.table-danger {
+    background-color: #f5c6cb; /* Red background for losses */
+}
+
+.tv-content-profile {
+    position: absolute;
+    overflow: hidden;
+    z-index: 0;
+    display: flex;
+    width: 80%;
+    height: 80%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-image: url("/static/profile/images/profilebackg.png");
+    background-size: cover;
+    background-position: center;
+    border: 7px solid #ff2ffc;
+    animation: borderChange 10s linear infinite alternate;
+}
+
+@keyframes borderChange {
+    0% {
+        border-color: #ff2ffc; /* Couleur initiale de la bordure */
+    }
+
+    100% {
+        border-color: #2f7bff; /* Nouvelle couleur de la bordure à 100% de l'animation */
+    }
+}
+
+  @keyframes shine2 {
+	  0% {
+		  color: #90d4fa;
+		  text-shadow: 0 0 10px rgba(3, 0, 0, 0.8);
+	  }
+	  50% {
+		  color: violet;
+		  text-shadow: 0 0 20px rgba(154, 152, 152, 0.8);
+	  }
+	  100% {
+		  color: pink;
+		  text-shadow: 0 0 10px rgba(252, 250, 250, 0.8);
+	  }
+  }
+
+  @keyframes bounce {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+  }
+
+.tv-content-profile  h1 {
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+    text-transform: uppercase;
+    z-index: 1;
+    margin-top: 1.1rem;
+    color: #ff2ffc;
+    text-shadow: 3px 3px #000000;
+    animation: shine2 10s linear infinite alternate, bounce 7s ease infinite;
+}
+
+.tv-content-profile #choice-div {
+	position: absolute;
+	width: 33%;
+    height: 62%;
+    top: 22%;
+    left: 33%;
+    overflow: hidden;
+    z-index: 1;
+    transition: background-color 0.6s ease;
+}
+
+#choice-div:hover {
+    background-color: #7fb3d5;
+}
+
+@keyframes electrify {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 100% 0;
+    }
+}
+
+#choice-div::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, #5090af, #7fb3d5, #ff2ffc); /* Dégradé de couleur */
+    background-size: 200% 100%; /* Double largeur pour créer l'effet de défilement */
+    animation: electrify 3s linear infinite alternate;
+    opacity: 0.7; /* Ajustez l'opacité comme vous le souhaitez */
+}
+
+#choice-img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+	box-shadow: black 0.8vmin 0.8vmin 2vmin;
+    transform: scale(0.9);
+    z-index: 2;
+    transition: transform 0.8s ease;
+}
+
+#choice-img:hover {
+    transform: rotate(1deg);
+}
+
+.tv-content-profile .h4lol {
+    position: absolute;
+    left: 76%;
+    top: 23%;
+    animation: shine2 10s linear infinite alternate, bounce 7s ease infinite;
+}
+
+.tv-content-profile #profile-leftside {
+    position: absolute;
+    top: 12vh;
+    left: 7vw;
+    display: block;
+}
+
+
+//.tv-content-profile #profile-leftside #avatarselect {
+//    position: absolute;
+//    top: 7vh;
+//    width: 7rem;
+//}
+
+
+.bottom-edit {
+    z-index: 9;
+    position: absolute;
+    width: 8rem;
+    bottom: 5%;
+    left: 8%;
+    background-color: #8360c3;
+    margin-bottom: 10px; /* Espacement entre les boutons */
+}
+
+.bottom-edit2 {
+    z-index: 9;
+    position: absolute;
+    width: 8rem;
+    bottom: 25%;
+    left: 8%;
+    background-color: #8360c3;
+    margin-bottom: 10px; /* Espacement entre les boutons */
+}
+
+.bottom-edit3 {
+    z-index: 9;
+    position: absolute;
+    height: 4rem;
+    width: 7rem;
+    bottom: 28%;
+    left: 1%;
+    background-color: #8360c3;
+    margin-bottom: 10px; /* Espacement entre les boutons */
+}
+
+#match_history {
+    position: absolute;
+    width: 8rem;
+    top: 35%;
+    left: 8%;
+    background-color: #8360c3;
+    margin-top: 10px; /* Espacement entre les boutons */
+}

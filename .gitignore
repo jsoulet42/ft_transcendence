@@ -37,7 +37,7 @@ css/
 
 # Fichiers de sauvegarde
 backup*/
-static/
+/static
 
 
 *:Zone.Identifier
