@@ -6,6 +6,7 @@ __pycache__/
 db.sqlite3
 mydatabase
 media/
+migrations/
 
 # Secret key
 *.secret_key
@@ -40,4 +41,3 @@ backup*/
 
 
 *:Zone.Identifier
-migrations/
