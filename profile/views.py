@@ -42,10 +42,12 @@ def update_image(request):
         form = ProfilePicForm(request.POST, request.FILES)
         if form.is_valid():
             if 'upload_image' in request.FILES:
-                user.upload_image = form.cleaned_data['upload_image']
+                image = form.cleaned_data['upload_image']
+                user.upload_image = image
+                if 'media/images' in user.profile_image_path:
+                    user.profile_image_path = settings.MEDIA_URL + 'images/' + str(image)
                 user.save()
         return HttpResponseRedirect('/profile')
-
 
 def match_history(request):
 	form = ProfilePicForm()
@@ -79,13 +81,13 @@ def update_profile(request):
 			# Mettre à jour la session pour éviter la déconnexion
 			update_session_auth_hash(request, request.user)
 		if selected_option == '1':
-			image_url = 'static/profile/images/character1.png'
+			image_url = settings.MEDIA_URL + 'character1.png'
 		elif selected_option == '2':
-			image_url = 'static/profile/images/character2.png'
+			image_url = settings.MEDIA_URL + 'character2.png'
 		elif selected_option == '3':
 			image_url = request.user.photo_medium_url
 		elif selected_option == '4':
-			image_url = request.user.uploaded_image
+			image_url = user.upload_image.url
 		user.profile_image_path = image_url
 		user.save()
 		return HttpResponseRedirect('/profile')
