@@ -5,7 +5,7 @@ __pycache__/
 *.pyd
 db.sqlite3
 mydatabase
-media/
+media/images/
 migrations/
 
 # Secret key
