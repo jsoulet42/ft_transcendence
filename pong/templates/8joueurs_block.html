@@ -1,5 +1,13 @@
 <div id="eight_players_containers">
-    <h1 class="eightplayers_text">8 PLAYERS TOURNAMENTS</h1>
+  <h1 class="glitch_anim eightplayers_text" data-text="TOURNAMENTS ">TOURNAMENTS</h1>
+  <h1 class="glitch_anim eightplayers_text" data-text=" 8 PLAYERS">8 PLAYERS</h1>
+      <div class="player1 col-md-6">
+        {%  if user.nickname %}
+        <h1>Host and player 1: {{ user.nickname }}</h1>
+        {% else %}
+        <h1>Host and player 1: {{ user.username }}</h1>
+        {%  endif %}
+      </div>
     <div class="mb-3 form_eightplayers form_playertwo">
         <label for="formGroupExampleInput" class="form-label">Player Two</label>
         <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input placeholder">
