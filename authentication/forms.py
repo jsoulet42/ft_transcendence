@@ -16,8 +16,8 @@ class CustomUserCreationForm(forms.ModelForm):
 			raise forms.ValidationError("Passwords don't match")
 		return password2
 
-	def save(self, commit=True):
-		user = super().save(commit=False)
+	def save(self, commit=True, *args, **kwargs):
+		user = super().save(commit=False, *args, **kwargs)
 		user.set_password(self.cleaned_data["password1"])
 		if commit:
 			user.save()
