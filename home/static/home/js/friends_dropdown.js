@@ -75,8 +75,20 @@
 			} else {
 				const btn_remove = `<button type="button" class="btn btn-deny" onclick="removeFriend(event)" aria-label="Remove"></button>`
 
+				const statusOrder = ['Online', 'Ingame', 'Offline'];
+				data.sort((a, b) => statusOrder.indexOf(a.status) - statusOrder.indexOf(b.status));
+
 				data.forEach(request => {
-					const listItem = `<li class="row">`
+					if (request.status === 'Online') {
+						line_color = `rgba(0, 255, 0, 0.3)`;
+					}
+					if (request.status === 'Ingame') {
+						line_color = `rgba(255, 255, 0, 0.3)`;
+					}
+					if (request.status === 'Offline') {
+						line_color = `rgba(255, 0, 0, 0.3)`;
+					}
+					const listItem = `<li class="row" style="background-color:${line_color}">`
 						+ `<span class="col text-start">${request.username}</span>`
 						+ `<div class="col text-end">`
 						+ `${btn_remove}`

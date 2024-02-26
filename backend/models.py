@@ -87,6 +87,16 @@ class CustomUser(AbstractUser):
 	EMAIL_FILED = 'email'
 	REQUIRED_FIELDS = []
 
+	STATUS_OFFLINE = 'Offline'
+	STATUS_ONLINE = 'Online'
+	STATUS_INGAME = 'Ingame'
+
+	STATUS_CHOICES = (
+		(STATUS_OFFLINE, 'Offline'),
+		(STATUS_ONLINE, 'Online'),
+		(STATUS_INGAME, 'Ingame'),
+	)
+
 	objects = CustomUserManager()
 
 	nickname = models.CharField(max_length=50, blank=True, null=True)
@@ -96,6 +106,8 @@ class CustomUser(AbstractUser):
 	bio = models.CharField(max_length=2000, blank=True, null=True)
 	github = models.URLField(max_length=255, blank=True)
 	email = models.EmailField(max_length=254, blank=True)
+
+	status = models.CharField(max_length=20, blank=False, null=False, choices=STATUS_CHOICES, default=STATUS_OFFLINE)
 
 	friends = models.ManyToManyField('self', blank=True)
 

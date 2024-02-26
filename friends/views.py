@@ -23,7 +23,7 @@ def get_friend_list(request, username=None):
 	else:
 		user = request.user
 
-	data = [{'username': friend.username} for friend in user.friends.all()]
+	data = [{'username': friend.username, 'status': friend.status} for friend in user.friends.all()]
 	return JsonResponse(data, safe=False)
 
 
