@@ -15,18 +15,19 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include	# Added include() function
+from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 
 from . import views
 
 urlpatterns = [
-	path('', views.profile, name='profile'),
-	# path('get-image/', views.get_image_url, name='get_image_url'),
-	path('update-profile/', views.update_profile, name='update_profile'),
-	path('update-image/', views.update_image, name='update_image'),
-	path('match-history/', views.match_history, name='match_history'),
-	path('tournaments-history/', views.tournaments_history, name='tournaments_history'),
-	path('user/', views.search_profiles, name='search_profiles'),
+    path('', views.profile, name='profile'),
+    # path('get-image/', views.get_image_url, name='get_image_url'),
+    path('update-profile/', views.update_profile, name='update_profile'),
+    path('update-image/', views.update_image, name='update_image'),
+    path('match-history/', views.match_history, name='match_history'),
+    path('tournaments-history/', views.tournaments_history,
+         name='tournaments_history'),
+    path('user/', views.search_profiles, name='search_profiles'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

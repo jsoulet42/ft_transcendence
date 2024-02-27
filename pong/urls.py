@@ -15,23 +15,17 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include	# Added include() function
+from django.urls import path, include
 from . import views
-# from pong.views import home, compute
 
 urlpatterns = [
-	path('', views.pong, name='pong'),
-	path('game/', views.game, name='game'),
-	path('game/<str:mode>/', views.game, name='game_with_mode'),
-	path('pongDjango/', views.pongDjango, name='pongDjango'),
+    path('', views.pong, name='pong'),
+    path('game/', views.game, name='game'),
+    path('game/<str:mode>/', views.game, name='game_with_mode'),
+    path('pongDjango/', views.pongDjango, name='pongDjango'),
     path('tournaments/', views.tournaments, name='tournaments'),
     path('tournaments/catjoueurs/', views.catjoueurs, name='catjoueurs'),
     path('tournaments/huitjoueurs/', views.huitjoueurs, name='huitjoueurs'),
-    path('game/<str:player2>/<str:player3>/<str:player4>/', views.game, name='tournament_fourplayers'),
+    path('game/<str:player2>/<str:player3>/<str:player4>/',
+         views.game, name='tournament_fourplayers'),
 ]
-
-
-# urlpatterns = [
-#     path('', home, name="home"),
-#     path('compute/', compute, name="compute"),
-# ]
