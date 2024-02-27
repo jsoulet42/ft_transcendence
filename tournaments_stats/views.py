@@ -14,6 +14,10 @@ def tournaments_stats(request):
 	# Préparer les données dans un format approprié pour l'envoi au template
 	data_for_template = []
 	for stats in users_stats:
+		# try:
+		# 	username = stats.user.username
+		# except Stats.user.RelatedObjectDoesNotExist:
+		# 	username = "N/A"
 		data_for_template.append({
 			'username' : stats.user.username,
 			'victoires': stats.wins,
