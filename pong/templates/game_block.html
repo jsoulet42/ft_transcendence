@@ -8,34 +8,51 @@
 
 <input type="text" id="player2name">
 <button id="player2nameButton">Commencer la partie</button>
+<br>
+
+
 <script>
-    var save_game = '{% url "game_save" %}';
-    var host_name = '{{ user.username }}';
-    var tournament_save = '{% url "tournament_save" %}';
-    var name_player2 = 'Player 2';
+	var host_name = '{{ user.username }}';
+	var player1 = '{{ user.username }}';
+	var player2 = '{{ player2 }}';
+	var player3 = '{{ player3 }}';
+	var player4 = '{{ player4 }}';
+	var player5 = '{{ player5 }}';
+	var player6 = '{{ player6 }}';
+	var player7 = '{{ player7 }}';
+	var player8 = '{{ player8 }}';
+	var name_player2 = 'Player 2';
 
-    function startGame() {
-        let url = new URL(window.location.href);
-        let mode = url.pathname.split("/")[3];
+	const save_game = '{% url "game_save" %}';
+	const save_tournament = '{% url "tournament_save" %}';
 
-        if (mode == 'pvp') {
-            name_player2 = document.getElementById('player2name').value;
-            if (name_player2.length > 10)
-                name_player2 = name_player2.substring(0, 10);
-            if (name_player2 != '') {
-                document.getElementById('player2name').style.display = 'none';
-                document.getElementById('player2nameButton').style.display = 'none';
-                window.startGameFunctionPVP();
-            }
-        } else if (mode == 'pve') {
-            name_player2 = "Glados"
-            document.getElementById('player2name').style.display = 'none';
-            document.getElementById('player2nameButton').style.display = 'none';
-            window.startGameFunctionPVE();
-        }
-    }
+	function startGame() {
+		let url = new URL(window.location.href);
+		let mode = url.pathname.split("/")[3];
 
-    document.getElementById('player2nameButton').addEventListener('click', startGame);
+		if (mode == 'pvp') {
+			name_player2 = document.getElementById('player2name').value;
+			if (name_player2.length > 10)
+				name_player2 = name_player2.substring(0, 10);
+			if (name_player2 != '') {
+				document.getElementById('player2name').style.display = 'none';
+				document.getElementById('player2nameButton').style.display = 'none';
+				window.startGameFunctionPVP();
+			}
+		} else if (mode == 'pve') {
+			name_player2 = "Glados"
+			document.getElementById('player2name').style.display = 'none';
+			document.getElementById('player2nameButton').style.display = 'none';
+			window.startGameFunctionPVE();
+		} else if (mode == 'tournament') {
+			name_player2 = player2;
+			console.log('test', player2);
+
+			window.startGameFunctionTournament();
+		}
+	}
+
+	document.getElementById('player2nameButton').addEventListener('click', startGame);
 </script>
 
 <canvas id="pongCanvas"></canvas>

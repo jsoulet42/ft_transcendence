@@ -182,21 +182,6 @@ button_submit:hover {
 	box-shadow: 0 0 0 0.2rem rgba(255, 0, 255, 0.467);
 }
 
-//.player_three {
-//	position: absolute;
-//	left : 25%;
-//	bottom: 40%;
-//	width: 20%;
-//	height: 5%;
-//}
-
-//.player_four {
-//	position: absolute;
-//	bottom: 40%;
-//	right: 25%;
-//	width: 20%;
-//}
-
 .carousel_container {
 	width: 55%;
 	height: 50%;
@@ -207,6 +192,12 @@ button_submit:hover {
 }
 
 .glitch_anim {
+	font-size: 11vh;
+	animation: glitch 1s linear infinite, neon-glow1 1.5s ease-in-out infinite alternate;
+}
+
+.glitch_anim1 {
+	font-size: 8vh;
 	animation: glitch 1s linear infinite, neon-glow1 1.5s ease-in-out infinite alternate;
 }
 
@@ -228,17 +219,19 @@ button_submit:hover {
 }
 
 .glitch_anim:before,
+.glitch_anim1:before,
+.glitch_anim1:after,
 .glitch_anim:after {
 	content: attr(data-text);
 	text-align: center;
 	position: absolute;
 	display: block;
 	color: white;
-	font-size: 11vh;
 	animation: neon-glow1 1.5s ease-in-out infinite alternate;
 }
 
-.glitch_anim:before {
+.glitch_anim:before,
+.glitch_anim1:before {
 	animation: glitchTop 1s linear infinite;
 	clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
 	-webkit-clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
@@ -287,13 +280,48 @@ button_submit:hover {
 //8 players css
 
 #eight_players_containers {
-	top: 0%;
+	display: flex;
+	justify-content: center;
+}
+
+.player1 {
+	position: absolute;
+	display: flex;
+	top: 15%;
+	left: 10%;
+	width: 35%;
+	font-size: 10vh;
+	color: white;
+	padding: 1.8vh;
+	text-align: center;
+	background-color: rgb(146, 75, 203);
+	border: 4mm ridge rgba(146, 32, 184, 0.6);
+	animation: neon-glow 4s ease-in-out infinite alternate;
+}
+
+.player1:hover {
+	background-image: linear-gradient(to right, rgb(146, 75, 203), indigo, blue, turquoise, violet, rgb(146, 75, 203));
+	animation: rainbowAnimation 10s linear infinite;
+	background-size: 1400% auto;
+	transform: scale(1.1);
+}
+
+@keyframes rainbowAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
 }
 
 .eightplayers_text {
+	padding: 1.875vh;
+	display: flex;
 	text-align: center;
 	color: white;
-	font-size: 9vh;
+	font-size: 8vh;
+	animation: neon-glow1 4s ease-in-out infinite alternate;
 }
 
 .form_eightplayers {
@@ -375,7 +403,7 @@ button_submit:hover {
 }
 
 .form_playersix:hover {
-	transform: scale(1.1); 
+	transform: scale(1.1);
 	animation: wiggle 4s forwards;
 }
 
