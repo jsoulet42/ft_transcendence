@@ -9,6 +9,7 @@ canvas.height = window.innerHeight;
 
 var updateInterval;
 var updateInterval2;
+var begin = true;
 
 var posBord = 10;
 
@@ -24,7 +25,7 @@ let inputs = {
 	upRight: false,
 	downRight: false
 }
-
+let tournament = null;
 let manager = createManager();
 let paddle = createPaddle();
 let ball = createBall(0);
@@ -52,8 +53,6 @@ function initializeUI(player1, player2) {
 }
 
 function createManager(mode = 0) {
-	//vérifi si duration est bien un nombre sinon on met 10
-
 	return {
 		mode: mode,
 		pause: false,
@@ -61,11 +60,11 @@ function createManager(mode = 0) {
 		countdownInt: 3,
 		countdownBool: false,
 		startTime: Date.now(),
-		partyDuration: 10,
-		secondsLeft: 10,
+		partyDuration: 1,
+		secondsLeft: 1,
 		inputs: false,
 		waiting: true,
-		endGame: false
+		endGame: false,
 	};
 }
 function createPaddle() {
@@ -142,7 +141,7 @@ export function startGameFunctionPVP() {
 window.startGameFunctionPVP = startGameFunctionPVP;
 
 export function startGameFunctionPVE() {
-	if (manager.endGame){
+	if (manager.endGame) {
 		stopUpdatingAI();
 		manager.endGame = false;
 		initializeVariables(2);
@@ -162,6 +161,30 @@ export function startGameFunctionPVE() {
 	}
 }
 window.startGameFunctionPVE = startGameFunctionPVE;
+
+export function startGameFunctionTournament() {
+	if (manager.endGame) {
+		stopUpdatingAI();
+		manager.endGame = false;
+		initializeIA(false);
+		initializeBall(0);
+		manager.waiting = false;
+		manager.inputs = true;
+		tournament.nextParty();
+	}
+	else {
+		manager.inputs = true;
+		manager.waiting = false;
+		initializeVariables(3);
+		initializeIA(false);
+		tournament = new Tournament("player0", "player1", "player2", "player3", "player4", "player5", "player6", "player7");
+		initializeUI(tournament.players[0], tournament.players[1])
+		initializePaddle();
+		initializeBall(0);
+		startUpdatingAI();
+	}
+}
+window.startGameFunctionTournament = startGameFunctionTournament;
 
 //#endregion
 
@@ -507,12 +530,6 @@ function Update() {
 	IATrajectory(ball.x, ball.y, ball.speedX, ball.speedY, 0)
 	IAManager();
 	drawBall();
-
-	// Obtenez l'élément par son ID
-	var speedElement = document.getElementById('speed');
-	speedElement.style.color = 'white';
-	// Modifiez le contenu de l'élément
-	speedElement.textContent = "ball.speedX: " + ball.speedX + " ball.speedY: " + ball.speedY;
 }
 
 function canvasCheck() {
@@ -528,12 +545,12 @@ function startGame() {
 	IAUpdate();
 	startUpdatingAI();
 	initializeBall(ball.speedBaseX);
-	manager.startTime = Date.now();
 }
 
 function endGame() {
 	manager.endGame = true;
 	manager.waiting = true;
+	console.log (manager.mode);
 	stopUpdatingAI();
 	if (manager.mode == 1) {
 		document.getElementById("player2name").style.display = "block";
@@ -542,10 +559,14 @@ function endGame() {
 		initializeIA(true);
 		startUpdatingAI();
 	}
-	if (manager.mode == 2) {
+	else if (manager.mode == 2) {
 		document.getElementById('player2nameButton').style.display = 'block';
 		initializeIA(true);
 		startUpdatingAI();
+	}
+	else if (manager.mode == 3) {
+		document.getElementById('tournamentButton').style.display = 'block';
+
 	}
 }
 
@@ -672,7 +693,11 @@ async function countdownBeginParty() {
 }
 
 function drawCountdown() {
-	if (manager.countdownInt <= 0) {
+	if (manager.countdownInt === 0) {
+		manager.startTime = Date.now();
+		manager.countdownInt = -1;
+	}
+	if (manager.countdownInt < 0) {
 		return;
 	}
 	countdownBeginParty();
@@ -692,9 +717,10 @@ function initializeVariables(mode) {
 	posBord = 10;
 
 	initializeManager(mode);
-	initializeBall(ball.speedBaseX);
 	initializePaddle();
-	initializeUI(host_name, name_player2);
+	if (mode != 3)
+		initializeUI(host_name, name_player2);
+	initializeIA(true);
 
 	startGame();
 }
@@ -713,7 +739,11 @@ function run() {
 		initializeVariables(2);
 	}
 	else if (mode == "tournament")
+	{
+		//crée un bouton pour commencer le tournoi
+		
 		initializeVariables(3);
+	}
 	else
 		console.log("Error: mode not found `" + mode + "`");
 	initializeIA(true);
@@ -721,14 +751,109 @@ function run() {
 
 //#endregion
 
+//#region tournament
+
+
+class Party {
+	constructor(player1, player2) {
+		this.player1 = player1;
+		this.player2 = player2;
+		this.player1Score = 0;
+		this.player2Score = 0;
+		this.begin = new Date();
+	}
+	majDate() {
+		this.begin = new Date();
+	}
+	majScore() {
+		this.player1Score = UI.leftScore;
+		this.player2Score = UI.rightScore;
+	}
+}
+
+function winnerParty(party1, party2) {
+	let winner1;
+	let winner2;
+
+	if (party1.player1Score > party1.player2Score)
+		winner1 = party1.player1;
+	else
+		winner1 = party1.player2;
+	if (party2.player1Score > party2.player2Score)
+		winner2 = party2.player1;
+	else
+		winner2 = party2.player2;
+	return new Party(winner1, winner2);
+}
+
+class Tournament {
+	constructor(...args) {
+		this.nbPlayers = args.length;
+		this.players = args;
+		this.party = [];
+		// for (let i = this.players.length - 1; i > 0; i--) {
+		// 	const j = Math.floor(Math.random() * (i + 1));
+		// 	[this.players[i], this.players[j]] = [this.players[j], this.players[i]];
+		// }
+		this.party[0] = new Party(this.players[0], this.players[1]);
+		this.party[1] = new Party(this.players[2], this.players[3]);
+		if (this.nbPlayers == 8) {
+			this.party[2] = new Party(this.players[4], this.players[5]);
+			this.party[3] = new Party(this.players[6], this.players[7]);
+		}
+		this.currentPartyIndex = 0; // Utilisez un index pour suivre la partie actuelle
+		this.currentParty = this.party[this.currentPartyIndex];
+	}
+	updateParty(index1, index2) {
+		this.party.push(winnerParty(this.party[index1], this.party[index2]));
+		this.currentPartyIndex++;
+		this.currentParty = this.party[this.currentPartyIndex];
+	}
+
+	nextParty() {
+		if (this.nbPlayers == 4) {
+			if (this.currentPartyIndex == 0) {
+				this.currentPartyIndex++;
+				this.currentParty = this.party[this.currentPartyIndex];
+			}
+			else if (this.currentPartyIndex == 1) {
+				this.updateParty(0, 1);
+			}
+		}
+		else if (this.nbPlayers == 8) {
+			if (this.currentPartyIndex <= 3) {
+				this.currentPartyIndex++;
+				this.currentParty = this.party[this.currentPartyIndex];
+			}
+			else if (this.currentPartyIndex == 4) {
+				this.updateParty(0, 1);
+			}
+			else if (this.currentPartyIndex == 5) {
+				this.updateParty(2, 3);
+			}
+			else if (this.currentPartyIndex == 6) {
+				this.updateParty(4, 5);
+			}
+		}
+		initializeUI(this.currentParty.player1, this.currentParty.player2);
+	}
+}
+function appendParty(formData, result) {
+	formData.append('player1', result.player1);
+	formData.append('player2', result.player2);
+	formData.append('player1_score', result.player1Score);
+	formData.append('player2_score', result.player2Score);
+	formData.append('game_duration', result.duration);
+}
+//#endregion
+
 //#region request backend
 
 function sendScoreToBackend() {
-	return;
+	if (manager.waiting)
+		return;
 	let game_duration = (new Date() - manager.startTime) / 1000;
 
-	if (UI.scoreLeft == UI.scoreRight || game_duration < 60 || manager.waiting)
-		return;
 	let formData = new FormData();
 	formData.append('game_duration', game_duration);
 	formData.append('host_username', host_name);
@@ -754,6 +879,38 @@ function sendScoreToBackend() {
 			console.error(`Fetch error: ${error.message}`);
 		});
 }
+
+function sendTournamentScoreToBackend() {
+	if (manager.waiting)
+		return;
+	let game_duration = (new Date() - manager.startTime) / 1000;
+
+	let formData = new FormData();
+
+
+	let csrfTokenValue = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+	const request = new Request(save_tournament, {
+		method: 'POST',
+		body: formData,
+		headers: { 'X-CSRFToken': csrfTokenValue }
+	});
+
+	fetch(request)
+		.then(response => response.json())
+		.then(result => {
+			console.log(result); // Vous pouvez traiter le résultat ici
+		})
+		.catch(error => {
+			console.error(`Fetch error: ${error.message}`);
+		});
+}
+
+function sendNameForTournament()
+{
+
+}
+
 //#endregion
 
 run();

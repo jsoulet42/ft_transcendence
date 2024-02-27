@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
@@ -11,9 +11,21 @@ def pong(request):
 
 @login_required
 def game(request, mode=None):
+	context = {}
+	if request.method == 'POST' and mode == 'tournament':
+		context = {
+			'player1': request.user.username,
+			'player2': request.POST.get('player2'),
+			'player3': request.POST.get('player3'),
+			'player4': request.POST.get('player4'),
+			'player5': request.POST.get('player5'),
+			'player6': request.POST.get('player6'),
+			'player7': request.POST.get('player7'),
+			'player8': request.POST.get('player8'),
+		}
 	if request.META.get('HTTP_HX_REQUEST'):
-		return render(request, 'game_block.html')
-	return render(request, 'game.html')
+		return render(request, 'game_block.html', context)
+	return render(request, 'game.html', context)
 
 def tournaments(request):
 	if request.META.get('HTTP_HX_REQUEST'):
