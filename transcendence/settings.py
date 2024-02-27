@@ -28,7 +28,9 @@ DEBUG = bool(os.environ.get("DEBUG", default=0))
 
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 
-CSRF_TRUSTED_ORIGINS = ["http://localhost:1337"]
+if DEBUG == 0:
+    CSRF_TRUSTED_ORIGINS = os.environ.get("CSRF_TRUSTED_ORIGINS").split(" ")
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 
 # Application definition
@@ -192,8 +194,8 @@ EXTERNAL_API_TOKEN_URL = os.path.join(EXTERNAL_API_URL, 'token')
 EXTERNAL_API_CLIENT_ID = os.getenv('EXTERNAL_API_CLIENT_ID')
 EXTERNAL_API_CLIENT_SECRET = os.getenv('EXTERNAL_API_CLIENT_SECRET')
 
-if os.environ.get('DEBUG') == '0':
-    EXTERNAL_API_REDIRECT_URI = 'http://localhost:1337/authentication/auth42/'
+if DEBUG == 0:
+    EXTERNAL_API_REDIRECT_URI = 'https://localhost:1337/authentication/auth42/'
 else:
     EXTERNAL_API_REDIRECT_URI = 'http://localhost:8000/authentication/auth42/'
 
