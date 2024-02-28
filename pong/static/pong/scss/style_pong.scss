@@ -56,6 +56,44 @@ $carousel-indicator-height: 3px;
 	transform: translate(-50%, -50%);
 }
 
+.startgame_container {
+	position: fixed;
+	left: 40%;
+	top: 35%;
+	background-color: green;
+	z-index: 1;
+	padding: 10vh;
+	height: 30vh;
+	width: 20vw;
+	background-color: rgba(17, 0, 17, 0.8);
+	box-shadow: rgb(0, 0, 0) 0.5vmin 0.5vmin 0.5vmin;
+	border-radius: 10%;
+	border: 0.5vh solid black;
+}
+
+.startgame_playerform {
+	position: absolute;
+	top: 0%;
+	width: 100%;
+}
+
+.startgame_btn {
+	position: absolute;
+	bottom: 0%;
+	right: 20%;
+	width: 70%;
+	background-color: violet;
+	border: 0.1vmin solid black;
+	height: 25%;
+	font-size: 2.5vh;
+}
+
+.startgame_btn:hover {
+	background-color: pink;
+	transform: scale(1.1);
+	box-shadow: 1vmin 1vmin 1vmin #110a4e;
+	color: white;
+}
 
 //tournaments_choice
 
@@ -137,16 +175,7 @@ $carousel-indicator-height: 3px;
 	text-align: center;
 	color: white;
 	justify-content: center;
-	overflow: hidden;
 	animation: neon-glow1 1.5s ease-in-out infinite alternate;
-}
-
-.carousel-control-prev-icon
-.carousel-control-next-icon {
-	outline: black;
-	background-size: 100%, 100%;
-	border-radius: 50%;
-	border: 1vh solid black;
 }
 
 .catjoueurs_text {
@@ -182,14 +211,12 @@ $carousel-indicator-height: 3px;
 }
 
 .carousel_container {
-	position: relative;
 	width: 55%;
 	height: 50%;
 	left: 23%;
 	border-radius: 5rem;
 	border: 0.5rem solid violet;
 	overflow: hidden;
-	background-size: cover; 
 }
 
 .glitch_anim {
