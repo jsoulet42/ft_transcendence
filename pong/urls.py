@@ -27,7 +27,6 @@ urlpatterns = [
     path('tournaments/', views.tournaments, name='tournaments'),
     path('tournaments/catjoueurs/', views.catjoueurs, name='catjoueurs'),
     path('tournaments/huitjoueurs/', views.huitjoueurs, name='huitjoueurs'),
-    path('game/<str:player2>/<str:player3>/<str:player4>/', views.game, name='tournament_fourplayers'),
 ]
 
 

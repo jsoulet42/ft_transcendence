@@ -8,7 +8,6 @@ mydatabase
 media/images/
 migrations/
 media/
-migrations/
 
 # Secret key
 *.secret_key

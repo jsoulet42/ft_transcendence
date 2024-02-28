@@ -16,7 +16,7 @@
 					</tr>
 				</thead>
 				<thead>
-					{% for tournament in tournaments %} tournaments = tounaments[i]
+					{% for tournament in tournaments %}
 					<tr>
 						<td>{{ tournament.name }}</td>
 						{% for player in tournament.leaderboard.usernames %}
@@ -31,16 +31,6 @@
 				</thead>
 			</table>
 		</div>
-	</div>
-	<div id="bottom-btn" class="btn-group dropup">
-		<button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-			Tournament Won
-		</button>
-		<ul class="dropdown-menu slide-down-animation">
-			<li><a class="dropdown-item">Tournament 1</a></li>
-			<li><a class="dropdown-item">Tournament 2</a></li>
-			<li><a class="dropdown-item">Tournament 3</a></li>
-		</ul>
 	</div>
 </div>
 <script type="text/javascript">

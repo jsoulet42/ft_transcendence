@@ -30,16 +30,16 @@ def test_game(request):
 
 def test_tournament(request):
 	data = {
-		'host_username': 'jsoulet',
+		'host_username': request.user.username,
 		'tournament_name': 'test',
 		'date': '2020-12-12',
 		'players_count': 4,
-		'leaderboard': ['jsoulet', 'pos2', 'pos3', 'pos4'],
+		'leaderboard': [request.user.username, 'pos2', 'pos3', 'pos4'],
 		'games': [
 			{
 				'game_duration': '00:10:00',
-				'host': 'jsoulet',
-				'player1': 'jsoulet',
+				'host': request.user.username,
+				'player1': request.user.username,
 				'player2': 'pos2',
 				'player1_score': 5,
 				'player2_score': 1,

@@ -134,7 +134,16 @@ $carousel-indicator-height: 3px;
 	text-align: center;
 	color: white;
 	justify-content: center;
-	//animation: neon-glow1 1.5s ease-in-out infinite alternate;
+	overflow: hidden;
+	animation: neon-glow1 1.5s ease-in-out infinite alternate;
+}
+
+.carousel-control-prev-icon
+.carousel-control-next-icon {
+	outline: black;
+	background-size: 100%, 100%;
+	border-radius: 50%;
+	border: 1vh solid black;
 }
 
 .catjoueurs_text {
@@ -153,25 +162,12 @@ $carousel-indicator-height: 3px;
 
 .player_forms {
 	position: absolute;
-	left: 35%;
+	left: 40%;
 	width: 20%;
 	top: 20%;
 	background-color: black;
 	color: white;
 	border-color: violet;
-}
-
-.button_submit {
-	position: absolute;
-	left: 57%;
-	width: 10%;
-	top: 20%;
-	background-color: violet;
-}
-
-button_submit:hover {
-	background-color: pink;
-	transform: scale(1.1);
 }
 
 .form-control:focus,
@@ -183,12 +179,14 @@ button_submit:hover {
 }
 
 .carousel_container {
+	position: relative;
 	width: 55%;
 	height: 50%;
 	left: 23%;
 	border-radius: 5rem;
 	border: 0.5rem solid violet;
 	overflow: hidden;
+	background-size: cover;
 }
 
 .glitch_anim {
@@ -282,6 +280,7 @@ button_submit:hover {
 #eight_players_containers {
 	display: flex;
 	justify-content: center;
+	overflow: hidden;
 }
 
 .player1 {
@@ -393,16 +392,19 @@ button_submit:hover {
 	box-sizing: border-box;
 }
 
-.form_playereight:hover {
+.form_playereight:hover
+.form_playereight:focus {
 	transform: rotate(3deg) scale(1.1);
 	box-shadow: 0 0 20px rgba(146, 32, 184, 0.8);
 }
 
-.form_playerseven:hover {
+.form_playerseven:hover
+.form_playerseven:focus {
 	transform: rotate(-3deg) scale(1.1);
 }
 
-.form_playersix:hover {
+.form_playersix:hover,
+.form_playersix:focus {
 	transform: scale(1.1);
 	animation: wiggle 4s forwards;
 }
@@ -431,12 +433,14 @@ button_submit:hover {
 	}
   }
 
-.form_playerfive:hover {
+.form_playerfive:hover,
+.form_playerfive:focus {
 	transform: translateY(5px) scale(1.1);
 	filter: hue-rotate(90deg);
 }
 
-.form_playerfour:hover {
+.form_playerfour:hover,
+.form_playerfour:focus {
 	transform: scale(1.1);
 	animation: float 3s forwards;
 }
@@ -453,7 +457,8 @@ button_submit:hover {
 	}
   }
 
-.form_playerthree:hover {
+.form_playerthree:hover,
+.form_playerthree:focus {
 	animation: bubble-anim 4s ease-out forwards;
 }
 
@@ -478,7 +483,8 @@ button_submit:hover {
 	}
   }
 
-.form_playertwo:hover {
+.form_playertwo:hover,
+.form_playertwo:focus {
 	animation: left-right 4s ease-out forwards;
 }
 
@@ -495,4 +501,19 @@ button_submit:hover {
 	100% {
 	  transform: translatex(0vh);
 	}
+  }
+
+  .btn_startournament8 {
+	position: absolute;
+	bottom: 9%;
+	right: 1%;
+	background-color: #8360c3;
+	border-color: 0.2vmin solid black;
+  }
+
+  .btn_startournament8:hover {
+	background-color: violet;
+	transform: scale(1.1);
+	border-color: 0.2vmin solid black;
+	box-shadow: 0vmin 0vmin 1.8vh 0.8vh rgba(128, 0, 128, 0.5);
   }
