@@ -31,6 +31,9 @@ nav-pong a {
 
 $carousel-indicator-height: 3px;
 
+/*.friends-dropdown-toggle {
+	overflow-y: scroll;
+}*/
 
 .buttonInPlay {
 	width: 20vw;
@@ -186,7 +189,7 @@ $carousel-indicator-height: 3px;
 	border-radius: 5rem;
 	border: 0.5rem solid violet;
 	overflow: hidden;
-	background-size: cover;
+	background-size: cover; 
 }
 
 .glitch_anim {
