@@ -8,9 +8,9 @@
 # ********************************************************************************************** #
 
 # Files variables
-static_dir="$PROJECT_ROOT/transcendence/static/transcendence"
-scss_file_path="${static_dir}/scss/main.scss"
-output_css_file_path="${static_dir}/css/style.css"
+static_dir="transcendence/static/transcendence"
+scss_file_path="scss/main.scss"
+output_css_file_path="css/style.css"
 
 # Color output variables
 ansi_nc="\e[0m"
