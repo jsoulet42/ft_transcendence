@@ -31,6 +31,9 @@ nav-pong a {
 
 $carousel-indicator-height: 3px;
 
+/*.friends-dropdown-toggle {
+	overflow-y: scroll;
+}*/
 
 .buttonInPlay {
 	width: 20vw;
@@ -53,6 +56,44 @@ $carousel-indicator-height: 3px;
 	transform: translate(-50%, -50%);
 }
 
+.startgame_container {
+	position: fixed;
+	left: 40%;
+	top: 35%;
+	background-color: green;
+	z-index: 1;
+	padding: 10vh;
+	height: 30vh;
+	width: 20vw;
+	background-color: rgba(17, 0, 17, 0.8);
+	box-shadow: rgb(0, 0, 0) 0.5vmin 0.5vmin 0.5vmin;
+	border-radius: 10%;
+	border: 0.5vh solid black;
+}
+
+.startgame_playerform {
+	position: absolute;
+	top: 0%;
+	width: 100%;
+}
+
+.startgame_btn {
+	position: absolute;
+	bottom: 0%;
+	right: 20%;
+	width: 70%;
+	background-color: violet;
+	border: 0.1vmin solid black;
+	height: 25%;
+	font-size: 2.5vh;
+}
+
+.startgame_btn:hover {
+	background-color: pink;
+	transform: scale(1.1);
+	box-shadow: 1vmin 1vmin 1vmin #110a4e;
+	color: white;
+}
 
 //tournaments_choice
 
@@ -134,7 +175,7 @@ $carousel-indicator-height: 3px;
 	text-align: center;
 	color: white;
 	justify-content: center;
-	//animation: neon-glow1 1.5s ease-in-out infinite alternate;
+	animation: neon-glow1 1.5s ease-in-out infinite alternate;
 }
 
 .catjoueurs_text {
@@ -153,25 +194,12 @@ $carousel-indicator-height: 3px;
 
 .player_forms {
 	position: absolute;
-	left: 35%;
+	left: 40%;
 	width: 20%;
 	top: 20%;
 	background-color: black;
 	color: white;
 	border-color: violet;
-}
-
-.button_submit {
-	position: absolute;
-	left: 57%;
-	width: 10%;
-	top: 20%;
-	background-color: violet;
-}
-
-button_submit:hover {
-	background-color: pink;
-	transform: scale(1.1);
 }
 
 .form-control:focus,
@@ -282,6 +310,7 @@ button_submit:hover {
 #eight_players_containers {
 	display: flex;
 	justify-content: center;
+	overflow: hidden;
 }
 
 .player1 {
@@ -393,16 +422,19 @@ button_submit:hover {
 	box-sizing: border-box;
 }
 
-.form_playereight:hover {
+.form_playereight:hover
+.form_playereight:focus {
 	transform: rotate(3deg) scale(1.1);
 	box-shadow: 0 0 20px rgba(146, 32, 184, 0.8);
 }
 
-.form_playerseven:hover {
+.form_playerseven:hover
+.form_playerseven:focus {
 	transform: rotate(-3deg) scale(1.1);
 }
 
-.form_playersix:hover {
+.form_playersix:hover,
+.form_playersix:focus {
 	transform: scale(1.1);
 	animation: wiggle 4s forwards;
 }
@@ -431,12 +463,14 @@ button_submit:hover {
 	}
   }
 
-.form_playerfive:hover {
+.form_playerfive:hover,
+.form_playerfive:focus {
 	transform: translateY(5px) scale(1.1);
 	filter: hue-rotate(90deg);
 }
 
-.form_playerfour:hover {
+.form_playerfour:hover,
+.form_playerfour:focus {
 	transform: scale(1.1);
 	animation: float 3s forwards;
 }
@@ -453,7 +487,8 @@ button_submit:hover {
 	}
   }
 
-.form_playerthree:hover {
+.form_playerthree:hover,
+.form_playerthree:focus {
 	animation: bubble-anim 4s ease-out forwards;
 }
 
@@ -478,7 +513,8 @@ button_submit:hover {
 	}
   }
 
-.form_playertwo:hover {
+.form_playertwo:hover,
+.form_playertwo:focus {
 	animation: left-right 4s ease-out forwards;
 }
 
@@ -495,4 +531,19 @@ button_submit:hover {
 	100% {
 	  transform: translatex(0vh);
 	}
+  }
+
+  .btn_startournament8 {
+	position: absolute;
+	bottom: 9%;
+	right: 1%;
+	background-color: #8360c3;
+	border-color: 0.2vmin solid black;
+  }
+
+  .btn_startournament8:hover {
+	background-color: violet;
+	transform: scale(1.1);
+	border-color: 0.2vmin solid black;
+	box-shadow: 0vmin 0vmin 1.8vh 0.8vh rgba(128, 0, 128, 0.5);
   }

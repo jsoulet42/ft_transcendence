@@ -57,7 +57,7 @@ function createManager(mode = 0) {
 		mode: mode,
 		pause: false,
 		putBackBallBool: false,
-		countdownInt: 3,
+		countdownInt: 1,
 		countdownBool: false,
 		startTime: Date.now(),
 		partyDuration: 1,
@@ -90,7 +90,7 @@ function createBall(speed) {
 		speedX: speed,
 		speedY: 0,
 		Bradius: canvas.height / 50,
-		speedBaseX: canvas.width / 100, // Vitesse de déplacement horizontal de la balle
+		speedBaseX: canvas.width / 100 * 1, // Vitesse de déplacement horizontal de la balle
 		speedBaseY: canvas.height / 100 * 0, // Vitesse de déplacement vertical de la balle
 		Bcolor: 'blue'
 	};
@@ -120,69 +120,62 @@ function createUI() {
 //#region Exported functions
 
 export function startGameFunctionPVP() {
-	manager.inputs = true;
-	if (!manager.endGame) {
-		manager.waiting = false;
+	if (begin) {
 		UI.rightName = name_player2;
-		initializeIA(false);
-		initializeBall(0);
 		initializePaddle();
 	}
 	else {
 		stopUpdatingAI();
 		manager.endGame = false;
 		initializeVariables(1);
-		initializeIA(false);
-		initializeBall(0);
-		manager.waiting = false;
-		manager.inputs = true;
 	}
+	manager.inputs = true;
+	manager.waiting = false;
+	initializeIA(false);
+	initializeBall(0);
+	begin = false;
 }
 window.startGameFunctionPVP = startGameFunctionPVP;
 
 export function startGameFunctionPVE() {
+	manager.waiting = false;
+	manager.inputs = true;
+
 	if (manager.endGame) {
 		stopUpdatingAI();
 		manager.endGame = false;
 		initializeVariables(2);
 		initializeIA(true);
 		initializeBall(0);
-		manager.waiting = false;
-		manager.inputs = true;
 	}
 	else {
-		manager.inputs = true;
-		manager.waiting = false;
 		initializeUI(host_name, name_player2);
 		initializeIA(true);
 		initializePaddle();
 		initializeBall(0);
 		startUpdatingAI();
 	}
+	begin = false;
 }
 window.startGameFunctionPVE = startGameFunctionPVE;
 
 export function startGameFunctionTournament() {
-	if (manager.endGame) {
-		stopUpdatingAI();
-		manager.endGame = false;
-		initializeIA(false);
-		initializeBall(0);
-		manager.waiting = false;
-		manager.inputs = true;
+	initializeBall(0);
+
+	if (!begin) {
 		tournament.nextParty();
-	}
-	else {
-		manager.inputs = true;
-		manager.waiting = false;
-		initializeVariables(3);
-		initializeIA(false);
-		tournament = new Tournament("player0", "player1", "player2", "player3", "player4", "player5", "player6", "player7");
-		initializeUI(tournament.players[0], tournament.players[1])
-		initializePaddle();
 		initializeBall(0);
-		startUpdatingAI();
 	}
+	initializeVariables(3);
+	initializeUI(tournament.currentParty.player1, tournament.currentParty.player2);
+	stopUpdatingAI();
+	initializePaddle();
+	manager.waiting = false;
+	manager.inputs = true;
+	manager.endGame = false;
+	initializeIA(false);
+	initializeBall(0);
+	begin = false;
 }
 window.startGameFunctionTournament = startGameFunctionTournament;
 
@@ -471,7 +464,8 @@ function collisionDetection() {
 	if (ball.x + ball.Bradius > canvas.width - posBord) // Si la balle touche le bord droit du canvas
 	{
 		if (ball.y - paddle.rightY < - paddle.marge || (ball.y - ball.Bradius) - (paddle.rightY + paddle.rightHeight) > paddle.marge) {
-			UI.leftScore++;
+			if (!manager.waiting)
+				UI.leftScore++;
 			putBackBall(-1);
 		}
 		else {
@@ -484,7 +478,8 @@ function collisionDetection() {
 	}
 	else {
 		if ((ball.y + ball.Bradius) - paddle.leftY < - paddle.marge || (ball.y - ball.Bradius) - (paddle.leftY + paddle.leftHeight) > paddle.marge) {
-			UI.rightScore++;
+			if (!manager.waiting)
+				UI.rightScore++;
 			putBackBall(1);
 		}
 		else {
@@ -498,14 +493,22 @@ function collisionDetection() {
 }
 
 function drawEndGame() {
-	ctx.font = "10vw Arial";
+	ctx.font = "5vw Arial";
 	ctx.fillStyle = 'white';
 	let winner;
 	if (UI.leftScore > UI.rightScore)
 		winner = UI.leftName;
 	else
 		winner = UI.rightName;
-	ctx.fillText("Winner is " + winner, canvas.width / 2, canvas.height / 2); // Dessine le compteur
+	if (tournament) {
+		if (tournament.endTournament) {
+			ctx.fillText("Winner of the tournament is " + winner, canvas.width / 2, canvas.height / 2); // Dessine le compteur
+		}
+		else
+			ctx.fillText("Winner of the party is " + winner, canvas.width / 2, canvas.height / 2); // Dessine le compteur
+	}
+	else
+		ctx.fillText("Winner is " + winner, canvas.width / 2, canvas.height / 2); // Dessine le compteur
 }
 
 //#endregion
@@ -550,24 +553,25 @@ function startGame() {
 function endGame() {
 	manager.endGame = true;
 	manager.waiting = true;
-	console.log (manager.mode);
 	stopUpdatingAI();
 	if (manager.mode == 1) {
 		document.getElementById("player2name").style.display = "block";
 		document.getElementById("player2name").value = "";
 		document.getElementById('player2nameButton').style.display = 'block';
-		initializeIA(true);
-		startUpdatingAI();
 	}
 	else if (manager.mode == 2) {
 		document.getElementById('player2nameButton').style.display = 'block';
-		initializeIA(true);
-		startUpdatingAI();
 	}
 	else if (manager.mode == 3) {
-		document.getElementById('tournamentButton').style.display = 'block';
-
+		tournament.currentParty.majScore();
+		tournament.currentParty.duration = (new Date() - manager.startTime) / 1000;
+		if (tournament.endTournament)
+			sendTournamentScoreToBackend();
+		else
+			document.getElementById('tournament_Button').style.display = 'block';
 	}
+	initializeIA(true);
+	startUpdatingAI();
 }
 
 async function putBackBall(directionX) {
@@ -601,7 +605,6 @@ async function putBackBall(directionX) {
 
 	if (manager.secondsLeft <= 0 && UI.leftScore != UI.rightScore) {
 		endGame();
-		sendScoreToBackend();
 	}
 }
 
@@ -718,9 +721,12 @@ function initializeVariables(mode) {
 
 	initializeManager(mode);
 	initializePaddle();
-	if (mode != 3)
+	if (mode != 3) {
 		initializeUI(host_name, name_player2);
-	initializeIA(true);
+	}
+	else
+		if (begin)
+			initializeIA(true);
 
 	startGame();
 }
@@ -738,10 +744,9 @@ function run() {
 		document.getElementById("player2name").style.display = "none";
 		initializeVariables(2);
 	}
-	else if (mode == "tournament")
-	{
-		//crée un bouton pour commencer le tournoi
-		
+	else if (mode == "tournament") {
+		tournament = new Tournament(player1, player2, player3, player4, player5, player6, player7, player8);
+		//tournament = new Tournament("player1", "player2", "player3", "player4", "player5", "player6", "player7", "player8");
 		initializeVariables(3);
 	}
 	else
@@ -761,13 +766,12 @@ class Party {
 		this.player1Score = 0;
 		this.player2Score = 0;
 		this.begin = new Date();
-	}
-	majDate() {
-		this.begin = new Date();
+		this.duration = 0;
 	}
 	majScore() {
 		this.player1Score = UI.leftScore;
 		this.player2Score = UI.rightScore;
+		this.duration = (new Date() - this.begin) / 1000;
 	}
 }
 
@@ -786,15 +790,24 @@ function winnerParty(party1, party2) {
 	return new Party(winner1, winner2);
 }
 
+
 class Tournament {
 	constructor(...args) {
+		this.endTournament = false;
+		this.sendScoreToBackend = false;
 		this.nbPlayers = args.length;
+		console.log("Nombre de joueurs : " + this.nbPlayers);
 		this.players = args;
+		this.classifyPlayers = new Array(this.nbPlayers);
 		this.party = [];
 		// for (let i = this.players.length - 1; i > 0; i--) {
 		// 	const j = Math.floor(Math.random() * (i + 1));
 		// 	[this.players[i], this.players[j]] = [this.players[j], this.players[i]];
 		// }
+		//afficher le nom de tous les joueurs :
+		for (let i = 0; i < this.players.length; i++) {
+			console.log(this.players[i]);
+		}
 		this.party[0] = new Party(this.players[0], this.players[1]);
 		this.party[1] = new Party(this.players[2], this.players[3]);
 		if (this.nbPlayers == 8) {
@@ -805,12 +818,16 @@ class Tournament {
 		this.currentParty = this.party[this.currentPartyIndex];
 	}
 	updateParty(index1, index2) {
-		this.party.push(winnerParty(this.party[index1], this.party[index2]));
+		if (index1 >= 0 && index1 < this.party.length && index2 >= 0 && index2 < this.party.length && this.party[index1] && this.party[index2])
+			this.party.push(winnerParty(this.party[index1], this.party[index2]));
+		else
+			console.error('Invalid party indices');
 		this.currentPartyIndex++;
 		this.currentParty = this.party[this.currentPartyIndex];
 	}
 
 	nextParty() {
+
 		if (this.nbPlayers == 4) {
 			if (this.currentPartyIndex == 0) {
 				this.currentPartyIndex++;
@@ -818,33 +835,61 @@ class Tournament {
 			}
 			else if (this.currentPartyIndex == 1) {
 				this.updateParty(0, 1);
+				this.endTournament = true;
 			}
+			else if (this.currentPartyIndex > 1)
+				sendScoreToBackend();
 		}
 		else if (this.nbPlayers == 8) {
-			if (this.currentPartyIndex <= 3) {
+			if (this.currentPartyIndex < 3) {
 				this.currentPartyIndex++;
 				this.currentParty = this.party[this.currentPartyIndex];
 			}
-			else if (this.currentPartyIndex == 4) {
+			else if (this.currentPartyIndex == 3) {
 				this.updateParty(0, 1);
 			}
-			else if (this.currentPartyIndex == 5) {
+			else if (this.currentPartyIndex == 4) {
 				this.updateParty(2, 3);
 			}
-			else if (this.currentPartyIndex == 6) {
+			else if (this.currentPartyIndex == 5) {
 				this.updateParty(4, 5);
+				this.endTournament = true;
 			}
+			else if (this.currentPartyIndex > 5)
+				sendScoreToBackend();
 		}
 		initializeUI(this.currentParty.player1, this.currentParty.player2);
 	}
+
+	sortPlayers() {
+		if (this.party[this.party.length - 1].player1Score > this.party[this.party.length - 1].player2Score)
+			this.classifyPlayers[0] = this.party[this.party.length - 1].player1;
+		else
+			this.classifyPlayers[0] = this.party[this.party.length - 1].player2;
+	}
 }
-function appendParty(formData, result) {
-	formData.append('player1', result.player1);
-	formData.append('player2', result.player2);
-	formData.append('player1_score', result.player1Score);
-	formData.append('player2_score', result.player2Score);
-	formData.append('game_duration', result.duration);
+
+function createGamesList(party, host_name) {
+	let games = [];
+	for (let i = 0; i < party.length; i++) {
+		games[i] = {
+			player1: party[i].player1,
+			player2: party[i].player2,
+			player1_score: party[i].player1Score,
+			player2_score: party[i].player2Score,
+			game_duration: party[i].duration
+		};
+		if (host_name == party[i].player1 || host_name == party[i].player2) {
+			games[i].host = host_name;
+		}
+		else {
+			games[i].host = null;
+		}
+		//console.log(`Game ${i + 1}:`, games[i]);
+	}
+	return games;
 }
+
 //#endregion
 
 //#region request backend
@@ -881,13 +926,20 @@ function sendScoreToBackend() {
 }
 
 function sendTournamentScoreToBackend() {
-	if (manager.waiting)
+	if (tournament.sendScoreToBackend)
 		return;
+	tournament.sendScoreToBackend = true;
+	console.log("Sending tournament score to backend");
 	let game_duration = (new Date() - manager.startTime) / 1000;
 
 	let formData = new FormData();
-
-
+	//ajout de toutes les parties
+	formData.append('host_username', host_name);
+	formData.append('tournament_name', "Tournament");
+	formData.append('date', new Date());
+	formData.append('players_count', tournament.nbPlayers);
+	formData.append('leaderboard', JSON.stringify(tournament.players)); //trier par vainceur
+	formData.append('games', JSON.stringify(createGamesList(tournament.party, host_name)));
 	let csrfTokenValue = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
 	const request = new Request(save_tournament, {
@@ -904,11 +956,6 @@ function sendTournamentScoreToBackend() {
 		.catch(error => {
 			console.error(`Fetch error: ${error.message}`);
 		});
-}
-
-function sendNameForTournament()
-{
-
 }
 
 //#endregion
