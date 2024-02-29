@@ -18,21 +18,18 @@ from .forms import CustomUserCreationForm
 from .models import RequestCache
 from .decorators import not_authenticated
 
-
 @not_authenticated
 def signup(request):
+	form = CustomUserCreationForm()
 	if request.method == 'POST':
 		form = CustomUserCreationForm(request.POST)
 		if form.is_valid():
-			user = form.save()
-			auth_login(request, user)
+			form.save()
 			return redirect('hub')
-	else:
-		form = CustomUserCreationForm()
-
 	if request.META.get('HTTP_HX_REQUEST'):
 		return render(request, 'signup_block.html', {'form': form})
 	return render(request, 'signup.html', {'form': form})
+
 
 @not_authenticated
 def login(request):

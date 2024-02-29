@@ -30,7 +30,6 @@ urlpatterns = [
 ]
 
 
-
 # urlpatterns = [
 #     path('', home, name="home"),
 #     path('compute/', compute, name="compute"),

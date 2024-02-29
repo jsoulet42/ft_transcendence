@@ -3,37 +3,35 @@
 		<h1 class="glitch_anim catjoueurs_text" data-text="TOURNAMENTS ">TOURNAMENTS</h1>
 		<h1 class="glitch_anim catjoueurs_text" data-text=" 4 PLAYERS">4 PLAYERS</h1>
 	</div>
+	<form id="form-8tournament" method="POST" hx-target="#main-container" hx-post="{% url 'game_with_mode' mode='tournament' %}" hx-push-url="true" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }'>
 	<div id="carouselExampleIndicators" class="carousel slide carousel_container">
 		<div class="carousel-inner">
-		  <div class="carousel-item active carousel_animation">
-			<img src="/static/pong/images/catjoueurs_image.jpeg" class="d-block w-100" alt="...">
+		  <div class="carousel-item active">
+			<img src="/static/pong/images/catjoueurs_image.jpeg" class="d-block w-100" m alt="...">
 			<div class="row g-3">
-				<div class="col-md-6">
-				  <label for="player2">Player 2:</label>
-				  <input type="text" class="form-control player_forms" id="player2" placeholder="Player 2" aria-label="First name">
+				<div class="col-md-6" id="form1">
+				  <label for="inputplayer2"></label>
+				  <input type="text" class="form-control player_forms" id="inputplayer2" action="tournaments_choice_block.html" minlength="3" maxlength="10" required method="GET" placeholder="Player 2" aria-label="First name">
 				</div>
 			</div>
-			<button type="submit button" class="btn button_submit">Submit</button>
 		  </div>
-		  <div class="carousel-item carousel_animation">
+		  <div class="carousel-item">
 			<img src="/static/pong/images/catjoueurs_image2.jpeg" class="d-block w-100" alt="...">
 			<div class="row g-3">
-				<div class="col-md-6">
-					<label for="player3">Player 3:</label>
-					<input type="text" class="form-control player_forms" id="player3" placeholder="Player 3" aria-label="Last name">
+				<div class="col-md-6" id="form2">
+					<label for="inputplayer3"></label>
+					<input type="text" class="form-control player_forms" minlength="3" maxlength="10" required id="inputplayer3" placeholder="Player 3" aria-label="Last name">
 			  	</div>
 		  	</div>
-			<button type="submit" class="btn button_submit">Submit</button>
 		  </div>
 		  <div class="carousel-item">
 			<img src="/static/pong/images/catjoueurs_image3.jpeg" class="d-block w-100" alt="...">
 			<div class="row g-3">
-				<div class="col-md-6">
-					<label for="player4">Player 4:</label>
-					<input type="text" class="form-control player_forms" id="player4" placeholder="Player 4" aria-label="Last name">
+				<div class="col-md-6" id="form3">
+					<label for="inputplayer4"></label>
+					<input type="text" class="form-control player_forms" minlength="3" maxlength="10" required id="inputplayer4" placeholder="Player 4" aria-label="Last name">
 		  		</div>
 		  	</div>
-			<button type="submit" class="btn button_submit">Submit</button>
 		</div>
 		<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
 		  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -45,25 +43,6 @@
 		</button>
 	  </div>
   </div>
+  <button type="submit" class="btn btn_startournament8">Commencer le tournois</button>
+</form>
 </div>
-<script>
-//	document.getElementById('player2').addEventListener('submit', function(event){
-//    event.preventDefault();
-//    
-//	let tourn = {
-//		player1: '{{ user.username }}',
-//		player2: player2,
-//		//player3: player3,
-//		//player4: player4,
-//	}
-//
-//    const formData = new FormData(this);
-//    
-//    const player2 = formData.get('player2');
-//    
-//	console.log('Player 1:', tourn.player1);
-//    console.log('Player 2:', tourn.player2);
-//    //console.log('Player 3:', player3);
-//    //console.log('Player 4:', player4);
-//  });
-</script>

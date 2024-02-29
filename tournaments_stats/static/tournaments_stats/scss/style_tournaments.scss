@@ -52,6 +52,8 @@
 	overflow: hidden;
 	height: 100%;
 	background-color: transparent;
+	overflow-y: scroll;
+	max-height: 20vh;
   }
 
   .custom-table th,
@@ -66,18 +68,18 @@
 	font-size: 1.5rem;
   }
 
+  ::-webkit-scrollbar-thumb {
+	background-color: violet; 
+  }
+
   .chart-container {
-	position: relative;
-	left: 25%;
 	width: 50%;
 	height: 50%;
 	border-radius: 5rem;
 	border: 10px solid rgba(190, 23, 215, 0.9);
 	overflow: hidden;
 	background-color: rgb(0, 0, 0);
-}
-
-
+  }
 
 #chart_div_container svg rect {
 	fill: none;

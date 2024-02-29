@@ -31,16 +31,16 @@ def test_game(request):
 
 def test_tournament(request):
 	data = {
-		'host_username': 'lolefevr',
+		'host_username': request.user.username,
 		'tournament_name': 'test',
 		'date': '2020-12-12',
 		'players_count': 4,
-		'leaderboard': ['lolefevr', 'pos2', 'pos3', 'pos4'],
+		'leaderboard': [request.user.username, 'pos2', 'pos3', 'pos4'],
 		'games': [
 			{
 				'game_duration': '00:10:00',
-				'host': 'lolefevr',
-				'player1': 'lolefevr',
+				'host': request.user.username,
+				'player1': request.user.username,
 				'player2': 'pos2',
 				'player1_score': 5,
 				'player2_score': 1,
@@ -65,27 +65,27 @@ def test_tournament(request):
 @csrf_exempt
 def save_game(request):
 	if request.method == 'POST':
-		game_duration = request.POST.get('game_duration', None)
-		host_username = request.POST.get('host_username', None)
-		player1 = request.POST.get('player1', None)
-		player2 = request.POST.get('player2', None)
-		player1_score = request.POST.get('player1_score', None)
-		player2_score = request.POST.get('player2_score', None)
+	# 	game_duration = request.POST.get('game_duration', None)
+	# 	host_username = request.POST.get('host_username', None)
+	# 	player1 = request.POST.get('player1', None)
+	# 	player2 = request.POST.get('player2', None)
+	# 	player1_score = request.POST.get('player1_score', None)
+	# 	player2_score = request.POST.get('player2_score', None)
 
-		# print(request.POST.get('game_duration', None))
-		# data = json.loads(request.body)
+		print(request.POST.get('game_duration', None))
+		data = json.loads(request.body)
 
-		# game_duration = data.get('game_duration', None)
-		# host_username = data.get('host_username', None)
-		# player1 = data.get('player1', None)
-		# player2 = data.get('player2', None)
-		# player1_score = data.get('player1_score', None)
-		# player2_score = data.get('player2_score', None)
+		game_duration = data.get('game_duration', None)
+		host_username = data.get('host_username', None)
+		player1 = data.get('player1', None)
+		player2 = data.get('player2', None)
+		player1_score = data.get('player1_score', None)
+		player2_score = data.get('player2_score', None)
 
 		print(host_username)
 
 		try:
-			host = CustomUser.objects.get(username=host_username)
+			host = CustomUser.objects.get(username='lolefevr')
 		except ObjectDoesNotExist:
 			return JsonResponse({'error': 'Could not find game host'})
 
