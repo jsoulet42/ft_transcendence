@@ -24,11 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(os.environ.get("DEBUG", default=0))
+DEBUG = bool(int(os.environ.get("DEBUG", default=0)))
 
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 
-if DEBUG == 0:
+if DEBUG is False:
     CSRF_TRUSTED_ORIGINS = os.environ.get("CSRF_TRUSTED_ORIGINS").split(" ")
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
@@ -194,10 +194,10 @@ EXTERNAL_API_TOKEN_URL = os.path.join(EXTERNAL_API_URL, 'token')
 EXTERNAL_API_CLIENT_ID = os.getenv('EXTERNAL_API_CLIENT_ID')
 EXTERNAL_API_CLIENT_SECRET = os.getenv('EXTERNAL_API_CLIENT_SECRET')
 
-if DEBUG == 0:
-    EXTERNAL_API_REDIRECT_URI = 'https://localhost:1337/authentication/auth42/'
-else:
+if DEBUG is True:
     EXTERNAL_API_REDIRECT_URI = 'http://localhost:8000/authentication/auth42/'
+else:
+    EXTERNAL_API_REDIRECT_URI = 'https://www.dreamteampong.pro/authentication/auth42/'
 
 EXTERNAL_API_USER_URL = 'https://api.intra.42.fr/v2/me'
 
