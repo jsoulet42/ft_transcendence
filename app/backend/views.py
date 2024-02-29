@@ -34,37 +34,39 @@ def test_game(request):
 
 
 def test_tournament(request):
-	data = {
-		'host_username': request.user.username,
-		'tournament_name': 'test',
-		'date': '2020-12-12',
-		'players_count': 4,
-		'leaderboard': [request.user.username, 'pos2', 'pos3', 'pos4'],
-		'games': [
-			{
-				'game_duration': '00:10:00',
-				'host': request.user.username,
-				'player1': request.user.username,
-				'player2': 'pos2',
-				'player1_score': 5,
-				'player2_score': 1,
-			},
-			{
-				'game_duration': '00:10:00',
-				'host': None,
-				'player1': 'pos3',
-				'player2': 'pos4',
-				'player1_score': 2,
-				'player2_score': 0,
-			},
-		]
-	}
-	headers = {'Content-Type': 'application/json'}
-	response = requests.post('http://localhost:8000/backend/tournament_save/', data=json.dumps(data), headers=headers)
+    data = {
+        'host_username': request.user.username,
+        'tournament_name': 'test',
+        'date': '2020-12-12',
+        'players_count': 4,
+        'leaderboard': [request.user.username, 'pos2', 'pos3', 'pos4'],
+        'games': [
+                {
+                    'game_duration': '00:10:00',
+                    'host': request.user.username,
+                    'player1': request.user.username,
+                    'player2': 'pos2',
+                    'player1_score': 5,
+                    'player2_score': 1,
+                },
+            {
+                    'game_duration': '00:10:00',
+                    'host': None,
+                    'player1': 'pos3',
+                    'player2': 'pos4',
+                    'player1_score': 2,
+                    'player2_score': 0,
+            },
+        ]
+    }
+    headers = {'Content-Type': 'application/json'}
+    response = requests.post(
+        'http://localhost:8000/backend/tournament_save/', data=json.dumps(data), headers=headers)
 
-	if response.status_code / 100 != 2:
-		return JsonResponse({'error': 'Could not save tournament'})
-	return JsonResponse(response.json())
+    if response.status_code / 100 != 2:
+        return JsonResponse({'error': 'Could not save tournament'})
+    return JsonResponse(response.json())
+
 
 @csrf_exempt
 def save_game(request):
@@ -123,61 +125,60 @@ def save_game(request):
 
 @csrf_exempt
 def save_tournament(request):
-	if request.method == 'POST':
-		host_username = request.POST.get('host_username', None)
-		tournament_name = request.POST.get('tournament_name', None)
-		date = request.POST.get('date', None)
-		players_count = request.POST.get('players_count', None)
-		leaderboard_list = json.loads(request.POST.get('leaderboard', None))
-		games_list = json.loads(request.POST.get('games', None))
+    if request.method == 'POST':
+        host_username = request.POST.get('host_username', None)
+        tournament_name = request.POST.get('tournament_name', None)
+        players_count = request.POST.get('players_count', None)
+        leaderboard_list = json.loads(request.POST.get('leaderboard', None))
+        games_list = json.loads(request.POST.get('games', None))
 
-		try:
-			host = CustomUser.objects.get(username=host_username)
-		except ObjectDoesNotExist:
-			return JsonResponse({'error': 'Could not find tournament host'})
+        try:
+            host = CustomUser.objects.get(username=host_username)
+        except ObjectDoesNotExist:
+            return JsonResponse({'error': 'Could not find tournament host'})
 
-		leaderboard = Leaderboard.objects.create(host=host)
-		leaderboard.set_usernames(leaderboard_list)
+        leaderboard = Leaderboard.objects.create(host=host)
+        leaderboard.set_usernames(leaderboard_list)
 
-		tournament = Tournament.objects.create(
-			name=tournament_name,
-			players_count=players_count,
-			leaderboard=leaderboard
-		)
+        tournament = Tournament.objects.create(
+            name=tournament_name,
+            players_count=players_count,
+            leaderboard=leaderboard
+        )
 
-		for game in games_list:
-			game = Game.objects.create(
-				game_duration=timedelta(seconds=game.get('game_duration', 0)),
-				host=host,
-				player1=game.get('player1'),
-				player2=game.get('player2'),
-				player1_score=game.get('player1_score'),
-				player2_score=game.get('player2_score'),
-			)
+        for game in games_list:
+            game = Game.objects.create(
+                game_duration=timedelta(seconds=game.get('game_duration', 0)),
+                host=host,
+                player1=game.get('player1'),
+                player2=game.get('player2'),
+                player1_score=game.get('player1_score'),
+                player2_score=game.get('player2_score'),
+            )
 
-			game.tournament = tournament
-			game.save()
-			if game.host is not None:
-				host.games.add(game)
-				host.stats.games_played += 1
-				if host.username == game.player1:
-					if game.player1_score > game.player2_score:
-						host.stats.wins += 1
-					else:
-						host.stats.losses += 1
-				else:
-					if game.player2_score > game.player1_score:
-						host.stats.wins += 1
-					else:
-						host.stats.losses += 1
+            game.tournament = tournament
+            game.save()
+            if game.host is not None:
+                host.games.add(game)
+                host.stats.games_played += 1
+                if host.username == game.player1:
+                    if game.player1_score > game.player2_score:
+                        host.stats.wins += 1
+                    else:
+                        host.stats.losses += 1
+                else:
+                    if game.player2_score > game.player1_score:
+                        host.stats.wins += 1
+                    else:
+                        host.stats.losses += 1
 
-			tournament.games.add(game)
+            tournament.games.add(game)
 
-		host.stats.tournaments_played += 1
-		host.tournaments.add(tournament)
-		leaderboard.save()
-		host.stats.save()
-		host.save()
-		return JsonResponse({'success': 'Tournament saved'})
+        host.stats.tournaments_played += 1
+        host.tournaments.add(tournament)
+        leaderboard.save()
+        host.stats.save()
+        host.save()
+        return JsonResponse({'success': 'Tournament saved'})
 
-	return JsonResponse({'error': 'Tournament not saved'})
+    return JsonResponse({'error': 'Tournament not saved'})
