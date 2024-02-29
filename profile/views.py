@@ -61,6 +61,14 @@ def match_history(request):
 		return render(request, 'match_history.html', {'matches': latest_matches})
 	return render(request, 'profile.html', {'form':form})
 
+def match_history_search(request):
+	form = ProfilePicForm()
+	name = request.POST.get('btn-search')
+	latest_matches = Game.objects.filter(player1=name, tournament__isnull=True)[:30]
+	if request.META.get('HTTP_HX_REQUEST'):
+		return render(request, 'match_history_search.html', {'matches': latest_matches})
+	return render(request, 'profile.html', {'form':form})
+
 def tournaments_history(request):
 	form = ProfilePicForm()
 	# .order_by('-date')
