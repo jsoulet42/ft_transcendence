@@ -9,13 +9,24 @@
 
 # Files variables
 static_dir="transcendence/static/transcendence"
-scss_file_path="scss/main.scss"
-output_css_file_path="css/style.css"
+scss_file_path="${static_dir}/scss/main.scss"
+output_css_file_path="${static_dir}/css/style.css"
 
 # Color output variables
 ansi_nc="\e[0m"
 ansi_blue="\e[34m"
 ansi_yellow="\e[33m"
+
+SASS_PATH="authentication/static/authentication/scss"
+SASS_PATH+=":home/static/home/scss"
+SASS_PATH+=":hub/static/hub/scss"
+SASS_PATH+=":pong/static/pong/scss"
+SASS_PATH+=":profile/static/profile/scss"
+SASS_PATH+=":tournaments_stats/static/tournaments_stats/scss"
+SASS_PATH+=":transcendence/static/transcendence/scss"
+SASS_PATH+=":friends/static/friends/scss"
+
+export SASS_PATH
 
 # ********************************************************************************************** #
 
