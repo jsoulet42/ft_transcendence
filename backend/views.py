@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.core.exceptions import ObjectDoesNotExist
+from datetime import timedelta
 
 from .models import CustomUser, Leaderboard, Game, Tournament
 
@@ -118,14 +119,12 @@ def save_game(request):
 @csrf_exempt
 def save_tournament(request):
 	if request.method == 'POST':
-		data = json.loads(request.body)
-
-		host_username = data.get('host_username', None)
-		tournament_name = data.get('tournament_name', None)
-		date = data.get('date', None)
-		players_count = data.get('players_count', None)
-		leaderboard_json = data.get('leaderboard', None)
-		games_json = data.get('games', None)
+		host_username = request.POST.get('host_username', None)
+		tournament_name = request.POST.get('tournament_name', None)
+		date = request.POST.get('date', None)
+		players_count = request.POST.get('players_count', None)
+		leaderboard_list = json.loads(request.POST.get('leaderboard', None))
+		games_list = json.loads(request.POST.get('games', None))
 
 		try:
 			host = CustomUser.objects.get(username=host_username)
@@ -133,7 +132,7 @@ def save_tournament(request):
 			return JsonResponse({'error': 'Could not find tournament host'})
 
 		leaderboard = Leaderboard.objects.create(host=host)
-		leaderboard.set_usernames(leaderboard_json)
+		leaderboard.set_usernames(leaderboard_list)
 
 		tournament = Tournament.objects.create(
 			name=tournament_name,
@@ -141,9 +140,9 @@ def save_tournament(request):
 			leaderboard=leaderboard
 		)
 
-		for game in games_json:
+		for game in games_list:
 			game = Game.objects.create(
-				game_duration=game.get('game_duration'),
+				game_duration=timedelta(seconds=game.get('game_duration', 0)),
 				host=host,
 				player1=game.get('player1'),
 				player2=game.get('player2'),
