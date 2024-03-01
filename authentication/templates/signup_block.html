@@ -3,19 +3,19 @@
         {% csrf_token %}
         <div class="form_signup1">
             <label for="id_username">Username:</label>
-            <h1>{{ form.username }}</h1>
+            {{ form.username }}
         </div>
         <div class="form_signup2">
             <label for="id_email">Email: (optionnal)</label>
-            <h1>{{ form.email }}</h1>
+            {{ form.email }}
         </div>
         <div class="form_signup3">
             <label for="id_password1">Password:</label>
-            <h1>{{ form.password1 }}</h1>
+            {{ form.password1 }}
         </div>
         <div class="form_signup4">
             <label for="id_password2">Confirm Password:</label>
-            <h1>{{ form.password2 }}</h1>
+            {{ form.password2 }}
         </div>
         <button class="btn btn_signup" type="submit">Sign up</button>
     </form>
