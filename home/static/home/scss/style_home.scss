@@ -270,3 +270,15 @@ html, body {
     left: 20%; /* Pour le centrer horizontalement */
     z-index: 4; /* Empilement par-dessus d'autres éléments */
 }
+
+#friend-list-container .online {
+	background-color: rgba(0, 255, 0, 0.3);
+}
+
+#friend-list-container .ingame {
+	background-color: rgba(255, 255, 0, 0.3);
+}
+
+#friend-list-container .offline {
+	background-color: rgba(0, 0, 0, 0.3);
+}

@@ -65,40 +65,42 @@
 		})
 		.then(response => response.json())
 		.then(data => {
-			const friend_list_container = document.getElementById('friend-list-container');
-			const divider = `<li><hr class="dropdown-divider"></li>`;
+			const friendListContainer = document.getElementById('friend-list-container');
+			const divider = document.createElement('li');
+			divider.innerHTML = '<hr class="dropdown-divider">';
 
-			friend_list_container.innerHTML = `<li><div class="dropdown-header">Friends</div></li>`;
-			
+			friendListContainer.innerHTML = '<li><div class="dropdown-header">Friends</div></li>';
+
 			if (data.length === 0) {
-				friend_list_container.insertAdjacentHTML('beforeEnd', `<li>You have no friends D:</li>`);
+				friendListContainer.appendChild(document.createElement('li')).textContent = 'You have no friends D:';
 			} else {
-				const btn_remove = `<button type="button" class="btn btn-deny" onclick="removeFriend(event)" aria-label="Remove"></button>`
+				const statusClasses = {
+					'Online': 'online',
+					'Ingame': 'ingame',
+					'Offline': 'offline'
+				};
 
 				const statusOrder = ['Online', 'Ingame', 'Offline'];
+
 				data.sort((a, b) => statusOrder.indexOf(a.status) - statusOrder.indexOf(b.status));
 
 				data.forEach(request => {
-					if (request.status === 'Online') {
-						line_color = `rgba(0, 255, 0, 0.3)`;
-					}
-					if (request.status === 'Ingame') {
-						line_color = `rgba(255, 255, 0, 0.3)`;
-					}
-					if (request.status === 'Offline') {
-						line_color = `rgba(255, 0, 0, 0.3)`;
-					}
-					const listItem = `<li class="row" style="background-color:${line_color}">`
-						+ `<span class="col text-start">${request.username}</span>`
-						+ `<div class="col text-end">`
-						+ `${btn_remove}`
-						+ `</div>`
-						+ `</li>`;
-					friend_list_container.insertAdjacentHTML('beforeEnd', listItem);
+					const listItem = document.createElement('li');
+					listItem.classList.add('row', statusClasses[request.status]);
+					listItem.style.backgroundColor = line_color;
+					listItem.innerHTML = `<span class="col text-start">${request.username}</span>`;
+					const btnRemove = document.createElement('button');
+					btnRemove.type = 'button';
+					btnRemove.classList.add('btn', 'btn-deny');
+					btnRemove.setAttribute('aria-label', 'Remove');
+					btnRemove.onclick = (event) => removeFriend(event);
+					btnRemove.textContent = 'Remove';
+					listItem.querySelector('.col.text-end').appendChild(btnRemove);
+					friendListContainer.appendChild(listItem);
 				});
 			}
-			
-			friend_list_container.insertAdjacentHTML('beforeEnd', divider);
+
+			friendListContainer.appendChild(divider);
 		})
 		.catch(error => console.error('Error fetching friend list:', error));
 	}
