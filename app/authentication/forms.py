@@ -11,7 +11,7 @@ class CustomUserCreationForm(UserCreationForm):
 
     def save(self, commit=True):
         user = super(CustomUserCreationForm, self).save(commit=False)
-        list_instance = UsersList.objects.get(name='No42User')
+        list_instance, created = UsersList.objects.get_or_create(name='No42User')
         image_url = settings.MEDIA_URL + 'character2.png'
         user.list = list_instance
         user.profile_image_path = image_url

@@ -2,7 +2,8 @@ NAME = app
 DEV_COMPOSE_FILE	= docker-compose.yml
 STAGING_COMPOSE_FILE= docker-compose.staging.yml
 PROD_COMPOSE_FILE	= docker-compose.prod.yml
-URL					= www.dreamteampong.pro
+LOCAL_URL			= http://localhost:8000
+URL					= https://www.dreamteampong.pro
 
 all: build run
 dev: build-dev run-dev
@@ -11,29 +12,29 @@ staging: build-staging run-staging
 # Build the docker images in the docker-compose.yml file
 build:
 	sudo docker-compose -f $(PROD_COMPOSE_FILE) build
-	@echo "\n\nTranscendence is now built and ready to run on https://${URL}"
+	@echo "\n\nTranscendence is now built and ready to run on ${URL}"
 
 build-dev:
 	sudo docker-compose -f $(DEV_COMPOSE_FILE) build
-	@echo "\n\nTranscendence is now built and ready to run on https://${URL}"
+	@echo "\n\nTranscendence is now built and ready to run on ${LOCAL_URL}"
 
 build-staging:
 	sudo docker-compose -f $(STAGING_COMPOSE_FILE) build
-	@echo "\n\nTranscendence is now built and ready to run on https://${URL}"
+	@echo "\n\nTranscendence is now built and ready to run on ${URL}"
 
 
 # Run the docker containers in the docker-compose.yml file
 run:
 	sudo docker-compose -f $(PROD_COMPOSE_FILE) up -d
-	@echo "\n\nTranscendence is now running on https://${URL}"
+	@echo "\n\nTranscendence is now running on ${URL}"
 
 run-dev:
 	sudo docker-compose -f $(DEV_COMPOSE_FILE) up -d
-	@echo "\n\nTranscendence is now running on https://${URL}"
+	@echo "\n\nTranscendence is now running on ${LOCAL_URL}"
 
 run-staging:
 	sudo docker-compose -f $(STAGING_COMPOSE_FILE) up -d
-	@echo "\n\nTranscendence is now running on https://${URL}"
+	@echo "\n\nTranscendence is now running on ${URL}"
 
 
 stop:

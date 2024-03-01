@@ -28,7 +28,7 @@ __pycache__/
 .idea/
 
 #dossier de compilation
-css/
+style.css.map
 
 # Fichiers temporaires
 *.swp

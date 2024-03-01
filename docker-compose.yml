@@ -2,7 +2,10 @@ version: '3.8'
 
 services:
   web:
-    build: ./app
+    container_name: web
+    build:
+      context: ./app
+      dockerfile: Dockerfile
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - /usr/src/app/
@@ -14,6 +17,7 @@ services:
       - db
 
   db:
+    container_name: db
     image: postgres:15
     volumes:
       - postgres_data:/var/lib/postgresql/data/
