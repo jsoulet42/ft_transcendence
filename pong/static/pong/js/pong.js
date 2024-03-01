@@ -57,11 +57,11 @@ function createManager(mode = 0) {
 		mode: mode,
 		pause: false,
 		putBackBallBool: false,
-		countdownInt: 1,
+		countdownInt: 3,
 		countdownBool: false,
 		startTime: Date.now(),
-		partyDuration: 1,
-		secondsLeft: 1,
+		partyDuration: 10,
+		secondsLeft: 10,
 		inputs: false,
 		waiting: true,
 		endGame: false,
@@ -123,7 +123,7 @@ export function startGameFunctionPVP() {
 	if (begin) {
 		console.log("name_player2: " + name_player2);
 
-		if(name_player2 == "None" || name_player2 == "")
+		if (name_player2 == "None" || name_player2 == "")
 			name_player2 = "Jon Snow";
 		UI.rightName = name_player2;
 		initializePaddle();
@@ -461,8 +461,6 @@ function drawScore() {
 	ctx.fillText("Score: " + UI.rightScore, canvas.width - textWidth - canvas.width * 0.025, canvas.height * 0.06);
 	ctx.fillText(UI.leftName, canvas.width * 0.025, canvas.height * 0.12);
 	ctx.fillText(UI.rightName, canvas.width - textWidth - canvas.width * 0.05, canvas.height * 0.12);
-
-
 }
 
 function collisionDetection() {
@@ -524,6 +522,7 @@ function drawEndGame() {
 
 function Update() {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	console.log("Update");
 	drawVerticalBar();
 	if (!manager.waiting) {
 		lisenInput();
@@ -552,7 +551,9 @@ function canvasCheck() {
 	if (mode != "pvp" && mode != "pve" && mode != "tournament") {
 		clearInterval(updateInterval2);
 		clearInterval(updateInterval);
+		clearInterval(countdownInterval);
 		stopUpdatingAI();
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		checkUrlInterval = setInterval(restartGame, 1000);
 	}
 }
@@ -564,6 +565,14 @@ function restartGame() {
 	if (mode == "pvp" || mode == "pve" || mode == "tournament") {
 		console.log("Mode de jeu trouvé");
 		clearInterval(checkUrlInterval);
+		canvas = document.getElementById('pongCanvas');
+		ctx = canvas.getContext('2d');
+		canvas.width = window.innerWidth;
+		canvas.height = window.innerHeight;
+		begin = true;
+		posBord = 10;
+		lastTime = Date.now();
+
 		run();
 	}
 }
@@ -655,6 +664,8 @@ function formatTime(seconds) {
 
 function drawCountdown2(seconds) {
 	var canvas = document.getElementById('pongCanvas');
+	if (!canvas)
+		return;
 	var ctx = canvas.getContext('2d');
 
 	ctx.font = '3em Arial';
@@ -682,10 +693,10 @@ function drawCountdown2(seconds) {
 		ctx.fillText(text2, canvas.width / 2 - 200, y2);
 	}
 }
-
+var countdownInterval;
 function startCountdown() {
 
-	var countdownInterval = setInterval(function () {
+	countdownInterval = setInterval(function () {
 		manager.secondsLeft--;
 		if (manager.endGame) {
 			clearInterval(countdownInterval);
@@ -739,6 +750,7 @@ function drawCountdown() {
 
 function initializeVariables(mode) {
 	clearInterval(updateInterval2);
+	console.log("initializeVariables mode " + mode);
 
 	if (!canvas)
 		window.addEventListener('load', canvasCheck);
@@ -766,6 +778,7 @@ function run() {
 
 	let url = new URL(window.location.href);
 	let mode = url.pathname.split("/")[3]; // Assuming 'mode' is the fourth segment in the URL
+	console.log("Mode: " + mode);
 	clearInterval(restartGame);
 	if (mode == "pvp")
 		initializeVariables(1);
@@ -789,7 +802,6 @@ function run() {
 //#endregion
 
 //#region tournament
-
 
 class Party {
 	constructor(player1, player2) {
