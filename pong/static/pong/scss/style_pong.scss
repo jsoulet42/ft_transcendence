@@ -71,28 +71,83 @@ $carousel-indicator-height: 3px;
 	border: 0.5vh solid black;
 }
 
+.text_startgame {
+	position: absolute;
+	color: white;
+	font-size: 2.3vh;
+	top: 5%;
+	left: 13%;
+	padding: 5%;
+}
+
 .startgame_playerform {
 	position: absolute;
-	top: 0%;
-	width: 100%;
+	text-align: center;
+	top: 25%;
+	right: 15%;
+	width: 70%;
+	overflow: hidden;
+	background-color: bisque;
+	border-radius: 1rem;
+	height: 20%;
+	font-size: 1.5rem;
+	animation: blink 0.5s infinite;
+}
+
+.typing-animation p {
+    display: inline-block;
+    border-right: 0.5vmin solid transparent;
+    animation: typing 1s steps(20) infinite;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
 }
 
 .startgame_btn {
 	position: absolute;
-	bottom: 0%;
-	right: 20%;
+	bottom: 10%;
+	right: 15%;
 	width: 70%;
 	background-color: violet;
 	border: 0.1vmin solid black;
 	height: 25%;
 	font-size: 2.5vh;
+	border-radius: 1rem;
 }
 
 .startgame_btn:hover {
 	background-color: pink;
 	transform: scale(1.1);
-	box-shadow: 1vmin 1vmin 1vmin #110a4e;
-	color: white;
+	box-shadow: 1vmin 1vmin 1vmin #ff00d0;
+}
+
+.startgame_playerform:hover {
+	transform: scale(1.1);
+	animation: shine1 3s infinite;
+	transition: color 0.3s ease;
+}
+
+@keyframes shine1 {
+	0% {
+		background-color: rgb(192, 128, 253);
+		text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+	}
+	40% {
+		background-color: rgb(237, 104, 237);
+		text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+	}
+	80% {
+		background-color: rgb(245, 158, 173);
+		text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+	}
+	100% {
+		background-color: rgb(192, 128, 253);
+		text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+	}
 }
 
 //tournaments_choice
@@ -193,10 +248,7 @@ $carousel-indicator-height: 3px;
 }
 
 .player_forms {
-	position: absolute;
-	left: 40%;
-	width: 20%;
-	top: 20%;
+	width: 100%;
 	background-color: black;
 	color: white;
 	border-color: violet;
@@ -305,6 +357,13 @@ $carousel-indicator-height: 3px;
 	}
 }
 
+.input {
+	left: 40%;
+	width: 20%;
+	top: 20%;
+	position: absolute;
+}
+
 //8 players css
 
 #eight_players_containers {
@@ -318,10 +377,10 @@ $carousel-indicator-height: 3px;
 	display: flex;
 	top: 15%;
 	left: 10%;
-	width: 35%;
+	width: 30%;
 	font-size: 10vh;
 	color: white;
-	padding: 1.8vh;
+	padding: 1.5vh;
 	text-align: center;
 	background-color: rgb(146, 75, 203);
 	border: 4mm ridge rgba(146, 32, 184, 0.6);
@@ -356,33 +415,33 @@ $carousel-indicator-height: 3px;
 .form_eightplayers {
 	position: absolute;
 	color: black;
-	width: 35%;
+	width: 30%;
 }
 
 .form_playertwo {
 	border: 4mm ridge rgba(146, 32, 184, 0.6);
-	top: 35%;
+	top: 33%;
 	left: 10%;
 	background-color: rgb(146, 75, 203);
-	padding: 1vh;
+	padding: 0.7vh;
 	box-sizing: border-box;
 }
 
 .form_playerthree {
 	border: 4mm ridge rgba(255, 97, 226, 0.6);
-	top: 55%;
+	top: 53%;
 	left: 10%;
 	background-color: rgb(255, 0, 200);
-	padding: 1vh;
+	padding: 0.7vh;
 	box-sizing: border-box;
 }
 
 .form_playerfour {
 	border: 4mm ridge rgba(255, 46, 217, 0.6);
-	top: 75%;
+	top: 73%;
 	left: 10%;
 	background-color: rgb(255, 119, 232);
-	padding: 1vh;
+	padding: 0.7vh;	
 	box-sizing: border-box;
 }
 
@@ -391,34 +450,34 @@ $carousel-indicator-height: 3px;
 	top: 15%;
 	right: 10%;
 	background-color: rgb(216, 47, 246);
-	padding: 1vh;
+	padding: 0.7vh;
 	box-sizing: border-box;
 }
 
 .form_playersix {
 	border: 4mm ridge rgba(184, 32, 179, 0.6);
-	top: 35%;
+	top: 33%;
 	right: 10%;
 	background-color: rgb(255, 0, 238);
-	padding: 1vh;
+	padding: 0.7vh;
 	box-sizing: border-box;
 }
 
 .form_playerseven {
 	border: 4mm ridge rgba(115, 20, 147, 0.6);
-	top: 55%;
+	top: 53%;
 	right: 10%;
 	background-color: indigo;
-	padding: 1vh;
+	padding: 0.7vh;
 	box-sizing: border-box;
 }
 
 .form_playereight {
 	border: 4mm ridge rgba(146, 32, 184, 0.6);
-	top: 75%;
+	top: 73%;
 	right: 10%;
 	background-color:  violet;
-	padding: 1vh;
+	padding: 0.7vh;
 	box-sizing: border-box;
 }
 
@@ -533,17 +592,35 @@ $carousel-indicator-height: 3px;
 	}
   }
 
-  .btn_startournament8 {
+  .btn_startournament4 {
 	position: absolute;
-	bottom: 9%;
-	right: 1%;
-	background-color: #8360c3;
-	border-color: 0.2vmin solid black;
+	bottom: 35%;
+	right: 7%;
+	height: 15vh;
+	width: 25vh;
+	background-color: #ff42fc;
+	border-radius: 2rem;
+	font-size: 3vh;
   }
 
+  .btn_startournament8 {
+	position: absolute;
+	bottom: 43%;
+	right: 43.5%;
+	height: 15vh;
+	width: 25vh;
+	background-color: #8360c3;
+	border-radius: 2rem;
+	font-size: 3vh;
+  }
+
+  .btn_startournament4:hover,
   .btn_startournament8:hover {
-	background-color: violet;
+	background-color: #8360c3;
+	background-image: linear-gradient(to right, rgb(146, 75, 203), indigo, blue, turquoise, violet, rgb(146, 75, 203));
 	transform: scale(1.1);
 	border-color: 0.2vmin solid black;
 	box-shadow: 0vmin 0vmin 1.8vh 0.8vh rgba(128, 0, 128, 0.5);
+	animation: rainbowAnimation 5s linear infinite;
+	background-size: 1400% auto;
   }
