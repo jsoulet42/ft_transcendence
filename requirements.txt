@@ -1,0 +1,7 @@
+django
+psycopg2-binary==2.9.6
+django-widget-tweaks==1.4.8
+django-htmx
+requests
+Pillow
+gunicorn==21.2.0
