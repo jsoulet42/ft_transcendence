@@ -19,14 +19,8 @@
         <button type="button" class="bottom-edit btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
         Edit image
         </button>
-{#        <form action="{% url 'update_image' %}" method="POST" enctype="multipart/form-data">#}
-{#			{% csrf_token %}#}
-{#            {% csrf_token %}#}
-{#            {{ form.as_p }}#}
-{#            <button type="submit" style="background-color: #8360c3;" class="btn btn-outline-info" >Upload image</button>#}
-{#        </form>#}
     </div>
-    <button type="button" class="bottom-edit2 btn btn-outline-info" hx-get="{% url 'match_history' %}" hx-target="#main-container" hx-push-url="true">MATCH HISTORY</button>
+    <button type="button" class="bottom-edit2 btn btn-outline-info" hx-get="{% url 'match_history' %}" hx-target="#main-container" hx-push-url="profile/user">MATCH HISTORY</button>
     <button type="button" class="bottom-edit btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#exampleModal">EDIT PROFILE</button>
     <form class="d-flex" method="post" hx-post="{% url 'search_profiles' %}" hx-target="#main-container">
         {% csrf_token %}
