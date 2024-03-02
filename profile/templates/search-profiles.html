@@ -14,6 +14,8 @@
             {% csrf_token %}
             <input class="bottom-edit5 btn-outline-info" name="searched" type="search" placeholder="Search for username.." aria-label="Search"/>
             <button class="bottom-edit4 btn btn-outline-info" type="submit">Search</button>
+            <br/>
+            <button name="btn-search" type="button" class="bottom-edit2 btn btn-outline-info" hx-get="{% url 'match_history_search' %}" hx-target="#main-container" hx-push-url="true" data-variable="{{ prof.username }}">MATCH HISTORY</button>
         </form>
         </div>
 
