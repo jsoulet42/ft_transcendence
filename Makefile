@@ -12,29 +12,29 @@ staging: build-staging run-staging
 # Build the docker images in the docker-compose.yml file
 build:
 	sudo docker-compose -f $(PROD_COMPOSE_FILE) build
-	@echo "\n\nTranscendence is now built and ready to run on ${URL}"
+	@echo "\n\nTranscendence is now built and ready to run"
 
 build-dev:
 	sudo docker-compose -f $(DEV_COMPOSE_FILE) build
-	@echo "\n\nTranscendence is now built and ready to run on ${LOCAL_URL}"
+	@echo "\n\nTranscendence is now built and ready to run"
 
 build-staging:
 	sudo docker-compose -f $(STAGING_COMPOSE_FILE) build
-	@echo "\n\nTranscendence is now built and ready to run on ${URL}"
+	@echo "\n\nTranscendence is now built and ready to run"
 
 
 # Run the docker containers in the docker-compose.yml file
 run:
 	sudo docker-compose -f $(PROD_COMPOSE_FILE) up -d
-	@echo "\n\nTranscendence is now running on ${URL}"
+	@echo "\n\nTranscendence is now starting on ${URL}"
 
 run-dev:
 	sudo docker-compose -f $(DEV_COMPOSE_FILE) up -d
-	@echo "\n\nTranscendence is now running on ${LOCAL_URL}"
+	@echo "\n\nTranscendence is now starting on ${LOCAL_URL}"
 
 run-staging:
 	sudo docker-compose -f $(STAGING_COMPOSE_FILE) up -d
-	@echo "\n\nTranscendence is now running on ${URL}"
+	@echo "\n\nTranscendence is now starting on ${URL}"
 
 
 stop:
