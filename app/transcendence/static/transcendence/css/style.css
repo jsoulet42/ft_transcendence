@@ -398,6 +398,18 @@ html, body {
   bottom: 3vw;
 }
 
+#friends-dropdown .online {
+  background-color: rgba(0, 255, 0, 0.3);
+}
+
+#friends-dropdown .ingame {
+  background-color: rgba(255, 255, 0, 0.3);
+}
+
+#friends-dropdown .offline {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
 #nav-home-bottom {
   position: absolute;
   list-style: none;
