@@ -9,6 +9,10 @@ canvas.height = window.innerHeight;
 
 var updateInterval;
 var updateInterval2;
+var countdownInterval;
+var checkUrlInterval;
+
+
 var begin = true;
 
 var posBord = 10;
@@ -57,11 +61,11 @@ function createManager(mode = 0) {
 		mode: mode,
 		pause: false,
 		putBackBallBool: false,
-		countdownInt: 1,
+		countdownInt: 3,
 		countdownBool: false,
 		startTime: Date.now(),
-		partyDuration: 1,
-		secondsLeft: 1,
+		partyDuration: 10,
+		secondsLeft: 10,
 		inputs: false,
 		waiting: true,
 		endGame: false,
@@ -123,7 +127,7 @@ export function startGameFunctionPVP() {
 	if (begin) {
 		console.log("name_player2: " + name_player2);
 
-		if(name_player2 == "None" || name_player2 == "")
+		if (name_player2 == "None" || name_player2 == "")
 			name_player2 = "Jon Snow";
 		UI.rightName = name_player2;
 		initializePaddle();
@@ -461,8 +465,6 @@ function drawScore() {
 	ctx.fillText("Score: " + UI.rightScore, canvas.width - textWidth - canvas.width * 0.025, canvas.height * 0.06);
 	ctx.fillText(UI.leftName, canvas.width * 0.025, canvas.height * 0.12);
 	ctx.fillText(UI.rightName, canvas.width - textWidth - canvas.width * 0.05, canvas.height * 0.12);
-
-
 }
 
 function collisionDetection() {
@@ -524,6 +526,7 @@ function drawEndGame() {
 
 function Update() {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	console.log("Update");
 	drawVerticalBar();
 	if (!manager.waiting) {
 		lisenInput();
@@ -543,8 +546,6 @@ function Update() {
 	canvasCheck();
 }
 
-var checkUrlInterval;
-
 function canvasCheck() {
 	let url = new URL(window.location.href);
 	let mode = url.pathname.split("/")[3]; // Assuming 'mode' is the fourth segment in the URL
@@ -552,7 +553,9 @@ function canvasCheck() {
 	if (mode != "pvp" && mode != "pve" && mode != "tournament") {
 		clearInterval(updateInterval2);
 		clearInterval(updateInterval);
+		clearInterval(countdownInterval);
 		stopUpdatingAI();
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		checkUrlInterval = setInterval(restartGame, 1000);
 	}
 }
@@ -564,10 +567,17 @@ function restartGame() {
 	if (mode == "pvp" || mode == "pve" || mode == "tournament") {
 		console.log("Mode de jeu trouvé");
 		clearInterval(checkUrlInterval);
+		canvas = document.getElementById('pongCanvas');
+		ctx = canvas.getContext('2d');
+		canvas.width = window.innerWidth;
+		canvas.height = window.innerHeight;
+		begin = true;
+		posBord = 10;
+		lastTime = Date.now();
+
 		run();
 	}
 }
-
 
 function startGame() {
 
@@ -639,61 +649,6 @@ async function putBackBall(directionX) {
 function delay(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
 }
-//#region Compte à rebours
-
-function formatTime(seconds) {
-	// Convertit le temps en minutes et secondes
-	var minutes = Math.floor(seconds / 60);
-	var seconds = seconds % 60;
-
-	// Ajoute un zéro devant les nombres à un chiffre
-	if (minutes < 10) minutes = '0' + minutes;
-	if (seconds < 10) seconds = '0' + seconds;
-
-	return minutes + ':' + seconds;
-}
-
-function drawCountdown2(seconds) {
-	var canvas = document.getElementById('pongCanvas');
-	var ctx = canvas.getContext('2d');
-
-	ctx.font = '3em Arial';
-	ctx.textAlign = 'center';
-	ctx.fillStyle = 'white';
-
-	if (seconds > 0) {
-		ctx.fillText(formatTime(seconds), canvas.width / 2 - 100, 60);
-	} else {
-		if (seconds % 2 == 0)
-			ctx.fillStyle = 'red';
-		else
-			ctx.fillStyle = 'white';
-		seconds *= -1;
-
-		var text1 = "EXTRA TIME";
-		var text2 = formatTime(seconds);
-
-		var lineHeight = 30; // Hauteur de ligne en pixels
-		var lineSpacing = 10; // Espacement entre les lignes en pixels
-		var y1 = lineHeight + 30; // Position y de la première ligne
-		var y2 = y1 + lineHeight + lineSpacing; // Position y de la deuxième ligne
-
-		ctx.fillText(text1, canvas.width / 2 - 200, y1);
-		ctx.fillText(text2, canvas.width / 2 - 200, y2);
-	}
-}
-
-function startCountdown() {
-
-	var countdownInterval = setInterval(function () {
-		manager.secondsLeft--;
-		if (manager.endGame) {
-			clearInterval(countdownInterval);
-		}
-	}, 1000);
-}
-
-//#endregion
 
 function pauseGame() {
 	if (manager.pause) {
@@ -739,6 +694,7 @@ function drawCountdown() {
 
 function initializeVariables(mode) {
 	clearInterval(updateInterval2);
+	console.log("initializeVariables mode " + mode);
 
 	if (!canvas)
 		window.addEventListener('load', canvasCheck);
@@ -752,9 +708,8 @@ function initializeVariables(mode) {
 	if (mode != 3) {
 		initializeUI(host_name, name_player2);
 	}
-	else
-		if (begin)
-			initializeIA(true);
+
+	initializeIA(true);
 
 	startGame();
 }
@@ -766,6 +721,7 @@ function run() {
 
 	let url = new URL(window.location.href);
 	let mode = url.pathname.split("/")[3]; // Assuming 'mode' is the fourth segment in the URL
+	console.log("Mode: " + mode);
 	clearInterval(restartGame);
 	if (mode == "pvp")
 		initializeVariables(1);
@@ -783,13 +739,67 @@ function run() {
 	}
 	else
 		console.log("Error: mode not found `" + mode + "`");
-	initializeIA(true);
+}
+//#endregion
+
+//#region Compte à rebours
+
+function formatTime(seconds) {
+	// Convertit le temps en minutes et secondes
+	var minutes = Math.floor(seconds / 60);
+	var seconds = seconds % 60;
+
+	// Ajoute un zéro devant les nombres à un chiffre
+	if (minutes < 10) minutes = '0' + minutes;
+	if (seconds < 10) seconds = '0' + seconds;
+
+	return minutes + ':' + seconds;
+}
+
+function drawCountdown2(seconds) {
+	var canvas = document.getElementById('pongCanvas');
+	if (!canvas)
+		return;
+	var ctx = canvas.getContext('2d');
+
+	ctx.font = '3em Arial';
+	ctx.textAlign = 'center';
+	ctx.fillStyle = 'white';
+
+	if (seconds > 0) {
+		ctx.fillText(formatTime(seconds), canvas.width / 2 - 100, 60);
+	} else {
+		if (seconds % 2 == 0)
+			ctx.fillStyle = 'red';
+		else
+			ctx.fillStyle = 'white';
+		seconds *= -1;
+
+		var text1 = "EXTRA TIME";
+		var text2 = formatTime(seconds);
+
+		var lineHeight = 30; // Hauteur de ligne en pixels
+		var lineSpacing = 10; // Espacement entre les lignes en pixels
+		var y1 = lineHeight + 30; // Position y de la première ligne
+		var y2 = y1 + lineHeight + lineSpacing; // Position y de la deuxième ligne
+
+		ctx.fillText(text1, canvas.width / 2 - 200, y1);
+		ctx.fillText(text2, canvas.width / 2 - 200, y2);
+	}
+}
+function startCountdown() {
+
+	countdownInterval = setInterval(function () {
+		manager.secondsLeft--;
+		if (manager.endGame) {
+			clearInterval(countdownInterval);
+		}
+	}, 1000);
 }
 
 //#endregion
 
 //#region tournament
-
 
 class Party {
 	constructor(player1, player2) {
@@ -992,4 +1002,32 @@ function sendTournamentScoreToBackend() {
 
 //#endregion
 
+
+//#region PowerUp
+
+/*
+Le but de cette région est de répondre à cette partie du sujet :
+Module mineur : Option de personnalisation du jeu.
+Dans ce module mineur, le but est de fournir des options de personnalisation
+pour tous les jeux disponibles sur votre plateforme. Les objectifs et fonctionnalités
+clés incluent :
+◦ Offrir des fonctionnalités de personnalisation, comme des bonus (power-ups),
+attaques, différentes cartes, qui améliorent l’expérience de jeu.
+◦ Permettre aux utilisasteurs de choisir une version du jeu par défaut avec fonctionnalités de base s’ils préfèrent une expérience plus simple.
+◦ Assurez-vous que les options de personnalisation sont disponibles et s’appliquent
+à tous les jeux offerts sur la plateforme.
+◦ Implémentez des menus de réglages conviviaux ou des interfaces pour ajuster
+les paramètres du jeu.
+◦ Conservez une constance dans les fonctionnalités de personnalisation pour tous
+les jeux de la plateforme afin de permettre une expérience utilisateur unifiée.
+Ce module vise à donner aux utilisateurs la flexibilité d’ajuster leur expérience de jeu pour tous les jeux disponibles, en fournissant une variété d’options
+de personnalisation, tout en offrant aussi une version par défaut, simple, pour les
+utilisateurs qui désirent ce type d’expérience.
+*/
+
+
+
+
+
+//endregion
 run();
