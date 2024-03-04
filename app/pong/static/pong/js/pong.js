@@ -85,7 +85,6 @@ function createPaddle() {
 		marge: 10,
 		angle: 5
 	};
-
 }
 function createBall(speed) {
 	return {
@@ -369,15 +368,13 @@ function IAManager() {
 
 //#region draw
 function changeColor() {
-
 	var red = Math.floor(Math.random() * 256);
 	var green = Math.floor(Math.random() * 256);
 	var blue = Math.floor(Math.random() * 256);
 	ball.Bcolor = "rgb(" + red + "," + green + "," + blue + ")";
 }
 
-function drawPaddle()// Fonctioner qui dessine les raquettes
-{
+function drawPaddle(){
 	ctx.beginPath();
 	ctx.rect(5, paddle.leftY, paddle.leftWidth, paddle.leftHeight);
 	ctx.rect(canvas.width - paddle.rightWidth - 5, paddle.rightY, paddle.rightWidth, paddle.rightHeight);
@@ -400,8 +397,7 @@ function drawLine(ax, ay, bx, by) {
 	ctx.closePath();
 }
 
-function drawVerticalBar() // Dessinez une barre verticale au centre du canvas
-{
+function drawVerticalBar(){
 	var centerX = canvas.width / 2;
 	var barHeight = canvas.height;
 
@@ -545,7 +541,6 @@ function Update() {
 	drawBall();
 	canvasCheck();
 }
-
 function canvasCheck() {
 	let url = new URL(window.location.href);
 	let mode = url.pathname.split("/")[3];
@@ -559,7 +554,6 @@ function canvasCheck() {
 		checkUrlInterval = setInterval(restartGame, 1000);
 	}
 }
-
 function restartGame() {
 	let url = new URL(window.location.href);
 	let mode = url.pathname.split("/")[3];
@@ -578,7 +572,6 @@ function restartGame() {
 		run();
 	}
 }
-
 function startGame() {
 
 	updateInterval2 = setInterval(Update, 10);
@@ -587,7 +580,6 @@ function startGame() {
 	startUpdatingAI();
 	initializeBall(ball.speedBaseX);
 }
-
 function endGame() {
 	manager.endGame = true;
 	manager.waiting = true;
@@ -611,7 +603,6 @@ function endGame() {
 	initializeIA(true);
 	startUpdatingAI();
 }
-
 async function putBackBall(directionX) {
 	manager.putBackBallBool = true;
 	IA.destYLeft = canvas.height / 2;
@@ -645,11 +636,9 @@ async function putBackBall(directionX) {
 		endGame();
 	}
 }
-
 function delay(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
 }
-
 function pauseGame() {
 	if (manager.pause) {
 		ball.speedX = ball.speedBaseX;
@@ -664,7 +653,6 @@ function pauseGame() {
 		manager.pause = true;
 	}
 }
-
 async function countdownBeginParty() {
 	if (manager.countdownBool)
 		return;
@@ -677,7 +665,6 @@ async function countdownBeginParty() {
 		startCountdown();
 	}
 }
-
 function drawCountdown() {
 	if (manager.countdownInt === 0) {
 		manager.startTime = Date.now();
@@ -691,7 +678,6 @@ function drawCountdown() {
 	ctx.fillStyle = 'white';
 	ctx.fillText(manager.countdownInt, ctx.canvas.width / 2, ctx.canvas.height / 2); // Dessine le compteur
 }
-
 function initializeVariables(mode) {
 	clearInterval(updateInterval2);
 	console.log("initializeVariables mode " + mode);
@@ -713,7 +699,6 @@ function initializeVariables(mode) {
 
 	startGame();
 }
-
 function run() {
 	// const urlParams = new URLSearchParams(window.location.search);
 	// const mode = urlParams.get('mode');
@@ -755,7 +740,6 @@ function formatTime(seconds) {
 
 	return minutes + ':' + seconds;
 }
-
 function drawCountdown2(seconds) {
 	var canvas = document.getElementById('pongCanvas');
 	if (!canvas)
