@@ -1,9 +1,0 @@
-{
-	"dependencies": {
-		"htmx": "^0.0.2",
-		"three": "^0.161.0"
-	},
-	"devDependencies": {
-		"vite": "^5.1.1"
-	}
-}
