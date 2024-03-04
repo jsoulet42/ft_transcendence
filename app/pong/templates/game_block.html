@@ -142,6 +142,8 @@ document.getElementById('speedPaddle').addEventListener('input', function() {
 		{
 			modeOne.style.display = 'block';
 			modeTwo.style.display = 'block';
+			document.getElementById('startgame_container').style.display = 'none';
+
 		}
 	}
 	init();
@@ -195,15 +197,19 @@ document.getElementById('speedPaddle').addEventListener('input', function() {
 	});
 
 	modeOne.addEventListener('click', function () {
-
-
+		document.getElementById('startgame_container').style.display = 'block';
+		modeOne.style.display = 'none';
+		modeTwo.style.display = 'none';
 	});
+
 
 	modeTwo.addEventListener('click', function () {
 		speed.style.display = 'block';
 		sizePaddle.style.display = 'block';
 		speedPaddle.style.display = 'block';
 		applySettings.style.display = 'block';
+		modeOne.style.display = 'none';
+		modeTwo.style.display = 'none';
 	});
 
 
