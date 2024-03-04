@@ -548,7 +548,7 @@ function Update() {
 
 function canvasCheck() {
 	let url = new URL(window.location.href);
-	let mode = url.pathname.split("/")[3]; // Assuming 'mode' is the fourth segment in the URL
+	let mode = url.pathname.split("/")[3];
 
 	if (mode != "pvp" && mode != "pve" && mode != "tournament") {
 		clearInterval(updateInterval2);
@@ -562,7 +562,7 @@ function canvasCheck() {
 
 function restartGame() {
 	let url = new URL(window.location.href);
-	let mode = url.pathname.split("/")[3]; // Assuming 'mode' is the fourth segment in the URL
+	let mode = url.pathname.split("/")[3];
 	console.log("En attente de mode de jeu" + "url: " + url + "mode: " + mode);
 	if (mode == "pvp" || mode == "pve" || mode == "tournament") {
 		console.log("Mode de jeu trouvé");
