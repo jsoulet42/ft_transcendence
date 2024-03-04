@@ -86,7 +86,7 @@ document.getElementById('speedPaddle').addEventListener('input', function() {
 </style>
 
 
-<div class="startgame_container">
+<div class="startgame_container" id="startgame_container">
 	<h1 class="text_startgame">Enter your nickname please :D</h1>
 	<input type="text" placeholder="Player 2" required class="startgame_playerform" id="player2name">
 	<button id="player2nameButton" class="btn startgame_btn">Start the game</button>
@@ -150,27 +150,31 @@ document.getElementById('speedPaddle').addEventListener('input', function() {
 
 		let url = new URL(window.location.href);
 		let mode = url.pathname.split("/")[3];
-		document.getElementById('startgame_container').style.display = 'none';
 
 		if (mode == 'pvp') {
 			name_player2 = document.getElementById('player2name').value;
 			if (name_player2.length > 10)
 				name_player2 = name_player2.substring(0, 10);
 			if (name_player2 != '') {
+				console.log("test");
 				document.getElementById('player2name').style.display = 'none';
 				document.getElementById('player2nameButton').style.display = 'none';
+				document.getElementById('startgame_container').style.display = 'none';
 				window.startGameFunctionPVP();
 			}
 			else {
 				alert('Enter something 🤨')
+				return;
 			}
 		} else if (mode == 'pve') {
 			name_player2 = "Glados"
 			document.getElementById('player2name').style.display = 'none';
 			document.getElementById('player2nameButton').style.display = 'none';
+			document.getElementById('startgame_container').style.display = 'none';
 			window.startGameFunctionPVE();
 		} else if (mode == 'tournament') {
 			document.getElementById('tournament_Button').style.display = 'none';
+			document.getElementById('startgame_container').style.display = 'none';
 			window.startGameFunctionTournament();
 		}
 	}
