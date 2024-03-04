@@ -1,0 +1,80 @@
+{% load static %}
+
+{% if hx_push_url %}
+<script hx-push-url="{{ hx_push_url }}"></script>
+{% endif %}
+<br>
+<br>
+
+<div class="startgame_container" id="startgame_container">
+	<input type="text" class="startgame_playerform" id="player2name">
+	<button id="player2nameButton" class="btn startgame_btn">Start the game</button>
+</div>
+<br>
+<button id="tournament_Button" style="display: none; background-color: white;">Commencer le tournoi</button>
+<script>
+	function yolo(){
+		let modedici = new URL(window.location.href).pathname.split("/")[3];
+		if (modedici == "tournament") {
+			document.getElementById('tournament_Button').style.display = 'block';
+			document.getElementById('player2name').style.display = 'none';
+			document.getElementById('player2nameButton').style.display = 'none';
+		}
+	}
+	yolo();
+
+</script>
+<script>
+
+	var host_name = '{{ user.username }}';
+	var player1 = '{{ user.username }}';
+	var player2 = '{{ player2 }}';
+	var player3 = '{{ player3 }}';
+	var player4 = '{{ player4 }}';
+	var player5 = '{{ player5 }}';
+	var player6 = '{{ player6 }}';
+	var player7 = '{{ player7 }}';
+	var player8 = '{{ player8 }}';
+	var name_player2 = 'Player 2';
+
+	var save_game;
+	var save_tournament;
+
+	function init()
+	{
+		save_game = '{% url "game_save" %}';
+		save_tournament = '{% url "tournament_save" %}';
+	}
+	init();
+
+	function startGame() {
+
+		let url = new URL(window.location.href);
+		let mode = url.pathname.split("/")[3];
+		document.getElementById('startgame_container').style.display = 'none';
+
+		if (mode == 'pvp') {
+			name_player2 = document.getElementById('player2name').value;
+			if (name_player2.length > 10)
+				name_player2 = name_player2.substring(0, 10);
+			if (name_player2 != '') {
+				document.getElementById('player2name').style.display = 'none';
+				document.getElementById('player2nameButton').style.display = 'none';
+				window.startGameFunctionPVP();
+			}
+		} else if (mode == 'pve') {
+			name_player2 = "Glados"
+			document.getElementById('player2name').style.display = 'none';
+			document.getElementById('player2nameButton').style.display = 'none';
+			window.startGameFunctionPVE();
+		} else if (mode == 'tournament') {
+			document.getElementById('tournament_Button').style.display = 'none';
+			window.startGameFunctionTournament();
+		}
+	}
+	document.getElementById('tournament_Button').addEventListener('click', startGame);
+	document.getElementById('player2nameButton').addEventListener('click', startGame);
+</script>
+
+<canvas id="pongCanvas"></canvas>
+<script type="module" src="{% static 'pong/js/pong.js' %}" defer></script>

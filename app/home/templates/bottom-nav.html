@@ -1,0 +1,17 @@
+<nav id="nav-home-bottom" class="align-self-center text-center">
+	<a id="play" class="btn buttonPong nav-bottom-btn"hx-post="{% url 'pong' %}" hx-target="#main-container" hx-push-url="/pong">
+		<span class="center-text">
+			PLAY
+		</span>
+	</a>
+	<a id="tournaments_stats" class="btn buttonPong nav-bottom-btn" hx-post="{% url 'tournaments_stats' %}" hx-target="#main-container" hx-push-url="/tournaments_stats">
+		<span class="center-text">
+			TOURNAMENTS STATS
+		</span>
+	</a>
+	<a id="profile" class="btn buttonPong nav-bottom-btn" hx-get="{% url 'profile' %}" hx-target="#main-container" hx-push-url="true">
+		<span class="center-text">
+			PROFILE
+		</span>
+	</a>
+</nav>

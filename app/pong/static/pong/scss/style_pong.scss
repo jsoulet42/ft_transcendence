@@ -1,0 +1,549 @@
+// style_pong.scss
+
+nav-pong a {
+	border: 0.5vmin solid #072949;
+	border-radius: 0.5vmax;
+	background-color: rgba(0, 0, 0, 0.3);
+}
+
+#pongCanvas {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	height: 60vh;
+	width: 60vw;
+	background-size: 100% 100%;
+	border-radius: 5vmin;
+	background: linear-gradient(180deg, #8360c3, #2ebf91);
+}
+
+#pongCanvas3D {
+	margin: auto;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	background-color: white;
+	transform: translate(-50%, -50%);
+	border-radius: 5vmin;
+}
+
+
+$carousel-indicator-height: 3px;
+
+/*.friends-dropdown-toggle {
+	overflow-y: scroll;
+}*/
+
+.buttonInPlay {
+	width: 20vw;
+	height: 30vh;
+	border-radius: 15px;
+}
+
+.center-text {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 1.5vw;
+}
+
+#navGameMode {
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.startgame_container {
+	position: fixed;
+	left: 40%;
+	top: 35%;
+	background-color: green;
+	z-index: 1;
+	padding: 10vh;
+	height: 30vh;
+	width: 20vw;
+	background-color: rgba(17, 0, 17, 0.8);
+	box-shadow: rgb(0, 0, 0) 0.5vmin 0.5vmin 0.5vmin;
+	border-radius: 10%;
+	border: 0.5vh solid black;
+}
+
+.startgame_playerform {
+	position: absolute;
+	top: 0%;
+	width: 100%;
+}
+
+.startgame_btn {
+	position: absolute;
+	bottom: 0%;
+	right: 20%;
+	width: 70%;
+	background-color: violet;
+	border: 0.1vmin solid black;
+	height: 25%;
+	font-size: 2.5vh;
+}
+
+.startgame_btn:hover {
+	background-color: pink;
+	transform: scale(1.1);
+	box-shadow: 1vmin 1vmin 1vmin #110a4e;
+	color: white;
+}
+
+//tournaments_choice
+
+#btn_tournaments {
+	position: absolute;
+	left: 30%;
+	bottom: 55%;
+}
+
+.text_btn_tournaments {
+	font-size: 8vh;
+	padding: 3vw;
+	color: white;
+	border: 0.5vmin solid violet;
+	border-radius: 10%;
+	background: url(https://media1.tenor.com/m/T3H92Qstl68AAAAC/p-ong.gif);
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-color: black;
+}
+
+.text_btn_tournaments_one {
+	font-size: 8vh;
+	padding: 3vw;
+	color: white;
+	border: 0.5vmin solid violet;
+	border-radius: 10%;
+	background: url(https://i0.wp.com/sandiegofreepress.org/wp-content/uploads/2014/07/gif-animated-color-bouncing-balls.gif?fit=600%2C400&ssl=1&w=640);
+	background-repeat: no-repeat;
+}
+
+.pulse:hover,
+.pulse:focus {
+	animation: pulse 1s;
+	box-shadow: 0 0 0 2em transparent;
+}
+
+.pulse {
+	--color: #84f3d9;
+	--hover: #e677f5;
+}
+
+@keyframes pulse {
+	0% {
+		box-shadow: 0 0 0 0 var(--hover);
+	}
+}
+
+.button_2vs2 {
+	border: transparent;
+}
+
+.button_4vs4 {
+	border: transparent;
+}
+
+@keyframes slidebg {
+	to {
+		background-position: 20vw;
+	}
+}
+
+#text_btn {
+	font-size: 10vh;
+}
+
+.btn-5:hover {
+	border: 1px solid;
+	box-shadow: inset 0 0 20px rgba(255, 255, 255, .5), 0 0 20px rgba(255, 255, 255, .2);
+	outline-color: rgba(255, 255, 255, 0);
+	outline-offset: 15px;
+	text-shadow: 1px 1px 2px #427388;
+}
+
+//4joueurs
+
+.catjoueurs_div {
+	display: flex;
+	text-align: center;
+	color: white;
+	justify-content: center;
+	animation: neon-glow1 1.5s ease-in-out infinite alternate;
+}
+
+.catjoueurs_text {
+	display: flex;
+	font-size: 11vh;
+	padding: 1.875vh;
+	animation: neon-glow1 4s ease-in-out infinite alternate;
+}
+
+@keyframes neon-glow1 {
+	to {
+		filter: blur(2px);
+		text-shadow: 0 0 10px rgb(255, 255, 255), 0 0 10px rgb(218, 69, 164), 0 0 10px rgba(255, 59, 173, 0.8), 0 0 10px rgba(178, 69, 224, 0.8), 0 0 10px rgba(255, 0, 187, 0.6);
+	}
+}
+
+.player_forms {
+	position: absolute;
+	left: 40%;
+	width: 20%;
+	top: 20%;
+	background-color: black;
+	color: white;
+	border-color: violet;
+}
+
+.form-control:focus,
+.form-control:active {
+	background-color: black;
+	color: white;
+	border-color: violet;
+	box-shadow: 0 0 0 0.2rem rgba(255, 0, 255, 0.467);
+}
+
+.carousel_container {
+	width: 55%;
+	height: 50%;
+	left: 23%;
+	border-radius: 5rem;
+	border: 0.5rem solid violet;
+	overflow: hidden;
+}
+
+.glitch_anim {
+	font-size: 11vh;
+	animation: glitch 1s linear infinite, neon-glow1 1.5s ease-in-out infinite alternate;
+}
+
+.glitch_anim1 {
+	font-size: 8vh;
+	animation: glitch 1s linear infinite, neon-glow1 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes glitch {
+
+	2%,
+	64% {
+		transform: translate(2px, 0) skew(0deg);
+	}
+
+	4%,
+	60% {
+		transform: translate(-2px, 0) skew(0deg);
+	}
+
+	62% {
+		transform: translate(0, 0) skew(5deg);
+	}
+}
+
+.glitch_anim:before,
+.glitch_anim1:before,
+.glitch_anim1:after,
+.glitch_anim:after {
+	content: attr(data-text);
+	text-align: center;
+	position: absolute;
+	display: block;
+	color: white;
+	animation: neon-glow1 1.5s ease-in-out infinite alternate;
+}
+
+.glitch_anim:before,
+.glitch_anim1:before {
+	animation: glitchTop 1s linear infinite;
+	clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+	-webkit-clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+}
+
+@keyframes glitchTop {
+
+	2%,
+	64% {
+		transform: translate(0.25vh, -0.25vh);
+	}
+
+	4%,
+	60% {
+		transform: translate(-0.25vh, 0.25vh);
+	}
+
+	62% {
+		transform: translate(1.5vh, -0.1vh) skew(-13deg);
+	}
+}
+
+.glitch_anim:after {
+	animation: glitchBotom 1.5s linear infinite;
+	clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+	-webkit-clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+}
+
+@keyframes glitchBotom {
+
+	2%,
+	64% {
+		transform: translate(-2px, 0);
+	}
+
+	4%,
+	60% {
+		transform: translate(-2px, 0);
+	}
+
+	62% {
+		transform: translate(-22px, 5px) skew(21deg);
+	}
+}
+
+//8 players css
+
+#eight_players_containers {
+	display: flex;
+	justify-content: center;
+	overflow: hidden;
+}
+
+.player1 {
+	position: absolute;
+	display: flex;
+	top: 15%;
+	left: 10%;
+	width: 35%;
+	font-size: 10vh;
+	color: white;
+	padding: 1.8vh;
+	text-align: center;
+	background-color: rgb(146, 75, 203);
+	border: 4mm ridge rgba(146, 32, 184, 0.6);
+	animation: neon-glow 4s ease-in-out infinite alternate;
+}
+
+.player1:hover {
+	background-image: linear-gradient(to right, rgb(146, 75, 203), indigo, blue, turquoise, violet, rgb(146, 75, 203));
+	animation: rainbowAnimation 10s linear infinite;
+	background-size: 1400% auto;
+	transform: scale(1.1);
+}
+
+@keyframes rainbowAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
+.eightplayers_text {
+	padding: 1.875vh;
+	display: flex;
+	text-align: center;
+	color: white;
+	font-size: 8vh;
+	animation: neon-glow1 4s ease-in-out infinite alternate;
+}
+
+.form_eightplayers {
+	position: absolute;
+	color: black;
+	width: 35%;
+}
+
+.form_playertwo {
+	border: 4mm ridge rgba(146, 32, 184, 0.6);
+	top: 35%;
+	left: 10%;
+	background-color: rgb(146, 75, 203);
+	padding: 1vh;
+	box-sizing: border-box;
+}
+
+.form_playerthree {
+	border: 4mm ridge rgba(255, 97, 226, 0.6);
+	top: 55%;
+	left: 10%;
+	background-color: rgb(255, 0, 200);
+	padding: 1vh;
+	box-sizing: border-box;
+}
+
+.form_playerfour {
+	border: 4mm ridge rgba(255, 46, 217, 0.6);
+	top: 75%;
+	left: 10%;
+	background-color: rgb(255, 119, 232);
+	padding: 1vh;
+	box-sizing: border-box;
+}
+
+.form_playerfive {
+	border: 4mm ridge rgba(207, 52, 254, 0.411);
+	top: 15%;
+	right: 10%;
+	background-color: rgb(216, 47, 246);
+	padding: 1vh;
+	box-sizing: border-box;
+}
+
+.form_playersix {
+	border: 4mm ridge rgba(184, 32, 179, 0.6);
+	top: 35%;
+	right: 10%;
+	background-color: rgb(255, 0, 238);
+	padding: 1vh;
+	box-sizing: border-box;
+}
+
+.form_playerseven {
+	border: 4mm ridge rgba(115, 20, 147, 0.6);
+	top: 55%;
+	right: 10%;
+	background-color: indigo;
+	padding: 1vh;
+	box-sizing: border-box;
+}
+
+.form_playereight {
+	border: 4mm ridge rgba(146, 32, 184, 0.6);
+	top: 75%;
+	right: 10%;
+	background-color:  violet;
+	padding: 1vh;
+	box-sizing: border-box;
+}
+
+.form_playereight:hover
+.form_playereight:focus {
+	transform: rotate(3deg) scale(1.1);
+	box-shadow: 0 0 20px rgba(146, 32, 184, 0.8);
+}
+
+.form_playerseven:hover
+.form_playerseven:focus {
+	transform: rotate(-3deg) scale(1.1);
+}
+
+.form_playersix:hover,
+.form_playersix:focus {
+	transform: scale(1.1);
+	animation: wiggle 4s forwards;
+}
+
+@keyframes wiggle {
+	0%, 7% {
+	  transform: rotateZ(0);
+	}
+	15% {
+	  transform: rotateZ(-15deg);
+	}
+	20% {
+	  transform: rotateZ(10deg);
+	}
+	25% {
+	  transform: rotateZ(-10deg);
+	}
+	30% {
+	  transform: rotateZ(6deg);
+	}
+	35% {
+	  transform: rotateZ(-4deg);
+	}
+	40%, 100% {
+	  transform: rotateZ(0);
+	}
+  }
+
+.form_playerfive:hover,
+.form_playerfive:focus {
+	transform: translateY(5px) scale(1.1);
+	filter: hue-rotate(90deg);
+}
+
+.form_playerfour:hover,
+.form_playerfour:focus {
+	transform: scale(1.1);
+	animation: float 3s forwards;
+}
+
+@keyframes float {
+	0% {
+	  transform: translatey(0vh);
+	}
+	50% {
+	  transform: translatey(-4vh);
+	}
+	100% {
+	  transform: translatey(0vh);
+	}
+  }
+
+.form_playerthree:hover,
+.form_playerthree:focus {
+	animation: bubble-anim 4s ease-out forwards;
+}
+
+@keyframes bubble-anim {
+	0% {
+	  transform: scale(1);
+	}
+	20% {
+	  transform: scaleY(0.95) scaleX(1.05);
+	}
+	48% {
+	  transform: scaleY(1.1) scaleX(0.9);
+	}
+	68% {
+	  transform: scaleY(0.98) scaleX(1.02);
+	}
+	80% {
+	  transform: scaleY(1.02) scaleX(0.98);
+	}
+	97%, 100% {
+	  transform: scale(1);
+	}
+  }
+
+.form_playertwo:hover,
+.form_playertwo:focus {
+	animation: left-right 4s ease-out forwards;
+}
+
+@keyframes left-right {
+	0% {
+	  transform: translatex(0vh);
+	}
+	40% {
+		transform: translatex(7vh);
+	}
+	60% {
+	  transform: translatex(-7vh);
+	}
+	100% {
+	  transform: translatex(0vh);
+	}
+  }
+
+  .btn_startournament8 {
+	position: absolute;
+	bottom: 9%;
+	right: 1%;
+	background-color: #8360c3;
+	border-color: 0.2vmin solid black;
+  }
+
+  .btn_startournament8:hover {
+	background-color: violet;
+	transform: scale(1.1);
+	border-color: 0.2vmin solid black;
+	box-shadow: 0vmin 0vmin 1.8vh 0.8vh rgba(128, 0, 128, 0.5);
+  }

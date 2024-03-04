@@ -1,0 +1,43 @@
+# Django
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+db.sqlite3
+mydatabase
+media/images/
+migrations/
+
+# Secret key
+*.secret_key
+
+# Environnement virtualenv
+venv/
+.env*
+
+
+# Fichiers de configuration
+*.pyc
+*.pyo
+
+# Dossiers de configuration
+node_modules/
+__pycache__/
+.mypy_cache/
+.vscode/
+.idea/
+
+#dossier de compilation
+style.css.map
+
+# Fichiers temporaires
+*.swp
+*~
+*.log
+
+# Fichiers de sauvegarde
+backup*/
+/static
+
+
+*:Zone.Identifier

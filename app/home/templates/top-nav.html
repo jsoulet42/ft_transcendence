@@ -1,0 +1,58 @@
+{% load static %}
+<nav id="nav-home-top">
+	<a id="home-btn" href="{% url 'hub' %}" hx-post="{% url 'hub' %}" hx-target="body" hx-push-url="true" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }'>
+		<p class="P">P</p>
+		<p class="O">O</p>
+		<p class="N">N</p>
+		<p class="G">G</p>
+		<div id="ball"></div>
+		<div id="ball1"></div>
+	</a>
+
+	<div id="login-status" class="container">
+		{% if not user.is_authenticated %}
+		<a class="btn buttonPong login-btn" href="{% url 'login' %}" hx-get="{% url 'login' %}" hx-target="#main-container" hx-push-url="true" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }'>
+			<span class="center-text">
+				Login
+			</span>
+		</a>
+		{% else %}
+		<div class="btn-group login-btn">
+			<div class="btn-group dropdown">
+				<button type="button" class="btn btn-primary dropdown-toggle buttonPong" data-bs-toggle="dropdown" aria-expanded="false">
+					<span class="login-text">
+                        {% if user.nickname %}
+                            {{ user.nickname }}
+                        {% else %}
+                            {{ user.username }}
+                        {% endif %}
+					</span>
+					<img id="menu-profile-img" class="img-fluid" src="{{ user.profile_image_path }}" alt="{{ user.username }}">
+				</button>
+				<ul class="dropdown-menu">
+					<li><button class="dropdown-item" type="button" href="{% url 'profile' %}" hx-get="{% url 'profile' %}" hx-target="#main-container" hx-push-url="true" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }'>Profile</button></li>
+					<li><button class="dropdown-item" type="button" href="{% url 'logout' %}" hx-post="{% url 'logout' %}" hx-target="body" hx-push-url="/" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }'>Logout</button></li>
+				</ul>
+			</div>
+			<div class="btn-group dropdown">
+				<button id="friends-dropdown-toggle" type="button" class="btn btn-secondary dropdown-toggle pong-btn-success" onclick="createFriendsDropdown()" data-bs-toggle="dropdown" aria-expanded="false">
+					<img id="menu-friends-icon" class="img-fluid" src="{% static 'home/images/friends_icon.png' %}" alt="friends_icon">
+				</button>
+				<ul id="friends-dropdown" class="dropdown-menu px-3">
+					<div id="friend-requests-container"></div>
+					<div id="friend-list-container"></div>
+					<li class="row">
+						<button type="button" class="dropdown-item btn btn-add col" data-bs-toggle="modal" data-bs-target="#friend-request-modal"></button>
+						<button type="button" id="friends-refresh-btn" class="dropdown-item btn btn-refresh col" onclick="createFriendsDropdown()"></button>
+					</li>
+				</ul>
+			</div>
+		</div>
+		{% endif %}
+	</div>
+</nav>
+
+<script>
+	var session_user_username = "{{ user.username }}";
+	var csrf_token = "{{ csrf_token }}";
+</script>
