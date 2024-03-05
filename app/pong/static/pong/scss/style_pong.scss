@@ -56,23 +56,35 @@ $carousel-indicator-height: 3px;
 	transform: translate(-50%, -50%);
 }
 
+.startgame_bigger_container {
+	position: absolute;
+	z-index: 1;
+	height: 40vh;
+	width: 40vw;
+	background-color: blue;
+	left: 30%;
+	top: 25%;
+	justify-content: center;
+	display: flex;
+}
+
 .startgame_container {
-	position: fixed;
-	left: 40%;
-	top: 35%;
+	display: flex;
+	justify-content: center;
 	background-color: green;
 	z-index: 1;
-	padding: 10vh;
-	height: 30vh;
+	height: inherit;
 	width: 20vw;
 	background-color: rgba(17, 0, 17, 0.8);
 	box-shadow: rgb(0, 0, 0) 0.5vmin 0.5vmin 0.5vmin;
 	border-radius: 10%;
 	border: 0.5vh solid black;
+	justify-content: space-evenly;
+	align-items: center;
+	flex-direction: column;
 }
 
 .text_startgame {
-	position: absolute;
 	color: white;
 	font-size: 2.3vh;
 	top: 5%;
@@ -81,17 +93,15 @@ $carousel-indicator-height: 3px;
 }
 
 .startgame_playerform {
-	position: absolute;
 	text-align: center;
-	top: 25%;
-	right: 15%;
 	width: 70%;
 	overflow: hidden;
 	background-color: bisque;
 	border-radius: 1rem;
-	height: 20%;
+	display: flex;
 	font-size: 1.5rem;
 	animation: blink 0.5s infinite;
+	height: 7vh;
 }
 
 .typing-animation p {
@@ -108,13 +118,16 @@ $carousel-indicator-height: 3px;
 }
 
 .startgame_btn {
-	position: absolute;
-	bottom: 10%;
+	bottom: 30%;
+}
+
+.btn_setting,
+.startgame_btn {
 	right: 15%;
 	width: 70%;
 	background-color: violet;
 	border: 0.1vmin solid black;
-	height: 25%;
+	height: 15%;
 	font-size: 2.5vh;
 	border-radius: 1rem;
 }
@@ -126,10 +139,37 @@ $carousel-indicator-height: 3px;
 	box-shadow: 1vmin 1vmin 1vmin #ff00d0;
 }
 
+.btn_setting:hover,
 .startgame_playerform:hover {
 	transform: scale(1.1);
 	animation: shine1 3s infinite;
 	transition: color 0.3s ease;
+}
+
+.btn_setting {
+	bottom: 10%;
+}
+
+.container_setting_pong {
+	display: none;
+	z-index: 1;
+	height: inherit;
+	width: 20vw;
+	background-color: rgba(17, 0, 17, 0.8);
+	box-shadow: rgb(0, 0, 0) 0.5vmin 0.5vmin 0.5vmin;
+	border-radius: 10%;
+	border: 0.5vh solid black;
+	flex: 1;
+	padding-left: 6%;
+	align-items: center;
+}
+
+.element.style {
+	display: flex;
+}
+
+.visible {
+	display: flex;
 }
 
 @keyframes shine1 {
@@ -149,6 +189,65 @@ $carousel-indicator-height: 3px;
 		background-color: rgb(192, 128, 253);
 		text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
 	}
+}
+
+.slider {
+	position: absolute;
+	-webkit-appearance: none;
+	appearance: none;
+	width: 10%;
+	height: 15px;
+	background: #ddd;
+	outline: none;
+	opacity: 0.7;
+	-webkit-transition: .2s;
+	transition: opacity .2s;
+}
+
+.slider1 {
+	position: absolute;
+	-webkit-appearance: none;
+	appearance: none;
+	width: 10%;
+	height: 15px;
+	background: #ddd;
+	outline: none;
+	opacity: 0.7;
+	-webkit-transition: .2s;
+	transition: opacity .2s;
+}
+
+.slider2 {
+	position: absolute;
+	-webkit-appearance: none;
+	appearance: none;
+	width: 10%;
+	height: 15px;
+	background: #ddd;
+	outline: none;
+	opacity: 0.7;
+	-webkit-transition: .2s;
+	transition: opacity .2s;
+}
+
+.slider:hover {
+	opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 25px;
+	height: 25px;
+	background: #000;
+	cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+	width: 25px;
+	height: 25px;
+	background: #000;
+	cursor: pointer;
 }
 
 //tournaments_choice
