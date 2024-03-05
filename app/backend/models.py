@@ -3,6 +3,9 @@ from django.db import models
 from django.db.models import JSONField
 from django.contrib.auth.models import AbstractUser, BaseUserManager, Group, Permission
 from django.contrib.contenttypes.models import ContentType
+from django.db.models.signals import post_delete
+from django.dispatch import receiver
+
 
 class CustomUserManager(BaseUserManager):
 	"""
@@ -115,7 +118,8 @@ class CustomUser(AbstractUser):
 
 	games = models.ManyToManyField('Game', related_name='players', blank=True)
 	tournaments = models.ManyToManyField('Tournament', related_name='players', blank=True)
-	stats = models.OneToOneField('Stats', null=False, on_delete=models.CASCADE, related_name='user')
+	stats = models.OneToOneField('Stats', on_delete=models.CASCADE, related_name='user', null=False)
+
 
 	campus = models.CharField(max_length=50, default='None')
 
@@ -138,6 +142,11 @@ class CustomUser(AbstractUser):
 			self.stats = stats
 			stats.save()
 		super().save(*args, **kwargs)
+
+
+@receiver(post_delete, sender=CustomUser)
+def delete_user_stats(sender, instance, **kwargs):
+	instance.stats.delete()
 
 
 class Stats(models.Model):
