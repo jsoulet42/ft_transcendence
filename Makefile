@@ -67,9 +67,8 @@ clean-staging: stop-staging
 
 
 # Remove the docker images
-fclean: clean
+del-containers:
 	@if [ -n "$$(sudo docker ps -aq)" ]; then 		\
-		sudo docker stop $$(sudo docker ps -aq);	\
 		sudo docker rm -f $$(sudo docker ps -aq);	\
 	fi
 	@if [ -n "$$(sudo docker images -q)" ];					\
@@ -79,9 +78,11 @@ fclean: clean
 		then sudo docker volume prune -f;		\
 	fi
 
-fclean-dev: clean-dev fclean
+fclean: clean del-containers
 
-fclean-staging: clean-staging fclean
+fclean-dev: clean-dev del-containers
+
+fclean-staging: clean-staging del-containers
 
 
 re: fclean all

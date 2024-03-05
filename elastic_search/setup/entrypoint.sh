@@ -16,6 +16,33 @@ fi;
 
 if [ ! -f config/certs/certs.zip ]; then
 	echo "Creating certs";
+	# echo -ne \
+	# 	"instances:\n"\
+	# 	"  - name: es01\n"\
+	# 	"    dns:\n"\
+	# 	"      - es01\n"\
+	# 	"      - localhost\n"\
+	# 	"    ip:\n"\
+	# 	"      - 127.0.0.1\n"\
+	# 	"  - name: es02\n"\
+	# 	"    dns:\n"\
+	# 	"      - es02\n"\
+	# 	"      - localhost\n"\
+	# 	"    ip:\n"\
+	# 	"      - 127.0.0.1\n"\
+	# 	"  - name: es03\n"\
+	# 	"    dns:\n"\
+	# 	"      - es03\n"\
+	# 	"      - localhost\n"\
+	# 	"    ip:\n"\
+	# 	"      - 127.0.0.1\n"\
+	# 	"  - name: kibana\n"\
+	# 	"    dns:\n"\
+	# 	"      - kibana\n"\
+	# 	"      - localhost\n"\
+	# 	"    ip:\n"\
+	# 	"      - 127.0.0.1\n"\
+	# 	> config/certs/instances.yml;
 	echo -ne \
 		"instances:\n"\
 		"  - name: es01\n"\
