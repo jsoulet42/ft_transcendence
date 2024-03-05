@@ -55,6 +55,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'transcendence.middleware.HealthCheckMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -108,13 +109,16 @@ WSGI_APPLICATION = 'transcendence.wsgi.application'
 # }
 
 DATABASES = {
-    "default": {
-        "ENGINE": os.environ.get("DJANGO_PG_ENGINE", "django.db.backends.sqlite3"),
-        "NAME": os.environ.get("DJANGO_PG_DATABASE", BASE_DIR / "db.sqlite3"),
-        "USER": os.environ.get("DJANGO_PG_USER", "user"),
-        "PASSWORD": os.environ.get("DJANGO_PG_PASSWORD", "password"),
-        "HOST": os.environ.get("DJANGO_PG_HOST", "localhost"),
-        "PORT": os.environ.get("DJANGO_PG_PORT", "5432"),
+    'default': {
+        'ENGINE': os.environ.get('DJANGO_PG_ENGINE', 'django.db.backends.sqlite3'),
+        'NAME': os.environ.get('DJANGO_PG_DATABASE', BASE_DIR / 'db.sqlite3'),
+        'USER': os.environ.get('DJANGO_PG_USER', 'user'),
+        'PASSWORD': os.environ.get('DJANGO_PG_PASSWORD', 'password'),
+        'HOST': os.environ.get('DJANGO_PG_HOST', 'localhost'),
+        'PORT': os.environ.get('DJANGO_PG_PORT', '5432'),
+        'OPTIONS': {
+            'connect_timeout': 20,
+        },
     }
 }
 
