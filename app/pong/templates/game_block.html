@@ -136,10 +136,9 @@
 		});
 		speedPaddleSlider.addEventListener('input', function () {
 			document.getElementById('speedPaddleValue').textContent = speedPaddleSlider.value;
-			window.speedPaddle = speedPaddle.value;
+			window.speedPaddle = speedPaddleSlider.value;
 		});
 		modeTwo.addEventListener('click', function () {
-			console.log('click');
 			speedBall.style.display = 'block';
 			sizePaddleSlider.style.display = 'block';
 			speedPaddleSlider.style.display = 'block';
