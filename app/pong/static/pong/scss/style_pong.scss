@@ -56,7 +56,7 @@ $carousel-indicator-height: 3px;
 	transform: translate(-50%, -50%);
 }
 
-.startgame_bigger_container {
+#startgame_bigger_container {
 	position: absolute;
 	z-index: 1;
 	height: 40vh;
@@ -583,7 +583,7 @@ $carousel-indicator-height: 3px;
 	top: 73%;
 	left: 10%;
 	background-color: rgb(255, 119, 232);
-	padding: 0.7vh;	
+	padding: 0.7vh;
 	box-sizing: border-box;
 }
 

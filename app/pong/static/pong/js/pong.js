@@ -539,8 +539,10 @@ function Update() {
 	canvasCheck();
 }
 function canvasCheck() {
-	let url = new URL(window.location.href);
-	let mode = url.pathname.split("/")[3];
+	let urlArray = new URL(window.location.href).pathname.split("/");
+	let mode = urlArray.pop() || urlArray.pop();
+
+	console.log(mode);
 
 	if (mode != "pvp" && mode != "pve" && mode != "tournament") {
 		clearInterval(updateInterval2);
@@ -552,8 +554,9 @@ function canvasCheck() {
 	}
 }
 function restartGame() {
-	let url = new URL(window.location.href);
-	let mode = url.pathname.split("/")[3];
+	let urlArray = new URL(window.location.href).pathname.split("/");
+	let mode = urlArray.pop() || urlArray.pop();
+
 	if (mode == "pvp" || mode == "pve" || mode == "tournament") {
 		clearInterval(checkUrlInterval);
 		canvas = document.getElementById('pongCanvas');
@@ -712,11 +715,9 @@ function initializeVariables(mode) {
 	startGame();
 }
 function run() {
-	// const urlParams = new URLSearchParams(window.location.search);
-	// const mode = urlParams.get('mode');
+	let urlArray = new URL(window.location.href).pathname.split("/");
+	let mode = urlArray.pop() || urlArray.pop();
 
-	let url = new URL(window.location.href);
-	let mode = url.pathname.split("/")[3]; // Assuming 'mode' is the fourth segment in the URL
 	clearInterval(restartGame);
 	if (mode == "pvp")
 		initializeVariables(1);

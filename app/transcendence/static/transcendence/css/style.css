@@ -604,7 +604,7 @@ nav-pong a {
   transform: translate(-50%, -50%);
 }
 
-.startgame_bigger_container {
+#startgame_bigger_container {
   position: absolute;
   z-index: 1;
   height: 40vh;
