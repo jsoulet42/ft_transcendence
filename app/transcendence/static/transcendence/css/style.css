@@ -160,43 +160,50 @@
 
 .form_signup1 {
   text-align: center;
+  margin: auto;
   border-radius: 2rem;
   width: 90%;
   animation: shine1 3s infinite;
   transition: color 0.3s ease;
+  margin-bottom: 1vh;
 }
 
 .form_signup2 {
   text-align: center;
+  margin: auto;
   top: 25%;
   width: 90%;
   border-radius: 2rem;
   animation: shine1 3s infinite;
   transition: color 0.3s ease;
+  margin-bottom: 1vh;
 }
 
 .form_signup3 {
   text-align: center;
+  margin: auto;
   top: 40%;
   left: 0%;
   border-radius: 2rem;
   animation: shine1 3s infinite;
   transition: color 0.3s ease;
+  margin-bottom: 1vh;
 }
 
 .form_signup4 {
   text-align: center;
+  margin: auto;
   top: 60%;
   left: 0%;
   border-radius: 2rem;
   animation: shine1 3s infinite;
   transition: color 0.3s ease;
+  margin-bottom: 1vh;
 }
 
 .container_signup {
   position: absolute;
-  width: 40rem;
-  height: 30rem;
+  width: 40%;
   left: 29%;
   bottom: 25%;
   padding: 1vh;
@@ -204,6 +211,7 @@
   border-radius: 2rem;
   box-shadow: rgb(0, 0, 0) 0.3vmin 0.3vmin 0.3vmin;
   border: 0.2vmin solid black;
+  text-align: center;
 }
 
 .container_signup:hover {
@@ -211,17 +219,12 @@
 }
 
 .btn_signup {
-  position: absolute;
-  border-radius: 2rem;
   background-color: violet;
-  height: 10%;
-  width: 20%;
-  left: 40%;
-  bottom: 5%;
   color: black;
   border-radius: 2rem;
   border: 0.1vmin solid black;
   font-size: 2.5vh;
+  margin-top: 2vh;
 }
 
 #login-form input[type=text], input[type=password] {
@@ -601,12 +604,11 @@ nav-pong a {
   transform: translate(-50%, -50%);
 }
 
-.startgame_bigger_container {
+#startgame_bigger_container {
   position: absolute;
   z-index: 1;
   height: 40vh;
   width: 40vw;
-  background-color: blue;
   left: 30%;
   top: 25%;
   justify-content: center;
@@ -711,6 +713,12 @@ nav-pong a {
   align-items: center;
 }
 
+.switch {
+  cursor: pointer;
+  overflow: hidden;
+  color: violet;
+}
+
 @keyframes moveRight {
   from {
     transform: translateX(50%);
@@ -767,6 +775,12 @@ nav-pong a {
   transition: opacity 0.2s;
 }
 
+.slider_text {
+  position: absolute;
+  color: bisque;
+  top: 24%;
+}
+
 .slider1 {
   position: absolute;
   appearance: auto;
@@ -779,6 +793,13 @@ nav-pong a {
   transition: opacity 0.2s;
 }
 
+.slider_text1 {
+  position: absolute;
+  color: bisque;
+  top: 53%;
+  font-size: 2vh;
+}
+
 .slider2 {
   position: absolute;
   appearance: auto;
@@ -789,6 +810,13 @@ nav-pong a {
   opacity: 0.7;
   top: 75%;
   transition: opacity 0.2s;
+}
+
+.slider_text2 {
+  position: absolute;
+  color: bisque;
+  top: 80%;
+  font-size: 2vh;
 }
 
 .slider:hover {
@@ -1448,6 +1476,10 @@ nav-pong a {
   animation: borderChange 10s linear infinite alternate;
 }
 
+.table-ok {
+  background-color: white;
+}
+
 .tv-match-history .tv-left {
   padding-left: 5px;
   flex: 0 0 auto;
@@ -1468,12 +1500,12 @@ nav-pong a {
   border-left: 4px solid #ff2ffc;
 }
 
-.table-success {
-  background-color: #c3e6cb; /* Green background for wins */
+.table.table-inside .bg-success {
+  background-color: #28a745 !important; /* Vert */
 }
 
-.table-danger {
-  background-color: #f5c6cb; /* Red background for losses */
+.table.table-inside .bg-danger {
+  background-color: #dc3545 !important; /* Rouge */
 }
 
 .history-title {
@@ -1604,7 +1636,7 @@ nav-pong a {
 }
 
 .bottom-edit {
-  z-index: 9;
+  z-index: 2;
   position: absolute;
   width: 8rem;
   bottom: 5%;
@@ -1614,7 +1646,7 @@ nav-pong a {
 }
 
 .bottom-edit2 {
-  z-index: 9;
+  z-index: 2;
   position: absolute;
   width: 8rem;
   bottom: 25%;
@@ -1624,7 +1656,7 @@ nav-pong a {
 }
 
 .bottom-edit3 {
-  z-index: 9;
+  z-index: 2;
   position: absolute;
   height: 4rem;
   width: 7rem;
@@ -1635,7 +1667,7 @@ nav-pong a {
 }
 
 .bottom-edit4 {
-  z-index: 9;
+  z-index: 2;
   position: absolute;
   height: 3rem;
   width: 5rem;
@@ -1646,7 +1678,7 @@ nav-pong a {
 }
 
 .bottom-edit5 {
-  z-index: 9;
+  z-index: 2;
   position: absolute;
   height: auto;
   width: auto;
@@ -1660,163 +1692,22 @@ nav-pong a {
   color: white;
   position: relative;
   margin: 0 auto;
-  animation: noise-anim-2 3s infinite linear alternate-reverse;
 }
 
-@keyframes noise-anim {
-  0% {
-    clip: rect(2px, 9999px, 60px, 0);
-  }
-  5% {
-    clip: rect(77px, 9999px, 70px, 0);
-  }
-  10% {
-    clip: rect(94px, 9999px, 26px, 0);
-  }
-  15% {
-    clip: rect(18px, 9999px, 88px, 0);
-  }
-  20% {
-    clip: rect(23px, 9999px, 37px, 0);
-  }
-  25% {
-    clip: rect(84px, 9999px, 70px, 0);
-  }
-  30% {
-    clip: rect(13px, 9999px, 38px, 0);
-  }
-  35% {
-    clip: rect(26px, 9999px, 75px, 0);
-  }
-  40% {
-    clip: rect(82px, 9999px, 8px, 0);
-  }
-  45% {
-    clip: rect(93px, 9999px, 37px, 0);
-  }
-  50% {
-    clip: rect(20px, 9999px, 5px, 0);
-  }
-  55% {
-    clip: rect(18px, 9999px, 89px, 0);
-  }
-  60% {
-    clip: rect(23px, 9999px, 44px, 0);
-  }
-  65% {
-    clip: rect(71px, 9999px, 89px, 0);
-  }
-  70% {
-    clip: rect(2px, 9999px, 81px, 0);
-  }
-  75% {
-    clip: rect(64px, 9999px, 38px, 0);
-  }
-  80% {
-    clip: rect(45px, 9999px, 92px, 0);
-  }
-  85% {
-    clip: rect(73px, 9999px, 10px, 0);
-  }
-  90% {
-    clip: rect(4px, 9999px, 70px, 0);
-  }
-  95% {
-    clip: rect(4px, 9999px, 62px, 0);
-  }
-  100% {
-    clip: rect(60px, 9999px, 18px, 0);
-  }
-}
-.glitch::after {
-  content: attr(data-text);
+.alert1 {
   position: absolute;
-  left: 2px;
-  text-shadow: -1px 0 red;
-  top: 0;
-  color: white;
-  background: black;
-  overflow: hidden;
-  clip: rect(0, 900px, 0, 0);
-  animation: noise-anim 2s infinite linear alternate-reverse;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
 }
 
-@keyframes noise-anim-2 {
-  0% {
-    clip: rect(40px, 9999px, 52px, 0);
-  }
-  5% {
-    clip: rect(56px, 9999px, 64px, 0);
-  }
-  10% {
-    clip: rect(49px, 9999px, 22px, 0);
-  }
-  15% {
-    clip: rect(71px, 9999px, 94px, 0);
-  }
-  20% {
-    clip: rect(1px, 9999px, 73px, 0);
-  }
-  25% {
-    clip: rect(85px, 9999px, 13px, 0);
-  }
-  30% {
-    clip: rect(91px, 9999px, 52px, 0);
-  }
-  35% {
-    clip: rect(58px, 9999px, 69px, 0);
-  }
-  40% {
-    clip: rect(76px, 9999px, 38px, 0);
-  }
-  45% {
-    clip: rect(87px, 9999px, 77px, 0);
-  }
-  50% {
-    clip: rect(47px, 9999px, 16px, 0);
-  }
-  55% {
-    clip: rect(86px, 9999px, 59px, 0);
-  }
-  60% {
-    clip: rect(42px, 9999px, 72px, 0);
-  }
-  65% {
-    clip: rect(35px, 9999px, 79px, 0);
-  }
-  70% {
-    clip: rect(77px, 9999px, 52px, 0);
-  }
-  75% {
-    clip: rect(100px, 9999px, 47px, 0);
-  }
-  80% {
-    clip: rect(54px, 9999px, 65px, 0);
-  }
-  85% {
-    clip: rect(26px, 9999px, 28px, 0);
-  }
-  90% {
-    clip: rect(48px, 9999px, 7px, 0);
-  }
-  95% {
-    clip: rect(60px, 9999px, 58px, 0);
-  }
-  100% {
-    clip: rect(12px, 9999px, 2px, 0);
-  }
+.table-success11 {
+  background-color: #5ff581 !important; /* Vert */
 }
-.glitch::before {
-  content: attr(data-text);
-  position: absolute;
-  left: -2px;
-  text-shadow: 1px 0 blue;
-  top: 0;
-  color: white;
-  background: black;
-  overflow: hidden;
-  clip: rect(0, 900px, 0, 0);
-  animation: noise-anim-2 3s infinite linear alternate-reverse;
+
+.table-danger11 {
+  background-color: #0964ef !important; /* Rouge */
 }
 
 #carousel-hub {

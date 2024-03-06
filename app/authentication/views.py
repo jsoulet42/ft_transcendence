@@ -125,6 +125,7 @@ def store_token_user(request, access_token):
     except ObjectDoesNotExist:
         return CustomUser.objects.create_user(
             username=user_login,
+            nickname=user_login,
             userlist_name='42Users',
             password=None,
             email=user_email,
