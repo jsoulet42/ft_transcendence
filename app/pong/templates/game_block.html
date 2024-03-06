@@ -29,7 +29,11 @@ document.getElementById('speedPaddle').addEventListener('input', function() {
 		<button class="btn_setting" id="modeTwo">Game Setting</button>
 	</div>
 	<div class="container_setting_pong" id="setting_pong">
-		<input type="range" min="1" max="10" value="5" id="speedBall" class="slider">
+		<label class="switch">
+			<input type="checkbox" />
+			<span></span>
+		</label>
+		<input type="range" min="1" max="10" value="5" id="speedBall" class="slider" style="background-color:  violet">
 		<span id="speedBallValue" class="slider_text">5 Speed Ball</span>
 		<input type="range" min="1" max="10" value="5" id="sizePaddle" class="slider1">
 		<span id="sizePaddleValue" class="slider_text1">5 Size Paddle</span>

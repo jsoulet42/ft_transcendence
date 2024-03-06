@@ -164,6 +164,8 @@ $carousel-indicator-height: 3px;
 
 
 .switch {
+	position: relative;
+	display: inline-block;
 	cursor: pointer;
 	overflow: hidden;
 	color: violet;
