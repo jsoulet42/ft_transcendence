@@ -1,5 +1,5 @@
 {% load static %}
-
+{#{% load messages %}#}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -79,68 +79,76 @@
 	
 	{% include 'top-nav.html' %}
 <!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">EDIT IMAGE</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">EDIT IMAGE</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+            <form action="{% url 'update_image' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="new-img" class="form-label">UPLOAD YOUR IMAGE -> THEN EDIT YOUR PROFILE</label>
+                        {{ form.as_p }}
+    {#                    <button type="submit" style="background-color: #8360c3;" class="btn btn-outline-info" >Upload image</button>#}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" style="background-color: #8360c3;" class="btn btn-outline-info">Save</button>
+                </div>
+            </form>
+        </div>
       </div>
-        <form action="{% url 'update_image' %}" method="POST" enctype="multipart/form-data">
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">EDIT PROFILE</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div><form action="{% url 'update_profile' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="modal-body">
-                <div class="mb-3">
-                    <label for="new-img" class="form-label">UPLOAD YOUR IMAGE -> THEN EDIT YOUR PROFILE</label>
-                    {{ form.as_p }}
-{#                    <button type="submit" style="background-color: #8360c3;" class="btn btn-outline-info" >Upload image</button>#}
-                </div>
+{#            {% if messages %}#}
+{#                <ul class="messages">#}
+{#                    {% for message in messages %}#}
+{#                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>#}
+{#                    {% endfor %}#}
+{#                </ul>#}
+{#                {% messages %}#}
+{#            {% endif %}#}
+                    <div class="mb-3">
+                        <label for="new-nickname" class="form-label">Nickname</label>
+                        <input type="text" class="form-control" id="new-nickname" name="new_nickname" placeholder="Enter new nickname">
+                    </div>
+                    <div class="mb-3">
+                        <label for="new-password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="new-password" name="new_password" placeholder="Enter new password">
+                    </div>
+                    <div class="mb-3">
+                        <label for="new-picture" class="form-label">Profile Picture</label>
+                        <select id="avatarselect" name="avatarselect" class="form-select">
+                            <option selected value="0">Choose picture..</option>
+                            <option value="1">John Doe</option>
+                            <option value="2">Bunny Bang</option>
+                            <option value="3">42 Profile</option>
+                            {% if user.upload_image %}
+                                <option value="4">Uploaded</option>
+                            {% endif %}
+                        </select>
+                    </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" style="background-color: #8360c3;" class="btn btn-outline-info">Save</button>
-            </div>
-        </form>
-    </div>
-  </div>
-</div>
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">EDIT PROFILE</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div><form action="{% url 'update_profile' %}" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="modal-body">
-                <div class="mb-3">
-                    <label for="new-nickname" class="form-label">Nickname</label>
-                    <input type="text" class="form-control" id="new-nickname" name="new_nickname" placeholder="Enter new nickname">
-                </div>
-                <div class="mb-3">
-                    <label for="new-password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="new-password" name="new_password" placeholder="Enter new password">
-                </div>
-                <div class="mb-3">
-                    <label for="new-picture" class="form-label">Profile Picture</label>
-                    <select id="avatarselect" name="avatarselect" class="form-select">
-                        <option selected value="0">Choose picture..</option>
-                        <option value="1">John Doe</option>
-                        <option value="2">Bunny Bang</option>
-                        <option value="3">42 Profile</option>
-                        {% if user.upload_image %}
-                            <option value="4">Uploaded</option>
-                        {% endif %}
-                    </select>
-                </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </div></form>
         </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Save changes</button>
-      </div></form>
+      </div>
     </div>
-  </div>
-</div>
 	<div id="main-container">
 		{% block content %}{% endblock %}
 	</div>

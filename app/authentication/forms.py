@@ -22,6 +22,7 @@ class CustomUserCreationForm(UserCreationForm):
         image_url = settings.MEDIA_URL + 'character2.png'
         user.list = list_instance
         user.profile_image_path = image_url
+        user.nickname = user.username
         if commit:
             user.save()
         return user
