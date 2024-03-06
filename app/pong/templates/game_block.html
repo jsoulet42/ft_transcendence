@@ -4,9 +4,15 @@
 <script hx-push-url="{{ hx_push_url }}"></script>
 {% endif %}
 
+document.getElementById('speedPaddle').addEventListener('input', function() {
+    document.getElementById('speedPaddleValue').textContent = this.value;
+});
+</script>
+<button id="modeOne">Partie simple</button>
+<br>
 
-<div class="startgame_bigger_container" id="startgame_bigger_container">
-	<div class="startgame_container" id="startgame_container">
+<div class="startgame_bigger_container">
+	<div class="startgame_container d-flex" id="startgame_container">
 		<h1 class="text_startgame">Enter your nickname please :D</h1>
 		<input type="text" placeholder="Player 2" required class="startgame_playerform" id="player2name">
 		<button id="player2nameButton" class="btn startgame_btn">Start the game</button>
@@ -14,11 +20,11 @@
 	</div>
 	<div class="container_setting_pong" id="setting_pong">
 		<input type="range" min="1" max="10" value="5" id="speedBall" class="slider">
-		<span id="speedBallValue" class="slider_text">5</span> Speed Ball
+		<span id="speedBallValue" class="slider_text">5 Speed Ball</span>
 		<input type="range" min="1" max="10" value="5" id="sizePaddle" class="slider1">
-		<span id="sizePaddleValue" class="slider_text1">5</span> Size Paddle
+		<span id="sizePaddleValue" class="slider_text1">5 Size Paddle</span>
 		<input type="range" min="1" max="10" value="5" id="speedPaddle" class="slider2">
-		<span id="speedPaddleValue" class="slider_text2">5</span> Speed Paddle
+		<span id="speedPaddleValue" class="slider_text2">5 Speed Paddle</span>
 	</div>
 </div>
 
