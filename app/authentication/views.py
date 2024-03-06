@@ -3,15 +3,14 @@ import requests
 from django.shortcuts import render, redirect
 from django.utils.http import urlencode
 from django.utils.crypto import get_random_string
-from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
-from django.http import HttpResponse
-from backend.models import CustomUser, UsersList
+from django.core.exceptions import ObjectDoesNotExist
+from backend.models import CustomUser
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
-from django.utils import timezone
 from django.views.decorators.http import require_http_methods
+from django.utils.translation import gettext as _
 
 from transcendence import settings
 from .forms import CustomUserCreationForm
@@ -55,7 +54,7 @@ def login(request):
                 auth_login(request, user)
                 return redirect('hub')
 
-            context = {'error': 'Invalid username or password',
+            context = {'error': _('Invalid username or password'),
                        'username': request_username}
             if request.META.get('HTTP_HX_REQUEST'):
                 return render(request, 'login_block.html', context)
@@ -91,11 +90,11 @@ def auth42(request):
     RequestCache.state = None
 
     if response.status_code // 100 != 2:
-        return render(request, 'login.html', {'error': 'Failed 42 authentication'})
+        return render(request, 'login.html', {'error': _('Failed 42 authentication')})
 
     user = store_token_user(request, response.json().get('access_token'))
     if user is None:
-        return render(request, 'login.html', {'error': 'Failed 42 authentication'})
+        return render(request, 'login.html', {'error': _('Failed 42 authentication')})
 
     auth_login(request, user)
 

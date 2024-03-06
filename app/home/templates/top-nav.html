@@ -32,8 +32,16 @@
 					<img id="menu-profile-img" class="img-fluid" src="{{ user.profile_image_path }}" alt="{{ user.username }}">
 				</button>
 				<ul class="dropdown-menu">
-					<li><button class="dropdown-item" type="button" href="{% url 'profile' %}" hx-get="{% url 'profile' %}" hx-target="#main-container" hx-push-url="true" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }'>Profile</button></li>
-					<li><button class="dropdown-item" type="button" href="{% url 'logout' %}" hx-post="{% url 'logout' %}" hx-target="body" hx-push-url="/" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }'>Logout</button></li>
+					<li>
+						<button class="dropdown-item" type="button" href="{% url 'profile' %}" hx-get="{% url 'profile' %}" hx-target="#main-container" hx-push-url="true" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }'>
+							{% trans "Profile" %}
+						</button>
+					</li>
+					<li>
+						<button class="dropdown-item" type="button" href="{% url 'logout' %}" hx-post="{% url 'logout' %}" hx-target="body" hx-push-url="/" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }'>
+							{% trans "Logout" %}
+						</button>
+					</li>
 				</ul>
 			</div>
 			<div class="btn-group dropdown">

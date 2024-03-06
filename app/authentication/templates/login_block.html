@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 
 <div id="tv-login-content" class="text-center tv-content">	
 	{% if error %}
@@ -11,16 +12,16 @@
 	<form id="login-form" action="{% url 'login' %}" method="post">
 		{% csrf_token %}
 		<fieldset>
-			<input name="username" class="input-pong my-1" type="text" placeholder="Username" value="{{ username }}" autocomplete="username" required autofocus>
-			<input name="password" class="input-pong my-1" type="password" placeholder="Password" autocomplete="current-password" required>
+			<input name="username" class="input-pong my-1" type="text" placeholder={% trans "Username" %} value="{{ username }}" autocomplete="username" required autofocus>
+			<input name="password" class="input-pong my-1" type="password" placeholder={% trans "Password" %} autocomplete="current-password" required>
 			
 			<div id="login-btn-group" class="mt-1">
 				<button id="login-submit-btn" name="login-submit" class="btn btn-primary buttonPong" type="submit">
-					<span>Log in</span>
+					<span>{% trans "Log in" %}</span>
 				</button>
 
 				<button id="signup-btn" name="signup" class="btn btn-success pong-btn-success" hx-post="{% url 'signup' %}" hx-target="#main-container" hx-push-url="true" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }' formnovalidate>
-					<span>Sign up</span>
+					<span>{% trans "Sign up" %}</span>
 				</button>
 			</div>
 		</fieldset>
@@ -29,7 +30,7 @@
 
 		<fieldset>
 			<button id="42auth-btn" name="42auth" class="btn btn-primary buttonPong w-100" type="submit" formnovalidate>
-				<span>Login with 42</span>
+				<span>{% trans "Login with 42" %}</span>
 			</button>
 		</fieldset>
 		{% comment %}
