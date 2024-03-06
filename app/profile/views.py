@@ -1,4 +1,6 @@
 import json
+
+from django.contrib import messages
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, HttpResponseRedirect
@@ -98,9 +100,19 @@ def update_profile(request):
         if new_nickname:
             user.nickname = new_nickname
         if new_password:
-            user.set_password(new_password)
+            if len(new_password) < 8:
+                messages.error(request, 'Password must be at least 8')
+            elif not any(char.isdigit() for char in new_password):
+                messages.error(request, 'Password must contain at least one number')
+            elif not any(char.islower() for char in new_password):
+                messages.error(request, 'Password must contain at least one lowercase letter')
+            elif not any(char.isupper() for char in new_password):
+                messages.error(request, 'Password must contain at least one uppercase letter')
+            else:
+                user.set_password(new_password)
             # Mettre à jour la session pour éviter la déconnexion
-            update_session_auth_hash(request, request.user)
+                update_session_auth_hash(request, request.user)
+                messages.success(request, 'Profile updated')
         if selected_option == '1':
             image_url = settings.MEDIA_URL + 'character1.png'
         elif selected_option == '2':

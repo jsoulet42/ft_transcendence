@@ -2,11 +2,20 @@
 {% load i18n %}
 
 <div class="tv-content-profile">
-	{% if user.nickname %}
-		<h1>{{ user.nickname }}</h1>
-	{% else %}
-		<h1>{{ user.username }}</h1>
-	{% endif %}
+    {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert alert-dismissible {{ message.tags }} fade show alert1" role="alert">
+                        <div>{{ message | safe }}</div>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    {% endfor %}
+    {% endif %}
+
+    {%  if user.nickname %}
+	    <h1>{{ user.nickname }}</h1>
+    {% else %}
+        <h1>{{ user.username }}</h1>
+    {%  endif %}
 	<div id="choice-div" class="rounded-5 border border-info border-3">
 		<img id="choice-img" class="rounded-5 border border-info border-3" src="{{ user.profile_image_path }}" alt="player-profile">
 	</div>
@@ -56,4 +65,14 @@
 {#			.catch(error => console.error('Error:', error));#}
 {#		}#}
 {#	});#}
+{#</script>#}
+{#<script>#}
+{#  document.addEventListener('DOMContentLoaded', function () {#}
+{#    {% for message in messages %}#}
+{#      var modalBody = document.querySelector('#messageModal .modal-body');#}
+{#      modalBody.textContent = '{{ message }}';#}
+{#      var myModal = new bootstrap.Modal(document.getElementById('messageModal'));#}
+{#      myModal.show();#}
+{#    {% endfor %}#}
+{#  });#}
 {#</script>#}
