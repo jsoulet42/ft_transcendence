@@ -1,51 +1,59 @@
-{%  load static %}
+{% load static %}
+{% load i18n %}
+
 <div class="tv-content-profile">
-    {%  if user.nickname %}
-	    <h1>{{ user.nickname }}</h1>
-    {% else %}
-        <h1>{{ user.username }}</h1>
-    {%  endif %}
+	{% if user.nickname %}
+		<h1>{{ user.nickname }}</h1>
+	{% else %}
+		<h1>{{ user.username }}</h1>
+	{% endif %}
 	<div id="choice-div" class="rounded-5 border border-info border-3">
 		<img id="choice-img" class="rounded-5 border border-info border-3" src="{{ user.profile_image_path }}" alt="player-profile">
 	</div>
 	<h3 class="h4lol"><br>
-		GAME PLAYED : {{ user.stats.games_played }}<br><br>
+		{% trans "GAMES PLAYED" %} : {{ user.stats.games_played }}<br><br>
 		<br>
-		WIN COUNT : {{ user.stats.wins }}<br><br>
-        <br>
-        LOOSE COUNT : {{ user.stats.losses }}<br><br>
+		{% trans "WINS" %} : {{ user.stats.wins }}<br><br>
+		<br>
+		{% trans "LOSSES" %} : {{ user.stats.losses }}<br><br>
 	</h3>
-    <div id="profile-leftside">
-        <button type="button" class="bottom-edit btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-        Edit image
-        </button>
-    </div>
-    <button type="button" class="bottom-edit2 btn btn-outline-info" hx-get="{% url 'match_history' %}" hx-target="#main-container" hx-push-url="profile/user">MATCH HISTORY</button>
-    <button type="button" class="bottom-edit btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#exampleModal">EDIT PROFILE</button>
-    <form class="d-flex" method="post" hx-post="{% url 'search_profiles' %}" hx-target="#main-container">
-        {% csrf_token %}
-        <input class="bottom-edit5 btn-outline-info" name="searched" type="search" placeholder="Search for username.." aria-label="Search"/>
-        <button class="bottom-edit4 btn btn-outline-info" type="submit">Search</button>
-    </form>
+	<div id="profile-leftside">
+		<button type="button" class="bottom-edit btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+		{% trans "Edit image" %}
+		</button>
+	</div>
+	<button type="button" class="bottom-edit2 btn btn-outline-info" hx-get="{% url 'match_history' %}" hx-target="#main-container" hx-push-url="profile/user">
+		{% trans "MATCH HISTORY" %}
+	</button>
+	<button type="button" class="bottom-edit btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
+		{% trans "EDIT PROFILE" %}
+	</button>
+	<form class="d-flex" method="post" hx-post="{% url 'search_profiles' %}" hx-target="#main-container">
+		{% csrf_token %}
+		<input class="bottom-edit5 btn-outline-info" name="searched" type="search" placeholder={% trans "Search for username.." %} aria-label="Search"/>
+		<button class="bottom-edit4 btn btn-outline-info" type="submit">
+			{% trans "Search" %}
+		</button>
+	</form>
 </div>
 {#<script>#}
-{#    document.getElementById('avatarselect').addEventListener('change', function() {#}
-{#        var selectedValue = this.value;#}
-{#        if (selectedValue !== "Default Avatar") {#}
-{#            var url = "{% url 'get_image_url' %}";#}
-{#            fetch(url, {#}
-{#                method: 'POST',#}
-{#                headers: {#}
-{#                    'Content-Type': 'application/json',#}
-{#                    'X-CSRFToken': '{{ csrf_token }}'#}
-{#                },#}
-{#                body: JSON.stringify({ 'avatarselect': selectedValue })#}
-{#            })#}
-{#            .then(response => response.json())#}
+{#	document.getElementById('avatarselect').addEventListener('change', function() {#}
+{#		var selectedValue = this.value;#}
+{#		if (selectedValue !== "Default Avatar") {#}
+{#			var url = "{% url 'get_image_url' %}";#}
+{#			fetch(url, {#}
+{#				method: 'POST',#}
+{#				headers: {#}
+{#					'Content-Type': 'application/json',#}
+{#					'X-CSRFToken': '{{ csrf_token }}'#}
+{#				},#}
+{#				body: JSON.stringify({ 'avatarselect': selectedValue })#}
+{#			})#}
+{#			.then(response => response.json())#}
 {#			.then(data => {#}
 {#				document.getElementById('choice-img').src = data.image_url;#}
-{#            })#}
-{#            .catch(error => console.error('Error:', error));#}
+{#			})#}
+{#			.catch(error => console.error('Error:', error));#}
 {#		}#}
-{#    });#}
+{#	});#}
 {#</script>#}

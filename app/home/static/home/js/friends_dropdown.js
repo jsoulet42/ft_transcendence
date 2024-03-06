@@ -30,7 +30,7 @@
 			const friend_requests_container = document.getElementById('friend-requests-container');
 			const divider = `<li><hr class="dropdown-divider"></li>`;
 
-			friend_requests_container.innerHTML = `<li><div class="dropdown-header">Requests</div></li>`;
+			friend_requests_container.innerHTML = `<li><div class="dropdown-header">` + gettext('Requests') + `</div></li>`;
 			
 			if (data.length === 0) {
 				friend_requests_container.insertAdjacentHTML('beforeEnd', `<li>No friend requests</li>`);

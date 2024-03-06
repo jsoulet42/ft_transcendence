@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-06 14:13+0100\n"
+"POT-Creation-Date: 2024-03-06 17:16+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,6 +28,42 @@ msgstr ""
 
 #: home/templates/bottom-nav.html:16
 msgid "PROFILE"
+msgstr ""
+
+#: home/templates/top-nav.html:18
+msgid "Login"
+msgstr ""
+
+#: profile/templates/profile_block.html:14
+msgid "GAMES PLAYED"
+msgstr ""
+
+#: profile/templates/profile_block.html:16
+msgid "WINS"
+msgstr ""
+
+#: profile/templates/profile_block.html:18
+msgid "LOSSES"
+msgstr ""
+
+#: profile/templates/profile_block.html:22
+msgid "Edit image"
+msgstr ""
+
+#: profile/templates/profile_block.html:26
+msgid "MATCH HISTORY"
+msgstr ""
+
+#: profile/templates/profile_block.html:29
+msgid "EDIT PROFILE"
+msgstr ""
+
+#: profile/templates/profile_block.html:33
+msgid "Search for username.."
+msgstr ""
+
+#: profile/templates/profile_block.html:35
+msgid "Search"
 msgstr ""
 
 #: project_setup/venv/lib/python3.10/site-packages/django/contrib/messages/apps.py:16
@@ -1513,6 +1549,26 @@ msgstr ""
 #: project_setup/venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:248
 #: venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:248
 msgid "Connect, get help, or contribute"
+msgstr ""
+
+#: tournaments_stats/templates/tournaments_stats_block.html:5
+msgid "Tournament Stats"
+msgstr ""
+
+#: tournaments_stats/templates/tournaments_stats_block.html:14
+msgid "Name"
+msgstr ""
+
+#: tournaments_stats/templates/tournaments_stats_block.html:15
+msgid "Position"
+msgstr ""
+
+#: tournaments_stats/templates/tournaments_stats_block.html:16
+msgid "Players count"
+msgstr ""
+
+#: tournaments_stats/templates/tournaments_stats_block.html:17
+msgid "Date"
 msgstr ""
 
 #: transcendence/settings.py:170

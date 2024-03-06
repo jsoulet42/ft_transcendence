@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-06 14:13+0100\n"
+"POT-Creation-Date: 2024-03-06 17:16+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,10 +30,48 @@ msgstr "STATS DE TOURNOIS"
 msgid "PROFILE"
 msgstr "PROFIL"
 
+#: home/templates/top-nav.html:18
+msgid "Login"
+msgstr "Connection"
+
+#: profile/templates/profile_block.html:14
+msgid "GAMES PLAYED"
+msgstr "PARTIES JOUEES"
+
+#: profile/templates/profile_block.html:16
+msgid "WINS"
+msgstr "VICTOIRES"
+
+#: profile/templates/profile_block.html:18
+msgid "LOSSES"
+msgstr "DEFAITES"
+
+#: profile/templates/profile_block.html:22
+msgid "Edit image"
+msgstr "Modifier l'image"
+
+#: profile/templates/profile_block.html:26
+msgid "MATCH HISTORY"
+msgstr "HISTORIQUE DE MATCHS"
+
+#: profile/templates/profile_block.html:29
+#, fuzzy
+#| msgid "PROFILE"
+msgid "EDIT PROFILE"
+msgstr "EDITER LE PROFIL"
+
+#: profile/templates/profile_block.html:33
+msgid "Search for username.."
+msgstr "Chercher le nom d'utilisateur..."
+
+#: profile/templates/profile_block.html:35
+msgid "Search"
+msgstr "Chercher"
+
 #: project_setup/venv/lib/python3.10/site-packages/django/contrib/messages/apps.py:16
 #: venv/lib/python3.10/site-packages/django/contrib/messages/apps.py:16
 msgid "Messages"
-msgstr ""
+msgstr "Messages"
 
 #: project_setup/venv/lib/python3.10/site-packages/django/contrib/sitemaps/apps.py:8
 #: venv/lib/python3.10/site-packages/django/contrib/sitemaps/apps.py:8
@@ -1503,16 +1541,36 @@ msgstr ""
 #: project_setup/venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:239
 #: venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:239
 msgid "Get started with Django"
-msgstr ""
+msgstr "Démarrer avec Django"
 
 #: project_setup/venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:247
 #: venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:247
 msgid "Django Community"
-msgstr ""
+msgstr "La Communauté Django"
 
 #: project_setup/venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:248
 #: venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:248
 msgid "Connect, get help, or contribute"
+msgstr "Se connecter, se faire aider, ou contribuer"
+
+#: tournaments_stats/templates/tournaments_stats_block.html:5
+msgid "Tournament Stats"
+msgstr ""
+
+#: tournaments_stats/templates/tournaments_stats_block.html:14
+msgid "Name"
+msgstr ""
+
+#: tournaments_stats/templates/tournaments_stats_block.html:15
+msgid "Position"
+msgstr ""
+
+#: tournaments_stats/templates/tournaments_stats_block.html:16
+msgid "Players count"
+msgstr ""
+
+#: tournaments_stats/templates/tournaments_stats_block.html:17
+msgid "Date"
 msgstr ""
 
 #: transcendence/settings.py:170
@@ -1521,7 +1579,7 @@ msgstr "Anglais"
 
 #: transcendence/settings.py:171
 msgid "French"
-msgstr "Francais"
+msgstr "Français"
 
 #: transcendence/settings.py:172
 msgid "German"
