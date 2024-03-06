@@ -17,7 +17,7 @@
             </thead>
             <tbody>
                 {% for match in matches %}
-                <tr class="{% if match.player1_score > match.player2_score %}table-success{% else %}table-danger{% endif %}">
+                <tr class="match-row">
                     <td>{{ match.player1 }}</td>
                     <td>{{ match.player1_score}}</td>
                     <td>{{ match.player2 }}</td>
@@ -29,3 +29,20 @@
         </table>
     </div>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var matchRows = document.querySelectorAll('.match-row');
+
+        matchRows.forEach(function(row) {
+            var player1Score = parseInt(row.children[1].textContent);
+            var player2Score = parseInt(row.children[3].textContent);
+
+            if (player1Score > player2Score) {
+                row.classList.add('table-success');
+            } else if (player1Score < player2Score) {
+                row.classList.add('table-danger');
+            }
+            // Ajoutez d'autres conditions si nécessaire
+        });
+    });
+</script>
