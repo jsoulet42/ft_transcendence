@@ -1,4 +1,3 @@
-// style_profile.scss
 
 .tv-match-history {
     position: fixed;
@@ -21,6 +20,10 @@
     animation: borderChange 10s linear infinite alternate;
 }
 
+.table-ok{
+    background-color: white
+}
+
 .tv-match-history .tv-left {
     padding-left: 5px;
     flex: 0 0 auto;
@@ -39,14 +42,16 @@
 
 .table-inside {
     border-left: 4px solid #ff2ffc;
+    //--bs-table-bg: unset;
+    //background-color: blue;
 }
 
-.table-success {
-    background-color: #c3e6cb; /* Green background for wins */
+.table.table-inside .bg-success {
+    background-color: #28a745 !important; /* Vert */
 }
 
-.table-danger {
-    background-color: #f5c6cb; /* Red background for losses */
+.table.table-inside .bg-danger {
+    background-color: #dc3545 !important; /* Rouge */
 }
 
 .history-title {
@@ -268,10 +273,10 @@
     z-index: 3;
 }
 
-.table-success {
-    background-color: #d4edda; /* Vert */
+.table-success11 {
+    background-color: #5ff581 !important; /* Vert */
 }
 
-.table-danger {
-    background-color: #f8d7da; /* Rouge */
+.table-danger11 {
+    background-color: #0964ef !important; /* Rouge */
 }

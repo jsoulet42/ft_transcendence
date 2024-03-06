@@ -17,7 +17,7 @@
             </thead>
             <tbody>
                 {% for match in matches %}
-                <tr class="{% if match.player1_score > match.player2_score %}table-success{% else %}table-danger{% endif %}">
+                <tr class="{% if match.player1_score > match.player2_score and match.player1 != 'user'%}table-success{% elif match.player1_score < match.player2_score and match.player1 != 'user'%}table-danger{% else %}table-ok{% endif %}">
                     <td>{{ match.player1 }}</td>
                     <td>{{ match.player1_score}}</td>
                     <td>{{ match.player2 }}</td>
