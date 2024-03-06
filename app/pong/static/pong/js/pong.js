@@ -9,6 +9,10 @@ canvas.height = window.innerHeight;
 
 var updateInterval;
 var updateInterval2;
+var countdownInterval;
+var checkUrlInterval;
+
+
 var begin = true;
 
 var posBord = 10;
@@ -57,11 +61,11 @@ function createManager(mode = 0) {
 		mode: mode,
 		pause: false,
 		putBackBallBool: false,
-		countdownInt: 1,
+		countdownInt: 3,
 		countdownBool: false,
 		startTime: Date.now(),
-		partyDuration: 1,
-		secondsLeft: 1,
+		partyDuration: 10,
+		secondsLeft: 10,
 		inputs: false,
 		waiting: true,
 		endGame: false,
@@ -81,7 +85,6 @@ function createPaddle() {
 		marge: 10,
 		angle: 5
 	};
-
 }
 function createBall(speed) {
 	return {
@@ -121,9 +124,7 @@ function createUI() {
 
 export function startGameFunctionPVP() {
 	if (begin) {
-		console.log("name_player2: " + name_player2);
-
-		if(name_player2 == "None" || name_player2 == "")
+		if (name_player2 == "None" || name_player2 == "")
 			name_player2 = "Jon Snow";
 		UI.rightName = name_player2;
 		initializePaddle();
@@ -365,15 +366,13 @@ function IAManager() {
 
 //#region draw
 function changeColor() {
-
 	var red = Math.floor(Math.random() * 256);
 	var green = Math.floor(Math.random() * 256);
 	var blue = Math.floor(Math.random() * 256);
 	ball.Bcolor = "rgb(" + red + "," + green + "," + blue + ")";
 }
 
-function drawPaddle()// Fonctioner qui dessine les raquettes
-{
+function drawPaddle(){
 	ctx.beginPath();
 	ctx.rect(5, paddle.leftY, paddle.leftWidth, paddle.leftHeight);
 	ctx.rect(canvas.width - paddle.rightWidth - 5, paddle.rightY, paddle.rightWidth, paddle.rightHeight);
@@ -396,8 +395,7 @@ function drawLine(ax, ay, bx, by) {
 	ctx.closePath();
 }
 
-function drawVerticalBar() // Dessinez une barre verticale au centre du canvas
-{
+function drawVerticalBar(){
 	var centerX = canvas.width / 2;
 	var barHeight = canvas.height;
 
@@ -461,8 +459,6 @@ function drawScore() {
 	ctx.fillText("Score: " + UI.rightScore, canvas.width - textWidth - canvas.width * 0.025, canvas.height * 0.06);
 	ctx.fillText(UI.leftName, canvas.width * 0.025, canvas.height * 0.12);
 	ctx.fillText(UI.rightName, canvas.width - textWidth - canvas.width * 0.05, canvas.height * 0.12);
-
-
 }
 
 function collisionDetection() {
@@ -542,33 +538,35 @@ function Update() {
 	drawBall();
 	canvasCheck();
 }
-
-var checkUrlInterval;
-
 function canvasCheck() {
 	let url = new URL(window.location.href);
-	let mode = url.pathname.split("/")[3]; // Assuming 'mode' is the fourth segment in the URL
+	let mode = url.pathname.split("/")[3];
 
 	if (mode != "pvp" && mode != "pve" && mode != "tournament") {
 		clearInterval(updateInterval2);
 		clearInterval(updateInterval);
+		clearInterval(countdownInterval);
 		stopUpdatingAI();
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		checkUrlInterval = setInterval(restartGame, 1000);
 	}
 }
-
 function restartGame() {
 	let url = new URL(window.location.href);
-	let mode = url.pathname.split("/")[3]; // Assuming 'mode' is the fourth segment in the URL
-	console.log("En attente de mode de jeu" + "url: " + url + "mode: " + mode);
+	let mode = url.pathname.split("/")[3];
 	if (mode == "pvp" || mode == "pve" || mode == "tournament") {
-		console.log("Mode de jeu trouvé");
 		clearInterval(checkUrlInterval);
+		canvas = document.getElementById('pongCanvas');
+		ctx = canvas.getContext('2d');
+		canvas.width = window.innerWidth;
+		canvas.height = window.innerHeight;
+		begin = true;
+		posBord = 10;
+		lastTime = Date.now();
+
 		run();
 	}
 }
-
-
 function startGame() {
 
 	updateInterval2 = setInterval(Update, 10);
@@ -577,7 +575,6 @@ function startGame() {
 	startUpdatingAI();
 	initializeBall(ball.speedBaseX);
 }
-
 function endGame() {
 	manager.endGame = true;
 	manager.waiting = true;
@@ -586,6 +583,7 @@ function endGame() {
 		document.getElementById("player2name").style.display = "block";
 		document.getElementById("player2name").value = "";
 		document.getElementById('player2nameButton').style.display = 'block';
+		sendScoreToBackend();
 	}
 	else if (manager.mode == 2) {
 		document.getElementById('player2nameButton').style.display = 'block';
@@ -601,7 +599,6 @@ function endGame() {
 	initializeIA(true);
 	startUpdatingAI();
 }
-
 async function putBackBall(directionX) {
 	manager.putBackBallBool = true;
 	IA.destYLeft = canvas.height / 2;
@@ -635,10 +632,94 @@ async function putBackBall(directionX) {
 		endGame();
 	}
 }
-
 function delay(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
 }
+function pauseGame() {
+	if (manager.pause) {
+		ball.speedX = ball.speedBaseX;
+		ball.speedY = ball.speedBaseY;
+
+		manager.pause = false;
+		startUpdatingAI();
+	}
+	else {
+		ball.speedX = 0;
+		ball.speedY = 0;
+		manager.pause = true;
+	}
+}
+async function countdownBeginParty() {
+	if (manager.countdownBool)
+		return;
+	manager.countdownBool = true;
+	await delay(1000);
+	manager.countdownBool = false;
+	manager.countdownInt--;
+	if (manager.countdownInt == 0) {
+		ball.speedX = ball.speedBaseX;
+		startCountdown();
+	}
+}
+function drawCountdown() {
+	if (manager.countdownInt === 0) {
+		manager.startTime = Date.now();
+		manager.countdownInt = -1;
+	}
+	if (manager.countdownInt < 0) {
+		return;
+	}
+	countdownBeginParty();
+	ctx.font = "10vw Arial";
+	ctx.fillStyle = 'white';
+	ctx.fillText(manager.countdownInt, ctx.canvas.width / 2, ctx.canvas.height / 2); // Dessine le compteur
+}
+function initializeVariables(mode) {
+	clearInterval(updateInterval2);
+
+	if (!canvas)
+		window.addEventListener('load', canvasCheck);
+
+	canvas.width = window.innerWidth;
+	canvas.height = window.innerHeight;
+	posBord = 10;
+
+	initializeManager(mode);
+	initializePaddle();
+	if (mode != 3) {
+		initializeUI(host_name, name_player2);
+	}
+
+	initializeIA(true);
+
+	startGame();
+}
+function run() {
+	// const urlParams = new URLSearchParams(window.location.search);
+	// const mode = urlParams.get('mode');
+
+	let url = new URL(window.location.href);
+	let mode = url.pathname.split("/")[3]; // Assuming 'mode' is the fourth segment in the URL
+	clearInterval(restartGame);
+	if (mode == "pvp")
+		initializeVariables(1);
+	else if (mode == "pve") {
+		document.getElementById("player2name").style.display = "none";
+		initializeVariables(2);
+	}
+	else if (mode == "tournament") {
+		if (player5 == "None")
+			tournament = new Tournament(player1, player2, player3, player4);
+		else
+			tournament = new Tournament(player1, player2, player3, player4, player5, player6, player7, player8);
+		//tournament = new Tournament("player1", "player2", "player3", "player4", "player5", "player6", "player7", "player8");
+		initializeVariables(3);
+	}
+	else
+		console.log("Error: mode not found `" + mode + "`");
+}
+//#endregion
+
 //#region Compte à rebours
 
 function formatTime(seconds) {
@@ -652,9 +733,10 @@ function formatTime(seconds) {
 
 	return minutes + ':' + seconds;
 }
-
 function drawCountdown2(seconds) {
 	var canvas = document.getElementById('pongCanvas');
+	if (!canvas)
+		return;
 	var ctx = canvas.getContext('2d');
 
 	ctx.font = '3em Arial';
@@ -682,10 +764,9 @@ function drawCountdown2(seconds) {
 		ctx.fillText(text2, canvas.width / 2 - 200, y2);
 	}
 }
-
 function startCountdown() {
 
-	var countdownInterval = setInterval(function () {
+	countdownInterval = setInterval(function () {
 		manager.secondsLeft--;
 		if (manager.endGame) {
 			clearInterval(countdownInterval);
@@ -695,101 +776,7 @@ function startCountdown() {
 
 //#endregion
 
-function pauseGame() {
-	if (manager.pause) {
-		ball.speedX = ball.speedBaseX;
-		ball.speedY = ball.speedBaseY;
-
-		manager.pause = false;
-		startUpdatingAI();
-	}
-	else {
-		ball.speedX = 0;
-		ball.speedY = 0;
-		manager.pause = true;
-	}
-}
-
-async function countdownBeginParty() {
-	if (manager.countdownBool)
-		return;
-	manager.countdownBool = true;
-	await delay(1000);
-	manager.countdownBool = false;
-	manager.countdownInt--;
-	if (manager.countdownInt == 0) {
-		ball.speedX = ball.speedBaseX;
-		startCountdown();
-	}
-}
-
-function drawCountdown() {
-	if (manager.countdownInt === 0) {
-		manager.startTime = Date.now();
-		manager.countdownInt = -1;
-	}
-	if (manager.countdownInt < 0) {
-		return;
-	}
-	countdownBeginParty();
-	ctx.font = "10vw Arial";
-	ctx.fillStyle = 'white';
-	ctx.fillText(manager.countdownInt, ctx.canvas.width / 2, ctx.canvas.height / 2); // Dessine le compteur
-}
-
-function initializeVariables(mode) {
-	clearInterval(updateInterval2);
-
-	if (!canvas)
-		window.addEventListener('load', canvasCheck);
-
-	canvas.width = window.innerWidth;
-	canvas.height = window.innerHeight;
-	posBord = 10;
-
-	initializeManager(mode);
-	initializePaddle();
-	if (mode != 3) {
-		initializeUI(host_name, name_player2);
-	}
-	else
-		if (begin)
-			initializeIA(true);
-
-	startGame();
-}
-
-function run() {
-	// const urlParams = new URLSearchParams(window.location.search);
-	// const mode = urlParams.get('mode');
-	console.log("Running game");
-
-	let url = new URL(window.location.href);
-	let mode = url.pathname.split("/")[3]; // Assuming 'mode' is the fourth segment in the URL
-	clearInterval(restartGame);
-	if (mode == "pvp")
-		initializeVariables(1);
-	else if (mode == "pve") {
-		document.getElementById("player2name").style.display = "none";
-		initializeVariables(2);
-	}
-	else if (mode == "tournament") {
-		if (player5 == "None")
-			tournament = new Tournament(player1, player2, player3, player4);
-		else
-			tournament = new Tournament(player1, player2, player3, player4, player5, player6, player7, player8);
-		//tournament = new Tournament("player1", "player2", "player3", "player4", "player5", "player6", "player7", "player8");
-		initializeVariables(3);
-	}
-	else
-		console.log("Error: mode not found `" + mode + "`");
-	initializeIA(true);
-}
-
-//#endregion
-
 //#region tournament
-
 
 class Party {
 	constructor(player1, player2) {
@@ -828,18 +815,17 @@ class Tournament {
 		this.endTournament = false;
 		this.sendScoreToBackend = false;
 		this.nbPlayers = args.length;
-		console.log("Nombre de joueurs : " + this.nbPlayers);
 		this.players = args;
 		this.classifyPlayers = new Array(this.nbPlayers);
 		this.party = [];
-		// for (let i = this.players.length - 1; i > 0; i--) {
-		// 	const j = Math.floor(Math.random() * (i + 1));
-		// 	[this.players[i], this.players[j]] = [this.players[j], this.players[i]];
-		// }
-		//afficher le nom de tous les joueurs :
-		for (let i = 0; i < this.players.length; i++) {
-			console.log(this.players[i]);
+		for (let i = this.players.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1));
+			[this.players[i], this.players[j]] = [this.players[j], this.players[i]];
 		}
+		//afficher le nom de tous les joueurs :
+		// for (let i = 0; i < this.players.length; i++) {
+		// 	console.log(this.players[i]);
+		// }
 		this.party[0] = new Party(this.players[0], this.players[1]);
 		this.party[1] = new Party(this.players[2], this.players[3]);
 		if (this.nbPlayers == 8) {
@@ -927,8 +913,6 @@ function createGamesList(party, host_name) {
 //#region request backend
 
 function sendScoreToBackend() {
-	if (manager.waiting)
-		return;
 	let game_duration = (new Date() - manager.startTime) / 1000;
 
 	let formData = new FormData();
@@ -961,7 +945,6 @@ function sendTournamentScoreToBackend() {
 	if (tournament.sendScoreToBackend)
 		return;
 	tournament.sendScoreToBackend = true;
-	console.log("Sending tournament score to backend");
 	let game_duration = (new Date() - manager.startTime) / 1000;
 
 	let formData = new FormData();
@@ -992,4 +975,32 @@ function sendTournamentScoreToBackend() {
 
 //#endregion
 
+
+//#region PowerUp
+
+/*
+Le but de cette région est de répondre à cette partie du sujet :
+Module mineur : Option de personnalisation du jeu.
+Dans ce module mineur, le but est de fournir des options de personnalisation
+pour tous les jeux disponibles sur votre plateforme. Les objectifs et fonctionnalités
+clés incluent :
+◦ Offrir des fonctionnalités de personnalisation, comme des bonus (power-ups),
+attaques, différentes cartes, qui améliorent l’expérience de jeu.
+◦ Permettre aux utilisasteurs de choisir une version du jeu par défaut avec fonctionnalités de base s’ils préfèrent une expérience plus simple.
+◦ Assurez-vous que les options de personnalisation sont disponibles et s’appliquent
+à tous les jeux offerts sur la plateforme.
+◦ Implémentez des menus de réglages conviviaux ou des interfaces pour ajuster
+les paramètres du jeu.
+◦ Conservez une constance dans les fonctionnalités de personnalisation pour tous
+les jeux de la plateforme afin de permettre une expérience utilisateur unifiée.
+Ce module vise à donner aux utilisateurs la flexibilité d’ajuster leur expérience de jeu pour tous les jeux disponibles, en fournissant une variété d’options
+de personnalisation, tout en offrant aussi une version par défaut, simple, pour les
+utilisateurs qui désirent ce type d’expérience.
+*/
+
+
+
+
+
+//endregion
 run();
