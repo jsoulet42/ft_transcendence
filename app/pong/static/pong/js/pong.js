@@ -600,7 +600,6 @@ function endGame() {
 	startUpdatingAI();
 	reinitializeSettings();
 }
-
 function reinitializeSettings() {
 	window.speedBallBase = 5;
 	window.sizePaddleBase = 5;
@@ -616,8 +615,6 @@ function reinitializeSettings() {
 	document.getElementById('sizePaddle').value = window.sizePaddleBase;
 	document.getElementById('speedPaddle').value = window.speedPaddleBase;
 }
-
-
 async function putBackBall(directionX) {
 	manager.putBackBallBool = true;
 	IA.destYLeft = canvas.height / 2;
@@ -647,7 +644,8 @@ async function putBackBall(directionX) {
 	IA.destYLeftLatence = IA.destYLeft + Math.random() * paddle.leftHeight - paddle.leftHeight / 2;
 	startUpdatingAI();
 
-	if (manager.secondsLeft <= 0 && UI.leftScore != UI.rightScore) {
+	if (manager.secondsLeft <= 0 && UI.leftScore != UI.rightScore && !manager.endGame)
+	{
 		endGame();
 	}
 }
@@ -1018,4 +1016,4 @@ utilisateurs qui désirent ce type d’expérience.
 
 
 //endregion
-run();
+document.addEventListener("DOMContentLoaded", run());

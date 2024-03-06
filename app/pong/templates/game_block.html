@@ -51,20 +51,26 @@
 	var save_game;
 	var save_tournament;
 
-	let speedBall = document.getElementById('speedBall');
-	let sizePaddle = document.getElementById('sizePaddle');
-	let speedPaddle = document.getElementById('speedPaddle');
-	var modeTwo = document.getElementById('modeTwo');
-	var startgameContainer = document.getElementById('startgame_container');
+	var speedBall;
+	var sizePaddleSlider;
+	var speedPaddleSlider;
+	var modeTwo;
+	var startgameContainer;
 
 	function init() {
+		speedBall = document.getElementById('speedBall');
+		sizePaddleSlider = document.getElementById('sizePaddle');
+		speedPaddleSlider = document.getElementById('speedPaddle');
+		modeTwo = document.getElementById('modeTwo');
+		startgameContainer = document.getElementById('startgame_container');
+
 		let url = new URL(window.location.href);
 		let mode = url.pathname.split("/")[3];
 		save_game = '{% url "game_save" %}';
 		save_tournament = '{% url "tournament_save" %}';
 		speedBall.style.display = 'none';
-		sizePaddle.style.display = 'none';
-		speedPaddle.style.display = 'none';
+		sizePaddleSlider.style.display = 'none';
+		speedPaddleSlider.style.display = 'none';
 		modeTwo.style.display = 'none';
 		if (mode == 'pvp') {
 			modeTwo.style.display = 'block';
@@ -78,8 +84,6 @@
 		window.sizePaddle = window.sizePaddleBase;
 		window.speedPaddle = window.speedPaddleBase;
 	}
-	init();
-
 	function startGame() {
 
 		let url = new URL(window.location.href);
@@ -110,31 +114,8 @@
 	document.getElementById('tournament_Button').addEventListener('click', startGame);
 	document.getElementById('player2nameButton').addEventListener('click', startGame);
 
+		init();
 
-
-	speedBall.addEventListener('input', function () {
-		document.getElementById('speedBallValue').textContent = speedBall.value;
-		window.speed = speedBall.value;
-	});
-
-	sizePaddle.addEventListener('input', function () {
-		document.getElementById('sizePaddleValue').textContent = sizePaddle.value;
-		window.sizePaddle = sizePaddle.value;
-	});
-
-	speedPaddle.addEventListener('input', function () {
-		document.getElementById('speedPaddleValue').textContent = speedPaddle.value;
-		window.speedPaddle = speedPaddle.value;
-	});
-
-	modeTwo.addEventListener('click', function () {
-		speedBall.style.display = 'block';
-		sizePaddle.style.display = 'block';
-		speedPaddle.style.display = 'block';
-		startgameContainer.style.display = 'block';
-	});
-
-	document.addEventListener("DOMContentLoaded", function () {
 		var startgameContainer = document.getElementById("startgame_container");
 		var gameSettingButton = document.getElementById("modeTwo");
 		var pongContainer = document.getElementById("setting_pong");
@@ -145,7 +126,26 @@
 			startgameContainer.classList.toggle("animation_stc");
 			pongContainer.classList.toggle("visible");
 		});
-	});
+		speedBall.addEventListener('input', function () {
+			document.getElementById('speedBallValue').textContent = speedBall.value;
+			window.speed = speedBall.value;
+		});
+		sizePaddleSlider.addEventListener('input', function () {
+			document.getElementById('sizePaddleValue').textContent = sizePaddleSlider.value;
+			window.sizePaddle = sizePaddleSlider.value;
+		});
+		speedPaddleSlider.addEventListener('input', function () {
+			document.getElementById('speedPaddleValue').textContent = speedPaddleSlider.value;
+			window.speedPaddle = speedPaddle.value;
+		});
+		modeTwo.addEventListener('click', function () {
+			console.log('click');
+			speedBall.style.display = 'block';
+			sizePaddleSlider.style.display = 'block';
+			speedPaddleSlider.style.display = 'block';
+			startgameContainer.style.display = 'block';
+		});
+
 </script>
 
 <canvas id="pongCanvas"></canvas>
