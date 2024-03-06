@@ -1,35 +1,13 @@
 <div class="container_signup">
-    <!-- <form class="mt-4" method="POST" action="{% url 'signup' %}">
-        {% csrf_token %}
-        <div class="form_signup1">
-            <label for="id_username">Username:</label>
-            <h1>{{ form.username }}</h1>
-        </div>
-        <div class="form_signup2">
-            <label for="id_email">Email: (optionnal)</label>
-            <h1>{{ form.email }}</h1>
-        </div>
-        <div class="form_signup3">
-            <label for="id_password1">Password:</label>
-            <h1>{{ form.password1 }}</h1>
-        </div>
-        <div class="form_signup4">
-            <label for="id_password2">Confirm Password:</label>
-            <h1>{{ form.password2 }}</h1>
-        </div>
-        <button class="btn btn_signup" type="submit">Sign up</button>
-    </form> -->
-
     <form class="mt-4" method="POST" action="{% url 'signup' %}">
         {% csrf_token %}
+        
         {{ form.username.label_tag }}
         {{ form.username }}
         
         {{ form.email.label_tag }}
         {{ form.email }}
         
-        <hr />
-
         {{ form.password1.label_tag }}
         {{ form.password1 }}
         
@@ -42,7 +20,6 @@
         {% for error in form.password2.errors %}
             <p class="alert alert-danger">{{ error }}</p>
         {% endfor %}
-        <hr />
-        <button class="btn btn-primary" type="submit">Submit</button>
+        <button class="btn btn_signup" type="Sign Up">Submit</button>
     </form>
 </div>
