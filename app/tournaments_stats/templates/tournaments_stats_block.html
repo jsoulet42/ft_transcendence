@@ -4,43 +4,45 @@
 	<div id="title-div">
 		<h1 id="title-tournaments">{% trans "Tournament Stats" %}</h1>
 	</div>
-
 	<div class="center hover-bigger">
 		<div class="loadingtry"></div>
 		<div class="custom-table" >
 			<table class="table">
-				<thead>
-					<tr>
-						<th scope="col">{% trans "Name" %}</th>
-						<th scope="col">{% trans "Position" %}</th>
-						<th scope="col">{% trans "Players count" %}</th>
-						<th scope="col">{% trans "Date" %}</th>
-					</tr>
-				</thead>
-				<thead>
-					{% for tournament in tournaments %}
-					<tr>
-						<td>{{ tournament.name }}</td>
-						{% for player in tournament.leaderboard.usernames %}
-							{% if user.username == player %}
-								<td>{{ forloop.counter }}</td>
-							{% endif %}
+				{% if not tournaments %}
+					<tr><td>No tournaments found</td></tr>
+				{% else %}
+					<thead>
+						<tr>
+							<th scope="col">{% trans "Name" %}</th>
+							<th scope="col">{% trans "Position" %}</th>
+							<th scope="col">{% trans "Players count" %}</th>
+							<th scope="col">{% trans "Date" %}</th>
+						</tr>
+					</thead>
+					<thead>
+						{% for tournament in tournaments %}
+						<tr>
+							<td>{{ tournament.name }}</td>
+							{% for player in tournament.leaderboard.usernames %}
+								{% if user.username == player %}
+									<td>{{ forloop.counter }}</td>
+								{% endif %}
+							{% endfor %}
+							<td>{{ tournament.players_count }}</td>
+							<td>{{ tournament.date }}</td>
+						</tr>
 						{% endfor %}
-						<td>{{ tournament.players_count }}</td>
-						<td>{{ tournament.date }}</td>
-					</tr>
-					{% endfor %}
-				</thead>
+					</thead>
+				{% endif %}
 			</table>
 		</div>
 	</div>
-
 	<div id="data_for_template" style="display: none;">
 		{{ users_stats | json_script }}
 	</div>
-	<div id="chart_div_container" class="chart-container ">
+	<div id="chart_div_container" class="chart-container">
 		<div id="chart_div"></div>
-		<div id="area_chart_div"></div>
+			<div id="area_chart_div"></div>
 	</div>
 </div>
 <script type="text/javascript">
@@ -48,6 +50,9 @@
 
 	google.charts.load("current", {packages:["corechart"]});
 	google.charts.setOnLoadCallback(drawChart);
+
+	{% comment %} document.addEventListener("DOMContentLoaded", function() {
+	}); {% endcomment %}
 	function drawChart() {
 		var dataFromDjango = JSON.parse(document.getElementById('data_for_template').textContent);
 
@@ -75,7 +80,7 @@
 		data.addColumn('number', 'Taille de la bulle');
 
 		dataFromDjango.forEach(function(player) {
-			if (player.victoires !== 0 && player.defaites !== 0) {
+			if (parseInt(player.victoires) !== 0 || parseInt(player.defaites) !== 0) {
 				var playerName = player.username;
 				var victoires = parseInt(player.victoires);
 				var defaites = parseInt(player.defaites);
@@ -122,9 +127,10 @@
 
 		chart.draw(data, options);
 		});
-
 	}
 </script>
+
+
 
 
 

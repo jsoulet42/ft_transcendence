@@ -56,12 +56,11 @@ $carousel-indicator-height: 3px;
 	transform: translate(-50%, -50%);
 }
 
-.startgame_bigger_container {
+#startgame_bigger_container {
 	position: absolute;
 	z-index: 1;
 	height: 40vh;
 	width: 40vw;
-	background-color: blue;
 	left: 30%;
 	top: 25%;
 	justify-content: center;
@@ -163,6 +162,13 @@ $carousel-indicator-height: 3px;
 	align-items: center;
 }
 
+
+.switch {
+	cursor: pointer;
+	overflow: hidden;
+	color: violet;
+}
+
 @keyframes moveRight {
     from {
         transform: translateX(50%) ;
@@ -223,7 +229,9 @@ $carousel-indicator-height: 3px;
 }
 
 .slider_text {
-
+	position: absolute;
+	color: bisque;
+	top: 24%;
 }
 
 .slider1 {
@@ -239,7 +247,10 @@ $carousel-indicator-height: 3px;
 }
 
 .slider_text1 {
-
+	position: absolute;
+	color: bisque;
+	top: 53%;
+	font-size: 2vh;
 }
 
 .slider2 {
@@ -255,7 +266,10 @@ $carousel-indicator-height: 3px;
 }
 
 .slider_text2 {
-
+	position: absolute;
+	color: bisque;
+	top: 80%;
+	font-size: 2vh;
 }
 
 .slider:hover {
@@ -569,7 +583,7 @@ $carousel-indicator-height: 3px;
 	top: 73%;
 	left: 10%;
 	background-color: rgb(255, 119, 232);
-	padding: 0.7vh;	
+	padding: 0.7vh;
 	box-sizing: border-box;
 }
 

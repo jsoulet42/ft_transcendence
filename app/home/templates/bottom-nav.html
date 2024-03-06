@@ -6,7 +6,7 @@
 			{% trans "PLAY" %}
 		</span>
 	</a>
-	<a id="tournaments_stats" class="btn buttonPong nav-bottom-btn" href="{% url 'tournaments_stats' %}" hx-post="{% url 'tournaments_stats' %}" hx-target="#main-container" hx-push-url="/tournaments_stats">
+	<a id="tournaments_stats" class="btn buttonPong nav-bottom-btn" href="{% url 'tournaments_stats' %}" hx-post="{% url 'tournaments_stats' %}" hx-target="#main-container" hx-push-url="true">
 		<span class="center-text">
 			{% trans "TOURNAMENTS STATS" %}
 		</span>
