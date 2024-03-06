@@ -30,11 +30,11 @@ document.getElementById('speedPaddle').addEventListener('input', function() {
 	</div>
 	<div class="container_setting_pong" id="setting_pong">
 		<input type="range" min="1" max="10" value="5" id="speedBall" class="slider">
-		<span id="speedBallValue" style="color: antiquewhite;">5</span> Speed Ball
+		<span id="speedBallValue" class="slider_text">5</span> Speed Ball
 		<input type="range" min="1" max="10" value="5" id="sizePaddle" class="slider1">
-		<span id="sizePaddleValue" style="color: antiquewhite;">5</span> Size Paddle
+		<span id="sizePaddleValue" class="slider_text1">5</span> Size Paddle
 		<input type="range" min="1" max="10" value="5" id="speedPaddle" class="slider2">
-		<span id="speedPaddleValue" style="color: antiquewhite;">5</span> Speed Paddle
+		<span id="speedPaddleValue" class="slider_text2">5</span> Speed Paddle
 	</div>
 </div>
 
@@ -153,10 +153,6 @@ document.getElementById('speedPaddle').addEventListener('input', function() {
 		sizePaddle.style.display = 'block';
 		speedPaddle.style.display = 'block';
 		modeOne.style.display = 'none';
-		modeTwo.style.display = 'none';
-		var moveInterval = setInterval(moveSetting_pong, 10);
-
-		
 	});
 
 	document.addEventListener("DOMContentLoaded", function() {
@@ -167,29 +163,10 @@ document.getElementById('speedPaddle').addEventListener('input', function() {
     // Add event listener to gameSettingButton
     gameSettingButton.addEventListener("click", function() {
         // Toggle the CSS classes
-        pongContainer.classList.toggle("visible");
+		startgameContainer.classList.toggle("animation_stc");
+		pongContainer.classList.toggle("visible");
     });
 });
-
-
-
-
-	
-	function moveSetting_pong() {
-    var container = document.getElementById("setting_pong"); // Sélectionnez l'élément div container_setting_pong
-    var currentPosition = parseInt(container.style.left) || 0; // Obtenez la position horizontale actuelle (en pixels)
-
-    // Décalage vers la droite de 1 pixel à chaque itération
-    var newPosition = currentPosition + 1; 
-
-    // Définir la nouvelle position horizontale de l'élément
-    container.style.left = newPosition + "px";
-
-    // Arrêter le décalage lorsque la div atteint une certaine position
-    if (newPosition >= 100) {
-        clearInterval(moveInterval);
-    }
-}
 </script>
 
 <canvas id="pongCanvas"></canvas>

@@ -616,7 +616,6 @@ nav-pong a {
 .startgame_container {
   display: flex;
   justify-content: center;
-  background-color: green;
   z-index: 1;
   height: inherit;
   width: 20vw;
@@ -712,12 +711,30 @@ nav-pong a {
   align-items: center;
 }
 
-.element.style {
-  display: flex;
+@keyframes moveRight {
+  from {
+    transform: translateX(50%);
+  }
+  to {
+    transform: translateX(0%);
+  }
 }
-
+@keyframes moveLeft {
+  from {
+    transform: translateX(50%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
 .visible {
   display: flex;
+  animation: moveRight 2s forwards;
+}
+
+.animation_stc {
+  animation: moveLeft 2s forwards;
+  transition: transform 0.5s ease;
 }
 
 @keyframes shine1 {
@@ -740,40 +757,37 @@ nav-pong a {
 }
 .slider {
   position: absolute;
-  -webkit-appearance: none;
-  appearance: none;
-  width: 10%;
+  appearance: auto;
+  width: 74%;
+  top: 20%;
   height: 15px;
-  background: #ddd;
+  border-radius: 2rem;
   outline: none;
   opacity: 0.7;
-  -webkit-transition: 0.2s;
   transition: opacity 0.2s;
 }
 
 .slider1 {
   position: absolute;
-  -webkit-appearance: none;
-  appearance: none;
-  width: 10%;
+  appearance: auto;
+  width: 74%;
   height: 15px;
-  background: #ddd;
+  border-radius: 2rem;
   outline: none;
   opacity: 0.7;
-  -webkit-transition: 0.2s;
+  top: 48%;
   transition: opacity 0.2s;
 }
 
 .slider2 {
   position: absolute;
-  -webkit-appearance: none;
-  appearance: none;
-  width: 10%;
+  appearance: auto;
+  width: 74%;
+  border-radius: 2rem;
   height: 15px;
-  background: #ddd;
   outline: none;
   opacity: 0.7;
-  -webkit-transition: 0.2s;
+  top: 75%;
   transition: opacity 0.2s;
 }
 
