@@ -11,15 +11,20 @@
         {{ form.password1.label_tag }}
         {{ form.password1 }}
         
-        {% for error in form.password1.errors %}
-            <p class="alert alert-danger">{{ error }}</p>
-        {% endfor %}
-        
+        {% if form.password1.errors %}
+            {% for error in form.password1.errors %}
+                <p class="alert alert-danger">{{ error }}</p>
+            {% endfor %}
+        {% endif %}
+
         {{ form.password2.label_tag }}
         {{ form.password2 }}
-        {% for error in form.password2.errors %}
-            <p class="alert alert-danger">{{ error }}</p>
-        {% endfor %}
-        <button class="btn btn_signup" type="Sign Up">Submit</button>
+
+        {% if form.password2.errors %}
+            {% for error in form.password2.errors %}
+                <p class="alert alert-danger">{{ error }}</p>
+            {% endfor %}
+        {% endif %}
+        <button class="btn btn_signup" type="submit">Sign up</button>
     </form>
 </div>
