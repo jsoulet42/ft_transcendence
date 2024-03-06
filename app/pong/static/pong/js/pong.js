@@ -124,8 +124,6 @@ function createUI() {
 
 export function startGameFunctionPVP() {
 	if (begin) {
-		console.log("name_player2: " + name_player2);
-
 		if (name_player2 == "None" || name_player2 == "")
 			name_player2 = "Jon Snow";
 		UI.rightName = name_player2;
@@ -522,7 +520,6 @@ function drawEndGame() {
 
 function Update() {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
-	console.log("Update");
 	drawVerticalBar();
 	if (!manager.waiting) {
 		lisenInput();
@@ -557,9 +554,7 @@ function canvasCheck() {
 function restartGame() {
 	let url = new URL(window.location.href);
 	let mode = url.pathname.split("/")[3];
-	console.log("En attente de mode de jeu" + "url: " + url + "mode: " + mode);
 	if (mode == "pvp" || mode == "pve" || mode == "tournament") {
-		console.log("Mode de jeu trouvé");
 		clearInterval(checkUrlInterval);
 		canvas = document.getElementById('pongCanvas');
 		ctx = canvas.getContext('2d');
@@ -588,6 +583,7 @@ function endGame() {
 		document.getElementById("player2name").style.display = "block";
 		document.getElementById("player2name").value = "";
 		document.getElementById('player2nameButton').style.display = 'block';
+		sendScoreToBackend();
 	}
 	else if (manager.mode == 2) {
 		document.getElementById('player2nameButton').style.display = 'block';
@@ -680,7 +676,6 @@ function drawCountdown() {
 }
 function initializeVariables(mode) {
 	clearInterval(updateInterval2);
-	console.log("initializeVariables mode " + mode);
 
 	if (!canvas)
 		window.addEventListener('load', canvasCheck);
@@ -702,11 +697,9 @@ function initializeVariables(mode) {
 function run() {
 	// const urlParams = new URLSearchParams(window.location.search);
 	// const mode = urlParams.get('mode');
-	console.log("Running game");
 
 	let url = new URL(window.location.href);
 	let mode = url.pathname.split("/")[3]; // Assuming 'mode' is the fourth segment in the URL
-	console.log("Mode: " + mode);
 	clearInterval(restartGame);
 	if (mode == "pvp")
 		initializeVariables(1);
@@ -822,18 +815,17 @@ class Tournament {
 		this.endTournament = false;
 		this.sendScoreToBackend = false;
 		this.nbPlayers = args.length;
-		console.log("Nombre de joueurs : " + this.nbPlayers);
 		this.players = args;
 		this.classifyPlayers = new Array(this.nbPlayers);
 		this.party = [];
-		// for (let i = this.players.length - 1; i > 0; i--) {
-		// 	const j = Math.floor(Math.random() * (i + 1));
-		// 	[this.players[i], this.players[j]] = [this.players[j], this.players[i]];
-		// }
-		//afficher le nom de tous les joueurs :
-		for (let i = 0; i < this.players.length; i++) {
-			console.log(this.players[i]);
+		for (let i = this.players.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1));
+			[this.players[i], this.players[j]] = [this.players[j], this.players[i]];
 		}
+		//afficher le nom de tous les joueurs :
+		// for (let i = 0; i < this.players.length; i++) {
+		// 	console.log(this.players[i]);
+		// }
 		this.party[0] = new Party(this.players[0], this.players[1]);
 		this.party[1] = new Party(this.players[2], this.players[3]);
 		if (this.nbPlayers == 8) {
@@ -921,8 +913,6 @@ function createGamesList(party, host_name) {
 //#region request backend
 
 function sendScoreToBackend() {
-	if (manager.waiting)
-		return;
 	let game_duration = (new Date() - manager.startTime) / 1000;
 
 	let formData = new FormData();
@@ -955,7 +945,6 @@ function sendTournamentScoreToBackend() {
 	if (tournament.sendScoreToBackend)
 		return;
 	tournament.sendScoreToBackend = true;
-	console.log("Sending tournament score to backend");
 	let game_duration = (new Date() - manager.startTime) / 1000;
 
 	let formData = new FormData();
