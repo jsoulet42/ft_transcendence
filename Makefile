@@ -67,20 +67,22 @@ clean-staging: stop-staging
 
 
 # Remove the docker images
-fclean: clean
-	@if [ -n "$$(sudo docker ps -a -q)" ]; then sudo docker rm -f $$(sudo docker ps -a -q); fi
-	@if [ -n "$$(sudo docker images -q)" ]; then sudo docker rmi -f $$(sudo docker images -q); fi
-	@if [ -n "$$(sudo docker volume ls -q)" ]; then sudo docker volume prune -f; fi
+del-containers:
+	@if [ -n "$$(sudo docker ps -aq)" ]; then 		\
+		sudo docker rm -f $$(sudo docker ps -aq);	\
+	fi
+	@if [ -n "$$(sudo docker images -q)" ];					\
+		then sudo docker rmi -f $$(sudo docker images -q);	\
+	fi
+	@if [ -n "$$(sudo docker volume ls -q)" ];	\
+		then sudo docker volume prune -f;		\
+	fi
 
-fclean-dev: clean-dev
-	@if [ -n "$$(sudo docker ps -a -q)" ]; then sudo docker rm -f $$(sudo docker ps -a -q); fi
-	@if [ -n "$$(sudo docker images -q)" ]; then sudo docker rmi -f $$(sudo docker images -q); fi
-	@if [ -n "$$(sudo docker volume ls -q)" ]; then sudo docker volume prune -f; fi
+fclean: clean del-containers
 
-fclean-staging: clean-staging
-	@if [ -n "$$(sudo docker ps -a -q)" ]; then sudo docker rm -f $$(sudo docker ps -a -q); fi
-	@if [ -n "$$(sudo docker images -q)" ]; then sudo docker rmi -f $$(sudo docker images -q); fi
-	@if [ -n "$$(sudo docker volume ls -q)" ]; then sudo docker volume prune -f; fi
+fclean-dev: clean-dev del-containers
+
+fclean-staging: clean-staging del-containers
 
 
 re: fclean all

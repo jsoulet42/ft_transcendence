@@ -4,16 +4,6 @@
 <script hx-push-url="{{ hx_push_url }}"></script>
 {% endif %}
 
-<br>
-<script>
-document.getElementById('speedBall').addEventListener('input', function() {
-    document.getElementById('speedBallValue').textContent = this.value;
-});
-
-document.getElementById('sizePaddle').addEventListener('input', function() {
-    document.getElementById('sizePaddleValue').textContent = this.value;
-});
-
 document.getElementById('speedPaddle').addEventListener('input', function() {
     document.getElementById('speedPaddleValue').textContent = this.value;
 });
@@ -67,32 +57,39 @@ document.getElementById('speedPaddle').addEventListener('input', function() {
 	var save_game;
 	var save_tournament;
 
-	var speed = document.getElementById('speedBall');
-	var sizePaddle = document.getElementById('sizePaddle');
-	var speedPaddle = document.getElementById('speedPaddle');
-	var modeOne = document.getElementById('modeOne');
-	var modeTwo = document.getElementById('modeTwo');
+	var speedBall;
+	var sizePaddleSlider;
+	var speedPaddleSlider;
+	var modeTwo;
+	var startgameContainer;
 
 	function init() {
+		speedBall = document.getElementById('speedBall');
+		sizePaddleSlider = document.getElementById('sizePaddle');
+		speedPaddleSlider = document.getElementById('speedPaddle');
+		modeTwo = document.getElementById('modeTwo');
+		startgameContainer = document.getElementById('startgame_container');
+
 		let url = new URL(window.location.href);
 		let mode = url.pathname.split("/")[3];
 		save_game = '{% url "game_save" %}';
 		save_tournament = '{% url "tournament_save" %}';
-		speed.style.display = 'none';
-		sizePaddle.style.display = 'none';
-		speedPaddle.style.display = 'none';
-		modeOne.style.display = 'none';
+		speedBall.style.display = 'none';
+		sizePaddleSlider.style.display = 'none';
+		speedPaddleSlider.style.display = 'none';
 		modeTwo.style.display = 'none';
-		if (mode == 'pvp')
-		{
-			modeOne.style.display = 'block';
+		if (mode == 'pvp') {
 			modeTwo.style.display = 'block';
 			document.getElementById('startgame_container').style.display = 'block';
-
 		}
-	}
-	init();
+		window.speedBallBase = 5;
+		window.sizePaddleBase = 5;
+		window.speedPaddleBase = 5;
 
+		window.speed = window.speedBallBase;
+		window.sizePaddle = window.sizePaddleBase;
+		window.speedPaddle = window.speedPaddleBase;
+	}
 	function startGame() {
 
 		let url = new URL(window.location.href);
@@ -103,10 +100,7 @@ document.getElementById('speedPaddle').addEventListener('input', function() {
 			if (name_player2.length > 10)
 				name_player2 = name_player2.substring(0, 10);
 			if (name_player2 != '') {
-				console.log("test");
-				document.getElementById('player2name').style.display = 'block';
-				document.getElementById('player2nameButton').style.display = 'block';
-				document.getElementById('startgame_container').style.display = 'block';
+				document.getElementById('startgame_bigger_container').style.display = 'none';
 				window.startGameFunctionPVP();
 			}
 			else {
@@ -115,58 +109,48 @@ document.getElementById('speedPaddle').addEventListener('input', function() {
 			}
 		} else if (mode == 'pve') {
 			name_player2 = "Glados"
-			document.getElementById('player2name').style.display = 'none';
-			document.getElementById('player2nameButton').style.display = 'none';
-			document.getElementById('startgame_container').style.display = 'none';
+			document.getElementById('startgame_bigger_container').style.display = 'none';
 			window.startGameFunctionPVE();
 		} else if (mode == 'tournament') {
 			document.getElementById('tournament_Button').style.display = 'none';
-			document.getElementById('startgame_container').style.display = 'none';
+			document.getElementById('startgame_bigger_container').style.display = 'none';
 			window.startGameFunctionTournament();
 		}
 	}
 	document.getElementById('tournament_Button').addEventListener('click', startGame);
 	document.getElementById('player2nameButton').addEventListener('click', startGame);
 
+		init();
 
+		var startgameContainer = document.getElementById("startgame_container");
+		var gameSettingButton = document.getElementById("modeTwo");
+		var pongContainer = document.getElementById("setting_pong");
 
-	speedBall.addEventListener('input', function () {
-		window.speed = speed.value;
-	});
+		// Add event listener to gameSettingButton
+		gameSettingButton.addEventListener("click", function () {
+			// Toggle the CSS classes
+			startgameContainer.classList.toggle("animation_stc");
+			pongContainer.classList.toggle("visible");
+		});
+		speedBall.addEventListener('input', function () {
+			document.getElementById('speedBallValue').textContent = speedBall.value;
+			window.speed = speedBall.value;
+		});
+		sizePaddleSlider.addEventListener('input', function () {
+			document.getElementById('sizePaddleValue').textContent = sizePaddleSlider.value;
+			window.sizePaddle = sizePaddleSlider.value;
+		});
+		speedPaddleSlider.addEventListener('input', function () {
+			document.getElementById('speedPaddleValue').textContent = speedPaddleSlider.value;
+			window.speedPaddle = speedPaddleSlider.value;
+		});
+		modeTwo.addEventListener('click', function () {
+			speedBall.style.display = 'block';
+			sizePaddleSlider.style.display = 'block';
+			speedPaddleSlider.style.display = 'block';
+			startgameContainer.style.display = 'block';
+		});
 
-	sizePaddle.addEventListener('input', function () {
-		window.sizePaddle = sizePaddle.value;
-	});
-	speedPaddle.addEventListener('input', function () {
-		window.speedPaddle = speedPaddle.value;
-	});
-
-	modeOne.addEventListener('click', function () {
-	//	document.getElementById('startgame_container').style.display = 'block';
-		modeOne.style.display = 'none';
-		modeTwo.style.display = 'none';
-	});
-
-
-	modeTwo.addEventListener('click', function () {
-		speed.style.display = 'block';
-		sizePaddle.style.display = 'block';
-		speedPaddle.style.display = 'block';
-		modeOne.style.display = 'none';
-	});
-
-	document.addEventListener("DOMContentLoaded", function() {
-    var startgameContainer = document.getElementById("startgame_container");
-    var gameSettingButton = document.getElementById("modeTwo");
-    var pongContainer = document.getElementById("setting_pong");
-
-    // Add event listener to gameSettingButton
-    gameSettingButton.addEventListener("click", function() {
-        // Toggle the CSS classes
-		startgameContainer.classList.toggle("animation_stc");
-		pongContainer.classList.toggle("visible");
-    });
-});
 </script>
 
 <canvas id="pongCanvas"></canvas>

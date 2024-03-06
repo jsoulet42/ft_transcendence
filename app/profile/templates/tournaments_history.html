@@ -2,7 +2,7 @@
 <div class="tv-match-history">
     <div class="tv-left">
         <button type="button" class="bottom-edit3 btn btn-outline-info" hx-get="{% url 'match_history' %}" hx-target="#main-container" hx-push-url="true">1 VS 1 HISTORY</button>
-        <h2>Tournaments History</h2>
+        <h2 class="history-title glitch">Tournaments History</h2>
     </div>
     <div class="table-cont">
         <table class="table table-inside">
@@ -17,7 +17,7 @@
             </thead>
             <tbody>
                 {% for match in matches %}
-                <tr class="{% if match.player1_score > match.player2_score %}table-success{% else %}table-danger{% endif %}">
+                <tr class="{% if match.player1_score > match.player2_score and match.player1 != 'user'%}table-success{% elif match.player1_score < match.player2_score and match.player1 != 'user'%}table-danger{% else %}table-ok{% endif %}">
                     <td>{{ match.player1 }}</td>
                     <td>{{ match.player1_score}}</td>
                     <td>{{ match.player2 }}</td>

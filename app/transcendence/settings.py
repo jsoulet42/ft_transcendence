@@ -10,7 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+import os
+
 from pathlib import Path
+from django.utils.translation import gettext_lazy as _
+from django.contrib import messages
 import os  # Added for static files
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -57,6 +61,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -108,13 +113,16 @@ WSGI_APPLICATION = 'transcendence.wsgi.application'
 # }
 
 DATABASES = {
-    "default": {
-        "ENGINE": os.environ.get("DJANGO_PG_ENGINE", "django.db.backends.sqlite3"),
-        "NAME": os.environ.get("DJANGO_PG_DATABASE", BASE_DIR / "db.sqlite3"),
-        "USER": os.environ.get("DJANGO_PG_USER", "user"),
-        "PASSWORD": os.environ.get("DJANGO_PG_PASSWORD", "password"),
-        "HOST": os.environ.get("DJANGO_PG_HOST", "localhost"),
-        "PORT": os.environ.get("DJANGO_PG_PORT", "5432"),
+    'default': {
+        'ENGINE': os.environ.get('DJANGO_PG_ENGINE', 'django.db.backends.sqlite3'),
+        'NAME': os.environ.get('DJANGO_PG_DATABASE', BASE_DIR / 'db.sqlite3'),
+        'USER': os.environ.get('DJANGO_PG_USER', 'user'),
+        'PASSWORD': os.environ.get('DJANGO_PG_PASSWORD', 'password'),
+        'HOST': os.environ.get('DJANGO_PG_HOST', 'localhost'),
+        'PORT': os.environ.get('DJANGO_PG_PORT', '5432'),
+        'OPTIONS': {
+            'connect_timeout': 20,
+        },
     }
 }
 
@@ -152,13 +160,23 @@ AUTH_USER_MODEL = 'backend.CustomUser'
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = 'fr-FR'
+LANGUAGE_CODE = 'en'
 
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
 USE_TZ = True
+
+LANGUAGES = (
+    ('en', _('English')),
+    ('fr', _('French')),
+    ('de', _('German')),
+)
+
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale'),
+]
 
 
 # Static files (CSS, JavaScript, Images)
@@ -214,3 +232,11 @@ LOGIN_URL = 'login'
 SESSION_COOKIE_AGE = 900
 SESSION_SAVE_EVERY_REQUEST = True
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+MESSAGE_TAGS = {
+    messages.DEBUG: 'alert-info',
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.ERROR: 'alert-danger',
+}
