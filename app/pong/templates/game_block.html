@@ -4,14 +4,7 @@
 <script hx-push-url="{{ hx_push_url }}"></script>
 {% endif %}
 
-document.getElementById('speedPaddle').addEventListener('input', function() {
-    document.getElementById('speedPaddleValue').textContent = this.value;
-});
-</script>
-<button id="modeOne">Partie simple</button>
-<br>
-
-<div class="startgame_bigger_container">
+<div id="startgame_bigger_container">
 	<div class="startgame_container d-flex" id="startgame_container">
 		<h1 class="text_startgame">Enter your nickname please :D</h1>
 		<input type="text" placeholder="Player 2" required class="startgame_playerform" id="player2name">
@@ -32,7 +25,8 @@ document.getElementById('speedPaddle').addEventListener('input', function() {
 <button id="tournament_Button" style="display: none; background-color: white;">Commencer le tournoi</button>
 <script>
 	function yolo() {
-		let modedici = new URL(window.location.href).pathname.split("/")[3];
+		let urlArray = new URL(window.location.href).pathname.split("/");
+		let modedici = urlArray.pop() || urlArray.pop();
 		if (modedici == "tournament") {
 			document.getElementById('tournament_Button').style.display = 'block';
 			document.getElementById('player2name').style.display = 'none';
@@ -70,8 +64,8 @@ document.getElementById('speedPaddle').addEventListener('input', function() {
 		modeTwo = document.getElementById('modeTwo');
 		startgameContainer = document.getElementById('startgame_container');
 
-		let url = new URL(window.location.href);
-		let mode = url.pathname.split("/")[3];
+		let urlArray = new URL(window.location.href).pathname.split("/");
+		let mode = urlArray.pop() || urlArray.pop();
 		save_game = '{% url "game_save" %}';
 		save_tournament = '{% url "tournament_save" %}';
 		speedBall.style.display = 'none';
@@ -90,10 +84,10 @@ document.getElementById('speedPaddle').addEventListener('input', function() {
 		window.sizePaddle = window.sizePaddleBase;
 		window.speedPaddle = window.speedPaddleBase;
 	}
-	function startGame() {
 
-		let url = new URL(window.location.href);
-		let mode = url.pathname.split("/")[3];
+	function startGame() {
+		let urlArray = new URL(window.location.href).pathname.split("/");
+		let mode = urlArray.pop() || urlArray.pop();
 
 		if (mode == 'pvp') {
 			name_player2 = document.getElementById('player2name').value;
