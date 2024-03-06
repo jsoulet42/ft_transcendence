@@ -1,5 +1,14 @@
 {%  load static %}
 <div class="tv-content-profile">
+    {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert alert-dismissible {{ message.tags }} fade show alert1" role="alert">
+                        <div>{{ message | safe }}</div>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    {% endfor %}
+    {% endif %}
+
     {%  if user.nickname %}
 	    <h1>{{ user.nickname }}</h1>
     {% else %}
@@ -48,4 +57,14 @@
 {#            .catch(error => console.error('Error:', error));#}
 {#		}#}
 {#    });#}
+{#</script>#}
+{#<script>#}
+{#  document.addEventListener('DOMContentLoaded', function () {#}
+{#    {% for message in messages %}#}
+{#      var modalBody = document.querySelector('#messageModal .modal-body');#}
+{#      modalBody.textContent = '{{ message }}';#}
+{#      var myModal = new bootstrap.Modal(document.getElementById('messageModal'));#}
+{#      myModal.show();#}
+{#    {% endfor %}#}
+{#  });#}
 {#</script>#}
