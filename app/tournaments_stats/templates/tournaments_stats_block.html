@@ -1,6 +1,8 @@
+{% load i18n %}
+
 <div id="tv-content-tourn-stats">
 	<div id="title-div">
-		<h1 id="title-tournaments">Tournament Stats</h1>
+		<h1 id="title-tournaments">{% trans "Tournament Stats" %}</h1>
 	</div>
 	<div class="center hover-bigger">
 		<div class="loadingtry"></div>
@@ -11,10 +13,10 @@
 				{% else %}
 					<thead>
 						<tr>
-							<th scope="col">Name</th>
-							<th scope="col">Position</th>
-							<th scope="col">Players count</th>
-							<th scope="col">Date</th>
+							<th scope="col">{% trans "Name" %}</th>
+							<th scope="col">{% trans "Position" %}</th>
+							<th scope="col">{% trans "Players count" %}</th>
+							<th scope="col">{% trans "Date" %}</th>
 						</tr>
 					</thead>
 					<thead>

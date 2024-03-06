@@ -28,7 +28,11 @@
 	</script>
 	<script src="{% static 'js/htmx.min.js' %}" defer></script>
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+	<script src="{% static 'js/htmx.min.js' %}" defer></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>\
+
+	<script src="{% url 'javascript-catalog' %}"></script>
 	{% comment %} <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	<script type="text/javascript">
 	document.body.addEventListener('htmx:afterSwap', drawChart);

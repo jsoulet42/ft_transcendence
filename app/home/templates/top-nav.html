@@ -1,4 +1,6 @@
 {% load static %}
+{% load i18n %}
+
 <nav id="nav-home-top">
 	<a id="home-btn" href="{% url 'hub' %}" hx-post="{% url 'hub' %}" hx-target="body" hx-push-url="true" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }'>
 		<p class="P">P</p>
@@ -13,7 +15,7 @@
 		{% if not user.is_authenticated %}
 		<a class="btn buttonPong login-btn" href="{% url 'login' %}" hx-get="{% url 'login' %}" hx-target="#main-container" hx-push-url="true" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }'>
 			<span class="center-text">
-				Login
+				{% trans "Login" %}
 			</span>
 		</a>
 		{% else %}
@@ -21,11 +23,11 @@
 			<div class="btn-group dropdown">
 				<button type="button" class="btn btn-primary dropdown-toggle buttonPong" data-bs-toggle="dropdown" aria-expanded="false">
 					<span class="login-text">
-                        {% if user.nickname %}
-                            {{ user.nickname }}
-                        {% else %}
-                            {{ user.username }}
-                        {% endif %}
+						{% if user.nickname %}
+							{{ user.nickname }}
+						{% else %}
+							{{ user.username }}
+						{% endif %}
 					</span>
 					<img id="menu-profile-img" class="img-fluid" src="{{ user.profile_image_path }}" alt="{{ user.username }}">
 				</button>
