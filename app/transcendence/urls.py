@@ -21,7 +21,7 @@ from django.conf.urls.static import static
 from django.conf.urls.i18n import i18n_patterns
 from django.views.i18n import JavaScriptCatalog
 
-urlpatterns = i18n_patterns(
+urlpatterns = [
     path('', include('hub.urls')),
 	path('jsi18n/', JavaScriptCatalog.as_view(), name='javascript-catalog'),
     path('admin/', admin.site.urls),
@@ -33,4 +33,4 @@ urlpatterns = i18n_patterns(
     path('friends/', include('friends.urls')),
     path('tournaments_stats/', include('tournaments_stats.urls')),
     path('authentication/', include('authentication.urls')),
-) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+ ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
