@@ -1,0 +1,42 @@
+{% load i18n %}
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5" id="exampleModalLabel">{% trans 'EDIT PROFILE' %}</h1>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<form action="{% url 'update_profile' %}" method="post" enctype="multipart/form-data">
+				{% csrf_token %}
+				<div class="modal-body">
+					<div class="mb-3">
+						<label for="new-nickname" class="form-label">{% trans 'Nickname' %}</label>
+						<input type="text" class="form-control" id="new-nickname" name="new_nickname" placeholder="{% trans 'Enter new nickname' %}">
+					</div>
+					<div class="mb-3">
+						<label for="new-password" class="form-label">{% trans 'Password' %}</label>
+						<input type="password" class="form-control" id="new-password" name="new_password" placeholder="{% trans 'Enter new password' %}">
+					</div>
+					<div class="mb-3">
+						<label for="new-picture" class="form-label">{% trans 'Profile Picture' %}</label>
+						<select id="avatarselect" name="avatarselect" class="form-select">
+							<option selected value="0">{% trans 'Choose picture...' %}</option>
+							<option value="1">John Doe</option>
+							<option value="2">Bunny Bang</option>
+							<option value="3">{% trans '42 Profile' %}</option>
+							{% if user.upload_image %}
+								<option value="4">{% trans 'Uploaded' %}</option>
+							{% endif %}
+						</select>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans 'Close' %}</button>
+					<button type="submit" class="btn btn-primary">{% trans 'Save changes' %}</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

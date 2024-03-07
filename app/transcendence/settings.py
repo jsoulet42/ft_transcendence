@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_htmx',
+    'django.conf.urls.i18n',
     'transcendence',
     'authentication',
     'backend',
@@ -55,7 +57,6 @@ INSTALLED_APPS = [
     'pong',
     'profile',
     'tournaments_stats',
-    'django_htmx',
 ]
 
 MIDDLEWARE = [
@@ -79,6 +80,7 @@ TEMPLATES = [
             os.path.join(BASE_DIR, 'home', 'templates'),
             os.path.join(BASE_DIR, 'hub', 'templates'),
             os.path.join(BASE_DIR, 'friends', 'templates'),
+            os.path.join(BASE_DIR, 'profile', 'templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {

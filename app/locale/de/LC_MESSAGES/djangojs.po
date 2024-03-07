@@ -1,0 +1,81 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-03-07 14:07+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: friends/static/friends/js/friend_request_modal.js:8
+msgid "Please enter either a username or a UUID."
+msgstr "Suche entweder nach Benutzername oder UUID."
+
+#: friends/static/friends/js/friend_request_modal.js:42
+msgid "Error sending friend request: "
+msgstr "Fehler beim Absenden der Freundschaftsanfrage: "
+
+#: friends/static/friends/js/friends_dropdown.js:60
+msgid "Requests"
+msgstr "Anfragen"
+
+#: friends/static/friends/js/friends_dropdown.js:64
+msgid "No friend requests"
+msgstr "Keine Anfragen"
+
+#: friends/static/friends/js/friends_dropdown.js:76
+#: friends/static/friends/js/friends_dropdown.js:77
+msgid "Accept"
+msgstr "Annehmen"
+
+#: friends/static/friends/js/friends_dropdown.js:81
+#: friends/static/friends/js/friends_dropdown.js:82
+msgid "Decline"
+msgstr "Rückgang"
+
+#: friends/static/friends/js/friends_dropdown.js:104
+msgid "Error fetching friend requests: "
+msgstr "Fehler beim Abruf der Freundschaftsanfragen: "
+
+#: friends/static/friends/js/friends_dropdown.js:120
+msgid "Friends"
+msgstr "Freunde"
+
+#: friends/static/friends/js/friends_dropdown.js:124
+msgid "You have no friends D:"
+msgstr "Du hast keine Freunde D:"
+
+#: friends/static/friends/js/friends_dropdown.js:143
+#: friends/static/friends/js/friends_dropdown.js:144
+msgid "Remove"
+msgstr "Zurückweisen"
+
+#: friends/static/friends/js/friends_dropdown.js:166
+msgid "Error fetching friend list: "
+msgstr "Fehler beim Abruf der Freundesliste: "
+
+#: friends/static/friends/js/friends_dropdown.js:187
+#: friends/static/friends/js/friends_dropdown.js:215
+#: friends/static/friends/js/friends_dropdown.js:242
+msgid "Network response was not ok."
+msgstr "Netzwerk Antwort ist nicht ok."
+
+#: friends/static/friends/js/friends_dropdown.js:193
+msgid "Error while requesting friend accept: "
+msgstr "Fehler beim Abruf der Freundesannehmung: "
+
+#: friends/static/friends/js/friends_dropdown.js:221
+#: friends/static/friends/js/friends_dropdown.js:248
+msgid "Error while requesting friend reject: "
+msgstr "Fehler beim Abruf des Freundesrückgangs: "

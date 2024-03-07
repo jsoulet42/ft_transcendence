@@ -1,10 +1,18 @@
+{% load i18n %}
+
 <div class="container_signup">
     <form class="mt-4" method="POST" action="{% url 'signup' %}">
         {% csrf_token %}
         
         {{ form.username.label_tag }}
         {{ form.username }}
-        
+
+        {% if form.username.errors %}
+            {% for error in form.username.errors %}
+                <p class="alert alert-danger">{{ error }}</p>
+            {% endfor %}
+        {% endif %}
+
         {{ form.email.label_tag }}
         {{ form.email }}
         
@@ -25,6 +33,6 @@
                 <p class="alert alert-danger">{{ error }}</p>
             {% endfor %}
         {% endif %}
-        <button class="btn btn_signup" type="submit">Sign up</button>
+        <button class="btn btn_signup" type="submit">{% trans 'Sign up' %}</button>
     </form>
 </div>

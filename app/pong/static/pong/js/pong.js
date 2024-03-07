@@ -577,7 +577,36 @@ function startGame() {
 	IAUpdate();
 	startUpdatingAI();
 	initializeBall(ball.speedBaseX);
+
+	let csrfTokenValue = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+	const request = new Request(set_user_status, {
+		method: 'PATCH',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({
+			username: host_name,
+			status: 'Ingame',
+		}),
+		headers: { 'X-CSRFToken': csrfTokenValue }
+	});
+
+	fetch(request)
+	.then(response => {
+		if (!response.ok) {
+		  return response.json().then(err => {
+			throw new Error(err.error_message);
+		  });
+		}
+		return response;
+	})
+	.then(data => console.log(data))
+	.catch((error) => {
+		console.error('Error:', error.message);
+	});
 }
+
 function endGame() {
 	manager.endGame = true;
 	manager.waiting = true;
@@ -602,7 +631,36 @@ function endGame() {
 	initializeIA(true);
 	startUpdatingAI();
 	reinitializeSettings();
+
+	let csrfTokenValue = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+	const request = new Request(set_user_status, {
+		method: 'PATCH',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({
+			username: host_name,
+			status: 'Online',
+		}),
+		headers: { 'X-CSRFToken': csrfTokenValue }
+	});
+
+	fetch(request)
+	.then(response => {
+		if (!response.ok) {
+		  return response.json().then(err => {
+			throw new Error(err.error_message);
+		  });
+		}
+		return response;
+	})
+	.then(data => console.log(data))
+	.catch((error) => {
+		console.error('Error:', error.message);
+	});
 }
+
 function reinitializeSettings() {
 	window.speedBallBase = 5;
 	window.sizePaddleBase = 5;
@@ -950,12 +1008,11 @@ function sendScoreToBackend() {
 	});
 
 	fetch(request)
-		.then(response => response.json())
-		.then(result => {
-			console.log(result); // Vous pouvez traiter le résultat ici
+		.then(response => {
+			//console.log(response);
 		})
 		.catch(error => {
-			console.error(`Fetch error: ${error.message}`);
+			console.error('Fetch error: ', error);
 		});
 }
 
@@ -982,12 +1039,11 @@ function sendTournamentScoreToBackend() {
 	});
 
 	fetch(request)
-		.then(response => response.json())
-		.then(result => {
-			console.log(result); // Vous pouvez traiter le résultat ici
+		.then(response => {
+			//console.log(response);
 		})
 		.catch(error => {
-			console.error(`Fetch error: ${error.message}`);
+			console.error('Fetch error: ', error);
 		});
 }
 
