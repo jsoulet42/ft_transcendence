@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-07 16:01+0100\n"
+"POT-Creation-Date: 2024-03-07 13:59+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,13 +28,11 @@ msgid "Email (optional)"
 msgstr "Email (optional)"
 
 #: authentication/forms.py:13 authentication/templates/login_block.html:16
-#: home/templates/home.html:87
+#: home/templates/home.html:88
 msgid "Password"
 msgstr "Passwort"
 
 #: authentication/forms.py:14
-#, fuzzy
-#| msgid "Password"
 msgid "Confirm Password"
 msgstr "Passwort Bestätigung"
 
@@ -107,83 +105,17 @@ msgstr "ODER"
 msgid "Send request"
 msgstr "Anfrage Schicken"
 
-#: friends/views.py:23
-#, fuzzy
-#| msgid "Could not find game host"
-msgid "Could not find user"
-msgstr "Benutzer nicht gefunden"
+#: friends/templates/friends_dropdown.html:13
+msgid "friends_icon"
+msgstr "freunde_Ikone"
 
-#: friends/views.py:45
-#, fuzzy
-#| msgid "Could not find tournament host"
-msgid "Couldn't find friend"
-msgstr "Freund nicht gefunden"
+#: friends/templates/friends_dropdown.html:19
+msgid "Add friend"
+msgstr "Freund Annehmen"
 
-#: friends/views.py:52
-msgid "Friend removed successfully"
-msgstr ""
-
-#: friends/views.py:54
-msgid "Could not remove friend"
-msgstr ""
-
-#: friends/views.py:70
-msgid "Invalid UUID format"
-msgstr ""
-
-#: friends/views.py:76
-msgid "Self requests not allowed"
-msgstr ""
-
-#: friends/views.py:79
-msgid "User is already your friend"
-msgstr ""
-
-#: friends/views.py:82
-msgid "Friend request already sent"
-msgstr ""
-
-#: friends/views.py:85
-#, fuzzy
-#| msgid "Send request"
-msgid "Friend request sent"
-msgstr "Anfrage Schicken"
-
-#: friends/views.py:93 friends/views.py:120
-#, fuzzy
-#| msgid "Invalid username or password"
-msgid "Invalid sender username"
-msgstr "Invalider Benutzername oder Passwort"
-
-#: friends/views.py:97 friends/views.py:124
-#, fuzzy
-#| msgid "Invalid username or password"
-msgid "Invalid receiver username"
-msgstr "Invalider Benutzername oder Passwort"
-
-#: friends/views.py:110
-#, fuzzy
-#| msgid "Could not find game host"
-msgid "Could not accept friend request"
-msgstr "Spiel Veranstalter nicht gefunden"
-
-#: friends/views.py:112
-#, fuzzy
-#| msgid "Send request"
-msgid "Friend request accepted"
-msgstr "Anfrage Schicken"
-
-#: friends/views.py:134
-#, fuzzy
-#| msgid "Send friend request"
-msgid "Could not decline friend request"
-msgstr "Freundschaftsanfrage schicken"
-
-#: friends/views.py:136
-#, fuzzy
-#| msgid "Send request"
-msgid "Friend request rejected"
-msgstr "Anfrage Schicken"
+#: friends/templates/friends_dropdown.html:20
+msgid "Refresh"
+msgstr "Aktualisieren"
 
 #: home/templates/bottom-nav.html:6
 msgid "PLAY"
@@ -197,67 +129,59 @@ msgstr "TURNIER STATISTIKEN"
 msgid "PROFILE"
 msgstr "PROFIL"
 
-#: home/templates/home.html:36
+#: home/templates/home.html:37
 msgid "Loading..."
 msgstr "Ladung..."
 
-#: home/templates/home.html:44
-#, fuzzy
-#| msgid "EDIT PROFILE"
+#: home/templates/home.html:45
 msgid "EDIT IMAGE"
 msgstr "BILD ANDERN"
 
-#: home/templates/home.html:51
+#: home/templates/home.html:52
 msgid "UPLOAD YOUR IMAGE -> THEN EDIT YOUR PROFILE"
 msgstr "LADE DEIN BILD -> UND ANDERE DEIN PROFIL"
 
-#: home/templates/home.html:57 home/templates/home.html:104
+#: home/templates/home.html:58 home/templates/home.html:105
 msgid "Close"
 msgstr "Schliessen"
 
-#: home/templates/home.html:58
+#: home/templates/home.html:59
 msgid "Save"
 msgstr "Speichern"
 
-#: home/templates/home.html:69 profile/templates/profile_block.html:38
+#: home/templates/home.html:70 profile/templates/profile_block.html:38
 msgid "EDIT PROFILE"
 msgstr "PROFIL ANDERN"
 
-#: home/templates/home.html:83
+#: home/templates/home.html:84
 msgid "Nickname"
 msgstr "Spitzname"
 
-#: home/templates/home.html:84
+#: home/templates/home.html:85
 msgid "Enter new nickname"
 msgstr "Neuer Spitzname"
 
-#: home/templates/home.html:88
-#, fuzzy
-#| msgid "Invalid username or password"
+#: home/templates/home.html:89
 msgid "Enter new password"
 msgstr "Neueur Passwort"
 
-#: home/templates/home.html:91
-#, fuzzy
-#| msgid "Profile"
+#: home/templates/home.html:92
 msgid "Profile Picture"
 msgstr "Profil Bild"
 
-#: home/templates/home.html:93
+#: home/templates/home.html:94
 msgid "Choose picture..."
 msgstr "Wähle ein Bild aus..."
 
-#: home/templates/home.html:96
-#, fuzzy
-#| msgid "Profile"
+#: home/templates/home.html:97
 msgid "42 Profile"
 msgstr "42 Profil"
 
-#: home/templates/home.html:98
+#: home/templates/home.html:99
 msgid "Uploaded"
 msgstr "Hochgeladet"
 
-#: home/templates/home.html:105
+#: home/templates/home.html:106
 msgid "Save changes"
 msgstr "Anderungen speichern"
 
@@ -289,15 +213,11 @@ msgstr "Rolle"
 msgid "GitHub"
 msgstr "GitHub"
 
-#: pong/templates/4joueurs_block.html:5 pong/templates/8joueurs_block.html:4
-#, fuzzy
-#| msgid "TOURNAMENT"
+#: pong/templates/4joueurs_block.html:5
 msgid "TOURNAMENTS"
 msgstr "TURNIERE"
 
 #: pong/templates/4joueurs_block.html:6
-#, fuzzy
-#| msgid "PLAY"
 msgid "4 PLAYERS"
 msgstr "4 SPIELER"
 
