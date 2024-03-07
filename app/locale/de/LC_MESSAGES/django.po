@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-07 05:02+0100\n"
+"POT-Creation-Date: 2024-03-07 08:16+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,6 +27,7 @@ msgid "Email (optional)"
 msgstr "Email (optional)"
 
 #: authentication/forms.py:13 authentication/templates/login_block.html:16
+#: home/templates/home.html:81
 msgid "Password"
 msgstr "Passwort"
 
@@ -101,17 +102,75 @@ msgstr "TURNIER STATISTIKEN"
 msgid "PROFILE"
 msgstr "PROFIL"
 
-#: home/templates/top-nav.html:18
+#: home/templates/home.html:30
+msgid "Loading..."
+msgstr "Ladung..."
+
+#: home/templates/home.html:38
+#, fuzzy
+#| msgid "EDIT PROFILE"
+msgid "EDIT IMAGE"
+msgstr "BILD ANDERN"
+
+#: home/templates/home.html:45
+msgid "UPLOAD YOUR IMAGE -> THEN EDIT YOUR PROFILE"
+msgstr "LADE DEIN BILD -> UND ANDERE DEIN PROFIL"
+
+#: home/templates/home.html:51 home/templates/home.html:98
+msgid "Close"
+msgstr "Schliessen"
+
+#: home/templates/home.html:52
+msgid "Save"
+msgstr "Speichern"
+
+#: home/templates/home.html:63 profile/templates/profile_block.html:38
+msgid "EDIT PROFILE"
+msgstr "PROFIL ANDERN"
+
+#: home/templates/home.html:77
+msgid "Nickname"
+msgstr "Spitzname"
+
+#: home/templates/home.html:85
+#, fuzzy
+#| msgid "Profile"
+msgid "Profile Picture"
+msgstr "Profil Bild"
+
+#: home/templates/home.html:87
+msgid "Choose picture..."
+msgstr "Wähle ein Bild aus..."
+
+#: home/templates/home.html:90
+#, fuzzy
+#| msgid "Profile"
+msgid "42 Profile"
+msgstr "42 Profil"
+
+#: home/templates/home.html:92
+msgid "Uploaded"
+msgstr "Hochgeladet"
+
+#: home/templates/home.html:99
+msgid "Save changes"
+msgstr "Anderungen speichern"
+
+#: home/templates/top-nav.html:19
 msgid "Login"
 msgstr "Einloggen"
 
-#: home/templates/top-nav.html:37
+#: home/templates/top-nav.html:38
 msgid "Profile"
 msgstr "Profil"
 
-#: home/templates/top-nav.html:42
+#: home/templates/top-nav.html:43
 msgid "Logout"
 msgstr "Ausloggen"
+
+#: home/templates/top-nav.html:59 home/templates/top-nav.html:67
+msgid "flag"
+msgstr "flagge"
 
 #: pong/templates/pong_block.html:9
 msgid "1 VS 1"
@@ -145,10 +204,6 @@ msgstr "Bild ändern"
 msgid "MATCH HISTORY"
 msgstr "SPIELHISTORIE"
 
-#: profile/templates/profile_block.html:38
-msgid "EDIT PROFILE"
-msgstr "PROFIL ANDERN"
-
 #: profile/templates/profile_block.html:42
 msgid "Search for username..."
 msgstr "Benutzername suchen..."
@@ -181,15 +236,15 @@ msgstr "Spielerzahl"
 msgid "Date"
 msgstr "Datum"
 
-#: transcendence/settings.py:172
+#: transcendence/settings.py:173
 msgid "English"
 msgstr "Englisch"
 
-#: transcendence/settings.py:173
+#: transcendence/settings.py:174
 msgid "French"
 msgstr "Französisch"
 
-#: transcendence/settings.py:174
+#: transcendence/settings.py:175
 msgid "German"
 msgstr "Deutsch"
 

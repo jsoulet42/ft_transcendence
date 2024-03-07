@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-07 05:02+0100\n"
+"POT-Creation-Date: 2024-03-07 08:16+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,6 +27,7 @@ msgid "Email (optional)"
 msgstr ""
 
 #: authentication/forms.py:13 authentication/templates/login_block.html:16
+#: home/templates/home.html:81
 msgid "Password"
 msgstr ""
 
@@ -99,16 +100,68 @@ msgstr ""
 msgid "PROFILE"
 msgstr ""
 
-#: home/templates/top-nav.html:18
+#: home/templates/home.html:30
+msgid "Loading..."
+msgstr ""
+
+#: home/templates/home.html:38
+msgid "EDIT IMAGE"
+msgstr ""
+
+#: home/templates/home.html:45
+msgid "UPLOAD YOUR IMAGE -> THEN EDIT YOUR PROFILE"
+msgstr ""
+
+#: home/templates/home.html:51 home/templates/home.html:98
+msgid "Close"
+msgstr ""
+
+#: home/templates/home.html:52
+msgid "Save"
+msgstr ""
+
+#: home/templates/home.html:63 profile/templates/profile_block.html:38
+msgid "EDIT PROFILE"
+msgstr ""
+
+#: home/templates/home.html:77
+msgid "Nickname"
+msgstr ""
+
+#: home/templates/home.html:85
+msgid "Profile Picture"
+msgstr ""
+
+#: home/templates/home.html:87
+msgid "Choose picture..."
+msgstr ""
+
+#: home/templates/home.html:90
+msgid "42 Profile"
+msgstr ""
+
+#: home/templates/home.html:92
+msgid "Uploaded"
+msgstr ""
+
+#: home/templates/home.html:99
+msgid "Save changes"
+msgstr ""
+
+#: home/templates/top-nav.html:19
 msgid "Login"
 msgstr ""
 
-#: home/templates/top-nav.html:37
+#: home/templates/top-nav.html:38
 msgid "Profile"
 msgstr ""
 
-#: home/templates/top-nav.html:42
+#: home/templates/top-nav.html:43
 msgid "Logout"
+msgstr ""
+
+#: home/templates/top-nav.html:59 home/templates/top-nav.html:67
+msgid "flag"
 msgstr ""
 
 #: pong/templates/pong_block.html:9
@@ -143,10 +196,6 @@ msgstr ""
 msgid "MATCH HISTORY"
 msgstr ""
 
-#: profile/templates/profile_block.html:38
-msgid "EDIT PROFILE"
-msgstr ""
-
 #: profile/templates/profile_block.html:42
 msgid "Search for username..."
 msgstr ""
@@ -179,14 +228,14 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
-#: transcendence/settings.py:172
+#: transcendence/settings.py:173
 msgid "English"
 msgstr ""
 
-#: transcendence/settings.py:173
+#: transcendence/settings.py:174
 msgid "French"
 msgstr ""
 
-#: transcendence/settings.py:174
+#: transcendence/settings.py:175
 msgid "German"
 msgstr ""

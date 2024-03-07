@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-07 05:02+0100\n"
+"POT-Creation-Date: 2024-03-07 08:16+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,6 +27,7 @@ msgid "Email (optional)"
 msgstr "Email (optionnel)"
 
 #: authentication/forms.py:13 authentication/templates/login_block.html:16
+#: home/templates/home.html:81
 msgid "Password"
 msgstr "Mot de passe"
 
@@ -101,17 +102,77 @@ msgstr "STATS DE TOURNOIS"
 msgid "PROFILE"
 msgstr "PROFIL"
 
-#: home/templates/top-nav.html:18
+#: home/templates/home.html:30
+msgid "Loading..."
+msgstr "Chargement..."
+
+#: home/templates/home.html:38
+#, fuzzy
+#| msgid "PROFILE"
+msgid "EDIT IMAGE"
+msgstr "EDITER LE PROFIL"
+
+#: home/templates/home.html:45
+msgid "UPLOAD YOUR IMAGE -> THEN EDIT YOUR PROFILE"
+msgstr "TELECHARGE TON IMAGE -> PUIS MODIFIE TON PROFIL"
+
+#: home/templates/home.html:51 home/templates/home.html:98
+msgid "Close"
+msgstr "Fermer"
+
+#: home/templates/home.html:52
+msgid "Save"
+msgstr "Enregistrer"
+
+#: home/templates/home.html:63 profile/templates/profile_block.html:38
+#, fuzzy
+#| msgid "PROFILE"
+msgid "EDIT PROFILE"
+msgstr "EDITER LE PROFIL"
+
+#: home/templates/home.html:77
+msgid "Nickname"
+msgstr "Surnom"
+
+#: home/templates/home.html:85
+#, fuzzy
+#| msgid "Profile"
+msgid "Profile Picture"
+msgstr "Image de Profil"
+
+#: home/templates/home.html:87
+msgid "Choose picture..."
+msgstr "Choisis une image..."
+
+#: home/templates/home.html:90
+#, fuzzy
+#| msgid "Profile"
+msgid "42 Profile"
+msgstr "Profil 42"
+
+#: home/templates/home.html:92
+msgid "Uploaded"
+msgstr "Telecharge"
+
+#: home/templates/home.html:99
+msgid "Save changes"
+msgstr "Enregistrer les modificaitons"
+
+#: home/templates/top-nav.html:19
 msgid "Login"
 msgstr "Connection"
 
-#: home/templates/top-nav.html:37
+#: home/templates/top-nav.html:38
 msgid "Profile"
 msgstr "Profil"
 
-#: home/templates/top-nav.html:42
+#: home/templates/top-nav.html:43
 msgid "Logout"
 msgstr "Deconnection"
+
+#: home/templates/top-nav.html:59 home/templates/top-nav.html:67
+msgid "flag"
+msgstr "drapeau"
 
 #: pong/templates/pong_block.html:9
 msgid "1 VS 1"
@@ -144,12 +205,6 @@ msgstr "Modifier l'image"
 #: profile/templates/profile_block.html:35
 msgid "MATCH HISTORY"
 msgstr "HISTORIQUE DE MATCHS"
-
-#: profile/templates/profile_block.html:38
-#, fuzzy
-#| msgid "PROFILE"
-msgid "EDIT PROFILE"
-msgstr "EDITER LE PROFIL"
 
 #: profile/templates/profile_block.html:42
 #, fuzzy
@@ -185,15 +240,15 @@ msgstr "Nombre de joueurs"
 msgid "Date"
 msgstr "Date"
 
-#: transcendence/settings.py:172
+#: transcendence/settings.py:173
 msgid "English"
 msgstr "Anglais"
 
-#: transcendence/settings.py:173
+#: transcendence/settings.py:174
 msgid "French"
 msgstr "Français"
 
-#: transcendence/settings.py:174
+#: transcendence/settings.py:175
 msgid "German"
 msgstr "Allemand"
 

@@ -6,6 +6,6 @@ function addFocusHandlers() {
 	});
 }
 
-document.addEventListener('DOMContentLoaded', addFocusHandlers);
+//document.addEventListener('DOMContentLoaded', addFocusHandlers);
 
-document.addEventListener('htmx:OnLoad', addFocusHandlers);
+//document.addEventListener('htmx:OnLoad', addFocusHandlers);
