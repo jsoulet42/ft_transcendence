@@ -113,7 +113,7 @@ def accept_friend_request(request):
 
 @login_required
 @require_POST
-def reject_friend_request(request):
+def decline_friend_request(request):
     sender_username = request.POST.get('sender_username')
     if not sender_username:
         return JsonResponse({'error': 'Invalid sender username'})
@@ -130,6 +130,6 @@ def reject_friend_request(request):
 
         friend_request.delete()
     except ObjectDoesNotExist:
-        return JsonResponse({'error': 'Couldn\'t reject friend request'})
+        return JsonResponse({'error': 'Couldn\'t decline friend request'})
 
     return JsonResponse({'success': 'Friend request rejected'})

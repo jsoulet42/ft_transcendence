@@ -1,184 +1,151 @@
-import requests
 import json
 
-from django.shortcuts import render
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse, HttpResponse, Http404
+from http import HTTPStatus
 from django.core.exceptions import ObjectDoesNotExist
 from datetime import timedelta
+from django.views.decorators.http import require_POST, require_http_methods
+from django.utils.translation import gettext as _
 
 from .models import CustomUser, Leaderboard, Game, Tournament
 
 
-def get_user_name(request, user_id):
-    user = CustomUser.objects.get(id=user_id)
-    return JsonResponse({'name': user.name})
+@require_http_methods(["PATCH"])
+def set_user_status(request):
+    try:
+        data = json.loads(request.body.decode('utf-8'))
+    except json.JSONDecodeError:
+        return JsonResponse(
+            {'error_code': 'BAD_REQUEST', 'error_message': _('Invalid JSON')},
+            status=HTTPStatus.BAD_REQUEST
+        )
+
+    username = data.get('username')
+    status = data.get('status')
+
+    if not username:
+        return JsonResponse(
+            {'error_code': 'MISSING_USERNAME', 'error_message': _('Missing username')},
+            status=HTTPStatus.BAD_REQUEST
+        )
+
+    if not status:
+        return JsonResponse(
+            {'error_code': 'MISSING_STATUS', 'error_message': _('Missing status')},
+            status=HTTPStatus.BAD_REQUEST
+        )
+
+    valid_statuses = dict(CustomUser.STATUS_CHOICES).keys()
+    if status not in valid_statuses:
+        return JsonResponse(
+            {'error_code': 'INVALID_STATUS', 'error_message': _('Invalid status. Expected: ') + ', '.join(valid_statuses)},
+            status=HTTPStatus.BAD_REQUEST
+        )
+
+    try:
+        user = CustomUser.objects.get(username=username)
+    except CustomUser.DoesNotExist:
+        raise Http404(_("User not found"))
+
+    user.status = status
+    user.save()
+    return HttpResponse(status=HTTPStatus.NO_CONTENT)
 
 
-def test_game(request):
-    data = {
-        'game_duration': '00:10:00',
-        'host_username': 'lolefevr',
-        'player1': 'lolefevr',
-        'player2': 'pos2',
-        'player1_score': 2,
-        'player2_score': 1,
-    }
-    headers = {'Content-Type': 'application/json'}
-    response = requests.post(
-        'http://localhost:8000/backend/game_save/', data=json.dumps(data), headers=headers)
-
-    if response.status_code / 100 != 2:
-        return JsonResponse({'error': 'Could not save game'})
-    return JsonResponse(response.json())
-
-
-def test_tournament(request):
-    data = {
-        'host_username': request.user.username,
-        'tournament_name': 'test',
-        'date': '2020-12-12',
-        'players_count': 4,
-        'leaderboard': [request.user.username, 'pos2', 'pos3', 'pos4'],
-        'games': [
-                {
-                    'game_duration': '00:10:00',
-                    'host': request.user.username,
-                    'player1': request.user.username,
-                    'player2': 'pos2',
-                    'player1_score': 5,
-                    'player2_score': 1,
-                },
-            {
-                    'game_duration': '00:10:00',
-                    'host': None,
-                    'player1': 'pos3',
-                    'player2': 'pos4',
-                    'player1_score': 2,
-                    'player2_score': 0,
-            },
-        ]
-    }
-    headers = {'Content-Type': 'application/json'}
-    response = requests.post(
-        'http://localhost:8000/backend/tournament_save/', data=json.dumps(data), headers=headers)
-
-    if response.status_code / 100 != 2:
-        return JsonResponse({'error': 'Could not save tournament'})
-    return JsonResponse(response.json())
-
-
-@csrf_exempt
+@require_POST
 def save_game(request):
-    if request.method == 'POST':
-        game_duration = request.POST.get('game_duration', None)
-        host_username = request.POST.get('host_username', None)
-        player1 = request.POST.get('player1', None)
-        player2 = request.POST.get('player2', None)
-        player1_score = request.POST.get('player1_score', None)
-        player2_score = request.POST.get('player2_score', None)
+    game_duration = float(request.POST.get('game_duration', 0))
+    host_username = request.POST.get('host_username', None)
+    player1 = request.POST.get('player1', None)
+    player2 = request.POST.get('player2', None)
+    player1_score = request.POST.get('player1_score', None)
+    player2_score = request.POST.get('player2_score', None)
 
-        # print(request.POST.get('game_duration', None))
-        # data = json.loads(request.body)
-
-        # game_duration = data.get('game_duration', None)
-        # host_username = data.get('host_username', None)
-        # player1 = data.get('player1', None)
-        # player2 = data.get('player2', None)
-        # player1_score = data.get('player1_score', None)
-        # player2_score = data.get('player2_score', None)
-
-        print(host_username)
-
-        try:
-            host = CustomUser.objects.get(username=host_username)
-        except ObjectDoesNotExist:
-            return JsonResponse({'error': 'Could not find game host'})
-
-        game = Game.objects.create(
-            game_duration=game_duration,
-            host=host,
-            player1=player1,
-            player2=player2,
-            player1_score=player1_score,
-            player2_score=player2_score,
-            tournament=None,
+    try:
+        host = CustomUser.objects.get(username=host_username)
+    except ObjectDoesNotExist:
+        return JsonResponse(
+            {'error_code': 'HOST_NOT_FOUND', 'error_message': _('Could not find game host')},
+            status=HTTPStatus.BAD_REQUEST
         )
-        host.games.add(game)
-        host.stats.games_played += 1
 
-        if host.username == player1:
-            if player1_score > player2_score:
-                host.stats.wins += 1
-            else:
-                host.stats.losses += 1
-        else:
-            if player2_score > player1_score:
-                host.stats.wins += 1
-            else:
-                host.stats.losses += 1
-        host.stats.save()
-        return JsonResponse({'success': 'Game saved'})
+    game = Game.objects.create(
+        game_duration=timedelta(seconds=game_duration),
+        host=host,
+        player1=player1,
+        player2=player2,
+        player1_score=player1_score,
+        player2_score=player2_score,
+        tournament=None,
+    )
+    host.games.add(game)
+    host.stats.games_played += 1
 
-    return JsonResponse({'error': 'Game not saved'})
+    winner = player1 if player1_score > player2_score else player2
+
+    if host.username == winner:
+            host.stats.wins += 1
+    else:
+        host.stats.losses += 1
+
+    host.stats.save()
+    return HttpResponse(status=HTTPStatus.NO_CONTENT)
 
 
-@csrf_exempt
+@require_POST
 def save_tournament(request):
-    if request.method == 'POST':
-        host_username = request.POST.get('host_username', None)
-        tournament_name = request.POST.get('tournament_name', None)
-        players_count = request.POST.get('players_count', None)
-        leaderboard_list = json.loads(request.POST.get('leaderboard', None))
-        games_list = json.loads(request.POST.get('games', None))
+    host_username = request.POST.get('host_username', None)
+    tournament_name = request.POST.get('tournament_name', None)
+    players_count = request.POST.get('players_count', None)
+    leaderboard_list = json.loads(request.POST.get('leaderboard', None))
+    games_list = json.loads(request.POST.get('games', None))
 
-        try:
-            host = CustomUser.objects.get(username=host_username)
-        except ObjectDoesNotExist:
-            return JsonResponse({'error': 'Could not find tournament host'})
-
-        leaderboard = Leaderboard.objects.create(host=host)
-        leaderboard.set_usernames(leaderboard_list)
-
-        tournament = Tournament.objects.create(
-            name=tournament_name,
-            players_count=players_count,
-            leaderboard=leaderboard
+    try:
+        host = CustomUser.objects.get(username=host_username)
+    except ObjectDoesNotExist:
+        return JsonResponse(
+            {'error_code': 'HOST_NOT_FOUND', 'error_message': _('Could not find tournament host')},
+            status=HTTPStatus.BAD_REQUEST
         )
 
-        for game in games_list:
-            game = Game.objects.create(
-                game_duration=timedelta(seconds=game.get('game_duration', 0)),
-                host=host,
-                player1=game.get('player1'),
-                player2=game.get('player2'),
-                player1_score=game.get('player1_score'),
-                player2_score=game.get('player2_score'),
-            )
+    leaderboard = Leaderboard.objects.create(host=host)
+    leaderboard.set_usernames(leaderboard_list)
 
-            game.tournament = tournament
-            game.save()
-            if game.host is not None:
-                host.games.add(game)
-                host.stats.games_played += 1
-                if host.username == game.player1:
-                    if game.player1_score > game.player2_score:
-                        host.stats.wins += 1
-                    else:
-                        host.stats.losses += 1
-                else:
-                    if game.player2_score > game.player1_score:
-                        host.stats.wins += 1
-                    else:
-                        host.stats.losses += 1
+    tournament = Tournament.objects.create(
+        name=tournament_name,
+        players_count=players_count,
+        leaderboard=leaderboard
+    )
 
-            tournament.games.add(game)
+    for game in games_list:
+        game = Game.objects.create(
+            game_duration=timedelta(seconds=game.get('game_duration', 0)),
+            host=host,
+            player1=game.get('player1'),
+            player2=game.get('player2'),
+            player1_score=game.get('player1_score'),
+            player2_score=game.get('player2_score'),
+        )
 
-        host.stats.tournaments_played += 1
-        host.tournaments.add(tournament)
-        leaderboard.save()
-        host.stats.save()
-        host.save()
-        return JsonResponse({'success': 'Tournament saved'})
+        game.tournament = tournament
+        game.save()
 
-    return JsonResponse({'error': 'Tournament not saved'})
+        if game.host is not None:
+            host.games.add(game)
+            host.stats.games_played += 1
+
+            winner = game.player1 if game.player1_score > game.player2_score else game.player2
+
+            if host.username == winner:
+                host.stats.wins += 1
+            else:
+                host.stats.losses += 1
+
+        tournament.games.add(game)
+
+    host.stats.tournaments_played += 1
+    host.tournaments.add(tournament)
+    leaderboard.save()
+    host.stats.save()
+    host.save()
+    return HttpResponse(status=HTTPStatus.NO_CONTENT)

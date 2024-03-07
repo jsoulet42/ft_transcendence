@@ -23,15 +23,15 @@ from .views import (
     get_friend_requests,
     send_friend_request,
     accept_friend_request,
-    reject_friend_request
+    decline_friend_request
 )
 
 urlpatterns = [
-    path('remove/', remove_friend),
-    path('list/get/', get_friend_list),
+    path('remove/', remove_friend, name='remove_friend'),
+    path('list/get/', get_friend_list, name='get_friend_list'),
     path('list/get/<str:username>/', get_friend_list),
     path('requests/get/', get_friend_requests, name='get_friend_requests'),
     path('requests/send/', send_friend_request, name='send_friend_request'),
-    path('requests/accept/', accept_friend_request),
-    path('requests/reject/', reject_friend_request),
+    path('requests/accept/', accept_friend_request, name='accept_friend_request'),
+    path('requests/decline/', decline_friend_request, name='decline_friend_request'),
 ]

@@ -24,7 +24,8 @@ def signup(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
+            auth_login(request, user)
             return redirect('hub')
     if request.META.get('HTTP_HX_REQUEST'):
         return render(request, 'signup_block.html', {'form': form})

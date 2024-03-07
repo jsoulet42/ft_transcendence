@@ -37,7 +37,7 @@ msgstr "Inscription"
 
 #: authentication/templates/login_block.html:33
 msgid "Login with 42"
-msgstr "Inscription avec 42"
+msgstr "Connection avec 42"
 
 #: authentication/views.py:57
 msgid "Invalid username or password"

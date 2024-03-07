@@ -1,0 +1,29 @@
+{% load static %}
+{% load i18n %}
+
+<div class="btn-group dropdown">
+	<button id="friends-dropdown-toggle" type="button" class="btn btn-secondary dropdown-toggle pong-btn-success" onclick="createFriendsDropdown()" data-bs-toggle="dropdown" aria-expanded="false">
+		<img id="menu-friends-icon" class="img-fluid" src="{% static 'friends/images/friends_icon.png' %}" alt="friends_icon">
+	</button>
+	<ul id="friends-dropdown" class="dropdown-menu px-3">
+		<div id="friend-requests-container"></div>
+		<div id="friend-list-container"></div>
+		<li class="row">
+			<button type="button" class="dropdown-item btn btn-add col" data-bs-toggle="modal" data-bs-target="#friend-request-modal"></button>
+			<button type="button" id="friends-refresh-btn" class="dropdown-item btn btn-refresh col" onclick="createFriendsDropdown()"></button>
+		</li>
+	</ul>
+</div>
+
+<script>
+	var session_user_username = "{{ user.username }}";
+	var csrf_token = "{{ csrf_token }}";
+	var removeFriendUrl = "{% url 'remove_friend' %}";
+	var getFriendListUrl = "{% url 'get_friend_list' %}";
+	var getRequestsUrl = "{% url 'get_friend_requests' %}";
+	var sendRequestUrl = "{% url 'send_friend_request' %}";
+	var acceptRequestUrl = "{% url 'accept_friend_request' %}";
+	var declineRequestUrl = "{% url 'decline_friend_request' %}";
+</script>
+
+<script src="{% static 'friends/js/friends_dropdown.js' %}"></script>

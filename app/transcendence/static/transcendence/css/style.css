@@ -155,7 +155,7 @@
 
 #signup-btn {
   float: right;
-  border-radius: 5rem;
+  border-radius: 1.5rem;
 }
 
 .form_signup1 {
@@ -225,15 +225,6 @@
   border: 0.1vmin solid black;
   font-size: 2.5vh;
   margin-top: 2vh;
-}
-
-#login-form input[type=text], input[type=password] {
-  width: 95%;
-  height: 3rem;
-  align-items: center;
-  display: flex;
-  left: 2%;
-  margin: 2%;
 }
 
 body {

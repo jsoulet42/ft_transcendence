@@ -23,10 +23,10 @@ SASS_PATH+=":app/hub/static/hub/scss"
 SASS_PATH+=":app/pong/static/pong/scss"
 SASS_PATH+=":app/profile/static/profile/scss"
 SASS_PATH+=":app/tournaments_stats/static/tournaments_stats/scss"
-SASS_PATH+=":app/transcendence/static/transcendence/scss"
 SASS_PATH+=":app/friends/static/friends/scss"
 
 export SASS_PATH
+echo $SASS_PATH
 
 # ********************************************************************************************** #
 

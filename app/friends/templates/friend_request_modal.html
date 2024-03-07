@@ -24,6 +24,11 @@
 </div>
 
 <script>
+	var csrfToken = "{{ csrf_token }}";
+	var sendRequestUrl = "{% url 'send_friend_request' %}";
+</script>
+
+<script>
 	function validateForm() {
 		const friendRequestForm = document.getElementById('friend-request-form');
 		const csrfToken = friendRequestForm.querySelector('[name=csrfmiddlewaretoken]').value;
@@ -36,7 +41,7 @@
 			return false;
 		}
 
-		fetch(`/friends/requests/send/`, {
+		fetch(sendRequestUrl, {
 			method: 'POST',
 			headers: {
 				'X-CSRFToken': csrfToken,
