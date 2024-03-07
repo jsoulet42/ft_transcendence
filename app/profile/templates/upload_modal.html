@@ -10,11 +10,9 @@
 			</div>
 			<form action="{% url 'update_image' %}" method="POST" enctype="multipart/form-data">
 				{% csrf_token %}
-				<div class="modal-body">
-					<div class="mb-3">
-						<label for="new-img" class="form-label">{% trans 'UPLOAD YOUR IMAGE -> THEN EDIT YOUR PROFILE' %}</label>
-						{{ form.as_p }}
-					</div>
+				<div class="modal-body mb-3">
+					<span class="form-label">{% trans 'UPLOAD YOUR IMAGE -> THEN EDIT YOUR PROFILE' %}</span>
+					{{ form.as_p }}
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans 'Close' %}</button>

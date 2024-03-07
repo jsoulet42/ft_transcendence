@@ -1,7 +1,7 @@
 {% load static %}
 {% load i18n %}
 
-<div id="tv-login-content" class="text-center tv-content">	
+<div id="tv-login-content" class="text-center tv-content">
 	{% if error %}
 	<div id="alert-error" class="alert alert-danger alert-dismissible fade show" role="alert">
 		{{ error }}
@@ -14,7 +14,7 @@
 		<fieldset>
 			<input name="username" class="input-pong my-1" type="text" placeholder="{% trans 'Username' %}" value="{{ username }}" autocomplete="username" required autofocus>
 			<input name="password" class="input-pong my-1" type="password" placeholder="{% trans 'Password' %}" autocomplete="current-password" required>
-			
+
 			<div id="login-btn-group" class="mt-1">
 				<button id="login-submit-btn" name="login-submit" class="btn btn-primary buttonPong" type="submit">
 					<span>{% trans 'Log in' %}</span>
@@ -33,36 +33,5 @@
 				<span>{% trans 'Login with 42' %}</span>
 			</button>
 		</fieldset>
-		{% comment %}
-		<button id="guest-btn" name="guest" class="btn buttonStyle buttonPong w-100" type="submit">
-			<span style="font-size: 2rem;">Continue as guest</span>
-		</button>
-		{% endcomment %}
 	</form>
 </div>
-
-{% comment %} {% if error %}
-<div id="auth-error-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="AuthErrorModal" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content alert alert-danger">
-			<div class="modal-body">
-				<p><strong>{{ error }}</strong></p>
-			</div>
-			<button type="button" class="btn btn-light" data-dismiss="modal">Oh...</button>
-		</div>
-	</div>
-</div>
-{% endif %}
-
-<script>
-$(document).ready(function(){
-	// Check if the modal element exists in the DOM
-	if ($('#auth-error-modal').length) {
-		$('#auth-error-modal').appendTo('body').modal('show');
-
-		$(document).on('click', '#auth-error-modal .btn', function() {
-			$('#auth-error-modal').modal('hide');
-		});
-	}
-});
-</script> {% endcomment %}

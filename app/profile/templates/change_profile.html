@@ -13,14 +13,14 @@
 				<div class="modal-body">
 					<div class="mb-3">
 						<label for="new-nickname" class="form-label">{% trans 'Nickname' %}</label>
-						<input type="text" class="form-control" id="new-nickname" name="new_nickname" placeholder="{% trans 'Enter new nickname' %}">
+						<input type="text" class="form-control" id="new-nickname" name="new_nickname" autocomplete="username" placeholder="{% trans 'Enter new nickname' %}">
 					</div>
 					<div class="mb-3">
 						<label for="new-password" class="form-label">{% trans 'Password' %}</label>
-						<input type="password" class="form-control" id="new-password" name="new_password" placeholder="{% trans 'Enter new password' %}">
+						<input type="password" class="form-control" id="new-password" name="new_password" autocomplete="current-password" placeholder="{% trans 'Enter new password' %}">
 					</div>
 					<div class="mb-3">
-						<label for="new-picture" class="form-label">{% trans 'Profile Picture' %}</label>
+						<label for="avatarselect" class="form-label">{% trans 'Profile Picture' %}</label>
 						<select id="avatarselect" name="avatarselect" class="form-select">
 							<option selected value="0">{% trans 'Choose picture...' %}</option>
 							<option value="1">John Doe</option>
