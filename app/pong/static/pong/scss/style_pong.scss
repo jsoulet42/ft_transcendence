@@ -90,6 +90,14 @@ $carousel-indicator-height: 3px;
 	padding: 5%;
 }
 
+.text_startgame1 {
+	color: white;
+	font-size: 2.3vh;
+	top: 5%;
+	left: 13%;
+	padding: 5%;
+}
+
 .startgame_playerform {
 	text-align: center;
 	width: 70%;
@@ -219,6 +227,7 @@ $carousel-indicator-height: 3px;
 }
 
 .switch_mode {
+	position: absolute;
 	top: 5%;
 }
 
