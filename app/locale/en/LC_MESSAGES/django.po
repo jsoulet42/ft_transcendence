@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-07 13:59+0100\n"
+"POT-Creation-Date: 2024-03-07 18:34+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: authentication/forms.py:11 authentication/templates/login_block.html:15
+#: authentication/forms.py:11 authentication/forms.py:16
+#: authentication/templates/login_block.html:15
 #: friends/templates/friend_request_modal.html:17
 msgid "Username"
 msgstr ""
@@ -27,8 +28,9 @@ msgstr ""
 msgid "Email (optional)"
 msgstr ""
 
-#: authentication/forms.py:13 authentication/templates/login_block.html:16
-#: home/templates/home.html:88
+#: authentication/forms.py:13 authentication/forms.py:18
+#: authentication/templates/login_block.html:16
+#: profile/templates/change_profile.html:19
 msgid "Password"
 msgstr ""
 
@@ -36,7 +38,15 @@ msgstr ""
 msgid "Confirm Password"
 msgstr ""
 
-#: authentication/forms.py:23
+#: authentication/forms.py:17
+msgid "Email"
+msgstr ""
+
+#: authentication/forms.py:19
+msgid "Confirmation Password"
+msgstr ""
+
+#: authentication/forms.py:28
 msgid "User already exists."
 msgstr ""
 
@@ -77,7 +87,7 @@ msgstr ""
 msgid "Invalid status. Expected: "
 msgstr ""
 
-#: backend/views.py:48 friends/views.py:73
+#: backend/views.py:48 friends/views.py:71
 msgid "User not found"
 msgstr ""
 
@@ -117,6 +127,66 @@ msgstr ""
 msgid "Refresh"
 msgstr ""
 
+#: friends/views.py:21
+msgid "Could not find user"
+msgstr ""
+
+#: friends/views.py:43
+msgid "Couldn't find friend"
+msgstr ""
+
+#: friends/views.py:50
+msgid "Friend removed successfully"
+msgstr ""
+
+#: friends/views.py:52
+msgid "Could not remove friend"
+msgstr ""
+
+#: friends/views.py:68
+msgid "Invalid UUID format"
+msgstr ""
+
+#: friends/views.py:74
+msgid "Self requests not allowed"
+msgstr ""
+
+#: friends/views.py:77
+msgid "User is already your friend"
+msgstr ""
+
+#: friends/views.py:80
+msgid "Friend request already sent"
+msgstr ""
+
+#: friends/views.py:83
+msgid "Friend request sent"
+msgstr ""
+
+#: friends/views.py:91 friends/views.py:118
+msgid "Invalid sender username"
+msgstr ""
+
+#: friends/views.py:95 friends/views.py:122
+msgid "Invalid receiver username"
+msgstr ""
+
+#: friends/views.py:108
+msgid "Could not accept friend request"
+msgstr ""
+
+#: friends/views.py:110
+msgid "Friend request accepted"
+msgstr ""
+
+#: friends/views.py:132
+msgid "Could not decline friend request"
+msgstr ""
+
+#: friends/views.py:134
+msgid "Friend request rejected"
+msgstr ""
+
 #: home/templates/bottom-nav.html:6
 msgid "PLAY"
 msgstr ""
@@ -131,58 +201,6 @@ msgstr ""
 
 #: home/templates/home.html:37
 msgid "Loading..."
-msgstr ""
-
-#: home/templates/home.html:45
-msgid "EDIT IMAGE"
-msgstr ""
-
-#: home/templates/home.html:52
-msgid "UPLOAD YOUR IMAGE -> THEN EDIT YOUR PROFILE"
-msgstr ""
-
-#: home/templates/home.html:58 home/templates/home.html:105
-msgid "Close"
-msgstr ""
-
-#: home/templates/home.html:59
-msgid "Save"
-msgstr ""
-
-#: home/templates/home.html:70 profile/templates/profile_block.html:38
-msgid "EDIT PROFILE"
-msgstr ""
-
-#: home/templates/home.html:84
-msgid "Nickname"
-msgstr ""
-
-#: home/templates/home.html:85
-msgid "Enter new nickname"
-msgstr ""
-
-#: home/templates/home.html:89
-msgid "Enter new password"
-msgstr ""
-
-#: home/templates/home.html:92
-msgid "Profile Picture"
-msgstr ""
-
-#: home/templates/home.html:94
-msgid "Choose picture..."
-msgstr ""
-
-#: home/templates/home.html:97
-msgid "42 Profile"
-msgstr ""
-
-#: home/templates/home.html:99
-msgid "Uploaded"
-msgstr ""
-
-#: home/templates/home.html:106
-msgid "Save changes"
 msgstr ""
 
 #: home/templates/top-nav.html:19
@@ -297,31 +315,31 @@ msgstr ""
 msgid "Player 8"
 msgstr ""
 
-#: pong/templates/game_block.html:10
-msgid "Enter your nickname please :D"
-msgstr ""
-
-#: pong/templates/game_block.html:12
+#: pong/templates/game_block.html:11
 msgid "Start the game"
 msgstr ""
 
-#: pong/templates/game_block.html:13
-msgid "Game Setting"
+#: pong/templates/game_block.html:12
+msgid "Game Settings"
 msgstr ""
 
 #: pong/templates/game_block.html:17
+msgid "Ball Speedup Mode"
+msgstr ""
+
+#: pong/templates/game_block.html:20
 msgid "Ball Speed"
 msgstr ""
 
-#: pong/templates/game_block.html:19
+#: pong/templates/game_block.html:22
 msgid "Paddle Size"
 msgstr ""
 
-#: pong/templates/game_block.html:21
+#: pong/templates/game_block.html:24
 msgid "Paddle Speed"
 msgstr ""
 
-#: pong/templates/game_block.html:26
+#: pong/templates/game_block.html:29
 msgid "Begin tournament"
 msgstr ""
 
@@ -343,6 +361,48 @@ msgstr ""
 
 #: pong/templates/tournaments_choice_block.html:11
 msgid "8 players"
+msgstr ""
+
+#: profile/templates/change_profile.html:8
+#: profile/templates/profile_block.html:38
+msgid "EDIT PROFILE"
+msgstr ""
+
+#: profile/templates/change_profile.html:15
+msgid "Nickname"
+msgstr ""
+
+#: profile/templates/change_profile.html:16
+msgid "Enter new nickname"
+msgstr ""
+
+#: profile/templates/change_profile.html:20
+msgid "Enter new password"
+msgstr ""
+
+#: profile/templates/change_profile.html:23
+msgid "Profile Picture"
+msgstr ""
+
+#: profile/templates/change_profile.html:25
+msgid "Choose picture..."
+msgstr ""
+
+#: profile/templates/change_profile.html:28
+msgid "42 Profile"
+msgstr ""
+
+#: profile/templates/change_profile.html:30
+msgid "Uploaded"
+msgstr ""
+
+#: profile/templates/change_profile.html:36
+#: profile/templates/upload_modal.html:18
+msgid "Close"
+msgstr ""
+
+#: profile/templates/change_profile.html:37
+msgid "Save changes"
 msgstr ""
 
 #: profile/templates/match_history.html:6
@@ -438,6 +498,18 @@ msgstr ""
 msgid "Tournaments History"
 msgstr ""
 
+#: profile/templates/upload_modal.html:8
+msgid "EDIT IMAGE"
+msgstr ""
+
+#: profile/templates/upload_modal.html:14
+msgid "UPLOAD YOUR IMAGE -> THEN EDIT YOUR PROFILE"
+msgstr ""
+
+#: profile/templates/upload_modal.html:19
+msgid "Save"
+msgstr ""
+
 #: profile/views.py:105
 msgid "Password must be at least 8"
 msgstr ""
@@ -478,14 +550,14 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
-#: transcendence/settings.py:173
+#: transcendence/settings.py:174
 msgid "English"
 msgstr ""
 
-#: transcendence/settings.py:174
+#: transcendence/settings.py:175
 msgid "French"
 msgstr ""
 
-#: transcendence/settings.py:175
+#: transcendence/settings.py:176
 msgid "German"
 msgstr ""

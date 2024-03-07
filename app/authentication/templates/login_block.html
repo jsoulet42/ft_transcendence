@@ -20,7 +20,7 @@
 					<span>{% trans 'Log in' %}</span>
 				</button>
 
-				<button id="signup-btn" name="signup" class="btn btn-success pong-btn-success" hx-post="{% url 'signup' %}" hx-target="#main-container" hx-push-url="true" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }' formnovalidate>
+				<button id="signup-btn" name="signup" class="btn btn-success pong-btn-success" hx-get="{% url 'signup' %}" hx-target="#main-container" hx-push-url="true" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }' formnovalidate>
 					<span>{% trans 'Sign up' %}</span>
 				</button>
 			</div>

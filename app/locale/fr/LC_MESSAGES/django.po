@@ -8,8 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-07 16:07+0100\n"
-"POT-Creation-Date: 2024-03-07 13:59+0100\n"
+"POT-Creation-Date: 2024-03-07 18:34+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,7 +18,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: authentication/forms.py:11 authentication/templates/login_block.html:15
+#: authentication/forms.py:11 authentication/forms.py:16
+#: authentication/templates/login_block.html:15
 #: friends/templates/friend_request_modal.html:17
 msgid "Username"
 msgstr "Nom d'utilisateur"
@@ -28,8 +28,9 @@ msgstr "Nom d'utilisateur"
 msgid "Email (optional)"
 msgstr "Email (optionnel)"
 
-#: authentication/forms.py:13 authentication/templates/login_block.html:16
-#: home/templates/home.html:88
+#: authentication/forms.py:13 authentication/forms.py:18
+#: authentication/templates/login_block.html:16
+#: profile/templates/change_profile.html:19
 msgid "Password"
 msgstr "Mot de passe"
 
@@ -37,7 +38,15 @@ msgstr "Mot de passe"
 msgid "Confirm Password"
 msgstr "Confirmer le mot de passe"
 
-#: authentication/forms.py:23
+#: authentication/forms.py:17
+msgid "Email"
+msgstr "Email"
+
+#: authentication/forms.py:19
+msgid "Confirmation Password"
+msgstr "Mot de passe de confirmation"
+
+#: authentication/forms.py:28
 msgid "User already exists."
 msgstr "L'utilisateur existe déjà."
 
@@ -78,7 +87,7 @@ msgstr "Statut manquant"
 msgid "Invalid status. Expected: "
 msgstr "Statut invalide. Attendu : "
 
-#: backend/views.py:48 friends/views.py:73
+#: backend/views.py:48 friends/views.py:71
 msgid "User not found"
 msgstr "Utilisateur non trouvé"
 
@@ -118,6 +127,68 @@ msgstr "Ajouter ami"
 msgid "Refresh"
 msgstr "Actualiser"
 
+#: friends/views.py:21
+msgid "Could not find user"
+msgstr "Impossible de trouver l'utilisateur"
+
+#: friends/views.py:43
+msgid "Couldn't find friend"
+msgstr "Impossible de trouver l'ami"
+
+#: friends/views.py:50
+msgid "Friend removed successfully"
+msgstr "AMi retiré avec succès"
+
+#: friends/views.py:52
+msgid "Could not remove friend"
+msgstr "Impossible de retirer l'ami"
+
+#: friends/views.py:68
+msgid "Invalid UUID format"
+msgstr "Format UUID invalide"
+
+#: friends/views.py:74
+msgid "Self requests not allowed"
+msgstr "Impossible de se demander à sois-même"
+
+#: friends/views.py:77
+msgid "User is already your friend"
+msgstr "L'utilisateur est déjà ton ami"
+
+#: friends/views.py:80
+msgid "Friend request already sent"
+msgstr "Demande d'ami déjà envoyée"
+
+#: friends/views.py:83
+msgid "Friend request sent"
+msgstr "Demande d'ami envoyée"
+
+#: friends/views.py:91 friends/views.py:118
+msgid "Invalid sender username"
+msgstr "Nom d'envoyeur invalide"
+
+#: friends/views.py:95 friends/views.py:122
+msgid "Invalid receiver username"
+msgstr "Nom de receveur invalide"
+
+#: friends/views.py:108
+msgid "Could not accept friend request"
+msgstr "Impossible d'accepter la demande"
+
+#: friends/views.py:110
+msgid "Friend request accepted"
+msgstr "Demande d'ami acceptée"
+
+#: friends/views.py:132
+msgid "Could not decline friend request"
+msgstr "Impossible de refuser la demande d'amis"
+
+#: friends/views.py:134
+#, fuzzy
+#| msgid "Send request"
+msgid "Friend request rejected"
+msgstr "Envoyer la demande"
+
 #: home/templates/bottom-nav.html:6
 msgid "PLAY"
 msgstr "JOUER"
@@ -134,63 +205,6 @@ msgstr "PROFIL"
 msgid "Loading..."
 msgstr "Chargement..."
 
-#: home/templates/home.html:44
-#: home/templates/home.html:45
-msgid "EDIT IMAGE"
-msgstr "MODIFIER L'IMAGE"
-
-#: home/templates/home.html:52
-msgid "UPLOAD YOUR IMAGE -> THEN EDIT YOUR PROFILE"
-msgstr "TÉLÉCHARGEZ VOTRE IMAGE -> ENSUITE MODIFIEZ VOTRE PROFIL"
-
-#: home/templates/home.html:58 home/templates/home.html:105
-msgid "Close"
-msgstr "Fermer"
-
-#: home/templates/home.html:59
-msgid "Save"
-msgstr "Enregistrer"
-
-#: home/templates/home.html:69 profile/templates/profile_block.html:38
-#: home/templates/home.html:70 profile/templates/profile_block.html:38
-msgid "EDIT PROFILE"
-msgstr "MODIFIER LE PROFIL"
-
-#: home/templates/home.html:84
-msgid "Nickname"
-msgstr "Surnom"
-
-#: home/templates/home.html:85
-msgid "Enter new nickname"
-msgstr "Entrez le nouveau surnom"
-
-#: home/templates/home.html:88
-#: home/templates/home.html:89
-msgid "Enter new password"
-msgstr "Entrez un nouveau mot de passe"
-
-#: home/templates/home.html:91
-#: home/templates/home.html:92
-msgid "Profile Picture"
-msgstr "Photo de profil"
-
-#: home/templates/home.html:94
-msgid "Choose picture..."
-msgstr "Choisissez une image..."
-
-#: home/templates/home.html:96
-#: home/templates/home.html:97
-msgid "42 Profile"
-msgstr "Profil 42"
-
-#: home/templates/home.html:99
-msgid "Uploaded"
-msgstr "Téléchargé"
-
-#: home/templates/home.html:106
-msgid "Save changes"
-msgstr "Enregistrer les modifications"
-
 #: home/templates/top-nav.html:19
 msgid "Login"
 msgstr "Connexion"
@@ -205,7 +219,7 @@ msgstr "Déconnexion"
 
 #: home/templates/top-nav.html:59 home/templates/top-nav.html:68
 msgid "flag"
-msgstr ""
+msgstr "drapeeau"
 
 #: hub/templates/hub_block.html:27
 msgid "Location"
@@ -303,31 +317,31 @@ msgstr "Joueur 8"
 msgid "Player 8"
 msgstr "Joueur 8"
 
-#: pong/templates/game_block.html:10
-msgid "Enter your nickname please :D"
-msgstr "Entrez votre surnom"
-
-#: pong/templates/game_block.html:12
+#: pong/templates/game_block.html:11
 msgid "Start the game"
 msgstr "Démarrer la partie"
 
-#: pong/templates/game_block.html:13
-msgid "Game Setting"
+#: pong/templates/game_block.html:12
+msgid "Game Settings"
 msgstr "Paramètres du jeu"
 
 #: pong/templates/game_block.html:17
+msgid "Ball Speedup Mode"
+msgstr "Mode balle accélérante"
+
+#: pong/templates/game_block.html:20
 msgid "Ball Speed"
 msgstr "vitesse de la balle"
 
-#: pong/templates/game_block.html:19
+#: pong/templates/game_block.html:22
 msgid "Paddle Size"
 msgstr "Taille de la raquette"
 
-#: pong/templates/game_block.html:21
+#: pong/templates/game_block.html:24
 msgid "Paddle Speed"
 msgstr "vitesse de la raquette"
 
-#: pong/templates/game_block.html:26
+#: pong/templates/game_block.html:29
 msgid "Begin tournament"
 msgstr "Démarrer le tournoi"
 
@@ -350,6 +364,48 @@ msgstr "4 joueurs"
 #: pong/templates/tournaments_choice_block.html:11
 msgid "8 players"
 msgstr "8 joueurs"
+
+#: profile/templates/change_profile.html:8
+#: profile/templates/profile_block.html:38
+msgid "EDIT PROFILE"
+msgstr "MODIFIER LE PROFIL"
+
+#: profile/templates/change_profile.html:15
+msgid "Nickname"
+msgstr "Surnom"
+
+#: profile/templates/change_profile.html:16
+msgid "Enter new nickname"
+msgstr "Entrez le nouveau surnom"
+
+#: profile/templates/change_profile.html:20
+msgid "Enter new password"
+msgstr "Entrez un nouveau mot de passe"
+
+#: profile/templates/change_profile.html:23
+msgid "Profile Picture"
+msgstr "Photo de profil"
+
+#: profile/templates/change_profile.html:25
+msgid "Choose picture..."
+msgstr "Choisissez une image..."
+
+#: profile/templates/change_profile.html:28
+msgid "42 Profile"
+msgstr "Profil 42"
+
+#: profile/templates/change_profile.html:30
+msgid "Uploaded"
+msgstr "Téléchargé"
+
+#: profile/templates/change_profile.html:36
+#: profile/templates/upload_modal.html:18
+msgid "Close"
+msgstr "Fermer"
+
+#: profile/templates/change_profile.html:37
+msgid "Save changes"
+msgstr "Enregistrer les modifications"
 
 #: profile/templates/match_history.html:6
 msgid "TOURNAMENTS HISTORY"
@@ -444,6 +500,18 @@ msgstr "Historique 1 CONTRE 1"
 msgid "Tournaments History"
 msgstr "Historique des tournois"
 
+#: profile/templates/upload_modal.html:8
+msgid "EDIT IMAGE"
+msgstr "MODIFIER L'IMAGE"
+
+#: profile/templates/upload_modal.html:14
+msgid "UPLOAD YOUR IMAGE -> THEN EDIT YOUR PROFILE"
+msgstr "TÉLÉCHARGEZ VOTRE IMAGE -> ENSUITE MODIFIEZ VOTRE PROFIL"
+
+#: profile/templates/upload_modal.html:19
+msgid "Save"
+msgstr "Enregistrer"
+
 #: profile/views.py:105
 msgid "Password must be at least 8"
 msgstr "Le mot de passe doit comporter au moins 8 caractères"
@@ -484,17 +552,20 @@ msgstr "Nombre de joueurs"
 msgid "Date"
 msgstr "Date"
 
-#: transcendence/settings.py:173
+#: transcendence/settings.py:174
 msgid "English"
 msgstr "Anglais"
 
-#: transcendence/settings.py:174
+#: transcendence/settings.py:175
 msgid "French"
 msgstr "Français"
 
-#: transcendence/settings.py:175
+#: transcendence/settings.py:176
 msgid "German"
 msgstr "Allemand"
+
+#~ msgid "Enter your nickname please :D"
+#~ msgstr "Entrez votre surnom"
 
 #~ msgid "Messages"
 #~ msgstr "Messages"
