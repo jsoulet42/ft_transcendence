@@ -1,8 +1,6 @@
 import uuid
 
-from django.shortcuts import render
 from django.http import JsonResponse
-from django.urls import reverse
 from django.db.models import Q
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required

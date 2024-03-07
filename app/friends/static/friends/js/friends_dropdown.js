@@ -86,13 +86,6 @@ function fetchFriendRequests(friendsDropdown) {
 			listItemTemplate.appendChild(btnContainer);
 
 			data.forEach(request => {
-				// const listItem = `<li class="row">`
-				// 	+ `<span class="col text-start">${request.username}</span>`
-				// 	+ `<div class="col text-end">`
-				// 	+ `${btn_accept}`
-				// 	+ `${btn_decline}`
-				// 	+ `</div>`
-				// 	+ `</li>`;
 				const listItem = listItemTemplate.cloneNode(true);
 				
 				listItem.innerHTML = `<span class="col text-start">${request.username}</span>`
@@ -108,7 +101,7 @@ function fetchFriendRequests(friendsDropdown) {
 		}
 		friendRequestsContainer.appendChild(divider);
 	})
-	.catch(error => console.error('Error fetching friend requests:', error));
+	.catch(error => console.error(gettext('Error fetching friend requests: '), error));
 }
 
 function fetchFriendList(friendsDropdown) {
@@ -124,11 +117,11 @@ function fetchFriendList(friendsDropdown) {
 		const friendListContainer = friendsDropdown.querySelector('.friend-list-container');
 		const divider = document.createElement('li');
 
-		friendListContainer.innerHTML = '<li><div class="dropdown-header">Friends</div></li>';
+		friendListContainer.innerHTML = `<li><div class="dropdown-header">` + gettext('Friends') + `</div></li>`;
 		divider.innerHTML = '<hr class="dropdown-divider">';
 
 		if (data.length === 0) {
-			friendListContainer.appendChild(document.createElement('li')).textContent = 'You have no friends D:';
+			friendListContainer.appendChild(document.createElement('li')).textContent = gettext('You have no friends D:');
 		} else {
 			const statusClasses = {
 				'Online': 'online',
@@ -147,8 +140,8 @@ function fetchFriendList(friendsDropdown) {
 
 			btnRemove.type = 'button';
 			btnRemove.classList.add('btn', 'btn-deny');
-			btnRemove.setAttribute('aria-label', 'Remove');
-			btnRemove.setAttribute('title', 'Remove');
+			btnRemove.setAttribute('aria-label', gettext('Remove'));
+			btnRemove.setAttribute('title', gettext('Remove'));
 
 			btnContainer.appendChild(btnRemove);
 			listItemTemplate.appendChild(btnContainer);
@@ -170,7 +163,7 @@ function fetchFriendList(friendsDropdown) {
 		}
 		friendListContainer.appendChild(divider);
 	})
-	.catch(error => console.error('Error fetching friend list:', error));
+	.catch(error => console.error(gettext('Error fetching friend list: '), error));
 }
 
 function acceptFriendRequest(event, friendsDropdown) {
@@ -191,13 +184,13 @@ function acceptFriendRequest(event, friendsDropdown) {
 		if (response.ok) {
 			return response.json();
 		}
-		throw new Error('Network response was not ok.');
+		throw new Error(gettext('Network response was not ok.'));
 	})
 	.then(data => {
 		fetchFriendsDropdown(friendsDropdown);
 	})
 	.catch(error => {
-		console.error('Error while requesting friend accept:', error);
+		console.error(gettext('Error while requesting friend accept: '), error);
 	});
 }
 
@@ -219,13 +212,13 @@ function declineFriendRequest(event, friendsDropdown) {
 		if (response.ok) {
 			return response.json();
 		}
-		throw new Error('Network response was not ok.');
+		throw new Error(gettext('Network response was not ok.'));
 	})
 	.then(data => {
 		fetchFriendsDropdown(friendsDropdown);
 	})
 	.catch(error => {
-		console.error('Error while requesting friend reject:', error);
+		console.error(gettext('Error while requesting friend reject: '), error);
 	});
 }
 
@@ -246,12 +239,12 @@ function removeFriend(event, friendsDropdown) {
 		if (response.ok) {
 			return response.json();
 		}
-		throw new Error('Network response was not ok.');
+		throw new Error(gettext('Network response was not ok.'));
 	})
 	.then(data => {
 		fetchFriendsDropdown(friendsDropdown);
 	})
 	.catch(error => {
-		console.error('Error while requesting friend reject:', error);
+		console.error(gettext('Error while requesting friend reject: '), error);
 	});
 }

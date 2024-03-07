@@ -39,7 +39,7 @@ function validateForm() {
 		modalContent.appendChild(modalFooter);
 	})
 	.catch(error => {
-		console.error('Error sending friend request:', error);
+		console.error(gettext('Error sending friend request: '), error);
 	});
 
 	/* Allow form submission */

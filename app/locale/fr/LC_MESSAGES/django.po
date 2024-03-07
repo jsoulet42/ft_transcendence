@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-07 10:30+0100\n"
+"POT-Creation-Date: 2024-03-07 13:59+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,7 +28,7 @@ msgid "Email (optional)"
 msgstr "Email (optionnel)"
 
 #: authentication/forms.py:13 authentication/templates/login_block.html:16
-#: home/templates/home.html:87
+#: home/templates/home.html:88
 msgid "Password"
 msgstr "Mot de passe"
 
@@ -107,6 +107,18 @@ msgstr "OU"
 msgid "Send request"
 msgstr "Envoyer la demande"
 
+#: friends/templates/friends_dropdown.html:13
+msgid "friends_icon"
+msgstr "icone_amis"
+
+#: friends/templates/friends_dropdown.html:19
+msgid "Add friend"
+msgstr "Ajouter ami"
+
+#: friends/templates/friends_dropdown.html:20
+msgid "Refresh"
+msgstr "Actualiser"
+
 #: home/templates/bottom-nav.html:6
 msgid "PLAY"
 msgstr "JOUER"
@@ -119,69 +131,69 @@ msgstr "STATS DE TOURNOIS"
 msgid "PROFILE"
 msgstr "PROFIL"
 
-#: home/templates/home.html:36
+#: home/templates/home.html:37
 msgid "Loading..."
 msgstr "Chargement..."
 
-#: home/templates/home.html:44
+#: home/templates/home.html:45
 #, fuzzy
 #| msgid "PROFILE"
 msgid "EDIT IMAGE"
 msgstr "EDITER LE PROFIL"
 
-#: home/templates/home.html:51
+#: home/templates/home.html:52
 msgid "UPLOAD YOUR IMAGE -> THEN EDIT YOUR PROFILE"
 msgstr "TELECHARGE TON IMAGE -> PUIS MODIFIE TON PROFIL"
 
-#: home/templates/home.html:57 home/templates/home.html:104
+#: home/templates/home.html:58 home/templates/home.html:105
 msgid "Close"
 msgstr "Fermer"
 
-#: home/templates/home.html:58
+#: home/templates/home.html:59
 msgid "Save"
 msgstr "Enregistrer"
 
-#: home/templates/home.html:69 profile/templates/profile_block.html:38
+#: home/templates/home.html:70 profile/templates/profile_block.html:38
 #, fuzzy
 #| msgid "PROFILE"
 msgid "EDIT PROFILE"
 msgstr "EDITER LE PROFIL"
 
-#: home/templates/home.html:83
+#: home/templates/home.html:84
 msgid "Nickname"
 msgstr "Surnom"
 
-#: home/templates/home.html:84
+#: home/templates/home.html:85
 msgid "Enter new nickname"
 msgstr "Entrez le nouveau surnom"
 
-#: home/templates/home.html:88
+#: home/templates/home.html:89
 #, fuzzy
 #| msgid "Invalid username or password"
 msgid "Enter new password"
 msgstr "Entrez le nouveau mot de passe"
 
-#: home/templates/home.html:91
+#: home/templates/home.html:92
 #, fuzzy
 #| msgid "Profile"
 msgid "Profile Picture"
 msgstr "Image de Profil"
 
-#: home/templates/home.html:93
+#: home/templates/home.html:94
 msgid "Choose picture..."
 msgstr "Choisis une image..."
 
-#: home/templates/home.html:96
+#: home/templates/home.html:97
 #, fuzzy
 #| msgid "Profile"
 msgid "42 Profile"
 msgstr "Profil 42"
 
-#: home/templates/home.html:98
+#: home/templates/home.html:99
 msgid "Uploaded"
 msgstr "Telecharge"
 
-#: home/templates/home.html:105
+#: home/templates/home.html:106
 msgid "Save changes"
 msgstr "Enregistrer les modificaitons"
 

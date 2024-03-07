@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-07 10:30+0100\n"
+"POT-Creation-Date: 2024-03-07 13:59+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,7 +28,7 @@ msgid "Email (optional)"
 msgstr ""
 
 #: authentication/forms.py:13 authentication/templates/login_block.html:16
-#: home/templates/home.html:87
+#: home/templates/home.html:88
 msgid "Password"
 msgstr ""
 
@@ -105,6 +105,18 @@ msgstr ""
 msgid "Send request"
 msgstr ""
 
+#: friends/templates/friends_dropdown.html:13
+msgid "friends_icon"
+msgstr ""
+
+#: friends/templates/friends_dropdown.html:19
+msgid "Add friend"
+msgstr ""
+
+#: friends/templates/friends_dropdown.html:20
+msgid "Refresh"
+msgstr ""
+
 #: home/templates/bottom-nav.html:6
 msgid "PLAY"
 msgstr ""
@@ -117,59 +129,59 @@ msgstr ""
 msgid "PROFILE"
 msgstr ""
 
-#: home/templates/home.html:36
+#: home/templates/home.html:37
 msgid "Loading..."
 msgstr ""
 
-#: home/templates/home.html:44
+#: home/templates/home.html:45
 msgid "EDIT IMAGE"
 msgstr ""
 
-#: home/templates/home.html:51
+#: home/templates/home.html:52
 msgid "UPLOAD YOUR IMAGE -> THEN EDIT YOUR PROFILE"
 msgstr ""
 
-#: home/templates/home.html:57 home/templates/home.html:104
+#: home/templates/home.html:58 home/templates/home.html:105
 msgid "Close"
 msgstr ""
 
-#: home/templates/home.html:58
+#: home/templates/home.html:59
 msgid "Save"
 msgstr ""
 
-#: home/templates/home.html:69 profile/templates/profile_block.html:38
+#: home/templates/home.html:70 profile/templates/profile_block.html:38
 msgid "EDIT PROFILE"
 msgstr ""
 
-#: home/templates/home.html:83
+#: home/templates/home.html:84
 msgid "Nickname"
 msgstr ""
 
-#: home/templates/home.html:84
+#: home/templates/home.html:85
 msgid "Enter new nickname"
 msgstr ""
 
-#: home/templates/home.html:88
+#: home/templates/home.html:89
 msgid "Enter new password"
 msgstr ""
 
-#: home/templates/home.html:91
+#: home/templates/home.html:92
 msgid "Profile Picture"
 msgstr ""
 
-#: home/templates/home.html:93
+#: home/templates/home.html:94
 msgid "Choose picture..."
 msgstr ""
 
-#: home/templates/home.html:96
+#: home/templates/home.html:97
 msgid "42 Profile"
 msgstr ""
 
-#: home/templates/home.html:98
+#: home/templates/home.html:99
 msgid "Uploaded"
 msgstr ""
 
-#: home/templates/home.html:105
+#: home/templates/home.html:106
 msgid "Save changes"
 msgstr ""
 
