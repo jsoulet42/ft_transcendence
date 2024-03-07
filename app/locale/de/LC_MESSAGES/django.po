@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-07 02:24+0100\n"
+"POT-Creation-Date: 2024-03-07 05:02+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,7 +38,7 @@ msgstr "Passwort Bestätigung"
 
 #: authentication/forms.py:23
 msgid "User already exists."
-msgstr ""
+msgstr "Benutzer existiert schon."
 
 #: authentication/templates/login_block.html:20
 msgid "Log in"
@@ -63,31 +63,31 @@ msgstr "Einloggen mit 42 hat versagt"
 
 #: backend/views.py:19
 msgid "Invalid JSON"
-msgstr ""
+msgstr "Invalider JSON"
 
 #: backend/views.py:28
 msgid "Missing username"
-msgstr ""
+msgstr "Benutzername fehlt"
 
 #: backend/views.py:34
 msgid "Missing status"
-msgstr ""
+msgstr "Status fehlt"
 
 #: backend/views.py:41
 msgid "Invalid status. Expected: "
-msgstr ""
+msgstr "Invalider Status. Erwartet: "
 
 #: backend/views.py:48
 msgid "User not found"
-msgstr ""
+msgstr "Benutzer nicht gefunden"
 
 #: backend/views.py:68
 msgid "Could not find game host"
-msgstr ""
+msgstr "Spiel Veranstalter nicht gefunden"
 
 #: backend/views.py:107
 msgid "Could not find tournament host"
-msgstr ""
+msgstr "Tournier Veranstalter nicht gefunden"
 
 #: home/templates/bottom-nav.html:6
 msgid "PLAY"
@@ -112,6 +112,18 @@ msgstr "Profil"
 #: home/templates/top-nav.html:42
 msgid "Logout"
 msgstr "Ausloggen"
+
+#: pong/templates/pong_block.html:9
+msgid "1 VS 1"
+msgstr "1 VS 1"
+
+#: pong/templates/pong_block.html:17
+msgid "1 VS BOT"
+msgstr "1 VS BOT"
+
+#: pong/templates/pong_block.html:25
+msgid "TOURNAMENT"
+msgstr "TURNIER"
 
 #: profile/templates/profile_block.html:23
 msgid "GAMES PLAYED"

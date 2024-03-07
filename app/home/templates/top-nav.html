@@ -11,41 +11,65 @@
 		<div id="ball1"></div>
 	</a>
 
-	<div id="login-status" class="container">
-		{% if not user.is_authenticated %}
-		<a class="btn buttonPong login-btn" href="{% url 'login' %}" hx-get="{% url 'login' %}" hx-target="#main-container" hx-push-url="true" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }'>
-			<span class="center-text">
-				{% trans 'Login' %}
-			</span>
-		</a>
-		{% else %}
-		<div class="btn-group login-btn">
-			<div class="btn-group dropdown">
-				<button type="button" class="btn btn-primary dropdown-toggle buttonPong" data-bs-toggle="dropdown" aria-expanded="false">
-					<span class="login-text">
-						{% if user.nickname %}
-							{{ user.nickname }}
-						{% else %}
-							{{ user.username }}
-						{% endif %}
-					</span>
-					<img id="menu-profile-img" class="img-fluid" src="{{ user.profile_image_path }}" alt="{{ user.username }}">
-				</button>
-				<ul class="dropdown-menu">
-					<li>
-						<button class="dropdown-item" type="button" href="{% url 'profile' %}" hx-get="{% url 'profile' %}" hx-target="#main-container" hx-push-url="true" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }'>
-							{% trans 'Profile' %}
-						</button>
-					</li>
-					<li>
-						<button class="dropdown-item" type="button" href="{% url 'logout' %}" hx-post="{% url 'logout' %}" hx-target="body" hx-push-url="/" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }'>
-							{% trans 'Logout' %}
-						</button>
-					</li>
-				</ul>
+	<div class="btn-toolbar h-100 float-right" role="toolbar" aria-label="Toolbar with button groups">
+		<div class="container top-nav-container pb-2 px-2" role="group" aria-label="First group">
+			{% if not user.is_authenticated %}
+			<button type="button" class="btn buttonPong login-btn" href="{% url 'login' %}" hx-get="{% url 'login' %}" hx-target="#main-container" hx-push-url="true" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }'>
+				<span class="center-text">
+					{% trans 'Login' %}
+				</span>
+			</button>
+			{% else %}
+			<div class="btn-group login-btn">
+				<div class="btn-group dropdown">
+					<button type="button" class="btn btn-primary dropdown-toggle buttonPong" data-bs-toggle="dropdown" aria-expanded="false">
+						<span class="login-text">
+							{% if user.nickname %}
+								{{ user.nickname }}
+							{% else %}
+								{{ user.username }}
+							{% endif %}
+						</span>
+						<img class="profile-img img-fluid" src="{{ user.profile_image_path }}" alt="{{ user.username }}">
+					</button>
+					<ul class="dropdown-menu">
+						<li>
+							<button class="dropdown-item" type="button" href="{% url 'profile' %}" hx-get="{% url 'profile' %}" hx-target="#main-container" hx-push-url="true" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }'>
+								{% trans 'Profile' %}
+							</button>
+						</li>
+						<li>
+							<button class="dropdown-item" type="button" href="{% url 'logout' %}" hx-post="{% url 'logout' %}" hx-target="body" hx-push-url="/" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }'>
+								{% trans 'Logout' %}
+							</button>
+						</li>
+					</ul>
+				</div>
+				{% include 'friends_dropdown.html' %}
 			</div>
-			{% include 'friends_dropdown.html' %}
+			{% endif %}
 		</div>
-		{% endif %}
+
+		<div class="container top-nav-container pb-2 px-2 mx-2">
+			<div class="btn-group dropdown" role="group" aria-label="Second group">
+				{% get_current_language as LANGUAGE_CODE %}
+				{% get_available_languages as LANGUAGES %}
+				{% get_language_info_list for LANGUAGES as languages %}
+				<button type="button" class="btn btn-primary dropdown-toggle buttonPong" data-bs-toggle="dropdown" aria-expanded="false">
+					<img src="{% static 'images/flags/'|add:LANGUAGE_CODE|lower|add:'.png' %}" class="language-flag" alt="{{ LANGUAGE_CODE }} {% trans 'flag' %}">
+				</button>
+				<div class="dropdown-menu set-language">
+					<form action="{% url 'set_language' %}" method="post">
+						{% csrf_token %}
+						<input name="next" type="hidden" value="{{ request.path }}">
+						{% for language in languages %}
+							<button class="dropdown-item" type="submit" name="language" value="{{ language.code }}">
+								<img src="{% static 'images/flags/'|add:language.code|lower|add:'.png' %}" class="language-flag" alt="{{ language.code }} {% trans 'flag' %}">
+							</button>
+						{% endfor %}
+					</form>
+				</div>
+			</div>
+		</div>
 	</div>
 </nav>

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-07 02:24+0100\n"
+"POT-Creation-Date: 2024-03-07 05:02+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,7 +24,7 @@ msgstr "Nom d'utilisateur"
 
 #: authentication/forms.py:12
 msgid "Email (optional)"
-msgstr ""
+msgstr "Email (optionnel)"
 
 #: authentication/forms.py:13 authentication/templates/login_block.html:16
 msgid "Password"
@@ -34,11 +34,11 @@ msgstr "Mot de passe"
 #, fuzzy
 #| msgid "Password"
 msgid "Confirm Password"
-msgstr "Mot de passe"
+msgstr "Confirmer le mot de passe"
 
 #: authentication/forms.py:23
 msgid "User already exists."
-msgstr ""
+msgstr "L'utilisateur existe déjà."
 
 #: authentication/templates/login_block.html:20
 msgid "Log in"
@@ -63,31 +63,31 @@ msgstr "Echec de la connection avec 42"
 
 #: backend/views.py:19
 msgid "Invalid JSON"
-msgstr ""
+msgstr "JSON invalide"
 
 #: backend/views.py:28
 msgid "Missing username"
-msgstr ""
+msgstr "Nom d'utilisateur manquant"
 
 #: backend/views.py:34
 msgid "Missing status"
-msgstr ""
+msgstr "Status manquant"
 
 #: backend/views.py:41
 msgid "Invalid status. Expected: "
-msgstr ""
+msgstr "Status invalide. Attendus: "
 
 #: backend/views.py:48
 msgid "User not found"
-msgstr ""
+msgstr "Utilisateur introuvable"
 
 #: backend/views.py:68
 msgid "Could not find game host"
-msgstr ""
+msgstr "Hôte de partie introuvable"
 
 #: backend/views.py:107
 msgid "Could not find tournament host"
-msgstr ""
+msgstr "Hôte de tournoi introuvable"
 
 #: home/templates/bottom-nav.html:6
 msgid "PLAY"
@@ -112,6 +112,18 @@ msgstr "Profil"
 #: home/templates/top-nav.html:42
 msgid "Logout"
 msgstr "Deconnection"
+
+#: pong/templates/pong_block.html:9
+msgid "1 VS 1"
+msgstr "1 CONTRE 1"
+
+#: pong/templates/pong_block.html:17
+msgid "1 VS BOT"
+msgstr "1 CONTRE BOT"
+
+#: pong/templates/pong_block.html:25
+msgid "TOURNAMENT"
+msgstr "TOURNOI"
 
 #: profile/templates/profile_block.html:23
 msgid "GAMES PLAYED"
@@ -155,7 +167,7 @@ msgstr "Stats de tournois"
 
 #: tournaments_stats/templates/tournaments_stats_block.html:12
 msgid "No tournaments found"
-msgstr "Aucun tournois"
+msgstr "Aucun tournoi"
 
 #: tournaments_stats/templates/tournaments_stats_block.html:16
 msgid "Name"

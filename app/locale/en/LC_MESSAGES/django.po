@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-07 02:24+0100\n"
+"POT-Creation-Date: 2024-03-07 05:02+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -109,6 +109,18 @@ msgstr ""
 
 #: home/templates/top-nav.html:42
 msgid "Logout"
+msgstr ""
+
+#: pong/templates/pong_block.html:9
+msgid "1 VS 1"
+msgstr ""
+
+#: pong/templates/pong_block.html:17
+msgid "1 VS BOT"
+msgstr ""
+
+#: pong/templates/pong_block.html:25
+msgid "TOURNAMENT"
 msgstr ""
 
 #: profile/templates/profile_block.html:23

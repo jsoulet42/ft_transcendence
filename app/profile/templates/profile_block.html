@@ -45,34 +45,3 @@
 		</button>
 	</form>
 </div>
-{#<script>#}
-{#	document.getElementById('avatarselect').addEventListener('change', function() {#}
-{#		var selectedValue = this.value;#}
-{#		if (selectedValue !== "Default Avatar") {#}
-{#			var url = "{% url 'get_image_url' %}";#}
-{#			fetch(url, {#}
-{#				method: 'POST',#}
-{#				headers: {#}
-{#					'Content-Type': 'application/json',#}
-{#					'X-CSRFToken': '{{ csrf_token }}'#}
-{#				},#}
-{#				body: JSON.stringify({ 'avatarselect': selectedValue })#}
-{#			})#}
-{#			.then(response => response.json())#}
-{#			.then(data => {#}
-{#				document.getElementById('choice-img').src = data.image_url;#}
-{#			})#}
-{#			.catch(error => console.error('Error:', error));#}
-{#		}#}
-{#	});#}
-{#</script>#}
-{#<script>#}
-{#  document.addEventListener('DOMContentLoaded', function () {#}
-{#    {% for message in messages %}#}
-{#      var modalBody = document.querySelector('#messageModal .modal-body');#}
-{#      modalBody.textContent = '{{ message }}';#}
-{#      var myModal = new bootstrap.Modal(document.getElementById('messageModal'));#}
-{#      myModal.show();#}
-{#    {% endfor %}#}
-{#  });#}
-{#</script>#}
