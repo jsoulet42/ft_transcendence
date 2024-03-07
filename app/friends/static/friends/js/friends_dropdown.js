@@ -1,75 +1,132 @@
-document.addEventListener('DOMContentLoaded', function() {
-	const friendsDropdown = document.getElementById('friends-dropdown');
+function initializePage() {
+	const friendsDropdowns = document.querySelectorAll('.friends-dropdown');
+	if (!friendsDropdowns) {
+		return;
+	}
 
+	friendsDropdowns.forEach(initializeFriendsDropdown);
+}
+
+document.addEventListener('DOMContentLoaded', initializePage);
+document.addEventListener('htmx:afterOnLoad', initializePage);
+
+function initializeFriendsDropdown(friendsDropdown) {
 	friendsDropdown.addEventListener('click', function(event) {
 		const target = event.target;
 
 		// Check if the clicked element is a button inside the dropdown
-		if (target.tagName === 'BUTTON' && target.closest('.dropdown-menu')) {
+		if (target.tagName === 'BUTTON' && target.closest('.friends-dropdown-menu')) {
 			event.stopPropagation();
 			event.preventDefault();
 		}
 	});
-});
+	
+	const friendsDropDownToggle = friendsDropdown.querySelector('.friends-dropdown-toggle');
+	if (!friendsDropDownToggle) {
+		return;
+	}
 
-function createFriendsDropdown() {
-	fetchFriendRequests();
-	fetchFriendList();
+	friendsDropDownToggle.addEventListener('click', function() {
+		fetchFriendsDropdown(friendsDropdown);
+	});
+
+	const friendsDropdownRefreshButton = friendsDropdown.querySelector('.friends-dropdown-refresh');
+	if (!friendsDropdownRefreshButton) {
+		return;
+	}
+	friendsDropdownRefreshButton.addEventListener('click', function() {
+		fetchFriendsDropdown(friendsDropdown);
+	});
 }
 
-function fetchFriendRequests() {
-	fetch(getRequestsUrl, {
+function fetchFriendsDropdown(friendsDropdown) {
+	fetchFriendRequests(friendsDropdown);
+	fetchFriendList(friendsDropdown);
+}
+
+function fetchFriendRequests(friendsDropdown) {
+	fetch(friendsDropdown.dataset.getRequestsUrl, {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
-			'X-CSRFToken': csrfToken,
+			'X-CSRFToken': friendsDropdown.dataset.csrfToken,
 		}
 	})
 	.then(response => response.json())
 	.then(data => {
-		const friend_requests_container = document.getElementById('friend-requests-container');
-		const divider = `<li><hr class="dropdown-divider"></li>`;
+		const friendRequestsContainer = friendsDropdown.querySelector('.friend-requests-container');
+		const divider = document.createElement('li');
 
-		friend_requests_container.innerHTML = `<li><div class="dropdown-header">Requests</div></li>`;
-		
+		friendRequestsContainer.innerHTML = `<li><div class="dropdown-header">Requests</div></li>`;
+		divider.innerHTML = '<hr class="dropdown-divider">';
+
 		if (data.length === 0) {
-			friend_requests_container.insertAdjacentHTML('beforeEnd', `<li>No friend requests</li>`);
+			friendRequestsContainer.insertAdjacentHTML('beforeEnd', `<li>No friend requests</li>`);
 		} else {
-			const btn_accept = `<button type="button" class="btn btn-add" onclick="acceptFriendRequest(event)" aria-label="Accept"></button>`
-			const btn_deny = `<button type="button" class="btn btn-deny" onclick="rejectFriendRequest(event)" aria-label="Reject"></button>`
+			const listItemTemplate = document.createElement('li');
+			const btnContainer = document.createElement('div');
+			const btn_accept = document.createElement('button');
+			const btn_decline = document.createElement('button');
+			//const btn_accept = `<button type="button" class="btn btn-add" aria-label="Accept"></button>`
+			//const btn_decline = `<button type="button" class="btn btn-deny" aria-label="Reject"></button>`
+			listItemTemplate.classList.add('row');
+			btnContainer.classList.add('col', 'text-end');
+
+			btn_accept.type = 'button';
+			btn_accept.classList.add('btn', 'btn-add');
+			btn_accept.setAttribute('aria-label', 'Accept');
+			btn_accept.setAttribute('title', 'Accept');
+			
+			btn_decline.type = 'button';
+			btn_decline.classList.add('btn', 'btn-deny');
+			btn_decline.setAttribute('aria-label', 'Decline');
+			btn_accept.setAttribute('title', 'Decline');
+
+			btnContainer.appendChild(btn_accept);
+			btnContainer.appendChild(btn_decline);
+			listItemTemplate.appendChild(btnContainer);
 
 			data.forEach(request => {
-				const listItem = `<li class="row">`
-					+ `<span class="col text-start">${request.username}</span>`
-					+ `<div class="col text-end">`
-					+ `${btn_accept}`
-					+ `${btn_deny}`
-					+ `</div>`
-					+ `</li>`;
-				friend_requests_container.insertAdjacentHTML('beforeEnd', listItem);
+				// const listItem = `<li class="row">`
+				// 	+ `<span class="col text-start">${request.username}</span>`
+				// 	+ `<div class="col text-end">`
+				// 	+ `${btn_accept}`
+				// 	+ `${btn_decline}`
+				// 	+ `</div>`
+				// 	+ `</li>`;
+				const listItem = listItemTemplate.cloneNode(true);
+				
+				listItem.innerHTML = `<span class="col text-start">${request.username}</span>`
+					+ listItem.innerHTML;
+
+				listItem.querySelector('.btn-add').addEventListener('click',
+					(event) => acceptFriendRequest(event, friendsDropdown));
+				listItem.querySelector('.btn-deny').addEventListener('click',
+					(event) => declineFriendRequest(event, friendsDropdown));
+
+				friendRequestsContainer.appendChild(listItem);
 			});
 		}
-		
-		friend_requests_container.insertAdjacentHTML('beforeEnd', divider);
+		friendRequestsContainer.appendChild(divider);
 	})
 	.catch(error => console.error('Error fetching friend requests:', error));
 }
 
-function fetchFriendList() {
-	fetch(getFriendListUrl, {
+function fetchFriendList(friendsDropdown) {
+	fetch(friendsDropdown.dataset.getFriendListUrl, {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
-			'X-CSRFToken': csrfToken,
+			'X-CSRFToken': friendsDropdown.dataset.csrfToken,
 		}
 	})
 	.then(response => response.json())
 	.then(data => {
-		const friendListContainer = document.getElementById('friend-list-container');
+		const friendListContainer = friendsDropdown.querySelector('.friend-list-container');
 		const divider = document.createElement('li');
-		divider.innerHTML = '<hr class="dropdown-divider">';
 
 		friendListContainer.innerHTML = '<li><div class="dropdown-header">Friends</div></li>';
+		divider.innerHTML = '<hr class="dropdown-divider">';
 
 		if (data.length === 0) {
 			friendListContainer.appendChild(document.createElement('li')).textContent = 'You have no friends D:';
@@ -81,45 +138,53 @@ function fetchFriendList() {
 			};
 
 			const statusOrder = ['Online', 'Ingame', 'Offline'];
+			const listItemTemplate = document.createElement('li');
+			const btnContainer = document.createElement('div');
+			const btnRemove = document.createElement('button');
+
+			listItemTemplate.classList.add('row');
+
+			btnContainer.classList.add('col', 'text-end');
+
+			btnRemove.type = 'button';
+			btnRemove.classList.add('btn', 'btn-deny');
+			btnRemove.setAttribute('aria-label', 'Remove');
+			btnRemove.setAttribute('title', 'Remove');
+
+			btnContainer.appendChild(btnRemove);
+			listItemTemplate.appendChild(btnContainer);
 
 			data.sort((a, b) => statusOrder.indexOf(a.status) - statusOrder.indexOf(b.status));
 
 			data.forEach(request => {
-				const listItem = document.createElement('li');
-				listItem.classList.add('row', statusClasses[request.status]);
-				listItem.innerHTML = `<span class="col text-start">${request.username}</span>`;
-				
-				const btnRemove = document.createElement('button');
-				btnRemove.type = 'button';
-				btnRemove.classList.add('btn', 'btn-deny');
-				btnRemove.setAttribute('aria-label', 'Remove');
-				btnRemove.onclick = (event) => removeFriend(event);
+				const listItem = listItemTemplate.cloneNode(true);
 
-				const btnContainer = document.createElement('div');
-				btnContainer.classList.add('col', 'text-end');
-				btnContainer.appendChild(btnRemove);
+				listItem.classList.add(statusClasses[request.status]);
+				listItem.innerHTML = `<span class="col text-start">${request.username}</span>`
+					+ listItem.innerHTML;
 
-				listItem.appendChild(btnContainer);
+				listItem.querySelector('.btn-deny').addEventListener('click',
+					(event) => removeFriend(event, friendsDropdown));
+
 				friendListContainer.appendChild(listItem);
 			});
 		}
-
 		friendListContainer.appendChild(divider);
 	})
 	.catch(error => console.error('Error fetching friend list:', error));
 }
 
-function acceptFriendRequest(event) {
+function acceptFriendRequest(event, friendsDropdown) {
 	const sender = event.target.parentNode.previousElementSibling.textContent;
-
 	const formData = new FormData();
-	formData.append('sender_username', sender);
-	formData.append('receiver_username', session_user_username);
 
-	fetch(acceptRequestUrl, {
+	formData.append('sender_username', sender);
+	formData.append('receiver_username', friendsDropdown.dataset.sessionUserUsername);
+
+	fetch(friendsDropdown.dataset.acceptRequestUrl, {
 		method: 'POST',
 		headers: {
-			'X-CSRFToken': csrfToken,
+			'X-CSRFToken': friendsDropdown.dataset.csrfToken,
 		},
 		body: formData
 	})
@@ -130,24 +195,24 @@ function acceptFriendRequest(event) {
 		throw new Error('Network response was not ok.');
 	})
 	.then(data => {
-		createFriendsDropdown();
+		fetchFriendsDropdown(friendsDropdown);
 	})
 	.catch(error => {
 		console.error('Error while requesting friend accept:', error);
 	});
 }
 
-function rejectFriendRequest(event) {
+function declineFriendRequest(event, friendsDropdown) {
 	const sender = event.target.parentNode.previousElementSibling.textContent;
-
 	const formData = new FormData();
+	
 	formData.append('sender_username', sender);
-	formData.append('receiver_username', session_user_username);
+	formData.append('receiver_username', friendsDropdown.dataset.sessionUserUsername);
 
-	fetch(declineRequestUrl, {
+	fetch(friendsDropdown.dataset.declineRequestUrl, {
 		method: 'POST',
 		headers: {
-			'X-CSRFToken': csrfToken,
+			'X-CSRFToken': friendsDropdown.dataset.csrfToken,
 		},
 		body: formData
 	})
@@ -158,23 +223,23 @@ function rejectFriendRequest(event) {
 		throw new Error('Network response was not ok.');
 	})
 	.then(data => {
-		createFriendsDropdown();
+		fetchFriendsDropdown(friendsDropdown);
 	})
 	.catch(error => {
 		console.error('Error while requesting friend reject:', error);
 	});
 }
 
-function removeFriend(event) {
+function removeFriend(event, friendsDropdown) {
 	const friend_username = event.target.parentNode.previousElementSibling.textContent;
-
 	const formData = new FormData();
+	
 	formData.append('friend_username', friend_username);
 
-	fetch(removeFriendUrl, {
+	fetch(friendsDropdown.dataset.removeFriendUrl, {
 		method: 'POST',
 		headers: {
-			'X-CSRFToken': csrfToken,
+			'X-CSRFToken': friendsDropdown.dataset.csrfToken,
 		},
 		body: formData
 	})
@@ -185,7 +250,7 @@ function removeFriend(event) {
 		throw new Error('Network response was not ok.');
 	})
 	.then(data => {
-		createFriendsDropdown();
+		fetchFriendsDropdown(friendsDropdown);
 	})
 	.catch(error => {
 		console.error('Error while requesting friend reject:', error);

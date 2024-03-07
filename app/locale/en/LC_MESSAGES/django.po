@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-06 22:10+0100\n"
+"POT-Creation-Date: 2024-03-07 02:24+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,12 +18,24 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: authentication/templates/login_block.html:15
+#: authentication/forms.py:11 authentication/templates/login_block.html:15
 msgid "Username"
 msgstr ""
 
-#: authentication/templates/login_block.html:16
+#: authentication/forms.py:12
+msgid "Email (optional)"
+msgstr ""
+
+#: authentication/forms.py:13 authentication/templates/login_block.html:16
 msgid "Password"
+msgstr ""
+
+#: authentication/forms.py:14
+msgid "Confirm Password"
+msgstr ""
+
+#: authentication/forms.py:23
+msgid "User already exists."
 msgstr ""
 
 #: authentication/templates/login_block.html:20
@@ -31,7 +43,7 @@ msgid "Log in"
 msgstr ""
 
 #: authentication/templates/login_block.html:24
-#: authentication/templates/signup_block.html:28
+#: authentication/templates/signup_block.html:36
 msgid "Sign up"
 msgstr ""
 
@@ -39,12 +51,40 @@ msgstr ""
 msgid "Login with 42"
 msgstr ""
 
-#: authentication/views.py:57
+#: authentication/views.py:58
 msgid "Invalid username or password"
 msgstr ""
 
-#: authentication/views.py:93 authentication/views.py:97
+#: authentication/views.py:94 authentication/views.py:98
 msgid "Failed 42 authentication"
+msgstr ""
+
+#: backend/views.py:19
+msgid "Invalid JSON"
+msgstr ""
+
+#: backend/views.py:28
+msgid "Missing username"
+msgstr ""
+
+#: backend/views.py:34
+msgid "Missing status"
+msgstr ""
+
+#: backend/views.py:41
+msgid "Invalid status. Expected: "
+msgstr ""
+
+#: backend/views.py:48
+msgid "User not found"
+msgstr ""
+
+#: backend/views.py:68
+msgid "Could not find game host"
+msgstr ""
+
+#: backend/views.py:107
+msgid "Could not find tournament host"
 msgstr ""
 
 #: home/templates/bottom-nav.html:6

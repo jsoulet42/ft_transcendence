@@ -193,25 +193,11 @@ html, body {
 }
 
 #menu-profile-img {
-	width: 20%;
+	width: 2rem;
 	height: 100%;
 	border-radius: 0.5rem;
 	object-fit: cover;
 	box-shadow: 0.5rem 0.5rem 1rem rgba(0, 0, 0, 0.7);
-}
-
-#menu-friends-icon {
-	width: 50%;
-	height: 100%;
-	border-radius: 0.5rem;
-	object-fit: cover;
-	border: solid 0.15rem black;
-}
-
-#login-status .menu-icon {
-	width: 20%;
-	height: auto;
-	object-fit: cover;
 }
 
 #login-status .dropdown-menu {
@@ -230,18 +216,6 @@ html, body {
 	// display: flex;
 	// justify-content: center;
 	// align-items: center;
-}
-
-#friends-dropdown .online {
-	background-color: rgba(0, 255, 0, 0.3);
-}
-
-#friends-dropdown .ingame {
-	background-color: rgba(255, 255, 0, 0.3);
-}
-
-#friends-dropdown .offline {
-	background-color: rgba(0, 0, 0, 0.3);
 }
 
 #nav-home-bottom {
