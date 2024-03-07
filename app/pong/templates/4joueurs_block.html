@@ -2,8 +2,8 @@
 
 <div class="container">
 	<div class="catjoueurs_div">
-		<h1 class="glitch_anim catjoueurs_text" data-text="TOURNAMENTS ">{% trans 'TOURNAMENTS' %}</h1>
-		<h1 class="glitch_anim catjoueurs_text" data-text=" 4 PLAYERS">{% trans '4 PLAYERS' %}</h1>
+		<h1 class="glitch_anim catjoueurs_text" data-text={% trans 'TOURNAMENTS' %}>{% trans 'TOURNAMENTS' %}</h1>
+		<h1 class="glitch_anim catjoueurs_text" data-text={% trans '4 PLAYERS' %}%>{% trans '4 PLAYERS' %}</h1>
 	</div>
 	<form method="POST" hx-target="#main-container" hx-post="{% url 'game_with_mode' mode='tournament' %}" hx-push-url="true" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }'>
 	<div id="carouselExampleIndicators" class="carousel slide carousel_container">

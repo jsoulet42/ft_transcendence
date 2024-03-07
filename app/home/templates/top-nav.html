@@ -63,9 +63,11 @@
 						{% csrf_token %}
 						<input name="next" type="hidden" value="{{ request.path }}">
 						{% for language in languages %}
-							<button class="dropdown-item" type="submit" name="language" value="{{ language.code }}">
-								<img src="{% static 'images/flags/'|add:language.code|lower|add:'.png' %}" class="language-flag" alt="{{ language.code }} {% trans 'flag' %}">
-							</button>
+							{% if not language.code|lower == LANGUAGE_CODE|lower %}
+								<button class="dropdown-item" type="submit" name="language" value="{{ language.code }}">
+									<img src="{% static 'images/flags/'|add:language.code|lower|add:'.png' %}" class="language-flag" alt="{{ language.code }} {% trans 'flag' %}">
+								</button>
+							{% endif %}
 						{% endfor %}
 					</form>
 				</div>

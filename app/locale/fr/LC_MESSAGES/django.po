@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-07 08:38+0100\n"
+"POT-Creation-Date: 2024-03-07 10:00+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,6 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: authentication/forms.py:11 authentication/templates/login_block.html:15
+#: friends/templates/friend_request_modal.html:17
 msgid "Username"
 msgstr "Nom d'utilisateur"
 
@@ -89,6 +90,22 @@ msgstr "Hôte de partie introuvable"
 #: backend/views.py:107
 msgid "Could not find tournament host"
 msgstr "Hôte de tournoi introuvable"
+
+#: friends/templates/friend_request_modal.html:8
+msgid "Send friend request"
+msgstr "Envoyer une demande d'amis"
+
+#: friends/templates/friend_request_modal.html:12
+msgid "Please enter one of the following"
+msgstr "Renseigne un des champs"
+
+#: friends/templates/friend_request_modal.html:18
+msgid "OR"
+msgstr "OU"
+
+#: friends/templates/friend_request_modal.html:21
+msgid "Send request"
+msgstr "Envoyer la demande"
 
 #: home/templates/bottom-nav.html:6
 msgid "PLAY"
@@ -170,9 +187,23 @@ msgstr "Profil"
 msgid "Logout"
 msgstr "Deconnection"
 
-#: home/templates/top-nav.html:59 home/templates/top-nav.html:67
+#: home/templates/top-nav.html:59 home/templates/top-nav.html:68
 msgid "flag"
 msgstr "drapeau"
+
+#: hub/templates/hub_block.html:27
+#, fuzzy
+#| msgid "Position"
+msgid "Location"
+msgstr "Position"
+
+#: hub/templates/hub_block.html:28
+msgid "Role"
+msgstr "Rôle"
+
+#: hub/templates/hub_block.html:29
+msgid "GitHub"
+msgstr "GitHub"
 
 #: pong/templates/4joueurs_block.html:5
 #, fuzzy

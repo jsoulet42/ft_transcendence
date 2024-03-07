@@ -3,17 +3,17 @@
 <nav id="nav-home-bottom" class="align-self-center text-center">
 	<a id="play" class="btn buttonPong nav-bottom-btn" href="{% url 'pong' %}" hx-post="{% url 'pong' %}" hx-target="#main-container" hx-push-url="/pong">
 		<span class="center-text">
-			{% trans "PLAY" %}
+			{% trans 'PLAY' %}
 		</span>
 	</a>
 	<a id="tournaments_stats" class="btn buttonPong nav-bottom-btn" href="{% url 'tournaments_stats' %}" hx-post="{% url 'tournaments_stats' %}" hx-target="#main-container" hx-push-url="true">
 		<span class="center-text">
-			{% trans "TOURNAMENTS STATS" %}
+			{% trans 'TOURNAMENTS STATS' %}
 		</span>
 	</a>
 	<a id="profile" class="btn buttonPong nav-bottom-btn" href="{% url 'profile' %}" hx-get="{% url 'profile' %}" hx-target="#main-container" hx-push-url="true">
 		<span class="center-text">
-			{% trans "PROFILE" %}
+			{% trans 'PROFILE' %}
 		</span>
 	</a>
 </nav>
