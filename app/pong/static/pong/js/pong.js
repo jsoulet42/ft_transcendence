@@ -454,10 +454,10 @@ function drawScore() {
 	ctx.font = "2vw Arial";
 	ctx.fillStyle = 'white';
 	let textWidth = ctx.measureText("Score: " + UI.leftScore).width;
-	ctx.fillText("Score: " + UI.leftScore, canvas.width * 0.025, canvas.height * 0.06);
+	ctx.fillText("Score: " + UI.leftScore, canvas.width * 0.075, canvas.height * 0.06);
 	textWidth = ctx.measureText("Score: " + UI.rightScore).width;
 	ctx.fillText("Score: " + UI.rightScore, canvas.width - textWidth - canvas.width * 0.025, canvas.height * 0.06);
-	ctx.fillText(UI.leftName, canvas.width * 0.025, canvas.height * 0.12);
+	ctx.fillText(UI.leftName, canvas.width * 0.075, canvas.height * 0.12);
 	ctx.fillText(UI.rightName, canvas.width - textWidth - canvas.width * 0.05, canvas.height * 0.12);
 }
 
@@ -520,6 +520,7 @@ function drawEndGame() {
 
 function Update() {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	const checkIncreaseSpeed = document.getElementById("flexSwitchCheckDefault");
 	drawVerticalBar();
 	if (!manager.waiting) {
 		lisenInput();
@@ -527,6 +528,13 @@ function Update() {
 		drawCountdown();
 		if (!manager.endGame)
 			drawCountdown2(manager.secondsLeft);
+		if (checkIncreaseSpeed && checkIncreaseSpeed.checked == true && !manager.countdownBool)
+		{
+			if (ball.speedX > 0)
+				ball.speedX += 0.01;
+			else
+				ball.speedX -= 0.01;	
+		}
 	}
 	if (manager.endGame) {
 		drawEndGame();
@@ -541,8 +549,6 @@ function Update() {
 function canvasCheck() {
 	let urlArray = new URL(window.location.href).pathname.split("/");
 	let mode = urlArray.pop() || urlArray.pop();
-
-	console.log(mode);
 
 	if (mode != "pvp" && mode != "pve" && mode != "tournament") {
 		clearInterval(updateInterval2);
@@ -662,6 +668,8 @@ function endGame() {
 }
 
 function reinitializeSettings() {
+	const checkIncreaseSpeed = document.getElementById("flexSwitchCheckDefault");
+
 	window.speedBallBase = 5;
 	window.sizePaddleBase = 5;
 	window.speedPaddleBase = 5;
@@ -675,6 +683,7 @@ function reinitializeSettings() {
 	document.getElementById('speedBall').value = window.speedBallBase;
 	document.getElementById('sizePaddle').value = window.sizePaddleBase;
 	document.getElementById('speedPaddle').value = window.speedPaddleBase;
+	checkIncreaseSpeed.checked = false;
 }
 async function putBackBall(directionX) {
 	manager.putBackBallBool = true;

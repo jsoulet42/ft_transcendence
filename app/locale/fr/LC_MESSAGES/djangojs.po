@@ -23,7 +23,7 @@ msgstr "Cherche un nom d'utilisateur ou un UUID."
 
 #: friends/static/friends/js/friend_request_modal.js:42
 msgid "Error sending friend request: "
-msgstr "Erreur d'envoi de demande d'amis: "
+msgstr "Erreur d'envoi de demande d'ami: "
 
 #: friends/static/friends/js/friends_dropdown.js:60
 msgid "Requests"
@@ -72,9 +72,9 @@ msgstr "La réponse du réseau n'est pas ok."
 
 #: friends/static/friends/js/friends_dropdown.js:193
 msgid "Error while requesting friend accept: "
-msgstr "Erreur de demande d'acceptation de demande: "
+msgstr "Erreur d'acceptation de demande: "
 
 #: friends/static/friends/js/friends_dropdown.js:221
 #: friends/static/friends/js/friends_dropdown.js:248
 msgid "Error while requesting friend reject: "
-msgstr "Erreur de demande de refus de demande: "
+msgstr "Erreur de refus de demande: "

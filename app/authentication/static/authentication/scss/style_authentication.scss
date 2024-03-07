@@ -1,7 +1,7 @@
 #tv-login-content
 {
 	position: absolute;
-	width: 35rem;
+	width: 40rem;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
@@ -102,10 +102,6 @@
 	box-shadow: rgb(0, 0, 0) 0.3vmin 0.3vmin 0.3vmin;
 	border: 0.2vmin solid black;
 	text-align: center;
-}
-
-.container_signup:hover {
-	transform: scale(1.1);
 }
 
 .btn_signup {

@@ -13,7 +13,11 @@
 		<button class="btn_setting" id="modeTwo">{% trans "Game Setting" %}</button>
 	</div>
 	<div class="container_setting_pong" id="setting_pong">
-		<input type="range" min="1" max="10" value="5" id="speedBall" class="slider">
+		<div class="form-check form-switch">
+			<input class="form-check-input switch_mode" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+			<label class="form-check-label" for="flexSwitchCheckDefault">Ball Speedup Mode</label>
+		</div>
+		<input type="range" min="1" max="10" value="5" id="speedBall" class="slider" style="background-color:  violet">
 		<span id="speedBallValue" class="slider_text">{% trans "Ball Speed" %}</span>
 		<input type="range" min="1" max="10" value="5" id="sizePaddle" class="slider1">
 		<span id="sizePaddleValue" class="slider_text1">{% trans "Paddle Size" %}</span>
@@ -24,6 +28,7 @@
 
 <br>
 <button id="tournament_Button" style="display: none; background-color: white;">{% trans "Begin tournament" %}</button>
+
 <script>
 	function yolo() {
 		let urlArray = new URL(window.location.href).pathname.split("/");
@@ -65,6 +70,8 @@
 		speedPaddleSlider = document.getElementById('speedPaddle');
 		modeTwo = document.getElementById('modeTwo');
 		startgameContainer = document.getElementById('startgame_container');
+		player2name = document.getElementById('player2name');
+		player2nameButton = document.getElementById('player2nameButton');
 
 		let urlArray = new URL(window.location.href).pathname.split("/");
 		let mode = urlArray.pop() || urlArray.pop();
@@ -76,12 +83,20 @@
 		speedPaddleSlider.style.display = 'none';
 		modeTwo.style.display = 'none';
 		if (mode == 'pvp') {
+			startgameContainer.style.display = 'flex';
+			player2nameButton.style.display = 'block';
+			player2name.style.display = 'flex';
 			modeTwo.style.display = 'block';
-			document.getElementById('startgame_container').style.display = 'block';
+		}
+		if (mode == 'pve')
+		{
+			startgameContainer.style.display = 'flex';
+			player2name.style.display = 'flex';
 		}
 		window.speedBallBase = 5;
 		window.sizePaddleBase = 5;
 		window.speedPaddleBase = 5;
+		window.increaseMode = 0;
 
 		window.speed = window.speedBallBase;
 		window.sizePaddle = window.sizePaddleBase;
@@ -92,7 +107,7 @@
 		let urlArray = new URL(window.location.href).pathname.split("/");
 		let mode = urlArray.pop() || urlArray.pop();
 
-		if (mode == 'pvp') {
+		if (mode == "pvp") {
 			name_player2 = document.getElementById('player2name').value;
 			if (name_player2.length > 10)
 				name_player2 = name_player2.substring(0, 10);
@@ -104,7 +119,7 @@
 				alert('Enter something 🤨')
 				return;
 			}
-		} else if (mode == 'pve') {
+		} else if (mode == "pve") {
 			name_player2 = "Glados"
 			document.getElementById('startgame_bigger_container').style.display = 'none';
 			window.startGameFunctionPVE();

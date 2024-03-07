@@ -322,16 +322,12 @@ msgid "Player 8"
 msgstr "Spieler 2"
 
 #: pong/templates/game_block.html:10
-#, fuzzy
-#| msgid "Enter new nickname"
 msgid "Enter your nickname please :D"
-msgstr "Neuer Spitzname"
+msgstr "Schreibe dein Spitzname bitte :D"
 
 #: pong/templates/game_block.html:12
-#, fuzzy
-#| msgid "Start tournament"
 msgid "Start the game"
-msgstr "Tournier starten"
+msgstr "Partie starten"
 
 #: pong/templates/game_block.html:13
 msgid "Game Setting"

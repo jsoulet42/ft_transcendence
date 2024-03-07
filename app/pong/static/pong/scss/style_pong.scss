@@ -68,7 +68,7 @@ $carousel-indicator-height: 3px;
 }
 
 .startgame_container {
-	display: flex;
+	display: none;
 	justify-content: center;
 	z-index: 1;
 	height: inherit;
@@ -90,13 +90,22 @@ $carousel-indicator-height: 3px;
 	padding: 5%;
 }
 
+.text_startgame1 {
+	position: absolute;
+	color: white;
+	font-size: 2.3vh;
+	top: 0%;
+	left: 20%;
+	padding: 5%;
+}
+
 .startgame_playerform {
 	text-align: center;
 	width: 70%;
 	overflow: hidden;
 	background-color: bisque;
 	border-radius: 1rem;
-	display: flex;
+	display: none;
 	font-size: 1.5rem;
 	animation: blink 0.5s infinite;
 	height: 7vh;
@@ -121,6 +130,7 @@ $carousel-indicator-height: 3px;
 
 .btn_setting,
 .startgame_btn {
+	display: none;
 	right: 15%;
 	width: 70%;
 	background-color: violet;
@@ -163,7 +173,10 @@ $carousel-indicator-height: 3px;
 }
 
 
-.switch {
+.switch_mode {
+	position: absolute;
+	top: 5%;
+	display: inline-block;
 	cursor: pointer;
 	overflow: hidden;
 	color: violet;
