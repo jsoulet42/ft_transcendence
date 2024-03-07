@@ -80,6 +80,7 @@ TEMPLATES = [
             os.path.join(BASE_DIR, 'home', 'templates'),
             os.path.join(BASE_DIR, 'hub', 'templates'),
             os.path.join(BASE_DIR, 'friends', 'templates'),
+            os.path.join(BASE_DIR, 'profile', 'templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {

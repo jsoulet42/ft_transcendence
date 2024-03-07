@@ -9,6 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-07 16:07+0100\n"
+"POT-Creation-Date: 2024-03-07 13:59+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,7 +29,7 @@ msgid "Email (optional)"
 msgstr "Email (optionnel)"
 
 #: authentication/forms.py:13 authentication/templates/login_block.html:16
-#: home/templates/home.html:87
+#: home/templates/home.html:88
 msgid "Password"
 msgstr "Mot de passe"
 
@@ -105,65 +106,17 @@ msgstr "OU"
 msgid "Send request"
 msgstr "Envoyer la demande"
 
-#: friends/views.py:23
-msgid "Could not find user"
-msgstr "Impossible de trouver l'utilisateur"
+#: friends/templates/friends_dropdown.html:13
+msgid "friends_icon"
+msgstr "icone_amis"
 
-#: friends/views.py:45
-msgid "Couldn't find friend"
-msgstr "Impossible de trouver l'ami"
+#: friends/templates/friends_dropdown.html:19
+msgid "Add friend"
+msgstr "Ajouter ami"
 
-#: friends/views.py:52
-msgid "Friend removed successfully"
-msgstr "Ami supprimé avec succès"
-
-#: friends/views.py:54
-msgid "Could not remove friend"
-msgstr "Impossible de supprimer l'ami"
-
-#: friends/views.py:70
-msgid "Invalid UUID format"
-msgstr "Format UUID invalide"
-
-#: friends/views.py:76
-msgid "Self requests not allowed"
-msgstr "Les demandes de soi ne sont pas autorisées"
-
-#: friends/views.py:79
-msgid "User is already your friend"
-msgstr "L'utilisateur est déjà votre ami"
-
-#: friends/views.py:82
-msgid "Friend request already sent"
-msgstr "La demande d'ami a déjà été envoyée"
-
-#: friends/views.py:85
-msgid "Friend request sent"
-msgstr "Demande d'ami envoyée"
-
-#: friends/views.py:93 friends/views.py:120
-msgid "Invalid sender username"
-msgstr "Nom d'utilisateur de l'expéditeur invalide"
-
-#: friends/views.py:97 friends/views.py:124
-msgid "Invalid receiver username"
-msgstr "Nom d'utilisateur du destinataire invalide"
-
-#: friends/views.py:110
-msgid "Could not accept friend request"
-msgstr "Impossible d'accepter la demande d'ami"
-
-#: friends/views.py:112
-msgid "Friend request accepted"
-msgstr "Demande d'ami acceptée"
-
-#: friends/views.py:134
-msgid "Could not decline friend request"
-msgstr "Impossible de refuser la demande d'ami"
-
-#: friends/views.py:136
-msgid "Friend request rejected"
-msgstr "Demande d'ami rejetée"
+#: friends/templates/friends_dropdown.html:20
+msgid "Refresh"
+msgstr "Actualiser"
 
 #: home/templates/bottom-nav.html:6
 msgid "PLAY"
@@ -177,59 +130,74 @@ msgstr "STATS DES TOURNOIS"
 msgid "PROFILE"
 msgstr "PROFIL"
 
-#: home/templates/home.html:36
+#: home/templates/home.html:37
 msgid "Loading..."
 msgstr "Chargement..."
 
 #: home/templates/home.html:44
+#: home/templates/home.html:45
+#, fuzzy
+#| msgid "PROFILE"
 msgid "EDIT IMAGE"
 msgstr "MODIFIER L'IMAGE"
 
-#: home/templates/home.html:51
+#: home/templates/home.html:52
 msgid "UPLOAD YOUR IMAGE -> THEN EDIT YOUR PROFILE"
 msgstr "TÉLÉCHARGEZ VOTRE IMAGE -> ENSUITE MODIFIEZ VOTRE PROFIL"
 
-#: home/templates/home.html:57 home/templates/home.html:104
+#: home/templates/home.html:58 home/templates/home.html:105
 msgid "Close"
 msgstr "Fermer"
 
-#: home/templates/home.html:58
+#: home/templates/home.html:59
 msgid "Save"
 msgstr "Enregistrer"
 
 #: home/templates/home.html:69 profile/templates/profile_block.html:38
+#: home/templates/home.html:70 profile/templates/profile_block.html:38
+#, fuzzy
+#| msgid "PROFILE"
 msgid "EDIT PROFILE"
 msgstr "MODIFIER LE PROFIL"
 
-#: home/templates/home.html:83
+#: home/templates/home.html:84
 msgid "Nickname"
 msgstr "Surnom"
 
-#: home/templates/home.html:84
+#: home/templates/home.html:85
 msgid "Enter new nickname"
 msgstr "Entrez le nouveau surnom"
 
 #: home/templates/home.html:88
+#: home/templates/home.html:89
+#, fuzzy
+#| msgid "Invalid username or password"
 msgid "Enter new password"
 msgstr "Entrez un nouveau mot de passe"
 
 #: home/templates/home.html:91
+#: home/templates/home.html:92
+#, fuzzy
+#| msgid "Profile"
 msgid "Profile Picture"
 msgstr "Photo de profil"
 
-#: home/templates/home.html:93
+#: home/templates/home.html:94
 msgid "Choose picture..."
 msgstr "Choisissez une image..."
 
 #: home/templates/home.html:96
+#: home/templates/home.html:97
+#, fuzzy
+#| msgid "Profile"
 msgid "42 Profile"
 msgstr "Profil 42"
 
-#: home/templates/home.html:98
+#: home/templates/home.html:99
 msgid "Uploaded"
 msgstr "Téléchargé"
 
-#: home/templates/home.html:105
+#: home/templates/home.html:106
 msgid "Save changes"
 msgstr "Enregistrer les modifications"
 
