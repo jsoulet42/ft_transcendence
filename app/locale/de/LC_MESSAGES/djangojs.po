@@ -42,7 +42,7 @@ msgstr "Annehmen"
 #: friends/static/friends/js/friends_dropdown.js:81
 #: friends/static/friends/js/friends_dropdown.js:82
 msgid "Decline"
-msgstr "Rückgang"
+msgstr "Ablehnen"
 
 #: friends/static/friends/js/friends_dropdown.js:104
 msgid "Error fetching friend requests: "
@@ -73,9 +73,9 @@ msgstr "Netzwerk Antwort ist nicht ok."
 
 #: friends/static/friends/js/friends_dropdown.js:193
 msgid "Error while requesting friend accept: "
-msgstr "Fehler beim Abruf der Freundesannehmung: "
+msgstr "Fehler beim Annehmen der Anfrage: "
 
 #: friends/static/friends/js/friends_dropdown.js:221
 #: friends/static/friends/js/friends_dropdown.js:248
 msgid "Error while requesting friend reject: "
-msgstr "Fehler beim Abruf des Freundesrückgangs: "
+msgstr "Fehler beim Ablehnen der Anfrage: "

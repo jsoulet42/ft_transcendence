@@ -136,8 +136,6 @@ msgstr "Chargement..."
 
 #: home/templates/home.html:44
 #: home/templates/home.html:45
-#, fuzzy
-#| msgid "PROFILE"
 msgid "EDIT IMAGE"
 msgstr "MODIFIER L'IMAGE"
 
@@ -155,8 +153,6 @@ msgstr "Enregistrer"
 
 #: home/templates/home.html:69 profile/templates/profile_block.html:38
 #: home/templates/home.html:70 profile/templates/profile_block.html:38
-#, fuzzy
-#| msgid "PROFILE"
 msgid "EDIT PROFILE"
 msgstr "MODIFIER LE PROFIL"
 
@@ -170,15 +166,11 @@ msgstr "Entrez le nouveau surnom"
 
 #: home/templates/home.html:88
 #: home/templates/home.html:89
-#, fuzzy
-#| msgid "Invalid username or password"
 msgid "Enter new password"
 msgstr "Entrez un nouveau mot de passe"
 
 #: home/templates/home.html:91
 #: home/templates/home.html:92
-#, fuzzy
-#| msgid "Profile"
 msgid "Profile Picture"
 msgstr "Photo de profil"
 
@@ -188,8 +180,6 @@ msgstr "Choisissez une image..."
 
 #: home/templates/home.html:96
 #: home/templates/home.html:97
-#, fuzzy
-#| msgid "Profile"
 msgid "42 Profile"
 msgstr "Profil 42"
 
@@ -219,7 +209,7 @@ msgstr ""
 
 #: hub/templates/hub_block.html:27
 msgid "Location"
-msgstr "Emplacement"
+msgstr "Localisation"
 
 #: hub/templates/hub_block.html:28
 msgid "Role"
@@ -263,11 +253,11 @@ msgstr "Démarrer le tournoi"
 
 #: pong/templates/8joueurs_block.html:5
 msgid "8 PLAYERS"
-msgstr "4 JOUEURS"
+msgstr "8 JOUEURS"
 
 #: pong/templates/8joueurs_block.html:8 pong/templates/8joueurs_block.html:10
 msgid "Host and player 1:"
-msgstr ""
+msgstr "Hôte et joueur 1"
 
 #: pong/templates/8joueurs_block.html:16
 msgid "Player Two"
@@ -315,15 +305,15 @@ msgstr "Joueur 8"
 
 #: pong/templates/game_block.html:10
 msgid "Enter your nickname please :D"
-msgstr "Entrez le surnom"
+msgstr "Entrez votre surnom"
 
 #: pong/templates/game_block.html:12
 msgid "Start the game"
-msgstr "Démarrer le tournoi"
+msgstr "Démarrer la partie"
 
 #: pong/templates/game_block.html:13
 msgid "Game Setting"
-msgstr "Paramètres de jeux"
+msgstr "Paramètres du jeu"
 
 #: pong/templates/game_block.html:17
 msgid "Ball Speed"
@@ -331,7 +321,7 @@ msgstr "vitesse de la balle"
 
 #: pong/templates/game_block.html:19
 msgid "Paddle Size"
-msgstr "taille de la raquette"
+msgstr "Taille de la raquette"
 
 #: pong/templates/game_block.html:21
 msgid "Paddle Speed"
@@ -368,7 +358,7 @@ msgstr "HISTORIQUE DES TOURNOIS"
 #: profile/templates/match_history.html:7
 #: profile/templates/match_history_search.html:7
 msgid "1 VS 1 History"
-msgstr "Historique 1 contre 1"
+msgstr "Historique 1 CONTRE 1"
 
 #: profile/templates/match_history.html:13
 #: profile/templates/match_history_search.html:13
@@ -398,7 +388,7 @@ msgstr "Score de l'adversaire"
 #: profile/templates/match_history_search.html:17
 #: profile/templates/tournaments_history.html:16
 msgid "Duration"
-msgstr "Emplacement"
+msgstr "Durée"
 
 #: profile/templates/profile_block.html:23
 msgid "GAMES PLAYED"
@@ -436,27 +426,25 @@ msgstr "PARTIES JOUÉES"
 
 #: profile/templates/search-profiles.html:11
 msgid "WIN COUNT :"
-msgstr ""
+msgstr "VICTOIRES"
 
 #: profile/templates/search-profiles.html:12
 msgid "LOOSE COUNT :"
-msgstr "Defaites"
+msgstr "DEFAITES"
 
 #: profile/templates/search-profiles.html:25
 msgid "Error: There is no user with this username."
-msgstr "Erreur: cette utilisateur n'existe pas"
+msgstr "Erreur: Cet utilisateur n'existe pas."
 
 #: profile/templates/tournaments_history.html:5
 msgid "1 VS 1 HISTORY"
-msgstr "1 CONTRE 1"
+msgstr "Historique 1 CONTRE 1"
 
 #: profile/templates/tournaments_history.html:6
 msgid "Tournaments History"
-msgstr "Stats des tournois"
+msgstr "Historique des tournois"
 
 #: profile/views.py:105
-#, fuzzy
-#| msgid "Password must be at least 8 characters long"
 msgid "Password must be at least 8"
 msgstr "Le mot de passe doit comporter au moins 8 caractères"
 
