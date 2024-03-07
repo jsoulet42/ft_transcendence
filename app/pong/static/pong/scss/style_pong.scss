@@ -68,7 +68,7 @@ $carousel-indicator-height: 3px;
 }
 
 .startgame_container {
-	display: flex;
+	display: none;
 	justify-content: center;
 	z-index: 1;
 	height: inherit;
@@ -91,10 +91,11 @@ $carousel-indicator-height: 3px;
 }
 
 .text_startgame1 {
+	position: absolute;
 	color: white;
 	font-size: 2.3vh;
-	top: 5%;
-	left: 13%;
+	top: 0%;
+	left: 20%;
 	padding: 5%;
 }
 
@@ -104,7 +105,7 @@ $carousel-indicator-height: 3px;
 	overflow: hidden;
 	background-color: bisque;
 	border-radius: 1rem;
-	display: flex;
+	display: none;
 	font-size: 1.5rem;
 	animation: blink 0.5s infinite;
 	height: 7vh;
@@ -129,6 +130,7 @@ $carousel-indicator-height: 3px;
 
 .btn_setting,
 .startgame_btn {
+	display: none;
 	right: 15%;
 	width: 70%;
 	background-color: violet;
@@ -171,8 +173,9 @@ $carousel-indicator-height: 3px;
 }
 
 
-.switch {
-	position: relative;
+.switch_mode {
+	position: absolute;
+	top: 5%;
 	display: inline-block;
 	cursor: pointer;
 	overflow: hidden;
@@ -224,11 +227,6 @@ $carousel-indicator-height: 3px;
 		background-color: rgb(192, 128, 253);
 		text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
 	}
-}
-
-.switch_mode {
-	position: absolute;
-	top: 5%;
 }
 
 .slider {
