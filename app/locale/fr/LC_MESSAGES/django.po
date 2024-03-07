@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-07 08:16+0100\n"
+"POT-Creation-Date: 2024-03-07 08:38+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,7 +27,7 @@ msgid "Email (optional)"
 msgstr "Email (optionnel)"
 
 #: authentication/forms.py:13 authentication/templates/login_block.html:16
-#: home/templates/home.html:81
+#: home/templates/home.html:87
 msgid "Password"
 msgstr "Mot de passe"
 
@@ -102,59 +102,59 @@ msgstr "STATS DE TOURNOIS"
 msgid "PROFILE"
 msgstr "PROFIL"
 
-#: home/templates/home.html:30
+#: home/templates/home.html:36
 msgid "Loading..."
 msgstr "Chargement..."
 
-#: home/templates/home.html:38
+#: home/templates/home.html:44
 #, fuzzy
 #| msgid "PROFILE"
 msgid "EDIT IMAGE"
 msgstr "EDITER LE PROFIL"
 
-#: home/templates/home.html:45
+#: home/templates/home.html:51
 msgid "UPLOAD YOUR IMAGE -> THEN EDIT YOUR PROFILE"
 msgstr "TELECHARGE TON IMAGE -> PUIS MODIFIE TON PROFIL"
 
-#: home/templates/home.html:51 home/templates/home.html:98
+#: home/templates/home.html:57 home/templates/home.html:104
 msgid "Close"
 msgstr "Fermer"
 
-#: home/templates/home.html:52
+#: home/templates/home.html:58
 msgid "Save"
 msgstr "Enregistrer"
 
-#: home/templates/home.html:63 profile/templates/profile_block.html:38
+#: home/templates/home.html:69 profile/templates/profile_block.html:38
 #, fuzzy
 #| msgid "PROFILE"
 msgid "EDIT PROFILE"
 msgstr "EDITER LE PROFIL"
 
-#: home/templates/home.html:77
+#: home/templates/home.html:83
 msgid "Nickname"
 msgstr "Surnom"
 
-#: home/templates/home.html:85
+#: home/templates/home.html:91
 #, fuzzy
 #| msgid "Profile"
 msgid "Profile Picture"
 msgstr "Image de Profil"
 
-#: home/templates/home.html:87
+#: home/templates/home.html:93
 msgid "Choose picture..."
 msgstr "Choisis une image..."
 
-#: home/templates/home.html:90
+#: home/templates/home.html:96
 #, fuzzy
 #| msgid "Profile"
 msgid "42 Profile"
 msgstr "Profil 42"
 
-#: home/templates/home.html:92
+#: home/templates/home.html:98
 msgid "Uploaded"
 msgstr "Telecharge"
 
-#: home/templates/home.html:99
+#: home/templates/home.html:105
 msgid "Save changes"
 msgstr "Enregistrer les modificaitons"
 
@@ -173,6 +173,44 @@ msgstr "Deconnection"
 #: home/templates/top-nav.html:59 home/templates/top-nav.html:67
 msgid "flag"
 msgstr "drapeau"
+
+#: pong/templates/4joueurs_block.html:5
+#, fuzzy
+#| msgid "TOURNAMENT"
+msgid "TOURNAMENTS"
+msgstr "TOURNOIS"
+
+#: pong/templates/4joueurs_block.html:6
+#, fuzzy
+#| msgid "PLAY"
+msgid "4 PLAYERS"
+msgstr "4 JOUEURS"
+
+#: pong/templates/4joueurs_block.html:15
+msgid "Player 2"
+msgstr "Joueur 2"
+
+#: pong/templates/4joueurs_block.html:22
+msgid "Player 3"
+msgstr "Joueur 3"
+
+#: pong/templates/4joueurs_block.html:29
+msgid "Player 4"
+msgstr "Joueur 4"
+
+#: pong/templates/4joueurs_block.html:34
+msgid "Previous"
+msgstr "Précédent"
+
+#: pong/templates/4joueurs_block.html:38
+msgid "Next"
+msgstr "Suite"
+
+#: pong/templates/4joueurs_block.html:42
+#, fuzzy
+#| msgid "No tournaments found"
+msgid "Start tournament"
+msgstr "Aucun tournoi"
 
 #: pong/templates/pong_block.html:9
 msgid "1 VS 1"

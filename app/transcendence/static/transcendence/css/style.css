@@ -403,6 +403,7 @@ html, body {
 .top-nav-container {
   position: relative;
   width: fit-content;
+  height: 100%;
   cursor: pointer;
   border-radius: 0 0 2rem 2rem;
   background: linear-gradient(to bottom, #f63192, #6c4fef);
@@ -410,7 +411,7 @@ html, body {
 
 .top-nav-container:hover,
 .top-nav-container.focused {
-  transform: scaleY(1.2);
+  height: 105%;
 }
 
 .top-nav-container .dropdown-toggle {

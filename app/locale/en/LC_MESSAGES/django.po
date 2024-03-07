@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-07 08:16+0100\n"
+"POT-Creation-Date: 2024-03-07 08:38+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,7 +27,7 @@ msgid "Email (optional)"
 msgstr ""
 
 #: authentication/forms.py:13 authentication/templates/login_block.html:16
-#: home/templates/home.html:81
+#: home/templates/home.html:87
 msgid "Password"
 msgstr ""
 
@@ -100,51 +100,51 @@ msgstr ""
 msgid "PROFILE"
 msgstr ""
 
-#: home/templates/home.html:30
+#: home/templates/home.html:36
 msgid "Loading..."
 msgstr ""
 
-#: home/templates/home.html:38
+#: home/templates/home.html:44
 msgid "EDIT IMAGE"
 msgstr ""
 
-#: home/templates/home.html:45
+#: home/templates/home.html:51
 msgid "UPLOAD YOUR IMAGE -> THEN EDIT YOUR PROFILE"
 msgstr ""
 
-#: home/templates/home.html:51 home/templates/home.html:98
+#: home/templates/home.html:57 home/templates/home.html:104
 msgid "Close"
 msgstr ""
 
-#: home/templates/home.html:52
+#: home/templates/home.html:58
 msgid "Save"
 msgstr ""
 
-#: home/templates/home.html:63 profile/templates/profile_block.html:38
+#: home/templates/home.html:69 profile/templates/profile_block.html:38
 msgid "EDIT PROFILE"
 msgstr ""
 
-#: home/templates/home.html:77
+#: home/templates/home.html:83
 msgid "Nickname"
 msgstr ""
 
-#: home/templates/home.html:85
+#: home/templates/home.html:91
 msgid "Profile Picture"
 msgstr ""
 
-#: home/templates/home.html:87
+#: home/templates/home.html:93
 msgid "Choose picture..."
 msgstr ""
 
-#: home/templates/home.html:90
+#: home/templates/home.html:96
 msgid "42 Profile"
 msgstr ""
 
-#: home/templates/home.html:92
+#: home/templates/home.html:98
 msgid "Uploaded"
 msgstr ""
 
-#: home/templates/home.html:99
+#: home/templates/home.html:105
 msgid "Save changes"
 msgstr ""
 
@@ -162,6 +162,38 @@ msgstr ""
 
 #: home/templates/top-nav.html:59 home/templates/top-nav.html:67
 msgid "flag"
+msgstr ""
+
+#: pong/templates/4joueurs_block.html:5
+msgid "TOURNAMENTS"
+msgstr ""
+
+#: pong/templates/4joueurs_block.html:6
+msgid "4 PLAYERS"
+msgstr ""
+
+#: pong/templates/4joueurs_block.html:15
+msgid "Player 2"
+msgstr ""
+
+#: pong/templates/4joueurs_block.html:22
+msgid "Player 3"
+msgstr ""
+
+#: pong/templates/4joueurs_block.html:29
+msgid "Player 4"
+msgstr ""
+
+#: pong/templates/4joueurs_block.html:34
+msgid "Previous"
+msgstr ""
+
+#: pong/templates/4joueurs_block.html:38
+msgid "Next"
+msgstr ""
+
+#: pong/templates/4joueurs_block.html:42
+msgid "Start tournament"
 msgstr ""
 
 #: pong/templates/pong_block.html:9
