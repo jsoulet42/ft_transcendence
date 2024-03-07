@@ -33,8 +33,6 @@ msgid "Password"
 msgstr "Passwort"
 
 #: authentication/forms.py:14
-#, fuzzy
-#| msgid "Password"
 msgid "Confirm Password"
 msgstr "Passwort Bestätigung"
 
@@ -124,8 +122,6 @@ msgid "Loading..."
 msgstr "Ladung..."
 
 #: home/templates/home.html:44
-#, fuzzy
-#| msgid "EDIT PROFILE"
 msgid "EDIT IMAGE"
 msgstr "BILD ANDERN"
 
@@ -154,14 +150,10 @@ msgid "Enter new nickname"
 msgstr "Neuer Spitzname"
 
 #: home/templates/home.html:88
-#, fuzzy
-#| msgid "Invalid username or password"
 msgid "Enter new password"
 msgstr "Neueur Passwort"
 
 #: home/templates/home.html:91
-#, fuzzy
-#| msgid "Profile"
 msgid "Profile Picture"
 msgstr "Profil Bild"
 
@@ -170,8 +162,6 @@ msgid "Choose picture..."
 msgstr "Wähle ein Bild aus..."
 
 #: home/templates/home.html:96
-#, fuzzy
-#| msgid "Profile"
 msgid "42 Profile"
 msgstr "42 Profil"
 
@@ -212,14 +202,10 @@ msgid "GitHub"
 msgstr "GitHub"
 
 #: pong/templates/4joueurs_block.html:5
-#, fuzzy
-#| msgid "TOURNAMENT"
 msgid "TOURNAMENTS"
 msgstr "TURNIERE"
 
 #: pong/templates/4joueurs_block.html:6
-#, fuzzy
-#| msgid "PLAY"
 msgid "4 PLAYERS"
 msgstr "4 SPIELER"
 

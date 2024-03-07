@@ -57,30 +57,29 @@ function fetchFriendRequests(friendsDropdown) {
 		const friendRequestsContainer = friendsDropdown.querySelector('.friend-requests-container');
 		const divider = document.createElement('li');
 
-		friendRequestsContainer.innerHTML = `<li><div class="dropdown-header">Requests</div></li>`;
+		friendRequestsContainer.innerHTML = `<li><div class="dropdown-header">` + gettext('Requests') + `</div></li>`;
 		divider.innerHTML = '<hr class="dropdown-divider">';
 
 		if (data.length === 0) {
-			friendRequestsContainer.insertAdjacentHTML('beforeEnd', `<li>No friend requests</li>`);
+			friendRequestsContainer.insertAdjacentHTML('beforeEnd', `<li>` + gettext('No friend requests') + `</li>`);
 		} else {
 			const listItemTemplate = document.createElement('li');
 			const btnContainer = document.createElement('div');
 			const btn_accept = document.createElement('button');
 			const btn_decline = document.createElement('button');
-			//const btn_accept = `<button type="button" class="btn btn-add" aria-label="Accept"></button>`
-			//const btn_decline = `<button type="button" class="btn btn-deny" aria-label="Reject"></button>`
+
 			listItemTemplate.classList.add('row');
 			btnContainer.classList.add('col', 'text-end');
 
 			btn_accept.type = 'button';
 			btn_accept.classList.add('btn', 'btn-add');
-			btn_accept.setAttribute('aria-label', 'Accept');
-			btn_accept.setAttribute('title', 'Accept');
+			btn_accept.setAttribute('aria-label', gettext('Accept'));
+			btn_accept.setAttribute('title', gettext('Accept'));
 			
 			btn_decline.type = 'button';
 			btn_decline.classList.add('btn', 'btn-deny');
-			btn_decline.setAttribute('aria-label', 'Decline');
-			btn_accept.setAttribute('title', 'Decline');
+			btn_decline.setAttribute('aria-label', gettext('Decline'));
+			btn_accept.setAttribute('title', gettext('Decline'));
 
 			btnContainer.appendChild(btn_accept);
 			btnContainer.appendChild(btn_decline);
