@@ -50,6 +50,7 @@
 
 	var save_game;
 	var save_tournament;
+	var set_user_status;
 
 	var speedBall;
 	var sizePaddleSlider;
@@ -68,6 +69,7 @@
 		let mode = urlArray.pop() || urlArray.pop();
 		save_game = '{% url "game_save" %}';
 		save_tournament = '{% url "tournament_save" %}';
+		set_user_status = '{% url "set_user_status" %}';
 		speedBall.style.display = 'none';
 		sizePaddleSlider.style.display = 'none';
 		speedPaddleSlider.style.display = 'none';

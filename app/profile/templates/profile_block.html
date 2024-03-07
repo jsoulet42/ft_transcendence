@@ -3,19 +3,19 @@
 
 <div class="tv-content-profile">
     {% if messages %}
-                    {% for message in messages %}
-                    <div class="alert alert-dismissible {{ message.tags }} fade show alert1" role="alert">
-                        <div>{{ message | safe }}</div>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                    {% endfor %}
+        {% for message in messages %}
+        <div class="alert alert-dismissible {{ message.tags }} fade show alert1" role="alert">
+            <div>{{ message | safe }}</div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
     {% endif %}
 
-    {%  if user.nickname %}
+    {% if user.nickname %}
 	    <h1>{{ user.nickname }}</h1>
     {% else %}
         <h1>{{ user.username }}</h1>
-    {%  endif %}
+    {% endif %}
 	<div id="choice-div" class="rounded-5 border border-info border-3">
 		<img id="choice-img" class="rounded-5 border border-info border-3" src="{{ user.profile_image_path }}" alt="player-profile">
 	</div>
@@ -39,40 +39,9 @@
 	</button>
 	<form class="d-flex" method="post" hx-post="{% url 'search_profiles' %}" hx-target="#main-container">
 		{% csrf_token %}
-		<input class="bottom-edit5 btn-outline-info" name="searched" type="search" placeholder={% trans "Search for username.." %} aria-label="Search"/>
+		<input class="bottom-edit5 btn-outline-info" name="searched" type="search" placeholder={% trans "Search for username..." %} aria-label="Search"/>
 		<button class="bottom-edit4 btn btn-outline-info" type="submit">
 			{% trans "Search" %}
 		</button>
 	</form>
 </div>
-{#<script>#}
-{#	document.getElementById('avatarselect').addEventListener('change', function() {#}
-{#		var selectedValue = this.value;#}
-{#		if (selectedValue !== "Default Avatar") {#}
-{#			var url = "{% url 'get_image_url' %}";#}
-{#			fetch(url, {#}
-{#				method: 'POST',#}
-{#				headers: {#}
-{#					'Content-Type': 'application/json',#}
-{#					'X-CSRFToken': '{{ csrf_token }}'#}
-{#				},#}
-{#				body: JSON.stringify({ 'avatarselect': selectedValue })#}
-{#			})#}
-{#			.then(response => response.json())#}
-{#			.then(data => {#}
-{#				document.getElementById('choice-img').src = data.image_url;#}
-{#			})#}
-{#			.catch(error => console.error('Error:', error));#}
-{#		}#}
-{#	});#}
-{#</script>#}
-{#<script>#}
-{#  document.addEventListener('DOMContentLoaded', function () {#}
-{#    {% for message in messages %}#}
-{#      var modalBody = document.querySelector('#messageModal .modal-body');#}
-{#      modalBody.textContent = '{{ message }}';#}
-{#      var myModal = new bootstrap.Modal(document.getElementById('messageModal'));#}
-{#      myModal.show();#}
-{#    {% endfor %}#}
-{#  });#}
-{#</script>#}

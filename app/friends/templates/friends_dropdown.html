@@ -1,0 +1,23 @@
+{% load static %}
+{% load i18n %}
+
+<div class="btn-group dropdown friends-dropdown"
+	data-session-user-username="{{ user.username }}"
+	data-csrf-token="{{ csrf_token }}"
+	data-remove-friend-url="{% url 'remove_friend' %}"
+	data-get-friend-list-url="{% url 'get_friend_list' %}"
+	data-get-requests-url="{% url 'get_friend_requests' %}"
+	data-accept-request-url="{% url 'accept_friend_request' %}"
+	data-decline-request-url="{% url 'decline_friend_request' %}">
+	<button type="button" class="btn btn-secondary dropdown-toggle friends-dropdown-toggle pong-btn-success" data-bs-toggle="dropdown" aria-expanded="false">
+		<img class="img-fluid dropdown-icon" src="{% static 'friends/images/friends_icon.png' %}" alt=_("friends_icon")>
+	</button>
+	<ul class="dropdown-menu friends-dropdown-menu px-3">
+		<div class="friend-requests-container"></div>
+		<div class="friend-list-container"></div>
+		<li class="row">
+			<button type="button" title=_("Add friend") class="dropdown-item btn btn-add col" data-bs-toggle="modal" data-bs-target="#friend-request-modal"></button>
+			<button type="button" title=_("Refresh") class="dropdown-item btn btn-refresh col friends-dropdown-refresh"></button>
+		</li>
+	</ul>
+</div>

@@ -11,50 +11,67 @@
 		<div id="ball1"></div>
 	</a>
 
-	<div id="login-status" class="container">
-		{% if not user.is_authenticated %}
-		<a class="btn buttonPong login-btn" href="{% url 'login' %}" hx-get="{% url 'login' %}" hx-target="#main-container" hx-push-url="true" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }'>
-			<span class="center-text">
-				{% trans "Login" %}
-			</span>
-		</a>
-		{% else %}
-		<div class="btn-group login-btn">
-			<div class="btn-group dropdown">
-				<button type="button" class="btn btn-primary dropdown-toggle buttonPong" data-bs-toggle="dropdown" aria-expanded="false">
-					<span class="login-text">
-						{% if user.nickname %}
-							{{ user.nickname }}
-						{% else %}
-							{{ user.username }}
-						{% endif %}
-					</span>
-					<img id="menu-profile-img" class="img-fluid" src="{{ user.profile_image_path }}" alt="{{ user.username }}">
-				</button>
-				<ul class="dropdown-menu">
-					<li><button class="dropdown-item" type="button" href="{% url 'profile' %}" hx-get="{% url 'profile' %}" hx-target="#main-container" hx-push-url="true" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }'>Profile</button></li>
-					<li><button class="dropdown-item" type="button" href="{% url 'logout' %}" hx-post="{% url 'logout' %}" hx-target="body" hx-push-url="/" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }'>Logout</button></li>
-				</ul>
+	<div class="btn-toolbar h-100 float-right" role="toolbar" aria-label="Toolbar with button groups">
+		<div class="container top-nav-container pb-2 px-2" role="group" aria-label="First group">
+			{% if not user.is_authenticated %}
+			<button type="button" class="btn buttonPong login-btn" href="{% url 'login' %}" hx-get="{% url 'login' %}" hx-target="#main-container" hx-push-url="true" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }'>
+				<span class="center-text">
+					{% trans 'Login' %}
+				</span>
+			</button>
+			{% else %}
+			<div class="btn-group login-btn">
+				<div class="btn-group dropdown">
+					<button type="button" class="btn btn-primary dropdown-toggle buttonPong" data-bs-toggle="dropdown" aria-expanded="false">
+						<span class="login-text">
+							{% if user.nickname %}
+								{{ user.nickname }}
+							{% else %}
+								{{ user.username }}
+							{% endif %}
+						</span>
+						<img class="profile-img img-fluid" src="{{ user.profile_image_path }}" alt="{{ user.username }}">
+					</button>
+					<ul class="dropdown-menu">
+						<li>
+							<button class="dropdown-item" type="button" href="{% url 'profile' %}" hx-get="{% url 'profile' %}" hx-target="#main-container" hx-push-url="true" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }'>
+								{% trans 'Profile' %}
+							</button>
+						</li>
+						<li>
+							<button class="dropdown-item" type="button" href="{% url 'logout' %}" hx-post="{% url 'logout' %}" hx-target="body" hx-push-url="/" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }'>
+								{% trans 'Logout' %}
+							</button>
+						</li>
+					</ul>
+				</div>
+				{% include 'friends_dropdown.html' %}
 			</div>
-			<div class="btn-group dropdown">
-				<button id="friends-dropdown-toggle" type="button" class="btn btn-secondary dropdown-toggle pong-btn-success" onclick="createFriendsDropdown()" data-bs-toggle="dropdown" aria-expanded="false">
-					<img id="menu-friends-icon" class="img-fluid" src="{% static 'home/images/friends_icon.png' %}" alt="friends_icon">
+			{% endif %}
+		</div>
+
+		<div class="container top-nav-container pb-2 px-2 mx-2">
+			<div class="btn-group dropdown" role="group" aria-label="Second group">
+				{% get_current_language as LANGUAGE_CODE %}
+				{% get_available_languages as LANGUAGES %}
+				{% get_language_info_list for LANGUAGES as languages %}
+				<button type="button" class="btn btn-primary dropdown-toggle buttonPong" data-bs-toggle="dropdown" aria-expanded="false">
+					<img src="{% static 'images/flags/'|add:LANGUAGE_CODE|lower|add:'.png' %}" class="language-flag" alt="{{ LANGUAGE_CODE }} {% trans 'flag' %}">
 				</button>
-				<ul id="friends-dropdown" class="dropdown-menu px-3">
-					<div id="friend-requests-container"></div>
-					<div id="friend-list-container"></div>
-					<li class="row">
-						<button type="button" class="dropdown-item btn btn-add col" data-bs-toggle="modal" data-bs-target="#friend-request-modal"></button>
-						<button type="button" id="friends-refresh-btn" class="dropdown-item btn btn-refresh col" onclick="createFriendsDropdown()"></button>
-					</li>
-				</ul>
+				<div class="dropdown-menu set-language">
+					<form action="{% url 'set_language' %}" method="post">
+						{% csrf_token %}
+						<input name="next" type="hidden" value="{{ request.path }}">
+						{% for language in languages %}
+							{% if not language.code|lower == LANGUAGE_CODE|lower %}
+								<button class="dropdown-item" type="submit" name="language" value="{{ language.code }}">
+									<img src="{% static 'images/flags/'|add:language.code|lower|add:'.png' %}" class="language-flag" alt="{{ language.code }} {% trans 'flag' %}">
+								</button>
+							{% endif %}
+						{% endfor %}
+					</form>
+				</div>
 			</div>
 		</div>
-		{% endif %}
 	</div>
 </nav>
-
-<script>
-	var session_user_username = "{{ user.username }}";
-	var csrf_token = "{{ csrf_token }}";
-</script>

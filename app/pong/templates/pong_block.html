@@ -1,24 +1,28 @@
 {% load static %}
+{% load i18n %}
 
 <nav id="navGameMode" class="btn-group hover-aura">
-	<a class="btn buttonPong buttonInPlay" hx-post="{% url 'game_with_mode' mode='pvp' %}"
-		hx-target="#main-container" hx-push-url="true" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }'
-		data-game-mode="1vs1">
+	<a class="btn buttonPong buttonInPlay" href="{% url 'game_with_mode' mode='pvp' %}"
+		hx-post="{% url 'game_with_mode' mode='pvp' %}" hx-target="#main-container"
+		hx-push-url="true" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }' data-game-mode="1vs1">
 		<span class="center-text">
-			1 VS 1
+			{% trans "1 VS 1" %}
 		</span>
 	</a>
-	<a class="btn buttonPong buttonInPlay" hx-post="{% url 'game_with_mode' mode='pve' %}"
-		hx-target="#main-container" hx-push-url="true" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }'
-		data-game-mode="1vsBot">
+
+	<a class="btn buttonPong buttonInPlay" href="{% url 'game_with_mode' mode='pve' %}"
+		hx-post="{% url 'game_with_mode' mode='pve' %}" hx-target="#main-container"
+		hx-push-url="true" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }' data-game-mode="1vsBot">
 		<span class="center-text">
-			1 VS BOT
+			{% trans "1 VS BOT" %}
 		</span>
 	</a>
-	<a class="btn buttonPong buttonInPlay" href="{% url 'tournaments' %}" hx-get="{% url 'tournaments' %}" hx-target="#main-container"
-		hx-push-url="true" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }' data-game-mode="tournament">
+
+	<a class="btn buttonPong buttonInPlay" href="{% url 'tournaments' %}"
+		hx-get="{% url 'tournaments' %}" hx-target="#main-container" hx-push-url="true"
+		hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }' data-game-mode="tournament">
 		<span class="center-text">
-			TOURNAMENT
+			{% trans "TOURNAMENT" %}
 		</span>
 	</a>
 </nav>

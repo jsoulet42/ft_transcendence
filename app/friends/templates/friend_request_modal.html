@@ -1,27 +1,34 @@
+{% load i18n %}
+
 <!-- Friend Request Modal -->
 <div id="friend-request-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="friend-request-modal" aria-hidden="true">
 	<div class="modal-dialog p-2" role="document">
 		<div class="modal-content">
 			<div class="modal-header alert alert-success">
-				<h5 class="modal-title">Send friend request</h5>
+				<h5 class="modal-title">{% trans 'Send friend request' %}</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body text-center">
-				<p>Please enter one of the following</p>
+				<p>{% trans 'Please enter one of the following' %}</p>
 				<form id="friend-request-form" method="POST">
 					<div class="form-header">
 						{% csrf_token %}
 					</div>
-					<input type="text" name="username" placeholder="Username" autocomplete="username" autofocus>
-					<span> OR </span>
+					<input type="text" name="username" placeholder="{% trans 'Username' %}" autocomplete="username" autofocus>
+					<span> {% trans 'OR' %} </span>
 					<input type="text" name="uuid" placeholder="UUID" autocomplete="UUID">
 					<hr />
-					<button type="button" class="btn btn-success w-100" onclick="validateForm()">Send request</button>
+					<button type="button" class="btn btn-success w-100" onclick="validateForm()">{% trans 'Send request' %}</button>
 				</form>
 			</div>
 		</div>
 	</div>
 </div>
+
+<script>
+	var csrfToken = "{{ csrf_token }}";
+	var sendRequestUrl = "{% url 'send_friend_request' %}";
+</script>
 
 <script>
 	function validateForm() {
@@ -36,7 +43,7 @@
 			return false;
 		}
 
-		fetch(`/friends/requests/send/`, {
+		fetch(sendRequestUrl, {
 			method: 'POST',
 			headers: {
 				'X-CSRFToken': csrfToken,

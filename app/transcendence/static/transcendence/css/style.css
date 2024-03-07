@@ -155,7 +155,7 @@
 
 #signup-btn {
   float: right;
-  border-radius: 5rem;
+  border-radius: 1.5rem;
 }
 
 .form_signup1 {
@@ -225,15 +225,6 @@
   border: 0.1vmin solid black;
   font-size: 2.5vh;
   margin-top: 2vh;
-}
-
-#login-form input[type=text], input[type=password] {
-  width: 95%;
-  height: 3rem;
-  align-items: center;
-  display: flex;
-  left: 2%;
-  margin: 2%;
 }
 
 body {
@@ -409,58 +400,59 @@ html, body {
     top: 3vw;
   }
 }
-#login-status {
+.top-nav-container {
   position: relative;
-  float: right;
   width: fit-content;
-  height: 90%;
-  right: 2%;
+  height: 100%;
   cursor: pointer;
   border-radius: 0 0 2rem 2rem;
   background: linear-gradient(to bottom, #f63192, #6c4fef);
 }
 
-#login-status .dropdown-toggle {
+.top-nav-container:hover,
+.top-nav-container.focused {
+  height: 105%;
+}
+
+.top-nav-container .dropdown-toggle {
   height: 100%;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
 
-#login-status .login-btn {
+.top-nav-container .login-btn {
   position: relative;
   min-width: 10rem;
-  height: 80%;
+  height: 100%;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
 
-#menu-profile-img {
-  width: 20%;
+.top-nav-container .profile-img {
+  width: 2rem;
   height: 100%;
   border-radius: 0.5rem;
   object-fit: cover;
   box-shadow: 0.5rem 0.5rem 1rem rgba(0, 0, 0, 0.7);
 }
 
-#menu-friends-icon {
-  width: 50%;
+.top-nav-container .language-flag {
+  width: 2rem;
   height: 100%;
-  border-radius: 0.5rem;
+  border-radius: 50%;
   object-fit: cover;
-  border: solid 0.15rem black;
+  box-shadow: 0.5rem 0.5rem 1rem rgba(0, 0, 0, 0.7);
 }
 
-#login-status .menu-icon {
-  width: 20%;
-  height: auto;
-  object-fit: cover;
-}
-
-#login-status .dropdown-menu {
+.top-nav-container .dropdown-menu {
   width: 16vw;
   max-height: 50vh;
   text-align: center;
   font-size: 1.2rem;
+}
+
+.top-nav-container .dropdown-menu.set-language {
+  width: 5rem;
 }
 
 #main-container {
@@ -469,18 +461,6 @@ html, body {
   width: 100vw;
   top: 5vw;
   bottom: 3vw;
-}
-
-#friends-dropdown .online {
-  background-color: rgba(0, 255, 0, 0.3);
-}
-
-#friends-dropdown .ingame {
-  background-color: rgba(255, 255, 0, 0.3);
-}
-
-#friends-dropdown .offline {
-  background-color: rgba(0, 0, 0, 0.3);
 }
 
 #nav-home-bottom {
@@ -550,6 +530,24 @@ html, body {
 #friend-request-modal .modal-footer {
   justify-content: center;
   border-radius: 1.5rem;
+}
+
+.friends-dropdown .dropdown-icon {
+  width: 2rem;
+  height: 100%;
+  object-fit: cover;
+}
+
+.friends-dropdown .online {
+  background-color: rgba(0, 255, 0, 0.3);
+}
+
+.friends-dropdown .ingame {
+  background-color: rgba(255, 255, 0, 0.3);
+}
+
+.friends-dropdown .offline {
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 nav-pong a {

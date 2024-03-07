@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 
 <div class="container">
 	<div id="carousel-hub" class="carousel slide fade-in" data-bs-ride="carousel">
@@ -23,9 +24,9 @@
 							</thead>
 							<tbody>
 								<tr class="neonEffect table-titles">
-									<th class="col-md-4"><h5>Location</h5></th>
-									<th class="col-md-4"><h5>Role</h5></th>
-									<th class="col-md-4"><h5>GitHub</h5></th>
+									<th class="col-md-4"><h5>{% trans 'Location' %}</h5></th>
+									<th class="col-md-4"><h5>{% trans 'Role' %}</h5></th>
+									<th class="col-md-4"><h5>{% trans 'GitHub' %}</h5></th>
 								</tr>
 								<tr>
 									<td class="other-info col-md-4">{{ dev.campus }}</td>

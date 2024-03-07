@@ -24,3 +24,21 @@
 	justify-content: center;
 	border-radius: 1.5rem;
 }
+
+.friends-dropdown .dropdown-icon {
+	width: 2rem;
+	height: 100%;
+	object-fit: cover;
+}
+
+.friends-dropdown .online {
+	background-color: rgba(0, 255, 0, 0.3);
+}
+
+.friends-dropdown .ingame {
+	background-color: rgba(255, 255, 0, 0.3);
+}
+
+.friends-dropdown .offline {
+	background-color: rgba(0, 0, 0, 0.3);
+}

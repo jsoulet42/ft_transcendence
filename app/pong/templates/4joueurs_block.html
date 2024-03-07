@@ -1,7 +1,9 @@
+{% load i18n %}
+
 <div class="container">
 	<div class="catjoueurs_div">
-		<h1 class="glitch_anim catjoueurs_text" data-text="TOURNAMENTS ">TOURNAMENTS</h1>
-		<h1 class="glitch_anim catjoueurs_text" data-text=" 4 PLAYERS">4 PLAYERS</h1>
+		<h1 class="glitch_anim catjoueurs_text" data-text={% trans 'TOURNAMENTS' %}>{% trans 'TOURNAMENTS' %}</h1>
+		<h1 class="glitch_anim catjoueurs_text" data-text={% trans '4 PLAYERS' %}%>{% trans '4 PLAYERS' %}</h1>
 	</div>
 	<form method="POST" hx-target="#main-container" hx-post="{% url 'game_with_mode' mode='tournament' %}" hx-push-url="true" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }'>
 	<div id="carouselExampleIndicators" class="carousel slide carousel_container">
@@ -10,33 +12,33 @@
 			<img src="/static/pong/images/catjoueurs_image.jpeg" class="d-block w-100" m alt="...">
 				<div class="input">
 				  <label for="inputplayer2"></label>
-				  <input name="player2" type="text" class="form-control player_forms" id="inputplayer2" action="tournaments_choice_block.html" minlength="3" maxlength="10" required method="GET" placeholder="Player 2" aria-label="First name">
+				  <input name="player2" type="text" class="form-control player_forms" id="inputplayer2" action="tournaments_choice_block.html" minlength="3" maxlength="10" required method="GET" placeholder={% trans 'Player 2' %} aria-label="First name">
 				</div>
 			</div>
 		  <div class="carousel-item">
 			<img src="/static/pong/images/catjoueurs_image2.jpeg" class="d-block w-100" alt="...">
 				<div class="input" id="form2">
 					<label for="inputplayer3"></label>
-					<input name="player3" type="text" class="form-control player_forms" minlength="3" maxlength="10" required id="inputplayer3" placeholder="Player 3" aria-label="Last name">
+					<input name="player3" type="text" class="form-control player_forms" minlength="3" maxlength="10" required id="inputplayer3" placeholder={% trans 'Player 3' %} aria-label="Last name">
 			  	</div>
 		  	</div>
 		  <div class="carousel-item">
 			<img src="/static/pong/images/catjoueurs_image3.jpeg" class="d-block w-100" alt="...">
 				<div class="input" id="form3">
 					<label for="inputplayer4"></label>
-					<input name="player4" type="text" class="form-control player_forms" minlength="3" maxlength="10" required id="inputplayer4" placeholder="Player 4" aria-label="Last name">
+					<input name="player4" type="text" class="form-control player_forms" minlength="3" maxlength="10" required id="inputplayer4" placeholder={% trans 'Player 4' %} aria-label="Last name">
 		  		</div>
 		</div>
 		<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
 		  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-		  <span class="visually-hidden">Previous</span>
+		  <span class="visually-hidden">{% trans 'Previous' %}</span>
 		</button>
 		<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
 		  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-		  <span class="visually-hidden">Next</span>
+		  <span class="visually-hidden">{% trans 'Next' %}</span>
 		</button>
 	  </div>
   </div>
-  <button type="submit" class="btn btn_startournament4">Start tournament</button>
+  <button type="submit" class="btn btn_startournament4">{% trans 'Start tournament' %}</button>
 </form>
 </div>
