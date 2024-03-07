@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-07 10:00+0100\n"
+"POT-Creation-Date: 2024-03-07 10:30+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -150,6 +150,16 @@ msgstr "EDITER LE PROFIL"
 #: home/templates/home.html:83
 msgid "Nickname"
 msgstr "Surnom"
+
+#: home/templates/home.html:84
+msgid "Enter new nickname"
+msgstr "Entrez le nouveau surnom"
+
+#: home/templates/home.html:88
+#, fuzzy
+#| msgid "Invalid username or password"
+msgid "Enter new password"
+msgstr "Entrez le nouveau mot de passe"
 
 #: home/templates/home.html:91
 #, fuzzy
