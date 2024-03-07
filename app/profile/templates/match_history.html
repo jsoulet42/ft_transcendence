@@ -1,18 +1,20 @@
 {%  load static %}
+{% load i18n %}
+
 <div class="tv-match-history">
     <div class="tv-left">
-        <button type="button" class="bottom-edit3 btn btn-outline-info" hx-get="{% url 'tournaments_history' %}" hx-target="#main-container" hx-push-url="true">TOURNAMENTS HISTORY</button>
-        <h2 class="history-title glitch">1 VS 1 History</h2>
+        <button type="button" class="bottom-edit3 btn btn-outline-info" hx-get="{% url 'tournaments_history' %}" hx-target="#main-container" hx-push-url="true">{% trans "TOURNAMENTS HISTORY" %}</button>
+        <h2 class="history-title glitch">{% trans "1 VS 1 History" %}</h2>
     </div>
     <div class="table-cont">
         <table class="table table-inside">
             <thead>
                 <tr>
-                    <th>User</th>
-                    <th>User Score</th>
-                    <th>Opponent</th>
-                    <th>Opponent Score</th>
-                    <th>Duration</th>
+                    <th>{% trans "User" %}</th>
+                    <th>{% trans "User Score" %}</th>
+                    <th>{% trans "Opponent" %}</th>
+                    <th>{% trans "Opponent Score" %}</th>
+                    <th>{% trans "Duration" %}</th>
                 </tr>
             </thead>
             <tbody>

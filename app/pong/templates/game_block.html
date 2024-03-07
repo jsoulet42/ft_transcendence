@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 
 {% if hx_push_url %}
 <script hx-push-url="{{ hx_push_url }}"></script>
@@ -6,23 +7,23 @@
 
 <div id="startgame_bigger_container">
 	<div class="startgame_container d-flex" id="startgame_container">
-		<h1 class="text_startgame">Enter your nickname please :D</h1>
+		<h1 class="text_startgame">{% trans "Enter your nickname please :D" %}</h1>
 		<input type="text" placeholder="Player 2" required class="startgame_playerform" id="player2name">
-		<button id="player2nameButton" class="btn startgame_btn">Start the game</button>
-		<button class="btn_setting" id="modeTwo">Game Setting</button>
+		<button id="player2nameButton" class="btn startgame_btn">{% trans "Start the game" %}</button>
+		<button class="btn_setting" id="modeTwo">{% trans "Game Setting" %}</button>
 	</div>
 	<div class="container_setting_pong" id="setting_pong">
 		<input type="range" min="1" max="10" value="5" id="speedBall" class="slider">
-		<span id="speedBallValue" class="slider_text">5 Speed Ball</span>
+		<span id="speedBallValue" class="slider_text">{% trans "Ball Speed" %}</span>
 		<input type="range" min="1" max="10" value="5" id="sizePaddle" class="slider1">
-		<span id="sizePaddleValue" class="slider_text1">5 Size Paddle</span>
+		<span id="sizePaddleValue" class="slider_text1">{% trans "Paddle Size" %}</span>
 		<input type="range" min="1" max="10" value="5" id="speedPaddle" class="slider2">
-		<span id="speedPaddleValue" class="slider_text2">5 Speed Paddle</span>
+		<span id="speedPaddleValue" class="slider_text2">{% trans "Paddle Speed" %}</span>
 	</div>
 </div>
 
 <br>
-<button id="tournament_Button" style="display: none; background-color: white;">Commencer le tournoi</button>
+<button id="tournament_Button" style="display: none; background-color: white;">{% trans "Begin tournament" %}</button>
 <script>
 	function yolo() {
 		let urlArray = new URL(window.location.href).pathname.split("/");

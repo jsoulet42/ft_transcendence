@@ -1,43 +1,45 @@
+{% load i18n %}
+
 <div id="eight_players_containers">
-	<h1 class="glitch_anim eightplayers_text" data-text="TOURNAMENTS ">TOURNAMENTS</h1>
-	<h1 class="glitch_anim eightplayers_text" data-text=" 8 PLAYERS">8 PLAYERS</h1>
+	<h1 class="glitch_anim eightplayers_text" data-text="TOURNAMENTS ">{% trans "TOURNAMENTS" %}</h1>
+	<h1 class="glitch_anim eightplayers_text" data-text=" 8 PLAYERS">{% trans "8 PLAYERS" %}</h1>
 		<div class="player1 col-md-6">
 		  {%  if user.nickname %}
-		  <h1>Host and player 1: {{ user.nickname }}</h1>
+		  <h1>{% trans "Host and player 1:" %} {{ user.nickname }}</h1>
 		  {% else %}
-		  <h1>Host and player 1: {{ user.username }}</h1>
+		  <h1>{% trans "Host and player 1:" %} {{ user.username }}</h1>
 		  {%  endif %}
 		</div>
 	<form method="POST" hx-target="#main-container" hx-post="{% url 'game_with_mode' mode='tournament' %}" hx-push-url="true" hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }'>
 		{% csrf_token %}
 		<div class="mb-3 form_eightplayers form_playertwo">
-			<label for="formGroupExampleInput" class="form-label">Player Two</label>
-			<input type="text" name="player2" class="form-control" id="formGroupExampleInput" minlength="3" maxlength="10" required placeholder="Player 2">
+			<label for="formGroupExampleInput" class="form-label">{% trans "Player Two" %}</label>
+			<input type="text" name="player2" class="form-control" id="formGroupExampleInput" minlength="3" maxlength="10" required placeholder={% trans "Player 2" %}>
 		</div>
 		<div class="mb-3 form_eightplayers form_playerthree">
-			<label for="formGroupExampleInput2" class="form-label">Player Three</label>
-			<input type="text" name="player3" class="form-control" id="formGroupExampleInput2" minlength="3" maxlength="10" required placeholder="Player 3">
+			<label for="formGroupExampleInput2" class="form-label">{% trans "Player Three" %}</label>
+			<input type="text" name="player3" class="form-control" id="formGroupExampleInput2" minlength="3" maxlength="10" required placeholder={% trans "Player 3" %}>
 		</div>
 		<div class="mb-3 form_eightplayers form_playerfour">
-			<label for="formGroupExampleInput" class="form-label">Player Four</label>
-			<input type="text" name="player4" class="form-control" id="formGroupExampleInput" minlength="3" maxlength="10" required placeholder="Player 4">
+			<label for="formGroupExampleInput" class="form-label">{% trans "Player Four" %}</label>
+			<input type="text" name="player4" class="form-control" id="formGroupExampleInput" minlength="3" maxlength="10" required placeholder={% trans "Player 4" %}>
 		</div>
 		<div class="mb-3 form_eightplayers form_playerfive">
-			<label for="formGroupExampleInput2" class="form-label">Player Five</label>
-			<input type="text" name="player5" class="form-control" id="formGroupExampleInput2" minlength="3" maxlength="10" required placeholder="Player 5">
+			<label for="formGroupExampleInput2" class="form-label">{% trans "Player Five" %}</label>
+			<input type="text" name="player5" class="form-control" id="formGroupExampleInput2" minlength="3" maxlength="10" required placeholder={% trans "Player 5" %}>
 		</div>
 		<div class="mb-3 form_eightplayers form_playersix">
-			<label for="formGroupExampleInput" class="form-label">Player Six</label>
-			<input type="text" name="player6" class="form-control" id="formGroupExampleInput" minlength="3" maxlength="10" required placeholder="Player 6">
+			<label for="formGroupExampleInput" class="form-label">{% trans "Player Six" %}</label>
+			<input type="text" name="player6" class="form-control" id="formGroupExampleInput" minlength="3" maxlength="10" required placeholder={% trans "Player 6" %}>
 		</div>
 		<div class="mb-3 form_eightplayers form_playerseven">
-			<label for="formGroupExampleInput2" class="form-label">Player Seven</label>
-			<input type="text" name="player7" class="form-control" id="formGroupExampleInput2" minlength="3" maxlength="10" required placeholder="Player 7">
+			<label for="formGroupExampleInput2" class="form-label">{% trans "Player Seven" %}</label>
+			<input type="text" name="player7" class="form-control" id="formGroupExampleInput2" minlength="3" maxlength="10" required placeholder={% trans "Player 7" %}>
 		</div>
 		<div class="mb-3 form_eightplayers form_playereight">
-			<label for="formGroupExampleInput" class="form-label">Player Eight</label>
-			<input type="text" name="player8" class="form-control" id="formGroupExampleInput" minlength="3" maxlength="10" required placeholder="Player 8">
+			<label for="formGroupExampleInput" class="form-label">{% trans "Player Eight" %}</label>
+			<input type="text" name="player8" class="form-control" id="formGroupExampleInput" minlength="3" maxlength="10" required placeholder={% trans "Player 8" %}>
 		</div>
-		<button type="submit" class="btn btn_startournament8">Start tournament</button>
+		<button type="submit" class="btn btn_startournament8">{% trans "Start tournament" %}</button>
 	</form>
 </div>

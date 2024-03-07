@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-07 10:30+0100\n"
+"POT-Creation-Date: 2024-03-07 16:01+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -79,7 +79,7 @@ msgstr "Status fehlt"
 msgid "Invalid status. Expected: "
 msgstr "Invalider Status. Erwartet: "
 
-#: backend/views.py:48
+#: backend/views.py:48 friends/views.py:73
 msgid "User not found"
 msgstr "Benutzer nicht gefunden"
 
@@ -105,6 +105,84 @@ msgstr "ODER"
 
 #: friends/templates/friend_request_modal.html:21
 msgid "Send request"
+msgstr "Anfrage Schicken"
+
+#: friends/views.py:23
+#, fuzzy
+#| msgid "Could not find game host"
+msgid "Could not find user"
+msgstr "Benutzer nicht gefunden"
+
+#: friends/views.py:45
+#, fuzzy
+#| msgid "Could not find tournament host"
+msgid "Couldn't find friend"
+msgstr "Freund nicht gefunden"
+
+#: friends/views.py:52
+msgid "Friend removed successfully"
+msgstr ""
+
+#: friends/views.py:54
+msgid "Could not remove friend"
+msgstr ""
+
+#: friends/views.py:70
+msgid "Invalid UUID format"
+msgstr ""
+
+#: friends/views.py:76
+msgid "Self requests not allowed"
+msgstr ""
+
+#: friends/views.py:79
+msgid "User is already your friend"
+msgstr ""
+
+#: friends/views.py:82
+msgid "Friend request already sent"
+msgstr ""
+
+#: friends/views.py:85
+#, fuzzy
+#| msgid "Send request"
+msgid "Friend request sent"
+msgstr "Anfrage Schicken"
+
+#: friends/views.py:93 friends/views.py:120
+#, fuzzy
+#| msgid "Invalid username or password"
+msgid "Invalid sender username"
+msgstr "Invalider Benutzername oder Passwort"
+
+#: friends/views.py:97 friends/views.py:124
+#, fuzzy
+#| msgid "Invalid username or password"
+msgid "Invalid receiver username"
+msgstr "Invalider Benutzername oder Passwort"
+
+#: friends/views.py:110
+#, fuzzy
+#| msgid "Could not find game host"
+msgid "Could not accept friend request"
+msgstr "Spiel Veranstalter nicht gefunden"
+
+#: friends/views.py:112
+#, fuzzy
+#| msgid "Send request"
+msgid "Friend request accepted"
+msgstr "Anfrage Schicken"
+
+#: friends/views.py:134
+#, fuzzy
+#| msgid "Send friend request"
+msgid "Could not decline friend request"
+msgstr "Freundschaftsanfrage schicken"
+
+#: friends/views.py:136
+#, fuzzy
+#| msgid "Send request"
+msgid "Friend request rejected"
 msgstr "Anfrage Schicken"
 
 #: home/templates/bottom-nav.html:6
@@ -211,7 +289,7 @@ msgstr "Rolle"
 msgid "GitHub"
 msgstr "GitHub"
 
-#: pong/templates/4joueurs_block.html:5
+#: pong/templates/4joueurs_block.html:5 pong/templates/8joueurs_block.html:4
 #, fuzzy
 #| msgid "TOURNAMENT"
 msgid "TOURNAMENTS"
@@ -223,15 +301,15 @@ msgstr "TURNIERE"
 msgid "4 PLAYERS"
 msgstr "4 SPIELER"
 
-#: pong/templates/4joueurs_block.html:15
+#: pong/templates/4joueurs_block.html:15 pong/templates/8joueurs_block.html:17
 msgid "Player 2"
 msgstr "Spieler 2"
 
-#: pong/templates/4joueurs_block.html:22
+#: pong/templates/4joueurs_block.html:22 pong/templates/8joueurs_block.html:21
 msgid "Player 3"
 msgstr "Spieler 3"
 
-#: pong/templates/4joueurs_block.html:29
+#: pong/templates/4joueurs_block.html:29 pong/templates/8joueurs_block.html:25
 msgid "Player 4"
 msgstr "Spieler 4"
 
@@ -243,8 +321,118 @@ msgstr "Vorheriger"
 msgid "Next"
 msgstr "Nächster"
 
-#: pong/templates/4joueurs_block.html:42
+#: pong/templates/4joueurs_block.html:42 pong/templates/8joueurs_block.html:43
 msgid "Start tournament"
+msgstr "Tournier starten"
+
+#: pong/templates/8joueurs_block.html:5
+#, fuzzy
+#| msgid "PLAY"
+msgid "8 PLAYERS"
+msgstr "4 SPIELER"
+
+#: pong/templates/8joueurs_block.html:8 pong/templates/8joueurs_block.html:10
+msgid "Host and player 1:"
+msgstr ""
+
+#: pong/templates/8joueurs_block.html:16
+#, fuzzy
+#| msgid "Player 2"
+msgid "Player Two"
+msgstr "Spieler 2"
+
+#: pong/templates/8joueurs_block.html:20
+#, fuzzy
+#| msgid "Player 2"
+msgid "Player Three"
+msgstr "Spieler 2"
+
+#: pong/templates/8joueurs_block.html:24
+#, fuzzy
+#| msgid "Players count"
+msgid "Player Four"
+msgstr "Spielerzahl"
+
+#: pong/templates/8joueurs_block.html:28
+#, fuzzy
+#| msgid "Player 2"
+msgid "Player Five"
+msgstr "Spieler 2"
+
+#: pong/templates/8joueurs_block.html:29
+#, fuzzy
+#| msgid "Player 2"
+msgid "Player 5"
+msgstr "Spieler 2"
+
+#: pong/templates/8joueurs_block.html:32
+#, fuzzy
+#| msgid "Player 2"
+msgid "Player Six"
+msgstr "Spieler 2"
+
+#: pong/templates/8joueurs_block.html:33
+#, fuzzy
+#| msgid "Player 2"
+msgid "Player 6"
+msgstr "Spieler 2"
+
+#: pong/templates/8joueurs_block.html:36
+#, fuzzy
+#| msgid "Player 2"
+msgid "Player Seven"
+msgstr "Spieler 2"
+
+#: pong/templates/8joueurs_block.html:37
+#, fuzzy
+#| msgid "Player 2"
+msgid "Player 7"
+msgstr "Spieler 2"
+
+#: pong/templates/8joueurs_block.html:40
+#, fuzzy
+#| msgid "Player 2"
+msgid "Player Eight"
+msgstr "Spieler 2"
+
+#: pong/templates/8joueurs_block.html:41
+#, fuzzy
+#| msgid "Player 2"
+msgid "Player 8"
+msgstr "Spieler 2"
+
+#: pong/templates/game_block.html:10
+#, fuzzy
+#| msgid "Enter new nickname"
+msgid "Enter your nickname please :D"
+msgstr "Neuer Spitzname"
+
+#: pong/templates/game_block.html:12
+#, fuzzy
+#| msgid "Start tournament"
+msgid "Start the game"
+msgstr "Tournier starten"
+
+#: pong/templates/game_block.html:13
+msgid "Game Setting"
+msgstr ""
+
+#: pong/templates/game_block.html:17
+msgid "Ball Speed"
+msgstr ""
+
+#: pong/templates/game_block.html:19
+msgid "Paddle Size"
+msgstr ""
+
+#: pong/templates/game_block.html:21
+msgid "Paddle Speed"
+msgstr ""
+
+#: pong/templates/game_block.html:26
+#, fuzzy
+#| msgid "Start tournament"
+msgid "Begin tournament"
 msgstr "Tournier starten"
 
 #: pong/templates/pong_block.html:9
@@ -258,6 +446,61 @@ msgstr "1 VS BOT"
 #: pong/templates/pong_block.html:25
 msgid "TOURNAMENT"
 msgstr "TURNIER"
+
+#: pong/templates/tournaments_choice_block.html:6
+msgid "4 players"
+msgstr ""
+
+#: pong/templates/tournaments_choice_block.html:11
+msgid "8 players"
+msgstr ""
+
+#: profile/templates/match_history.html:6
+#, fuzzy
+#| msgid "TOURNAMENTS STATS"
+msgid "TOURNAMENTS HISTORY"
+msgstr "TURNIER STATISTIKEN"
+
+#: profile/templates/match_history.html:7
+#: profile/templates/match_history_search.html:7
+#, fuzzy
+#| msgid "1 VS 1"
+msgid "1 VS 1 History"
+msgstr "1 VS 1"
+
+#: profile/templates/match_history.html:13
+#: profile/templates/match_history_search.html:13
+#: profile/templates/tournaments_history.html:12
+#, fuzzy
+#| msgid "Username"
+msgid "User"
+msgstr "Benutzername"
+
+#: profile/templates/match_history.html:14
+#: profile/templates/match_history_search.html:14
+#: profile/templates/tournaments_history.html:13
+msgid "User Score"
+msgstr ""
+
+#: profile/templates/match_history.html:15
+#: profile/templates/match_history_search.html:15
+#: profile/templates/tournaments_history.html:14
+msgid "Opponent"
+msgstr ""
+
+#: profile/templates/match_history.html:16
+#: profile/templates/match_history_search.html:16
+#: profile/templates/tournaments_history.html:15
+msgid "Opponent Score"
+msgstr ""
+
+#: profile/templates/match_history.html:17
+#: profile/templates/match_history_search.html:17
+#: profile/templates/tournaments_history.html:16
+#, fuzzy
+#| msgid "Location"
+msgid "Duration"
+msgstr "Standort"
 
 #: profile/templates/profile_block.html:23
 msgid "GAMES PLAYED"
@@ -276,6 +519,7 @@ msgid "Edit image"
 msgstr "Bild ändern"
 
 #: profile/templates/profile_block.html:35
+#: profile/templates/search-profiles.html:19
 msgid "MATCH HISTORY"
 msgstr "SPIELHISTORIE"
 
@@ -284,8 +528,55 @@ msgid "Search for username..."
 msgstr "Benutzername suchen..."
 
 #: profile/templates/profile_block.html:44
+#: profile/templates/search-profiles.html:17
 msgid "Search"
 msgstr "Suchen"
+
+#: profile/templates/search-profiles.html:10
+#, fuzzy
+#| msgid "GAMES PLAYED"
+msgid "GAME PLAYED :"
+msgstr "PARTIEN"
+
+#: profile/templates/search-profiles.html:11
+msgid "WIN COUNT :"
+msgstr ""
+
+#: profile/templates/search-profiles.html:12
+msgid "LOOSE COUNT :"
+msgstr ""
+
+#: profile/templates/search-profiles.html:25
+msgid "Error: There is no user with this username."
+msgstr ""
+
+#: profile/templates/tournaments_history.html:5
+#, fuzzy
+#| msgid "1 VS 1"
+msgid "1 VS 1 HISTORY"
+msgstr "1 VS 1"
+
+#: profile/templates/tournaments_history.html:6
+#, fuzzy
+#| msgid "Tournament Stats"
+msgid "Tournaments History"
+msgstr "Turnier Statistiken"
+
+#: profile/views.py:105
+msgid "Password must be at least 8"
+msgstr ""
+
+#: profile/views.py:107
+msgid "Password must contain at least one number"
+msgstr ""
+
+#: profile/views.py:109
+msgid "Password must contain at least one lowercase letter"
+msgstr ""
+
+#: profile/views.py:111
+msgid "Password must contain at least one uppercase letter"
+msgstr ""
 
 #: tournaments_stats/templates/tournaments_stats_block.html:5
 msgid "Tournament Stats"

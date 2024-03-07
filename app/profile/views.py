@@ -12,6 +12,7 @@ import os
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from backend.models import CustomUser, Game
+from django.utils.translation import gettext as _
 
 
 @login_required
@@ -101,13 +102,13 @@ def update_profile(request):
             user.nickname = new_nickname
         if new_password:
             if len(new_password) < 8:
-                messages.error(request, 'Password must be at least 8')
+                messages.error(request, _('Password must be at least 8'))
             elif not any(char.isdigit() for char in new_password):
-                messages.error(request, 'Password must contain at least one number')
+                messages.error(request, _('Password must contain at least one number'))
             elif not any(char.islower() for char in new_password):
-                messages.error(request, 'Password must contain at least one lowercase letter')
+                messages.error(request, _('Password must contain at least one lowercase letter'))
             elif not any(char.isupper() for char in new_password):
-                messages.error(request, 'Password must contain at least one uppercase letter')
+                messages.error(request, _('Password must contain at least one uppercase letter'))
             else:
                 user.set_password(new_password)
             # Mettre à jour la session pour éviter la déconnexion
