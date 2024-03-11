@@ -64,8 +64,8 @@ function createManager(mode = 0) {
 		countdownInt: 3,
 		countdownBool: false,
 		startTime: Date.now(),
-		partyDuration: 90,
-		secondsLeft: 90,
+		partyDuration: 10,
+		secondsLeft: 10,
 		inputs: false,
 		waiting: true,
 		endGame: false,
@@ -632,7 +632,9 @@ function endGame() {
 		if (tournament.endTournament)
 			sendTournamentScoreToBackend();
 		else
+			document.getElementById('startgame_bigger_container').style.display = 'flex';
 			document.getElementById('tournament_Button').style.display = 'block';
+			document.getElementById('tournament_Button').innerHTML = 'next party';
 	}
 	initializeIA(true);
 	startUpdatingAI();
