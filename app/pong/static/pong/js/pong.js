@@ -64,8 +64,8 @@ function createManager(mode = 0) {
 		countdownInt: 3,
 		countdownBool: false,
 		startTime: Date.now(),
-		partyDuration: 10,
-		secondsLeft: 10,
+		partyDuration: 90,
+		secondsLeft: 90,
 		inputs: false,
 		waiting: true,
 		endGame: false,
@@ -533,7 +533,7 @@ function Update() {
 			if (ball.speedX > 0)
 				ball.speedX += 0.01;
 			else
-				ball.speedX -= 0.01;	
+				ball.speedX -= 0.01;
 		}
 	}
 	if (manager.endGame) {
